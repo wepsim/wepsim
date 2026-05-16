@@ -6,55 +6,55 @@
 begin,
 native
 {
-	  // R0 <- 0
-	  simcore_native_set_value("CPU", "BR.0", 0) ;
+      // R0 <- 0
+      simcore_native_set_value("CPU", "BR.0", 0) ;
 
-	  // check if INT
-	  if (simcore_native_get_signal("INT") == 1)
-	  {
-		// RT1 <- MBR <- DB <- INTV
-		var value  = simcore_native_get_value("CPU", "INTV") ;
-		simcore_native_set_value("CPU", "REG_RT1", value) ;
+      // check if INT
+      if (simcore_native_get_signal("INT") == 1)
+      {
+            // RT1 <- MBR <- DB <- INTV
+            var value  = simcore_native_get_value("CPU", "INTV") ;
+            simcore_native_set_value("CPU", "REG_RT1", value) ;
 
-		// INT down, INTA up
-		simcore_native_set_signal("INT",  0) ;
-		simcore_native_set_signal("INTA", 1) ;
+            // INT down, INTA up
+            simcore_native_set_signal("INT",  0) ;
+            simcore_native_set_signal("INTA", 1) ;
 
-		// push PC
-		value  = simcore_native_get_value("CPU", "REG_PC") ;
-		var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+            // push PC
+            value  = simcore_native_get_value("CPU", "REG_PC") ;
+            var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+            reg_sp = reg_sp - 4 ;
+            simcore_native_set_value("MEMORY", reg_sp, value) ;
+            simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// push SR
-		value  = simcore_native_get_value("CPU", "REG_SR") ;
-		reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+            // push SR
+            value  = simcore_native_get_value("CPU", "REG_SR") ;
+            reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+            reg_sp = reg_sp - 4 ;
+            simcore_native_set_value("MEMORY", reg_sp, value) ;
+            simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// MAR <- RT1*4
-		var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-		addr = 4 * addr ;
-		simcore_native_set_value("CPU", "REG_MAR", addr) ;
+            // MAR <- RT1*4
+            var addr = simcore_native_get_value("CPU", "REG_RT1") ;
+            addr = 4 * addr ;
+            simcore_native_set_value("CPU", "REG_MAR", addr) ;
 
-		// PC <- MBR <- MP[MAR]
-		addr = simcore_native_get_value("MEMORY", addr) ;
-		simcore_native_set_value("CPU", "REG_PC", addr) ;
+            // PC <- MBR <- MP[MAR]
+            addr = simcore_native_get_value("MEMORY", addr) ;
+            simcore_native_set_value("CPU", "REG_PC", addr) ;
 
-		// fetch
-		simcore_native_go_maddr(0) ;
-	}
+            // fetch
+            simcore_native_go_maddr(0) ;
+      }
 
-	var addr  = simcore_native_get_value("CPU", "REG_PC") ;
-	var value = simcore_native_get_value("MEMORY", addr) ;
+      var addr  = simcore_native_get_value("CPU", "REG_PC") ;
+      var value = simcore_native_get_value("MEMORY", addr) ;
 
-	simcore_native_set_value("CPU", "REG_IR", value) ;
-	simcore_native_set_value("CPU", "REG_PC", addr + 4) ;
+      simcore_native_set_value("CPU", "REG_IR", value) ;
+      simcore_native_set_value("CPU", "REG_PC", addr + 4) ;
 
-	simcore_native_deco() ;
-	simcore_native_go_opcode() ;
+      simcore_native_deco() ;
+      simcore_native_go_opcode() ;
 }
 
 
@@ -65,43 +65,43 @@ native
 ecall {
             co=111111,
             nwords=1,
-	    help='system call',
+            help='system call',
             native,
             {
-                        simcore_native_set_value("CPU", "REG_RT1", 2) ;
+                  simcore_native_set_value("CPU", "REG_RT1", 2) ;
 
-                        // push PC
-                        var value  = simcore_native_get_value("CPU", "REG_PC") ;
-                        var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-                        reg_sp = reg_sp - 4 ;
-                        simcore_native_set_value("MEMORY", reg_sp, value) ;
-                        simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                  // push PC
+                  var value  = simcore_native_get_value("CPU", "REG_PC") ;
+                  var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                  reg_sp = reg_sp - 4 ;
+                  simcore_native_set_value("MEMORY", reg_sp, value) ;
+                  simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-                        // push SR
-                        value  = simcore_native_get_value("CPU", "REG_SR") ;
-                        reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-                        reg_sp = reg_sp - 4 ;
-                        simcore_native_set_value("MEMORY", reg_sp, value) ;
-                        simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                  // push SR
+                  value  = simcore_native_get_value("CPU", "REG_SR") ;
+                  reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                  reg_sp = reg_sp - 4 ;
+                  simcore_native_set_value("MEMORY", reg_sp, value) ;
+                  simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-                        // MAR <- RT1*4
-                        var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-                        addr = 4 * addr ;
-                        simcore_native_set_value("CPU", "REG_MAR", addr) ;
+                  // MAR <- RT1*4
+                  var addr = simcore_native_get_value("CPU", "REG_RT1") ;
+                  addr = 4 * addr ;
+                  simcore_native_set_value("CPU", "REG_MAR", addr) ;
 
-                        // PC <- MBR <- MP[MAR]
-                        addr = simcore_native_get_value("MEMORY", addr) ;
-                        simcore_native_set_value("CPU", "REG_PC", addr) ;
+                  // PC <- MBR <- MP[MAR]
+                  addr = simcore_native_get_value("MEMORY", addr) ;
+                  simcore_native_set_value("CPU", "REG_PC", addr) ;
 
-                        // fetch
-                        simcore_native_go_maddr(0) ;
+                  // fetch
+                  simcore_native_go_maddr(0) ;
             }
 }
 
 sret {
             co=111111,
             nwords=1,
-	    help='return from event (interruption, exception, syscall)',
+            help='return from event (interruption, exception, syscall)',
             native,
             {
                 // pop SR
@@ -188,13 +188,13 @@ rdcycle reg1  {
 # (More details at http://riscvbook.com/spanish/guia-practica-de-risc-v-1.0.5.pdf)
 #
 
-#  LUI rd,imm 	Load Upper Immediate 			rd ← imm << 12
+#  LUI rd,imm         Load Upper Immediate                         rd ← imm << 12
 lui rd inm {
             co=111111,
             nwords=1,
             rd=reg(25,21),
             inm=imm(19,0),
-	    help='rd = (inm << 12)',
+            help='rd = (inm << 12)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -208,13 +208,13 @@ lui rd inm {
             }
 }
 
-#  AUIPC rd,offset 	Add Upper Immediate to PC 	rd ← pc + (offset << 12)
+#  AUIPC rd,offset         Add Upper Immediate to PC         rd ← pc + (offset << 12)
 auipc rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
             offset=imm(19,0),
-	    help='rd = pc + (offset << 12)',
+            help='rd = pc + (offset << 12)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -222,21 +222,21 @@ auipc rd offset {
                 var val1   = simcore_native_get_field_from_ir(fields, 1) ;
 
                 val1 = val1 << 12 ;
-		var reg_pc = simcore_native_get_value("CPU", "REG_PC") ;
+                var reg_pc = simcore_native_get_value("CPU", "REG_PC") ;
                 simcore_native_set_value("CPU", "BR." + reg1, reg_pc + val1 - 4) ;
 
                 simcore_native_go_maddr(0) ;
             }
 }
 
-#  JAL rd,offset 	Jump and Link 				rd ← pc + length(inst)
-#                       					pc ← pc + offset
+#  JAL rd,offset         Jump and Link                                 rd ← pc + length(inst)
+#                                                               pc ← pc + offset
 jal rd offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
-	    offset=address(19,0)rel,
-	    help='rd = pc; pc = pc + 4*sext(offset)',
+            offset=address(19,0)rel,
+            help='rd = pc; pc = pc + 4*sext(offset)',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -256,15 +256,15 @@ jal rd offset {
 }
 
 
-#  JALR rd,rs1,offset 	Jump and Link Register 			rd ← pc + length(inst)
-#							        pc ← (rs1 + offset) & -2
+#  JALR rd,rs1,offset         Jump and Link Register        rd ← pc + length(inst)
+#                                                           pc ← (rs1 + offset) & -2
 jalr rd rs1 offset {
             co=111111,
             nwords=1,
             rd=reg(25,21),
             rs1=reg(20,16),
             offset=address(15,0)rel,
-	    help='rd = pc; pc = rs1 + 4*offset',
+            help='rd = pc; pc = rs1 + 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -287,7 +287,7 @@ jalr rd rs1 offset {
             }
 }
 
-#  BEQ rs1,rs2,offset 	Branch Equal 				if rs1 = rs2 then pc ← pc + offset
+#  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + offset
 beq rs1 rs2 offset {
             co=111111,
             nwords=1,
@@ -295,7 +295,7 @@ beq rs1 rs2 offset {
             rs2=reg(20,16),
             offset=address(15,0)rel,
             help='if (rs1 == rs2) pc += 4*offset',
-	    native,
+            native,
             {
                 // fields is a default parameter with the instruction field information
                 var reg1   = simcore_native_get_field_from_ir(fields, 0) ;
@@ -307,8 +307,9 @@ beq rs1 rs2 offset {
                 if (reg1 == reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -317,7 +318,7 @@ beq rs1 rs2 offset {
             }
 }
 
-#  BNE rs1,rs2,offset 	Branch Not Equal 			if rs1 ≠ rs2 then pc ← pc + offset
+#  BNE rs1,rs2,offset         Branch Not Equal                         if rs1 ≠ rs2 then pc ← pc + offset
 bne rs1 rs2 offset {
             co=111111,
             nwords=1,
@@ -337,8 +338,9 @@ bne rs1 rs2 offset {
                 if (reg1 != reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -347,7 +349,7 @@ bne rs1 rs2 offset {
             }
 }
 
-#  BLT rs1,rs2,offset 	Branch Less Than 			if rs1 < rs2 then pc ← pc + offset
+#  BLT rs1,rs2,offset         Branch Less Than                         if rs1 < rs2 then pc ← pc + offset
 blt rs1 rs2 offset {
             co=111111,
             nwords=1,
@@ -367,8 +369,9 @@ blt rs1 rs2 offset {
                 if (reg1 < reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -377,7 +380,7 @@ blt rs1 rs2 offset {
             }
 }
 
-#  BGE rs1,rs2,offset 	Branch Greater than Equal 		if rs1 ≥ rs2 then pc ← pc + offset
+#  BGE rs1,rs2,offset         Branch Greater than Equal                 if rs1 ≥ rs2 then pc ← pc + offset
 bge rs1 rs2 offset {
             co=111111,
             nwords=1,
@@ -397,8 +400,9 @@ bge rs1 rs2 offset {
                 if (reg1 >= reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -407,7 +411,7 @@ bge rs1 rs2 offset {
             }
 }
 
-#  BLTU rs1,rs2,offset 	Branch Less Than Unsigned 		if rs1 < rs2 then pc ← pc + offset
+#  BLTU rs1,rs2,offset         Branch Less Than Unsigned                 if rs1 < rs2 then pc ← pc + offset
 bltu rs1 rs2 offset {
             co=111111,
             nwords=1,
@@ -427,8 +431,9 @@ bltu rs1 rs2 offset {
                 if (reg1 < reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -437,14 +442,14 @@ bltu rs1 rs2 offset {
             }
 }
 
-#  BGEU rs1,rs2,offset 	Branch Greater than Equal Unsigned 	if rs1 ≥ rs2 then pc ← pc + offset
+#  BGEU rs1,rs2,offset         Branch Greater than Equal Unsigned         if rs1 ≥ rs2 then pc ← pc + offset
 bgeu rs1 rs2 offset {
             co=111111,
             nwords=1,
             rs1=reg(25,21),
             rs2=reg(20,16),
             offset=address(15,0)rel,
-            help='if (rs1 >= rs2) pc += offset',
+            help='if (rs1 >= rs2) pc += 4*offset',
             native,
             {
                 // fields is a default parameter with the instruction field information
@@ -457,8 +462,9 @@ bgeu rs1 rs2 offset {
                 if (reg1 >= reg2)
                 {
                     var pc = simcore_native_get_value("CPU", "REG_PC") ;
-                    if ((offset & 0x8000) > 0)
+                    if ((offset & 0x8000) > 0) {
                          offset = offset | 0xFFFF0000 ;
+                    }
                     pc = pc + 4*offset ;
                     simcore_native_set_value("CPU", "REG_PC", pc) ;
                 }
@@ -467,7 +473,7 @@ bgeu rs1 rs2 offset {
             }
 }
 
-#  LB rd,offset(rs1) 	Load Byte 				rd ← s8[rs1 + offset]
+#  LB rd,offset(rs1)         Load Byte                                 rd ← s8[rs1 + offset]
 lb rd offset(rs1) {
             co=111111,
             nwords=1,
@@ -501,7 +507,7 @@ lb rd offset(rs1) {
             }
 }
 
-#  LH rd,offset(rs1) 	Load Half 				rd ← s16[rs1 + offset]
+#  LH rd,offset(rs1)         Load Half                                 rd ← s16[rs1 + offset]
 lh rd offset(rs1) {
             co=111111,
             nwords=1,
@@ -542,7 +548,7 @@ lh rd offset(rs1) {
             }
 }
 
-#  LW rd,offset(rs1) 	Load Word 				rd ← s32[rs1 + offset]
+#  LW rd,offset(rs1)         Load Word                                 rd ← s32[rs1 + offset]
 lw rd offset(rs1) {
             co=111111,
             nwords=1,
@@ -568,7 +574,7 @@ lw rd offset(rs1) {
             }
 }
 
-#  LBU rd,offset(rs1) 	Load Byte Unsigned 			rd ← u8[rs1 + offset]
+#  LBU rd,offset(rs1)         Load Byte Unsigned                         rd ← u8[rs1 + offset]
 lbu rd offset(rs1) {
             co=111111,
             nwords=1,
@@ -600,7 +606,7 @@ lbu rd offset(rs1) {
             }
 }
 
-#  LHU rd,offset(rs1) 	Load Half Unsigned 			rd ← u16[rs1 + offset]
+#  LHU rd,offset(rs1)         Load Half Unsigned                         rd ← u16[rs1 + offset]
 lhu rd offset(rs1) {
             co=111111,
             nwords=1,
@@ -639,7 +645,7 @@ lhu rd offset(rs1) {
             }
 }
 
-#  SB rs2,offset(rs1) 	Store Byte 				u8[rs1 + offset] ← rs2
+#  SB rs2,offset(rs1)         Store Byte                                 u8[rs1 + offset] ← rs2
 sb rs2 offset(rs1) {
             co=111111,
             nwords=1,
@@ -673,7 +679,7 @@ sb rs2 offset(rs1) {
             }
 }
 
-#  SH rs2,offset(rs1) 	Store Half 				u16[rs1 + offset] ← rs2
+#  SH rs2,offset(rs1)         Store Half                                 u16[rs1 + offset] ← rs2
 sh rs2 offset(rs1) {
             co=111111,
             nwords=1,
@@ -719,7 +725,7 @@ sh rs2 offset(rs1) {
             }
 }
 
-#  SW rs2,offset(rs1) 	Store Word 				u32[rs1 + offset] ← rs2
+#  SW rs2,offset(rs1)         Store Word                                 u32[rs1 + offset] ← rs2
 sw reg1 val(reg2) {
             co=111111,
             nwords=1,
@@ -745,7 +751,7 @@ sw reg1 val(reg2) {
             }
 }
 
-#  SBU rs2,offset(rs1) 	Store Byte Unsigned			u8[rs1 + offset] ← rs2
+#  SBU rs2,offset(rs1)         Store Byte Unsigned                        u8[rs1 + offset] ← rs2
 sbu rs2 offset(rs1) {
             co=111111,
             nwords=1,
@@ -780,7 +786,7 @@ sbu rs2 offset(rs1) {
             }
 }
 
-#  SHU rs2,offset(rs1) 	Store Half Unsigned			u16[rs1 + offset] ← rs2
+#  SHU rs2,offset(rs1)         Store Half Unsigned                        u16[rs1 + offset] ← rs2
 shu rs2 offset(rs1) {
             co=111111,
             nwords=1,
@@ -827,7 +833,7 @@ shu rs2 offset(rs1) {
             }
 }
 
-#  ADDI rd,rs1,imm 	Add Immediate 				rd ← rs1 + sx(imm)
+#  ADDI rd,rs1,imm         Add Immediate                                 rd ← rs1 + sx(imm)
 addi rd rs1 inm {
             co=111111,
             nwords=1,
@@ -857,7 +863,7 @@ addi rd rs1 inm {
             }
 }
 
-#  ADDU rd,rs1,imm 	Add Unsigned 				rd ← rs1 + ux(imm)
+#  ADDU rd,rs1,imm         Add Unsigned                                 rd ← rs1 + ux(imm)
 addu rd rs1 inm {
             co=111111,
             nwords=1,
@@ -884,7 +890,7 @@ addu rd rs1 inm {
             }
 }
 
-#  SLTI rd,rs1,imm 	Set Less Than Immediate 		rd ← sx(rs1) < sx(imm)
+#  SLTI rd,rs1,imm         Set Less Than Immediate                 rd ← sx(rs1) < sx(imm)
 slti rd rs1 inm {
             co=111111,
             nwords=1,
@@ -909,7 +915,7 @@ slti rd rs1 inm {
             }
 }
 
-#  SLTIU rd,rs1,imm 	Set Less Than Immediate Unsigned 	rd ← ux(rs1) < ux(imm)
+#  SLTIU rd,rs1,imm         Set Less Than Immediate Unsigned         rd ← ux(rs1) < ux(imm)
 sltiu rd rs1 inm {
             co=111111,
             nwords=1,
@@ -931,7 +937,7 @@ sltiu rd rs1 inm {
             }
 }
 
-#  XORI rd,rs1,imm 	Xor Immediate 				rd ← ux(rs1) ⊕ ux(imm)
+#  XORI rd,rs1,imm         Xor Immediate                                 rd ← ux(rs1) ⊕ ux(imm)
 xori rd rs1 inm {
             co=111111,
             nwords=1,
@@ -953,7 +959,7 @@ xori rd rs1 inm {
             }
 }
 
-#  ORI rd,rs1,imm 	Or Immediate 				rd ← ux(rs1) ∨ ux(imm)
+#  ORI rd,rs1,imm         Or Immediate                                 rd ← ux(rs1) ∨ ux(imm)
 ori rd rs1 inm {
             co=111111,
             nwords=1,
@@ -975,7 +981,7 @@ ori rd rs1 inm {
             }
 }
 
-#  ANDI rd,rs1,imm 	And Immediate 				rd ← ux(rs1) ∧ ux(imm)
+#  ANDI rd,rs1,imm         And Immediate                                 rd ← ux(rs1) ∧ ux(imm)
 andi rd rs1 inm {
             co=111111,
             nwords=1,
@@ -997,7 +1003,7 @@ andi rd rs1 inm {
             }
 }
 
-#  SLLI rd,rs1,imm 	Shift Left Logical Immediate 		rd ← ux(rs1) « ux(imm)
+#  SLLI rd,rs1,imm         Shift Left Logical Immediate                 rd ← ux(rs1) « ux(imm)
 slli rd rs1 inm {
             co=111111,
             nwords=1,
@@ -1020,7 +1026,7 @@ slli rd rs1 inm {
 }
 
 
-#  SRLI rd,rs1,imm 	Shift Right Logical Immediate 		rd ← ux(rs1) » ux(imm)
+#  SRLI rd,rs1,imm         Shift Right Logical Immediate                 rd ← ux(rs1) » ux(imm)
 srli rd rs1 inm {
             co=111111,
             nwords=1,
@@ -1042,7 +1048,7 @@ srli rd rs1 inm {
             }
 }
 
-#  SRAI rd,rs1,imm 	Shift Right Arithmetic Immediate 	rd ← sx(rs1) » ux(imm)
+#  SRAI rd,rs1,imm         Shift Right Arithmetic Immediate         rd ← sx(rs1) » ux(imm)
 srai rd rs1 inm {
             co=111111,
             nwords=1,
@@ -1064,7 +1070,7 @@ srai rd rs1 inm {
             }
 }
 
-#  ADD rd,rs1,rs2 	Add 					rd ← sx(rs1) + sx(rs2)
+#  ADD rd,rs1,rs2         Add                                         rd ← sx(rs1) + sx(rs2)
 add reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1086,7 +1092,7 @@ add reg1 reg2 reg3 {
             }
 }
 
-#  SUB rd,rs1,rs2 	Subtract 				rd ← sx(rs1) - sx(rs2)
+#  SUB rd,rs1,rs2         Subtract                                 rd ← sx(rs1) - sx(rs2)
 sub reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1108,7 +1114,7 @@ sub reg1 reg2 reg3 {
             }
 }
 
-#  SLL rd,rs1,rs2 	Shift Left Logical 			rd ← ux(rs1) « rs2
+#  SLL rd,rs1,rs2         Shift Left Logical                         rd ← ux(rs1) « rs2
 sll rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1130,7 +1136,7 @@ sll rd rs1 rs2 {
             }
 }
 
-#  SLT rd,rs1,rs2 	Set Less Than 				rd ← sx(rs1) < sx(rs2)
+#  SLT rd,rs1,rs2         Set Less Than                                 rd ← sx(rs1) < sx(rs2)
 slt rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1153,7 +1159,7 @@ slt rd rs1 rs2 {
             }
 }
 
-#  SLTU rd,rs1,rs2 	Set Less Than Unsigned 			rd ← ux(rs1) < ux(rs2)
+#  SLTU rd,rs1,rs2         Set Less Than Unsigned                         rd ← ux(rs1) < ux(rs2)
 sltu rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1176,7 +1182,7 @@ sltu rd rs1 rs2 {
             }
 }
 
-#  XOR rd,rs1,rs2 	Xor 					rd ← ux(rs1) ⊕ ux(rs2)
+#  XOR rd,rs1,rs2         Xor                                         rd ← ux(rs1) ⊕ ux(rs2)
 xor reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1198,7 +1204,7 @@ xor reg1 reg2 reg3 {
             }
 }
 
-#  SRL rd,rs1,rs2 	Shift Right Logical 			rd ← ux(rs1) » rs2
+#  SRL rd,rs1,rs2         Shift Right Logical                         rd ← ux(rs1) » rs2
 srl rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1220,7 +1226,7 @@ srl rd rs1 rs2 {
             }
 }
 
-#  SRA rd,rs1,rs2 	Shift Right Arithmetic 			rd ← sx(rs1) » rs2
+#  SRA rd,rs1,rs2         Shift Right Arithmetic                         rd ← sx(rs1) » rs2
 sra rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1243,7 +1249,7 @@ sra rd rs1 rs2 {
             }
 }
 
-#  OR rd,rs1,rs2 	Or 					rd ← ux(rs1) ∨ ux(rs2)
+#  OR rd,rs1,rs2         Or                                         rd ← ux(rs1) ∨ ux(rs2)
 or reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1265,7 +1271,7 @@ or reg1 reg2 reg3 {
             }
 }
 
-#  AND rd,rs1,rs2 	And 					rd ← ux(rs1) ∧ ux(rs2)
+#  AND rd,rs1,rs2         And                                         rd ← ux(rs1) ∧ ux(rs2)
 and reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1287,7 +1293,7 @@ and reg1 reg2 reg3 {
             }
 }
 
-#  FENCE pred,succ 	Fence 	
+#  FENCE pred,succ         Fence        
 fence pred succ {
             co=111111,
             nwords=1,
@@ -1299,7 +1305,7 @@ fence pred succ {
             }
 }
 
-#  FENCE.I 		Fence Instruction 	
+#  FENCE.I                 Fence Instruction        
 fence.i {
             co=111111,
             nwords=1,
@@ -1316,7 +1322,7 @@ fence.i {
 # (More details at http://riscvbook.com/spanish/guia-practica-de-risc-v-1.0.5.pdf)
 #
 
-# MUL rd,rs1,rs2 	Multiply 	rd ← ux(rs1) × ux(rs2)
+# MUL rd,rs1,rs2         Multiply         rd ← ux(rs1) × ux(rs2)
 mul reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1338,7 +1344,7 @@ mul reg1 reg2 reg3 {
             }
 }
 
-# MULH rd,rs1,rs2 	Multiply High Signed Signed 	rd ← (sx(rs1) × sx(rs2)) » xlen
+# MULH rd,rs1,rs2         Multiply High Signed Signed         rd ← (sx(rs1) × sx(rs2)) » xlen
 mulh rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1362,7 +1368,7 @@ mulh rd rs1 rs2 {
             }
 }
 
-# MULHSU rd,rs1,rs2 	Multiply High Signed Unsigned 	rd ← (sx(rs1) × ux(rs2)) » xlen
+# MULHSU rd,rs1,rs2         Multiply High Signed Unsigned         rd ← (sx(rs1) × ux(rs2)) » xlen
 mulhsu rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1386,7 +1392,7 @@ mulhsu rd rs1 rs2 {
             }
 }
 
-# MULHU rd,rs1,rs2 	Multiply High Unsigned Unsigned 	rd ← (ux(rs1) × ux(rs2)) » xlen
+# MULHU rd,rs1,rs2         Multiply High Unsigned Unsigned         rd ← (ux(rs1) × ux(rs2)) » xlen
 mulhu rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1410,7 +1416,7 @@ mulhu rd rs1 rs2 {
             }
 }
 
-# DIV rd,rs1,rs2 	Divide Signed 	rd ← sx(rs1) ÷ sx(rs2)
+# DIV rd,rs1,rs2         Divide Signed         rd ← sx(rs1) ÷ sx(rs2)
 div reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1434,37 +1440,37 @@ div reg1 reg2 reg3 {
                     return ;
                 }
 
-		simcore_native_set_value("CPU", "REG_RT1", 1) ;
+                simcore_native_set_value("CPU", "REG_RT1", 1) ;
 
-		// push PC
-		var value  = simcore_native_get_value("CPU", "REG_PC") ;
-		var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                // push PC
+                var value  = simcore_native_get_value("CPU", "REG_PC") ;
+                var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                reg_sp = reg_sp - 4 ;
+                simcore_native_set_value("MEMORY", reg_sp, value) ;
+                simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// push SR
-		value  = simcore_native_get_value("CPU", "REG_SR") ;
-		reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                // push SR
+                value  = simcore_native_get_value("CPU", "REG_SR") ;
+                reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                reg_sp = reg_sp - 4 ;
+                simcore_native_set_value("MEMORY", reg_sp, value) ;
+                simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// MAR <- RT1*4
-		var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-		addr = 4 * addr ;
-		simcore_native_set_value("CPU", "REG_MAR", addr) ;
+                // MAR <- RT1*4
+                var addr = simcore_native_get_value("CPU", "REG_RT1") ;
+                addr = 4 * addr ;
+                simcore_native_set_value("CPU", "REG_MAR", addr) ;
 
-		// PC <- MBR <- MP[MAR]
-		addr = simcore_native_get_value("MEMORY", addr) ;
-		simcore_native_set_value("CPU", "REG_PC", addr) ;
+                // PC <- MBR <- MP[MAR]
+                addr = simcore_native_get_value("MEMORY", addr) ;
+                simcore_native_set_value("CPU", "REG_PC", addr) ;
 
-		// fetch
-		simcore_native_go_maddr(0) ;
+                // fetch
+                simcore_native_go_maddr(0) ;
             }
 }
 
-# DIVU rd,rs1,rs2 	Divide Unsigned 	rd ← ux(rs1) ÷ ux(rs2)
+# DIVU rd,rs1,rs2         Divide Unsigned         rd ← ux(rs1) ÷ ux(rs2)
 divu rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1488,37 +1494,37 @@ divu rd rs1 rs2 {
                     return ;
                 }
 
-		simcore_native_set_value("CPU", "REG_RT1", 1) ;
+                simcore_native_set_value("CPU", "REG_RT1", 1) ;
 
-		// push PC
-		var value  = simcore_native_get_value("CPU", "REG_PC") ;
-		var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                // push PC
+                var value  = simcore_native_get_value("CPU", "REG_PC") ;
+                var reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                reg_sp = reg_sp - 4 ;
+                simcore_native_set_value("MEMORY", reg_sp, value) ;
+                simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// push SR
-		value  = simcore_native_get_value("CPU", "REG_SR") ;
-		reg_sp = simcore_native_get_value("CPU", "BR.2") ;
-		reg_sp = reg_sp - 4 ;
-		simcore_native_set_value("MEMORY", reg_sp, value) ;
-		simcore_native_set_value("CPU", "BR.2", reg_sp) ;
+                // push SR
+                value  = simcore_native_get_value("CPU", "REG_SR") ;
+                reg_sp = simcore_native_get_value("CPU", "BR.2") ;
+                reg_sp = reg_sp - 4 ;
+                simcore_native_set_value("MEMORY", reg_sp, value) ;
+                simcore_native_set_value("CPU", "BR.2", reg_sp) ;
 
-		// MAR <- RT1*4
-		var addr = simcore_native_get_value("CPU", "REG_RT1") ;
-		addr = 4 * addr ;
-		simcore_native_set_value("CPU", "REG_MAR", addr) ;
+                // MAR <- RT1*4
+                var addr = simcore_native_get_value("CPU", "REG_RT1") ;
+                addr = 4 * addr ;
+                simcore_native_set_value("CPU", "REG_MAR", addr) ;
 
-		// PC <- MBR <- MP[MAR]
-		addr = simcore_native_get_value("MEMORY", addr) ;
-		simcore_native_set_value("CPU", "REG_PC", addr) ;
+                // PC <- MBR <- MP[MAR]
+                addr = simcore_native_get_value("MEMORY", addr) ;
+                simcore_native_set_value("CPU", "REG_PC", addr) ;
 
-		// fetch
-		simcore_native_go_maddr(0) ;
+                // fetch
+                simcore_native_go_maddr(0) ;
             }
 }
 
-# REM rd,rs1,rs2 	Remainder Signed 	rd ← sx(rs1) mod sx(rs2)
+# REM rd,rs1,rs2         Remainder Signed         rd ← sx(rs1) mod sx(rs2)
 rem reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1541,7 +1547,7 @@ rem reg1 reg2 reg3 {
             }
 }
 
-# REMU rd,rs1,rs2 	Remainder Unsigned 	rd ← ux(rs1) mod ux(rs2)
+# REMU rd,rs1,rs2         Remainder Unsigned         rd ← ux(rs1) mod ux(rs2)
 remu rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1569,7 +1575,7 @@ remu rd rs1 rs2 {
 # RV32B
 #
 
-# MIN rd,rs1,rs2 	Minimum 			rd ← min( ux(rs1) , ux(rs2) )
+# MIN rd,rs1,rs2         Minimum                         rd ← min( ux(rs1) , ux(rs2) )
 min rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1595,7 +1601,7 @@ min rd rs1 rs2 {
             }
 }
 
-# MAX rd,rs1,rs2 	Maximum 			rd ← max( ux(rs1) , ux(rs2) )
+# MAX rd,rs1,rs2         Maximum                         rd ← max( ux(rs1) , ux(rs2) )
 max rd rs1 rs2 {
             co=111111,
             nwords=1,
@@ -1621,7 +1627,7 @@ max rd rs1 rs2 {
             }
 }
 
-#  ANDN rd,rs1,rs2 	And with rs2 inverted 			rd ← ux(rs1) ∧ ~ux(rs2)
+#  ANDN rd,rs1,rs2         And with rs2 inverted                         rd ← ux(rs1) ∧ ~ux(rs2)
 andn reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1643,7 +1649,7 @@ andn reg1 reg2 reg3 {
             }
 }
 
-#  ORN rd,rs1,rs2 	Or with rs2 inverted 			rd ← ux(rs1) v ~ux(rs2)
+#  ORN rd,rs1,rs2         Or with rs2 inverted                         rd ← ux(rs1) v ~ux(rs2)
 orn reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1665,7 +1671,7 @@ orn reg1 reg2 reg3 {
             }
 }
 
-#  xnor rd,rs1,rs2 	Xnor with rs2 inverted 			rd ← ux(rs1) xor ~ux(rs2)
+#  xnor rd,rs1,rs2         Xnor with rs2 inverted                         rd ← ux(rs1) xor ~ux(rs2)
 xnor reg1 reg2 reg3 {
             co=111111,
             nwords=1,
@@ -1692,39 +1698,39 @@ xnor reg1 reg2 reg3 {
 # Register naming
 #
 
-#	ABI Name	Description				Saver
-#0	zero		Hard-wired zero				--
-#1	ra		Return address				Caller
-#2	sp		Stack pointer				Callee
-#3	gp		Global pointer				--
-#4	tp		Thread pointer				--
-#5	t0		Temporaries				Caller
-#6	t1		Temporaries				Caller
-#7	t2		Temporaries				Caller
-#8	s0/fp		Saved register/frame pointer		Caller
-#9	s1		Saved register				Callee
-#10	a0		Function arguments/return values	Caller
-#11	a1		Function arguments/return values	Caller
-#12	a2		Function arguments			Caller
-#13	a3		Function arguments			Caller
-#14	a4		Function arguments			Caller
-#15	a5		Function arguments			Caller
-#16	a6		Function arguments			Caller
-#17	a7		Function arguments			Caller
-#18	s2		Saved registers				Callee
-#19	s3		Saved registers				Callee
-#20	s4		Saved registers				Callee
-#21	s5		Saved registers				Callee
-#22	s6		Saved registers				Callee
-#23	s7		Saved registers				Callee
-#24	s8		Saved registers				Callee
-#25	s9		Saved registers				Callee
-#26	s10		Saved registers				Callee
-#27	s11		Saved registers				Callee
-#28	t3		Temporaries				Caller
-#29	t4		Temporaries				Caller
-#30	t5		Temporaries				Caller
-#31	t6		Temporaries				Caller
+#        ABI Name        Description                                Saver
+#0        zero                Hard-wired zero                                --
+#1        ra                Return address                                Caller
+#2        sp                Stack pointer                                Callee
+#3        gp                Global pointer                                --
+#4        tp                Thread pointer                                --
+#5        t0                Temporaries                                Caller
+#6        t1                Temporaries                                Caller
+#7        t2                Temporaries                                Caller
+#8        s0/fp                Saved register/frame pointer                Caller
+#9        s1                Saved register                                Callee
+#10        a0                Function arguments/return values        Caller
+#11        a1                Function arguments/return values        Caller
+#12        a2                Function arguments                        Caller
+#13        a3                Function arguments                        Caller
+#14        a4                Function arguments                        Caller
+#15        a5                Function arguments                        Caller
+#16        a6                Function arguments                        Caller
+#17        a7                Function arguments                        Caller
+#18        s2                Saved registers                                Callee
+#19        s3                Saved registers                                Callee
+#20        s4                Saved registers                                Callee
+#21        s5                Saved registers                                Callee
+#22        s6                Saved registers                                Callee
+#23        s7                Saved registers                                Callee
+#24        s8                Saved registers                                Callee
+#25        s9                Saved registers                                Callee
+#26        s10                Saved registers                                Callee
+#27        s11                Saved registers                                Callee
+#28        t3                Temporaries                                Caller
+#29        t4                Temporaries                                Caller
+#30        t5                Temporaries                                Caller
+#31        t6                Temporaries                                Caller
 
 registers
 {
@@ -1770,13 +1776,13 @@ registers
 
 pseudoinstructions
 {
-    # nop	addi zero,zero,0	No operation
+    # nop        addi zero,zero,0        No operation
     nop
     {
         addi zero zero 0
     }
 
-    # li rd, expression	(several expansions)	Load immediate
+    # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
     {
         addi rd x0 expression
@@ -1788,134 +1794,134 @@ pseudoinstructions
         addu rd, rd, sel(11,0,expression)
     }
 
-    # la rd, label	(several expansions)	Load address
+    # la rd, label        (several expansions)        Load address
     la rd=reg, label=imm
     {
         lui  rd,     sel(31,12,label)
         addu rd, rd, sel(11,0,label)
     }
 
-    # mv rd, rs1	addi rd, rs, 0	Copy register
+    # mv rd, rs1        addi rd, rs, 0        Copy register
     mv rd=reg, rs=reg
     {
         addi rd, rs, 0
     }
 
-    # not rd, rs1	xori rd, rs, -1	One’s complement
+    # not rd, rs1        xori rd, rs, -1        One’s complement
     not rd=reg, rs=reg
     {
         xori rd, rs, -1
     }
 
-    # neg rd, rs1	sub rd, x0, rs	Two’s complement
+    # neg rd, rs1        sub rd, x0, rs        Two’s complement
     neg rd=reg, rs=reg
     {
         sub rd, zero, rs
     }
 
-    # seqz rd, rs1	sltiu rd, rs, 1	Set if = zero
+    # seqz rd, rs1        sltiu rd, rs, 1        Set if = zero
     seqz rd=reg, rs1=reg
     {
         sltiu rd, rs, 1
     }
 
-    # snez rd, rs1	sltu rd, x0, rs	Set if ≠ zero
+    # snez rd, rs1        sltu rd, x0, rs        Set if ≠ zero
     snez rd=reg, rs1=reg
     {
         sltu rd, x0, rs
     }
 
-    # sltz rd, rs1	slt rd, rs, x0	Set if < zero
+    # sltz rd, rs1        slt rd, rs, x0        Set if < zero
     sltz rd=reg, rs1=reg
     {
         slt rd, rs, x0
     }
 
-    # sgtz rd, rs1	slt rd, x0, rs	Set if > zero
+    # sgtz rd, rs1        slt rd, x0, rs        Set if > zero
     sgtz rd=reg, rs1=reg
     {
         slt rd, x0, rs
     }
 
-    # beqz rs1, offset	beq rs, x0, offset	Branch if = zero
+    # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
     beqz rs=reg, offset=imm
     {
         beq rs, zero, offset
     }
 
-    # bnez rs1, offset	bne rs, x0, offset	Branch if ≠ zero
+    # bnez rs1, offset        bne rs, x0, offset        Branch if ≠ zero
     bnez rs=reg, offset=imm
     {
         bne rs, zero, offset
     }
 
-    # blez rs1, offset	bge x0, rs, offset	Branch if ≤ zero
+    # blez rs1, offset        bge x0, rs, offset        Branch if ≤ zero
     blez rs=reg, offset=imm
     {
         bge zero, rs, offset
     }
 
-    # bgez rs1, offset	bge rs, x0, offset	Branch if ≥ zero
+    # bgez rs1, offset        bge rs, x0, offset        Branch if ≥ zero
     bgez rs=reg, offset=imm
     {
         bge rs, zero, offset
     }
 
-    # bltz rs1, offset	blt rs, x0, offset	Branch if < zero
+    # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
     bltz rs=reg, offset=imm
     {
         blt rs, zero, offset
     }
 
-    # bgtz rs1, offset	blt x0, rs, offset	Branch if > zero
+    # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
     bgtz rs=reg, offset=imm
     {
         blt zero, rs, offset
     }
 
-    # bgt rs, rt, offset	blt rt, rs, offset	Branch if >
+    # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
     bgt rs=reg, rt=reg, offset=imm
     {
         blt rt, rs, offset
     }
 
-    # ble rs, rt, offset	bge rt, rs, offset	Branch if ≤
+    # ble rs, rt, offset        bge rt, rs, offset        Branch if ≤
     ble rs=reg, rt=reg, offset=imm
     {
         bge rt, rs, offset
     }
 
-    # bgtu rs, rt, offset	bltu rt, rs, offset	Branch if >, unsigned
+    # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
     bgtu rs=reg, rt=reg, offset=imm
     {
         bltu rt, rs, offset
     }
 
-    # bleu rs, rt, offset	bltu rt, rs, offset	Branch if ≤, unsigned
+    # bleu rs, rt, offset        bltu rt, rs, offset        Branch if ≤, unsigned
     bleu rs=reg, rt=reg, offset=imm
     {
         bgeu rt, rs, offset
     }
 
-    # j offset	jal x0, offset	Jump
+    # j offset        jal x0, offset        Jump
     j offset=imm
     {
         jal zero, offset
     }
 
-    # jal offset	jal x1, offset	Jump register
+    # jal offset        jal x1, offset        Jump register
     #jal offset=imm
     #{
     #    jal ra, offset
     #}
 
-    # jr rs		jalr x0, rs, 0	Jump register
+    # jr rs                jalr x0, rs, 0        Jump register
     jr rs=reg
     {
         jalr zero, rs, 0
     }
 
-    # ret	jalr x0, x1, 0	Return from subroutine
+    # ret        jalr x0, x1, 0        Return from subroutine
     ret
     {
         jalr zero, ra, 0
