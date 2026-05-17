@@ -57,8 +57,8 @@
 	"License, platforms, etc.":	"Licencia, plataformas, etc.",
 	"help_04_01":			"Licencia de WepSIM, plataformas disponibles, tecnolog&iacute;as usadas",
 
-	"Authors":			"Autores",
-	"help_04_02":			"Autores de WepSIM"
+	"Authors":			"Equipo de WepSIM",
+	"help_04_02":			"Equipo de WepSIM"
 
     } ;
 
