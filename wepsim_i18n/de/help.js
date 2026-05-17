@@ -45,8 +45,8 @@
 		'help_03_03':			'Referenzkarte für die Hardware des simulierten Elementarprozessors',
 		'License, platforms, etc.':	'Lizenz, Plattformen usw.',
 		'help_04_01':			'WepSIM-Lizenz, unterstützte Plattformen, verwendete Technologien',
-		'Authors':			'Autoren',
-		'help_04_02':			'Autoren von WepSIM',
+		'Authors':			'Das WepSIM-Team',
+		'help_04_02':			'Das WepSIM-Team',
 		'_last_':			'_last_'
 
     };
