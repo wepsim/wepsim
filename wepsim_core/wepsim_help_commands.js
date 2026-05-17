@@ -138,8 +138,8 @@
                           description: "<span data-langkey='help_04_01'>WepSIM license, supported platforms, technologies used</span>.<br>"
                        },
                        {
-                          id:          "authors",
-                          title:       "Authors",
+                          id:          "wepsim_team",
+                          title:       "WepSIM Team",
                           u_type:      "info",
                           u_class:     "",
                           reference:   "wsweb_dialog_close('help'); " +
