@@ -57,8 +57,8 @@
 	"License, platforms, etc.":	"라이센스, 플랫폼 등",
         "help_04_01": 			"WEPSIM 라이센스, 지원 플랫폼, 사용 된 기술",
 
-	"Authors":			"저자",
-        "help_04_02": 			"WepSIM의 저자"
+	"Authors":			"WepSIM 팀",
+        "help_04_02": 			"WepSIM 팀"
 
     } ;
 

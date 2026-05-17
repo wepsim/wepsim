@@ -45,8 +45,8 @@
 		'help_03_03':		'Cartão de referência para o hardware do processador elementar simulado',
 		'License, platforms, etc.':		'Licença, plataformas, etc.',
 		'help_04_01':		'Licença WepSIM, plataformas suportadas, tecnologias usadas',
-		'Authors':		'Autores',
-		'help_04_02':		'Autores do WepSIM',
+		'Authors':		'Equipa WepSIM',
+		'help_04_02':		'Equipa WepSIM',
 		'_last_':		'_last_'
 
     };
