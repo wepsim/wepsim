@@ -219,7 +219,13 @@ function io_l3d_base_register ( sim_p )
 								  x ;
                                                           var s = (bus_db & 0x000000FF) != 0 ;
 
-						          set_var(sim_p.internal_states.l3d_state[p].active, s);
+						          if (typeof  sim_p.internal_states.l3d_state[p] != "undefined") {
+                                                              set_value(sim_p.states[s_expr[3]], 1) ;
+						              set_var(sim_p.internal_states.l3d_state[p].active, s);
+							  }
+							  else {
+                                                              set_value(sim_p.states[s_expr[3]], 0) ;
+							  }
 						      }
                                                    },
                                            verbal: function (s_expr)

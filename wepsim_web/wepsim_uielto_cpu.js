@@ -102,12 +102,6 @@
 			  "<td align='center' class='w-50'>" +
 			  "<div id='tms_context'>{{ value }}</div>" +
 			  "</td>" +
-			  " <tr>" +
-			  "<td align='center' class='w-50'>Accumulated energy</td>" +
-			  "<td align='center' class='w-50'>" +
-			  "<div id='pwr_context'>{{ value }}</div>" +
-			  "</td>" +
-			  " </tr>" +
 			  "</table>" +
 			  "</div>" +
 			  "</div>" ;
@@ -147,17 +141,6 @@
                           " </h5>" +
 			  " <div class='card-body  text-center p-2'>" +
                           " <p class='card-text'><div id='tms_context' class='text-truncate'>{{ value }}</div></p>" +
-			  " </div>" +
-			  "</div>" +
-			  "</div>" +
-
-		          "<div class='col-auto p-2'>" +
-			  "<div class='card bg-body-tertiary'>" +
-                          " <h5 class='card-header text-center p-2'>" +
-                          "<span data-langkey='Accumulated energy'>Accumulated energy</span><br>" +
-                          " </h5>" +
-			  " <div class='card-body  text-center p-2'>" +
-                          " <p class='card-text'><div id='pwr_context' class='text-truncate'>{{ value }}</div></p>" +
 			  " </div>" +
 			  "</div>" +
 			  "</div>" +

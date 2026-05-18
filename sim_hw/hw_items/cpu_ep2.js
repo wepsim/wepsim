@@ -424,16 +424,14 @@ function cpu_ep2_register ( sim_p )
                                             draw_data: [] };
 
 	/* DEVICES AND MEMORY */
-	sim_p.states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
-                                            visible:false, nbits: "32", value:0, default_value:0,
-                                            draw_data: [] };
-	sim_p.states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
-                                            visible:false, nbits: "32", value:0, default_value:0,
-                                            draw_data: [] };
-
 	sim_p.states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
                                             visible:false, nbits: "8",  value:0, default_value:0,
                                             draw_data: [] };
+	sim_p.signals["DB_UPDATED"]    = { name: "DB_UPDATED", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
+			                    behavior: ['FIRE M1', 'FIRE M1'],
+			                    fire_name: [],
+			                    draw_data: [[]],
+			                    draw_name: [[]] };
 
 
 	/* MUX A (RELATED) STATES */
@@ -585,12 +583,12 @@ function cpu_ep2_register ( sim_p )
 
 	/* TRI-STATES */
 	 sim_p.signals["TA"]   = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			           behavior: ["NOP", "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
+			           behavior: ["NOP", "MV BUS_AB REG_MAR"],
 			           fire_name: ['svg_p:text3091'],
 			           draw_data: [['svg_p:path3083','svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
 			           draw_name: [['svg_p:path3085']] };
 	 sim_p.signals["TD"]   = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			           behavior: ["NOP; CHECK_RTD", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0; CHECK_RTD"],
+			           behavior: ["NOP; CHECK_RTD", "MV BUS_DB REG_MBR; CHECK_RTD"],
 			           fire_name: ['svg_p:text3103'],
 			           draw_data: [['svg_p:path3545','svg_p:path3093','svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3541']],
 			           draw_name: [['svg_p:path3095']] };
@@ -657,7 +655,7 @@ function cpu_ep2_register ( sim_p )
 			           draw_name: [['svg_p:path3133-6-9-7-5']] };
 	/* MUX. */
 	 sim_p.signals["M1"]   = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			           behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"],
+			           behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BUS_DB; FIRE C1"],
                                    depends_on: ["C1"],
 			           fire_name: ['svg_p:text3469'],
 			           draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3419','svg_p:path3583', 'svg_p:path3491', 'svg_p:path3087-7']],
@@ -737,7 +735,7 @@ function cpu_ep2_register ( sim_p )
 				                 'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_I 1; FIRE M7',
 				                 'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_C 31; UPDATE_FLAG SELP_M7 FLAG_V 30; UPDATE_FLAG SELP_M7 FLAG_N 29; UPDATE_FLAG SELP_M7 FLAG_Z 28; FIRE M7'],
 				    fire_name: ['svg_p:text3703'],
-				    draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
+				    draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331', 'svg_p:path3261-8-7', 'svg_p:path3261-8-7-5']],
 				    draw_name: [[], ['svg_p:path3697']] };
 
 	 sim_p.signals["SELA"]   = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
@@ -787,8 +785,8 @@ function cpu_ep2_register ( sim_p )
 			              draw_name: [['svg_p:path3121']] };
 
 	 sim_p.signals["SE"]     = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
+			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE T11; FIRE_IFCHANGED SE BW",
+			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE T11; FIRE_IFCHANGED SE BW"],
                                       depends_on: ["T3", "T11"],
 			              fire_name: ['svg_cu:text3147-5-6', 'svg_p:text3593', 'svg_p:text3431'],
 			              draw_data: [[]],
@@ -3168,7 +3166,7 @@ function cpu_ep2_register ( sim_p )
 			      belongs:           "CPU",
 			      states:            {
 						   "in":    {
-							      ref:  "BS_TD"
+							      ref:  "REG_MBR"
 							    },
 						   "out":   {
 							      ref:  "BUS_DB"
@@ -3260,7 +3258,7 @@ function cpu_ep2_register ( sim_p )
 							       ref:  "BUS_IB"
 							    },
 						   "mux_1": {
-							       ref:  "BS_M1"
+							       ref:  "BUS_DB"
 							    },
 						   "mux_o": {
 							       ref:  "M1_C1"
@@ -3904,49 +3902,6 @@ function cpu_ep2_register ( sim_p )
 			      states_inputs:     [ "mux_i" ],
 			      states_outputs:    [ "mux_o" ],
 			      signals_inputs:    [ "se", "size", "offset" ],
-			      signals_output:    [ ],
-			      states_mapping:    [ ]
-	                   } ;
-
-        sim_p.elements.byte_selector = {
-			      name:              "Byte Selector",
-			      description:       "Main memory byte selector",
-			      type:              "subcomponent",
-			      belongs:           "CPU",
-			      states:            {
-						   "from_mbr":  {
-								  ref:  "REG_MBR"
-								},
-						   "from_data": {
-								  ref:  "BUS_DB"
-								},
-						   "be":        {
-								  ref:  "BE"
-								},
-						   "to_mbr":    {
-								  ref:  "BS_M1"
-								},
-						   "to_td":     {
-								  ref:  "BS_TD"
-								}
-						 },
-			      signals:           {
-						   "w":         {
-								  ref:  "W"
-								},
-						   "se":        {
-								  ref:  "SE"
-								},
-						   "a1a0":      {
-								  ref:  "A1A0"
-								},
-						   "bw":        {
-								  ref:  "BW"
-								}
-						 },
-			      states_inputs:     [ "from_mbr", "from_data" ],
-			      states_outputs:    [ "be", "to_mbr", "to_td" ],
-			      signals_inputs:    [ "w", "se", "a1a0", "bw" ],
 			      signals_output:    [ ],
 			      states_mapping:    [ ]
 	                   } ;
