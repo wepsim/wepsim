@@ -749,10 +749,17 @@
 
 	function fullshow_dbg_ir ( decins )
 	{
+	     // skip if no user interface is available
 	     if (typeof document === "undefined") {
 	         return ;
              }
 
+	     // if decoded_instruction is 0 then no instruction has been decoded yet
+	     if (0 == decins) {
+	         decins = '' ;
+             }
+
+	     // update form processor and control unit...
 	     var o = document.getElementById('svg_p');
 	     if (o != null) o = o.contentDocument;
 	     if (o != null) o = o.getElementById('tspan3899');
