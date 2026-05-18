@@ -4,7 +4,7 @@
    preserveAspectRatio="xMinYMin meet"
    version="1.0"
    viewBox="25 0 835 615"
-   sodipodi:docname="processor.svg"
+   sodipodi:docname="processor-alt1.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,9 +25,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2.8865522"
-     inkscape:cx="345.22154"
-     inkscape:cy="315.08178"
+     inkscape:zoom="2.0411006"
+     inkscape:cx="462.74053"
+     inkscape:cy="290.28456"
      inkscape:window-width="3758"
      inkscape:window-height="2091"
      inkscape:window-x="0"
@@ -124,62 +124,63 @@
        line-height="125%">Address Bus</tspan></text>
   <path
      id="path3009"
-     d="m289.41 571.6 36.6-.36694v-1.1468l-36.6.36695z"
-     stroke="#000"
+     d="m 281.38795,561.62205 27.1674,-0.37763 v -1.18021 l -27.1674,0.37764 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.305905" />
   <path
      id="path3011"
-     d="m293.73 541.27h65.035v2.0936h-65.03z"
-     stroke="#000"
+     d="m 294.29733,541.85388 h 69.14649 v 1.34754 h -69.14118 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.29077" />
   <path
      id="path3013"
-     d="m399.46 540.75h68.698v2.0932h-68.7z"
-     stroke="#000"
+     d="m 388.85687,541.66685 h 77.23023 v 1.46964 h -77.23249 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.310949" />
   <path
      id="path3015"
-     d="m337.33 579.8h87.383v2.0935h-87.38z"
-     stroke="#000"
+     d="M 314.45303,568.57785 H 445.7571 v 1.3232 H 314.45753 Z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.341092" />
   <path
      id="path3017"
-     d="m293.9 541.06 44.981 39.249-1.6147 1.5281-44.981-39.249z"
-     stroke="#000"
+     d="m 295.60557,542.66004 19.41923,26.63604 -1.02363,0.65374 -19.41922,-26.63605 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.192493" />
   <path
      id="path3019"
-     d="m468.15 541.06-44.981 39.249 1.6147 1.5281 44.981-39.249z"
-     stroke="#000"
+     d="m 465.3978,541.67833 -21.08127,28.03789 1.56045,0.24044 21.08125,-28.0379 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.212764" />
   <path
      id="path3021"
-     d="m357.08 540.91 22.491 11.869-1.1533 1.8001-22.491-11.847z"
-     stroke="#000"
+     d="m 362.78407,541.69572 14.48748,8.95681 -1.5624,0.56034 -14.49499,-8.94749 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.223608" />
   <path
      id="path3023"
-     d="m378.85 554.22 23.231-11.542-1.1913-1.7742-23.231 11.563z"
-     stroke="#000"
+     d="m 375.84717,551.57949 14.28867,-9.34919 -1.40841,-0.60994 -14.28268,9.35886 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.220837" />
   <text
      id="text3025"
-     transform="scale(1.0498 .95257)"
-     x="338.43329"
-     y="601.88049"
+     transform="scale(1.0497958,0.9525662)"
+     x="341.28845"
+     y="592.54901"
      fill="#000000"
      font-family="Arial"
-     font-size="23.382px"
+     font-size="23.3821px"
      line-height="125%"
-     xml:space="preserve">ALU</text>
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:1">ALU</text>
   <path
      id="path3027"
      d="m133.23 486.3c0-.44832.29315-.80223.69097-.80223h92.421c.39784 0 .71193.35391.71193.80223v73.521c0 .44832-.31409.80225-.71193.80225h-92.421c-.39782 0-.69097-.35393-.69097-.80225zm1.3819 73.521-.69099-.77862h92.421l-.69096.77862v-73.52l.69096.77865h-92.421l.69-.78z"
@@ -326,16 +327,16 @@
      stroke-width="0.35" />
   <path
      id="path3059"
-     d="M 142.70274,381.58274 V 240.83078 h -1.14528 v 140.75196 z"
+     d="M 146.70274,381.58274 V 240.83078 h -1.14528 v 140.75196 z"
      stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.366193" />
   <path
      id="path3061"
-     d="m 141.79656,240.26392 h 60.26208 v 1.05406 h -60.26208 z"
+     d="m 145.96753,240.25851 h 56.09652 v 1.06488 h -56.09652 z"
      stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.357837" />
+     stroke-width="0.347016" />
   <path
      id="path3063"
      d="m 201.96287,240.44334 -0.004,17.49543 -1.2305,0.52863 -0.0957,-17.89812 z m 4.28119,16.79332 -5.05164,8.15251 -4.78619,-8.19355 9.88238,0.003 z"
@@ -1167,20 +1168,21 @@
      stroke-width="0.35" />
   <path
      id="path3301"
-     d="m310.78 565.01-6.3886 10.299 1.0373.50238 6.3886-10.299z"
-     stroke="#000"
+     d="m 296.78,555.01 -6.3886,10.299 1.0373,0.50238 6.3886,-10.299 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <text
      id="text3303"
-     transform="scale(1.0547 .94815)"
-     x="240.74931"
-     y="606.04669"
+     transform="scale(1.0546927,0.94814347)"
+     x="233.16583"
+     y="595.50397"
      fill="#000000"
      font-family="Arial"
-     font-size="16.311px"
+     font-size="16.3111px"
      line-height="125%"
-     xml:space="preserve">Cop</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">Cop</text>
   <path
      id="path3305"
      d="m346.98 405.84h13.486v1.167h-13.49z"
@@ -1231,10 +1233,10 @@
      stroke-width="0.35" />
   <path
      id="path3321"
-     d="m377.05 592.28h197.04v1.0596h-197.04z"
-     stroke="#000"
+     d="M 387.53596,580.27602 H 574.3228 v 1.06756 H 387.53596 Z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.342048" />
   <path
      id="path3323"
      d="m612.24 478.98v22.115h-1.1702v-22.12z"
@@ -1261,26 +1263,27 @@
      stroke-width="0.35" />
   <path
      id="path3331"
-     d="m434.22 572.07h279.77v1.0611h-279.77z"
-     stroke="#000"
+     d="m 352.30294,595.09322 h 361.8291 v 1.0207 h -361.8291 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.390385" />
   <path
      id="path3333"
-     d="m514.97 566.16-6.3886 10.598 1.0373.48752 6.3886-10.598z"
-     stroke="#000"
+     d="m 371.52214,589.16302 -6.3886,10.598 1.0373,0.48752 6.3886,-10.598 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <text
      id="text3335"
-     transform="scale(1.0547 .94815)"
-     x="478.68298"
-     y="599.22083"
+     transform="scale(1.0546927,0.94814347)"
+     x="342.67621"
+     y="623.48608"
      fill="#000000"
      font-family="Arial"
-     font-size="11.893px"
+     font-size="11.8931px"
      line-height="125%"
-     xml:space="preserve">4</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">4</text>
   <path
      id="path3337"
      d="m 552.19,229.7 h 14.273 v 1.6724 h -14.27 z"
@@ -1615,14 +1618,15 @@
      xml:space="preserve">M2</text>
   <text
      id="text3473"
-     transform="scale(1.0613 .94225)"
-     x="281.74008"
-     y="602.36584"
+     transform="scale(1.0612947,0.94224535)"
+     x="268.55005"
+     y="591.75574"
      fill="#000000"
      font-family="Arial"
-     font-size="11.818px"
+     font-size="11.8181px"
      line-height="125%"
-     xml:space="preserve">5</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">5</text>
   <text
      id="text3475"
      transform="scale(1.047 .95511)"
@@ -1915,8 +1919,8 @@
      xml:space="preserve">SE</text>
   <path
      id="path3643"
-     d="m765.05 564.99v-11.361h-1.1794v11.361z"
-     stroke="#000"
+     d="m 765.06668,564.89365 v -9.28681 h -1.18088 v 9.28681 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -1999,21 +2003,23 @@
      stroke-width="0.35" />
   <text
      id="text3669"
-     transform="scale(1.0547 .94815)"
-     x="698.04803"
-     y="612.39508"
+     transform="scale(1.0546927,0.94814347)"
+     x="697.80408"
+     y="609.67932"
      fill="#000000"
      font-family="Arial"
-     font-size="14.867px"
+     font-size="14.8671px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5211"
-       x="698.04803"
-       y="612.39508">I  </tspan></text>
+       x="697.80408"
+       y="609.67932"
+       style="stroke-width:1.00001">I  </tspan></text>
   <path
      id="path3671"
-     d="m696.19 566.4-6.3872 10.958 1.0221.51412 6.4147-11.012z"
-     stroke="#000"
+     d="m 678.74214,589.40302 -6.3872,10.958 1.0221,0.51412 6.4147,-11.012 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <text
@@ -2028,8 +2034,8 @@
      xml:space="preserve">M7</text>
   <path
      id="path3675"
-     d="m712.71 572.56v-13.517h1.5572v13.517zm-3.6607-7.5516 4.4157-10.938 5.5118 11.044-9.9334.0415z"
-     stroke="#000"
+     d="m 712.71,574.56 v -13.517 h 1.5572 v 13.517 z m -3.6607,-7.5516 4.4157,-10.938 5.5118,11.044 -9.9334,0.0415 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -2056,8 +2062,8 @@
      stroke-width="0.35" />
   <path
      id="path3683"
-     d="m692.25 521.52c0-.41979.30038-.71369.68657-.71369h93.279c.38613 0 .72941.2939.72941.71369v31.738c0 .37782-.34328.6717-.72941.6717h-93.279c-.38619 0-.68657-.29388-.68657-.6717zm1.4159 31.738-.72936-.71368h93.279l-.72942.71368v-31.74l.72942.67172h-93.279l.72936-.67172z"
-     stroke="#000"
+     d="m 692.25,523.52 c 0,-0.41979 0.30038,-0.71369 0.68657,-0.71369 h 93.279 c 0.38613,0 0.72941,0.2939 0.72941,0.71369 v 31.738 c 0,0.37782 -0.34328,0.6717 -0.72941,0.6717 h -93.279 c -0.38619,0 -0.68657,-0.29388 -0.68657,-0.6717 z m 1.4159,31.738 -0.72936,-0.71368 h 93.279 l -0.72942,0.71368 v -31.74 l 0.72942,0.67172 h -93.279 l 0.72936,-0.67172 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -2068,20 +2074,21 @@
      stroke-width="0.35" />
   <path
      id="path3687"
-     d="m685.73 532.36-6.8367 11.234 1.0373.50872 6.8367-11.234z"
-     stroke="#000"
+     d="m 685.73,534.36 -6.8367,11.234 1.0373,0.50872 6.8367,-11.234 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <text
      id="text3689"
-     transform="scale(1.0547 .94815)"
-     x="637.68512"
-     y="564.00641"
+     transform="scale(1.0546927,0.94814346)"
+     x="637.68951"
+     y="566.11969"
      fill="#000000"
      font-family="Arial"
-     font-size="11.893px"
+     font-size="11.8931px"
      line-height="125%"
-     xml:space="preserve">2</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">2</text>
   <path
      id="path3691"
      d="m725.09 512.06v-8.7701h-1.5558v8.7701zm3.9602-7.5489-4.7148-7.401-4.7148 7.401h9.4293z"
@@ -2090,20 +2097,20 @@
      stroke-width="0.35" />
   <path
      id="path3693"
-     d="m693.94 510.99h30.984v1.0732h-30.986z"
-     stroke="#000"
+     d="m 693.94,511.68288 h 30.984 v 1.0732 h -30.986 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
      id="path3695"
-     d="m748.26 521.75.0943-16.726-1.5554-.0484-.0944 16.726 1.5554.0485zm4.0063-15.126-4.619-9.6962-4.8076 9.6478 9.4267.0485z"
-     stroke="#000"
+     d="m 748.25888,523.95408 0.0942,-18.20617 -1.55295,-0.0527 -0.0942,18.20617 1.55295,0.0528 z m 3.99999,-16.46458 -4.61172,-10.55427 -4.80002,10.50159 9.41184,0.0528 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
      id="path3697"
-     d="m665.55 537.96h26.807v1.0618h-26.81z"
-     stroke="#000"
+     d="m 665.55,539.96 h 26.807 v 1.0618 h -26.81 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -2114,18 +2121,19 @@
      stroke-width="0.35" />
   <text
      id="text3703"
-     transform="scale(1.0547 .94815)"
-     x="595.15955"
-     y="571.08093"
+     transform="scale(1.0546927,0.94814346)"
+     x="595.16364"
+     y="573.19427"
      fill="#000000"
      font-family="Arial"
-     font-size="16.311px"
+     font-size="16.3111px"
      line-height="125%"
-     xml:space="preserve">SelP</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">SelP</text>
   <path
      id="path3705"
-     d="m739.6 564.96v-11.361h-1.1794v11.361z"
-     stroke="#000"
+     d="m 739.5848,564.86913 v -9.28681 h -1.18088 v 9.28681 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <text
@@ -2707,14 +2715,15 @@
   </g>
   <text
      id="text3893"
-     transform="scale(1.0547 .94815)"
-     x="679.40063"
-     y="565.37646"
+     transform="scale(1.0546927,0.94814346)"
+     x="679.40533"
+     y="567.48975"
      fill="#000000"
      font-family="Arial"
-     font-size="13.801px"
+     font-size="13.8011px"
      line-height="125%"
-     xml:space="preserve">SELEC</text>
+     xml:space="preserve"
+     style="stroke-width:1.00001">SELEC</text>
   <path
      id="path3895"
      d="m 220.37603,102.78057 v 50.09332 h -1.56801 v -50.09134 z m 3.93794,48.74789 -4.71624,8.0294 -4.71624,-8.0294 z"
@@ -2871,8 +2880,8 @@
        line-height="125%">1</tspan></text>
   <path
      id="path3261-8"
-     d="m378.63 580.86v12.019h-1.4003v-12.02z"
-     stroke="#000"
+     d="m 388.63,568.86 v 12.019 h -1.4003 v -12.02 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -2996,52 +3005,58 @@
      stroke-width="0.51667" />
   <text
      id="text3891-1"
-     transform="scale(1.0547 .94815)"
-     x="669.49628"
-     y="579.83649"
+     transform="scale(1.0546927,0.94814346)"
+     x="669.50092"
+     y="581.94989"
      fill="#000000"
      font-family="Arial"
-     font-size="12.547px"
+     font-size="12.5471px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan3836"
-       x="669.49628"
-       y="579.83649"
+       x="669.50092"
+       y="581.94989"
        font-family="Arial"
-       font-size="12.547px"
-       line-height="125%">11</tspan></text>
+       font-size="12.5471px"
+       line-height="125%"
+       style="stroke-width:1.00001">11</tspan></text>
   <text
      id="text3891-1-7"
-     transform="scale(1.0547 .94815)"
-     x="693.49023"
-     y="580.14331"
+     transform="scale(1.0546927,0.94814346)"
+     x="693.495"
+     y="582.25671"
      fill="#000000"
      font-family="Arial"
-     font-size="12.547px"
+     font-size="12.5471px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan3856"
-       x="693.49023"
-       y="580.14331"
+       x="693.495"
+       y="582.25671"
        font-family="Arial"
-       font-size="12.547px"
-       line-height="125%">10</tspan></text>
+       font-size="12.5471px"
+       line-height="125%"
+       style="stroke-width:1.00001">10</tspan></text>
   <text
      id="text3891-1-7-6"
-     transform="scale(1.0547 .94815)"
-     x="718.01794"
-     y="579.83655"
+     transform="scale(1.0546927,0.94814346)"
+     x="718.02289"
+     y="581.94995"
      fill="#000000"
      font-family="Arial"
-     font-size="12.547px"
+     font-size="12.5471px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan3876"
-       x="718.01794"
-       y="579.83655"
+       x="718.02289"
+       y="581.94995"
        font-family="Arial"
-       font-size="12.547px"
-       line-height="125%">01</tspan></text>
+       font-size="12.5471px"
+       line-height="125%"
+       style="stroke-width:1.00001">01</tspan></text>
   <text
      id="text3663-7"
      transform="scale(1.0547 .94815)"
@@ -3396,17 +3411,19 @@
   </g>
   <text
      id="text3669-1"
-     transform="scale(1.0547 .94815)"
-     x="719.55945"
-     y="612.36298"
+     transform="scale(1.0546927,0.94814346)"
+     x="719.60999"
+     y="608.82397"
      fill="#000000"
      font-family="Arial"
-     font-size="14.867px"
+     font-size="14.8671px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5213"
-       x="719.55945"
-       y="612.36298">U  </tspan></text>
+       x="719.60999"
+       y="608.82397"
+       style="stroke-width:1.00001">U  </tspan></text>
   <path
      id="path3419-1-0"
      d="m 265.4329,274.59866 v -22.37394 h -1.05968 v 22.37394 z"
@@ -3515,68 +3532,76 @@
      stroke-width="0.381853" />
   <text
      id="text3701-3"
-     transform="scale(1.0547 .94815)"
-     x="562.68884"
-     y="621.56836"
+     transform="scale(1.0546927,0.94814347)"
+     x="563.78033"
+     y="623.50275"
      fill="#000000"
      font-family="Arial"
-     font-size="15.056px"
+     font-size="15.0561px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5209"
-       x="562.68884"
-       y="621.56836"
+       x="563.78033"
+       y="623.50275"
        font-family="Arial"
-       font-size="15.056px"
-       line-height="125%">C  </tspan></text>
+       font-size="15.0561px"
+       line-height="125%"
+       style="stroke-width:1.00001">C  </tspan></text>
   <text
      id="text3701-3-1"
-     transform="scale(1.0547 .94815)"
-     x="583.47736"
-     y="621.56836"
+     transform="scale(1.0546927,0.94814347)"
+     x="584.56903"
+     y="623.50275"
      fill="#000000"
      font-family="Arial"
-     font-size="15.056px"
+     font-size="15.0561px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5203"
-       x="583.47736"
-       y="621.56836"
+       x="584.56903"
+       y="623.50275"
        font-family="Arial"
-       font-size="15.056px"
-       line-height="125%">V  </tspan></text>
+       font-size="15.0561px"
+       line-height="125%"
+       style="stroke-width:1.00001">V  </tspan></text>
   <text
      id="text3701-3-5"
-     transform="scale(1.0547 .94815)"
-     x="623.99335"
-     y="621.56836"
+     transform="scale(1.0546927,0.94814347)"
+     x="625.08527"
+     y="623.50275"
      fill="#000000"
      font-family="Arial"
-     font-size="15.056px"
+     font-size="15.0561px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5207"
-       x="623.99335"
-       y="621.56836"
+       x="625.08527"
+       y="623.50275"
        font-family="Arial"
-       font-size="15.056px"
-       line-height="125%">Z  </tspan></text>
+       font-size="15.0561px"
+       line-height="125%"
+       style="stroke-width:1.00001">Z  </tspan></text>
   <text
      id="text3701-3-2"
-     transform="scale(1.0547 .94815)"
-     x="603.36224"
-     y="621.56836"
+     transform="scale(1.0546927,0.94814347)"
+     x="604.45404"
+     y="623.50275"
      fill="#000000"
      font-family="Arial"
-     font-size="15.056px"
+     font-size="15.0561px"
      line-height="125%"
-     xml:space="preserve"><tspan
+     xml:space="preserve"
+     style="stroke-width:1.00001"><tspan
        id="tspan5205"
-       x="603.36224"
-       y="621.56836"
+       x="604.45404"
+       y="623.50275"
        font-family="Arial"
-       font-size="15.056px"
-       line-height="125%">N  </tspan></text>
+       font-size="15.0561px"
+       line-height="125%"
+       style="stroke-width:1.00001">N  </tspan></text>
   <path
      id="path3901-6-9"
      d="m569.65 501.34v-.23315l.0472-.50871c0-.0848.0235-.19076.0709-.27554l.14142-.4663c.0236-.0848.071-.14839.0944-.23316l.23575-.42393c.0472-.0848.0943-.14838.16502-.23316l.30645-.36035c.0472-.0636.11793-.12718.18861-.16956l.3772-.31792c.0709-.0635.16502-.12717.25933-.16958l.42435-.23316c.11791-.0424.21215-.10599.33001-.12717l.4951-.14838c.0943-.0212.18856-.0424.28289-.0424l.51866-.0636h.35358l.51865.0636c.0942 0 .21219.0213.30647.0424l.47149.14838c.11792.0424.23577.0848.35362.14838l.42436.23315c.0709.0424.14143.0848.21216.12718l.37717.31794c.0942.0635.16505.12717.21221.19074l.30646.36035c.0709.0848.11793.14837.16504.23316l.23573.42393c.0473.0848.0709.14836.0945.23316l.16501.4663c.0236.0848.0473.19076.0473.27554l.0472.50871c.0236.0848.0236.14837 0 .23315l-.0472.50873c0 .0848-.0236.19076-.0473.27555l-.16501.4663c-.0235.0848-.0471.16956-.0945.23314l-.23573.42392c-.0473.0635-.0944.12718-.14146.19076l-.30646.38155c-.071.0848-.16503.16956-.23576.23315l-.40073.29675c-.0708.0424-.11793.0848-.1886.12715l-.42436.23316c-.1179.0636-.23574.106-.35362.1484l-.4715.12717c-.0943.0212-.21216.0424-.30647.0636l-.51865.0424c-.11791.0213-.23572.0213-.35358 0l-.51866-.0424c-.0944-.0212-.18859-.0424-.28289-.0636l-.4951-.12717c-.11794-.0424-.21213-.0848-.33001-.1484l-.43-.23c-.0943-.0424-.16503-.0848-.23576-.14837l-.37718-.29673c-.0943-.0635-.16504-.12719-.23577-.21195l-.30646-.38155c-.0473-.0635-.0944-.12717-.11795-.19076l-.23572-.42392c-.0473-.0635-.0943-.14838-.11792-.23314l-.14142-.4663c-.0472-.0848-.0709-.19077-.0709-.27555zm3.1824.25437-.0708-.27555.16498.4663-.11792-.23316.23578.40274-.14148-.19077.30651.36035-.2122-.21199.3772.29674-.23574-.14835.44792.23314-.33008-.14835.4715.14835-.28288-.0636.49507.0636h-.35361l.51866-.0636-.30649.0636.49507-.14835-.35363.14835.42435-.23314-.18863.12717.37721-.29675-.23573.23318.30647-.36035-.14144.19077.23575-.40274-.0943.23316.14142-.4663-.0471.27555.0471-.48752v.24l-.0471-.48749.0471.27554-.14142-.4663.0943.23314-.23575-.42392.16501.21196-.30649-.36033.18861.21197-.37719-.29675.21218.12717-.42435-.23317.35363.1484-.49507-.12718.30649.0424-.51866-.0424h.35361l-.49507.0424.28288-.0424-.4715.12718.33008-.12718-.44792.23317.25932-.1696-.3772.29675.18862-.19076-.30651.36033.16504-.21196-.23577.42392.0945-.23314-.16499.4663.071-.27554-.0472.48749v-.23315z"
@@ -3589,8 +3614,8 @@
      fill-rule="evenodd" />
   <path
      id="path3317-9"
-     d="m574.83 503.71v89.344h-1.1859v-89.34z"
-     stroke="#000"
+     d="m 574.84015,503.69985 v 77.94665 h -1.2062 v -77.94316 z"
+     stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.35" />
   <path
@@ -3772,4 +3797,16 @@
      line-height="125%"
      xml:space="preserve"
      style="stroke-width:0.84277">SE</text>
+  <path
+     id="path3261-8-7"
+     d="m 353.00358,569.49713 v 26.04156 h -1.26134 v -26.04373 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.48896" />
+  <path
+     id="path3261-8-7-5"
+     d="m 714.26015,569.70726 v 26.04156 h -1.26134 v -26.04373 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.48896" />
 </svg>

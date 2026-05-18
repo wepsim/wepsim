@@ -45,8 +45,8 @@
 		'help_03_03':		'Referenskort för den simulerade elementhanteraren hårdvara',
 		'License, platforms, etc.':		'Licens, plattformar etc.',
 		'help_04_01':		'WepSIM-licens, stödja plattformar, använd teknik',
-		'Authors':		'Författare',
-		'help_04_02':		'Författare till WepSIM',
+		'Authors':		'WepSIM-teamet',
+		'help_04_02':		'WepSIM-teamet',
 		'_last_':		'_last_'
 
     };
