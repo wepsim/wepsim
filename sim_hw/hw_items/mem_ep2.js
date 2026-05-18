@@ -108,11 +108,11 @@ function mem_ep2_register ( sim_p )
                                                                 "comments":        null
                                                              } ;
                                                  var valref = main_memory_set(sim_p.internal_states.MP,
-                                                                              elto, 
+                                                                              elto,
                                                                               melto) ;
 
-                                                 show_main_memory(sim_p.internal_states.MP, 
-                                                                  elto, 
+                                                 show_main_memory(sim_p.internal_states.MP,
+                                                                  elto,
                                                                   (typeof valref === "undefined"),
                                                                   true) ;
 
@@ -131,7 +131,7 @@ function mem_ep2_register ( sim_p )
 
         sim_p.internal_states.CM_cfg    = [] ;
         sim_p.internal_states.CM        = [] ;
-  
+
 
 	/*
 	 *  States
@@ -163,148 +163,81 @@ function mem_ep2_register ( sim_p )
         sim_p.signals.R         = { name: "R",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP; CHECK_RTD",
-                                                "MEM_READ MAR_MEM_R BUS_DB BWA MRDY CLK; FIRE MRDY; CHECK_RTD"],
+					        "MEM_READ MAR_MEM_R BUS_DB BW SE CLK MRDY; FIRE M1; FIRE MRDY; CHECK_RTD"],
                                      fire_name: ['svg_p:text3533-5-2','svg_p:text3713'],
                                      draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
                                      draw_name: [[], []] };
         sim_p.signals.W         = { name: "W",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      behavior: ["NOP",
-                                                "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
+					        "MEM_WRITE BUS_AB BUS_DB BW SE CLK MRDY; FIRE M1; FIRE MRDY"],
                                      fire_name: ['svg_p:text3533-5-08','svg_p:text3527'],
                                      draw_data: [[], ['svg_p:path3559','svg_p:path3575']],
                                      draw_name: [[], []] };
 
-	/* W-Byte & R-Byte Selector */
-	 sim_p.signals["BW"]     =  { name: "BW",
-		                      verbal: ['Select one byte (based on A1A0) from Word. ',
-                                               'Select two bytes (one Half Word based on A1A0) from Word. ',
-                                               '',
-                                               'Select the full Word. '],
-                                      visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-		                      behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				                 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				                 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				                 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW'],
-				       fire_name: ['svg_p:text3533-5'],
-				       draw_data: [['svg_p:path3061-2-6','svg_p:path3101-8','svg_p:path3535-8']],
-				       draw_name: [[],[]] };
-	 sim_p.signals["A1A0"]     = { name: "A1A0", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
-				       behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					          'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					          'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					          'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
-				       fire_name: [],
-				       draw_data: [[],[]],
-				       draw_name: [[],[]] };
-
-	 sim_p.signals["DB_UPDATED"] = { name: "DB_UPDATED", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ['FIRE BW',
-					         'FIRE SBWA'],
-			              fire_name: [],
-			              draw_data: [[]],
-			              draw_name: [[]] };
-
-	 sim_p.signals["BWA"]    = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
-				    behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 8 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 16 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 24 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					       'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				     fire_name: [],
-				     draw_data: [[],[]],
-				     draw_name: [[],[]] };
-	 sim_p.signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
-				    behavior: ['BSEL BS_M1 0 8 BUS_DB 0; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 8; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 16; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 24; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 0; EXT_SIG BS_M1 7; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 8; EXT_SIG BS_M1 7; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 16; EXT_SIG BS_M1 7; FIRE M1',
-					       'BSEL BS_M1 0 8 BUS_DB 24; EXT_SIG BS_M1 7; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					       'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1',
-					       'MV BS_M1 BUS_DB; FIRE M1'],
-				    fire_name: [],
-				    draw_data: [[],[]],
-				    draw_name: [[],[]] };
+        sim_p.signals.BW       = { name: "BW",
+                                     verbal: ['Access to one byte from memory. ',
+                                              'Access to two bytes from memory. ',
+                                              'Access to three bytes from memory. ',
+                                              'Access to a word from memory. '],
+                                     visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+                                     behavior: ['FIRE R; FIRE W',
+				    	        'FIRE R; FIRE W',
+					        'FIRE R; FIRE W',
+					        'FIRE R; FIRE W'],
+                                     fire_name: ['svg_p:text3533-5'],
+                                     draw_data: [['svg_p:path3535-8', 'svg_p:path3101-8']],
+                                     draw_name: [[],[]] };
 
 
         /*
          *  Syntax of behaviors
          */
 
-        sim_p.behaviors.MEM_READ   = { nparameters: 6,
-                                        types: ["E", "E", "S", "S", "E"],
+        sim_p.behaviors.MEM_READ    = { nparameters: 7,
+                                        types: ["E", "E", "S", "S", "E", "S"],
                                         operation: function (s_expr)
                                                    {
-                                                      var address = sim_p.states[s_expr[1]].value;
-                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+						      var address =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue =  sim_p.states[s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var se      = sim_p.signals[s_expr[4]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      sim_p.signals[s_expr[4]].value = 0;
-                                                      var remain = get_value(sim_p.internal_states.MP_wc);
-                                                      if (
+                                                      sim_p.signals[s_expr[6]].value = 0;
+						      var remain = get_value(sim_p.internal_states.MP_wc);
+						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
-                                                           (sim_p.events.mem[clk-1] > 0)
+						           (sim_p.events.mem[clk-1] > 0)
                                                          ) {
-                                                              remain = sim_p.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1] - 1;
                                                            }
-                                                      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
-                                                      sim_p.events.mem[clk] = remain;
+						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
+						      sim_p.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
-                                                      address = address & 0xFFFFFFFC;
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       address) ;
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
                                                           full_redraw = true ;
-                                                      }
+               					      }
 
-                                                      // BW -> See Tables in Help
-                                                      dbvalue = main_memory_fusionvalues(dbvalue, value, bw) ;
+                                                      // bit-width
+						      dbvalue = main_memory_extractvalues(value,
+											  bw,
+											  (address & 0x00000003)) ;
 
-                                                      sim_p.states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     sim_p.signals[s_expr[4]].value = 1;
-                                                      show_main_memory(sim_p.internal_states.MP, address, full_redraw, false) ;
+						      if (1 == se)
+                                                           dbvalue = (dbvalue  >> 0) ;
+						      else dbvalue = (dbvalue >>> 0) ;
+
+                                                      sim_p.states[s_expr[2]].value = dbvalue;
+                                                     sim_p.signals[s_expr[6]].value = 1;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
 
                                                       // cache
                                                       if (first_time)
@@ -319,92 +252,99 @@ function mem_ep2_register ( sim_p )
                                                    },
                                            verbal: function (s_expr)
                                                    {
-                                                      var verbal = "" ;
+					              var verbal = "" ;
 
-                                                      var address = sim_p.states[s_expr[1]].value;
+						      var address = sim_p.states[s_expr[1]].value;
                                                       var dbvalue = sim_p.states[s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
-                                                          bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                          bw_type = "half" ;
+                                                      // bit-width
+						      switch (bw)
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
 
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        address) ;
-                                                      if (typeof value === "undefined")
-                                                          value = 0 ;
-
-                                                      var verbose = get_cfg('verbal_verbose') ;
-                                                      if (verbose !== 'math') {
-                                                          verbal = "Try to read a " + bw_type + " from memory " +
-                                                                   "at address 0x"  + address.toString(16) + " with value 0x" + value.toString(16) + ". " ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
                                                       }
 
-                                                      verbal = "Memory output = 0x" + value.toString(16) +
-                                                               " (Read a " + bw_type +
-                                                               " from 0x" + address.toString(16)  + "). " ;
+                                                      verbal = "Try to read a " + bw_type + " from memory " +
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }
                                       };
 
-        sim_p.behaviors.MEM_WRITE  = { nparameters: 6,
-                                        types: ["E", "E", "S", "S", "E"],
+        sim_p.behaviors.MEM_WRITE  = { nparameters: 7,
+                                        types: ["E", "E", "S", "S", "E", "S"],
                                         operation: function (s_expr)
                                                    {
-                                                      var address = sim_p.states[s_expr[1]].value;
-                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+						      var address =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue =  sim_p.states[s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var se      = sim_p.signals[s_expr[4]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      sim_p.signals[s_expr[4]].value = 0;
-                                                      var remain = get_value(sim_p.internal_states.MP_wc);
-                                                      if (
+                                                      sim_p.signals[s_expr[6]].value = 0;
+						      var remain = get_value(sim_p.internal_states.MP_wc);
+						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
-                                                           (sim_p.events.mem[clk-1] > 0)
+						           (sim_p.events.mem[clk-1] > 0)
                                                          ) {
-                                                              remain = sim_p.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1] - 1;
                                                            }
-                                                      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
-                                                      sim_p.events.mem[clk] = remain;
+						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
+						      sim_p.events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
-                                                      address = address & 0xFFFFFFFC;
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       address) ;
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
                                                           full_redraw = true ;
-                                                      }
+               					      }
 
-                                                      // BW -> See Tables in Help
-                                                      value = main_memory_fusionvalues(value, dbvalue, bw) ;
+						      if (1 == se)
+                                                           dbvalue = (dbvalue  >> 0) ;
+						      else dbvalue = (dbvalue >>> 0) ;
 
-                                                      // PC
+                                                      // bit-width
+						      value = main_memory_updatevalues(value,
+									               dbvalue,
+									               bw,
+									               (address & 0x00000003)) ;
+
+						      // PC
                                                       var origin = '' ;
                                                       var r_value = main_memory_get_program_counter() ;
                                                       if (r_value != null) {
-                                                          origin = 'PC=0x' + r_value.toString(16) ;
+						          origin = 'PC=0x' + r_value.toString(16) ;
                                                       }
 
-                                                      // set memory value+source
-                                                      var melto = {
-                                                                     "value":           (value >>> 0),
-                                                                     "source_tracking": [ origin ],
-                                                                     "comments":        null
-                                                                  } ;
-                                                      var valref = main_memory_set(sim_p.internal_states.MP, 
-                                                                                   address,
-                                                                                   melto) ;
+						      var melto = {
+								     "value":           (value >>> 0),
+								     "source_tracking": [ origin ],
+								     "comments":        null
+							          } ;
+                                                      var elto = main_memory_set(sim_p.internal_states.MP,
+                                                                                 wordress,
+										 melto) ;
 
-                                                      sim_p.signals[s_expr[4]].value = 1;
-                                                      show_main_memory(sim_p.internal_states.MP, address, full_redraw, true) ;
+                                                      sim_p.signals[s_expr[6]].value = 1 ;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
 
                                                       // cache
                                                       if (first_time)
@@ -419,35 +359,43 @@ function mem_ep2_register ( sim_p )
                                                    },
                                            verbal: function (s_expr)
                                                    {
-                                                      var verbal = "" ;
+					              var verbal = "" ;
 
-                                                      var address = sim_p.states[s_expr[1]].value;
+						      var address = sim_p.states[s_expr[1]].value;
                                                       var dbvalue = sim_p.states[s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
-                                                      var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
-                                                          bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                          bw_type = "half" ;
+                                                      // bit-width
+						      switch (bw)
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
 
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP,
                                                                                        address) ;
-                                                      if (typeof value === "undefined")
-                                                          value = 0 ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
 
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
                                                           verbal = "Try to write a " + bw_type + " to memory " +
-                                                                   "at address 0x"  + address.toString(16) +
-                                                                   " with value " + value.toString(16) + ". " ;
+							           "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
                                                       }
-
-                                                      verbal = "Memory[0x" + address.toString(16) + "] = " +
-                                                               "0x" + value.toString(16) +
-                                                               " (Write a " + bw_type +
-                                                               " to 0x" + address.toString(16)  + "). " ;
+						      else {
+                                                          verbal = "Memory[0x" + address.toString(16) + "] = " +
+                                                                   "0x" + value.toString(16) +
+                                                                   " (Write a " + bw_type +
+                                                                   " to 0x" + address.toString(16)  + "). " ;
+                                                      }
 
                                                       return verbal ;
                                                    }
