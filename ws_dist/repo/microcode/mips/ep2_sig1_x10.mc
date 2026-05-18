@@ -272,13 +272,9 @@ srl reg1 reg2 val {
          val=imm(5,0),
          help='$r1 = $r2 >>> val',
          {
-             (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
-             (MR=0, SELA=10000, MA=0, MB=11, COP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-      loop9: (A0=0, B=0, C=110, MADDR=bck9ftch),
-             (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=101, T6=1, LC=1, SELC=10101),
-             (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-             (A0=0, B=1, C=0, MADDR=loop9),
-   bck9ftch: (A0=1, B=1, C=0)
+            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (MR=0, SELA=10000, MA=0, MB=01, COP=00101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
          }
 }
 
@@ -290,14 +286,9 @@ sll reg1 reg2 val {
          val=imm(5,0),
          help='$r1 = $r2 << val',
          {
-             (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1, C5=1),
-             (MR=0, SELA=10000, SELB=10000, MA=0, MB=0, COP=1, T6=1, SELC=10101),
-             (MR=0,                         MA=1, MB=1, COP=1, SELP=11, M7, C7),
-             (A0=0, B=0, C=110, MADDR=bckAftch),
-      loopA: (MR=0, SELA=10101, SELB=10101, MA=0, MB=0, COP=111, T6=1, LC=1, SELC=10101),
-             (MR=0, MA=1, MB=11, COP=1011, T6=1, C4=1, SELP=11, M7, C7),
-             (A0=0, B=1, C=110, MADDR=loopA),
-   bckAftch: (A0=1, B=1, C=0)
+            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (MR=0, SELA=10000, MA=0, MB=01, COP=00111, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+            (A0=1, B=1, C=0)
          }
 }
 

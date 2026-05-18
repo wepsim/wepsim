@@ -52,13 +52,13 @@ sret {
        # pop SR
        (MR=1, SELA=11101, T9, C0),
        (MR=1, SELA=11101, MA=0, MB=10, COP=1010, T6=1, SELC=11101, LC=1),
-          (TA),
+       (TA),
        (TA=1, R=1, BW=11, M1=1, C1),
        (T1=1, M7=0, C7),
        # pop PC
        (MR=1, SELA=11101, T9, C0),
        (MR=1, SELA=11101, MA=0, MB=10, COP=1010, T6=1, SELC=11101, LC=1),
-          (TA),
+       (TA),
        (TA=1, R=1, BW=11, M1=1, C1),
        (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
    }
@@ -86,7 +86,7 @@ in reg val {
     val=imm(15,0),
     {
         (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-          (TA),
+        (TA),
         (TA=1, IOR=1, BW=11, M1=1, C1=1),
         (T1=1, LC=1,  MR=0, SELC=10101, A0=1, B=1, C=0)
     }
@@ -100,7 +100,7 @@ out reg val {
     {
        (SE=0, OFFSET=0,   SIZE=10000,   T3=1, C0=1),
        (MR=0, SELA=10101, T9=1,         M1=0, C1=1),
-          (TA),
+       (TA),
        (TA=1, TD=1,       IOW=1, BW=11, A0=1, B=1, C=0)
     }
 }
@@ -116,7 +116,7 @@ lb rd (rs1) {
     rs1=reg(20,16),
     {
        (MR=0, SELA=10000, T9=1, C0),
-          (TA),
+       (TA),
        (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
        (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
     }
@@ -130,7 +130,7 @@ sb rs2 (rs1) {
     {
        (MR=0, SELA=10000, T9=1, C0=1),
        (MR=0, SELA=10101, T9=1, M1=0, C1=1),
-          (TA),
+       (TA),
        (BW=0, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
     }
 }
@@ -236,7 +236,8 @@ mov r1 u32 {
     u32=imm(63,32),
     {
         (T2, C0),
-        (Ta, R, BW=11, M1, C1),
+        (TA, R),
+        (TA, R, BW=11, M1, C1),
         (M2=1, C2),
         (T1, SelC=10000, MR=0, LC),
         (A0=1, B=1, C=0)
@@ -251,7 +252,7 @@ str reg1 (reg2) {
     {
         (MR=0,  SELA=10000, T9=1, C0=1),
         (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
-          (TA),
+        (TA),
         (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
     }
 }
@@ -264,7 +265,7 @@ ldr reg1 (reg2) {
     help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
     {
         (MR=0, SELA=10000, T9=1, C0),
-          (TA),
+        (TA),
         (TA=1, R=1, BW=11, M1=1, C1=1),
         (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
     }
