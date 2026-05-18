@@ -79,9 +79,9 @@
             return ws_info[key] = value ;
 	}
 
-        // authors
+        // WepSIM team
 
-	var wsauthors = [
+	var wsteam = [
 			  {
 			    c_id:    "collapse-author-1",
 			    i_src:   "images/author_fgarcia.png",
@@ -159,5 +159,5 @@
 			  }
                         ] ;
 
-        set_wsinfo('authors', wsauthors) ;
+        set_wsinfo('authors', wsteam) ;
 

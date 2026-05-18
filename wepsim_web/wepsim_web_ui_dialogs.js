@@ -451,7 +451,7 @@
 		     }
          },
 
-	 // authors
+	 // WepSIM team
          about: {
             id:      "about1",
 	    title:    function() {

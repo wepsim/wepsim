@@ -58,7 +58,7 @@
 			      "	</div>" +
 			      "" +
 			      "	<div class='form-group'>" +
-			      "	   <label for='about_authors' class='text-secondary'>Authors:</label>" +
+			      "	   <label for='about_authors' class='text-secondary'>WepSIM Team:</label>" +
 			      "	   <div id='about_" + this.name_str + "' " +
                               "         style='overflow:auto; -webkit-overflow-scrolling:touch;' >"+
 			      "	     <ul>" +

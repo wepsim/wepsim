@@ -47,8 +47,8 @@
 		'help_03_03':		'模拟元素处理器硬件所参考的硬件',
 		'License, platforms, etc.':		'许可证，平台等',
 		'help_04_01':		'WepSIM许可证，支持的平台，使用的技术',
-		'Authors':		'作者',
-		'help_04_02':		'WepSIM的作者',
+		'Authors':		'WepSIM 團隊',
+		'help_04_02':		'WepSIM 團隊',
 		'_last_':		'_last_'
 
     };
