@@ -227,15 +227,9 @@ function mem_ep2_register ( sim_p )
                					      }
 
                                                       // bit-width
-						      dbvalue = main_memory_extractvalues(value,
-											  bw,
-											  (address & 0x00000003)) ;
+						      dbvalue = main_memory_extractvalues(value, bw, (address & 0x00000003), se) ;
 
-						      if (1 == se)
-                                                           dbvalue = (dbvalue  >> 0) ;
-						      else dbvalue = (dbvalue >>> 0) ;
-
-                                                      sim_p.states[s_expr[2]].value = dbvalue;
+                                                      sim_p.states[s_expr[2]].value = (dbvalue >>> 0) ;
                                                      sim_p.signals[s_expr[6]].value = 1;
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
 
@@ -339,9 +333,7 @@ function mem_ep2_register ( sim_p )
 								     "source_tracking": [ origin ],
 								     "comments":        null
 							          } ;
-                                                      var elto = main_memory_set(sim_p.internal_states.MP,
-                                                                                 wordress,
-										 melto) ;
+                                                      var elto = main_memory_set(sim_p.internal_states.MP, wordress, melto) ;
 
                                                       sim_p.signals[s_expr[6]].value = 1 ;
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
