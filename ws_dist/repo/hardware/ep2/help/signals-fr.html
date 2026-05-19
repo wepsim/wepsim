@@ -358,17 +358,15 @@
         </p>
       </div>
 
-          <div id="SELCOP">
-          <div id="MC">
+          <div id="COP">
           <p>
-            <b> MC </b> <b> </b> 1 bit <br>
-            <b> SELCOP </b> <b> </b> 5 bits
+            <b> COP </b> <b> </b> 5 bits
           </p>
           <p>
             Il permet de sélectionner la valeur pour COP.
           </p>
           </div>
-          </div>
+
 
           <div id="SELA">
           <div id="SELB">
@@ -1324,7 +1322,7 @@
 
 	<div id="MH">
           <p>
-            <b>MH</b><b>     </b>             1 bit
+            <b>MH</b><b>     </b>             2 bit
           </p>
           <p>
             Ce signal permet de sélectionner le compteur de performances matérielles (HPC) avec lequel travailler:
@@ -1343,12 +1341,10 @@
         </div>
 
 
-        <div id="SBWA">
-        <div id="BWA">
-<div id="R">
-<div id="W">
-        <div id="BE">
-<div id="MRDY">
+	<div id="R">
+	<div id="W">
+        <div id="BW">
+	<div id="MRDY">
                   <p>
                     <b> R </b> <b> </b> 1 bit <br>
                     <b> W </b> <b> </b> 1 bit <br>
@@ -2418,7 +2414,6 @@ Par défaut, la mémoire lit ou écrit en un cycle d'horloge. Si la mémoire est
                       </tr>
                     </tbody> </table>
                   </div>
-        </div>
         </div>
         </div>
         </div>
@@ -4047,7 +4042,7 @@ Par défaut, la mémoire lit ou écrit en un cycle d'horloge. Si la mémoire est
                 <p>
                   <b>
                   REMARQUE: Ce mécanisme est uniquement destiné à des tests. Vous ne devez pas utiliser ces signals dans la version finale de votre microcode. <br>
-                  Veuillez éviter d'utiliser directement RA, RB, RC et Cop, car sa valeur est générée par SelA (SelB, SelC, SelCop) et MR. <br>
+                  Veuillez éviter d'utiliser directement RA, RB, RC et Cop, car sa valeur est générée par SelA (SelB, SelC, Cop) et MR. <br>
 </b>
                 </p>
                 <p>

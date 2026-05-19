@@ -126,8 +126,8 @@ function mem_rv_register ( sim_p )
 	 */
 
         sim_p.internal_states.segments  = {} ;
-        sim_p.internal_states.MP_wc     = 0 ;
         sim_p.internal_states.MP        = {} ;
+        sim_p.internal_states.MP_wc     = { read:{value:0}, write:{value:0} } ;
 
         sim_p.internal_states.CM_cfg    = [] ;
         sim_p.internal_states.CM        = [] ;
@@ -192,7 +192,7 @@ function mem_rv_register ( sim_p )
                                                       var bw      = sim_p.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[4]]) ;
 
-						      var remain = get_value(sim_p.internal_states.MP_wc);
+						      var remain = get_value(sim_p.internal_states.MP_wc.read);
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
 						           (sim_p.events.mem[clk-1] > 0)
@@ -283,7 +283,7 @@ function mem_rv_register ( sim_p )
                                                       var bw      = sim_p.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[4]]) ;
 
-						      var remain = get_value(sim_p.internal_states.MP_wc);
+						      var remain = get_value(sim_p.internal_states.MP_wc.write);
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
 						           (sim_p.events.mem[clk-1] > 0)
