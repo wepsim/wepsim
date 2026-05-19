@@ -207,8 +207,7 @@ function mem_poc_register ( sim_p )
                                                       }
 
                                                       var wordress = address & 0xFFFFFFFC ;
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       wordress) ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
                                                       var full_redraw = false ;
                                                       if (typeof value === "undefined") {
                                                           value = 0 ;
@@ -216,9 +215,7 @@ function mem_poc_register ( sim_p )
                					      }
 
                                                       // bit-width
-						      dbvalue = main_memory_extractvalues(value,
-											 bw,
-											 (address & 0x00000003)) ;
+						      dbvalue = main_memory_extractvalues(value, bw, (address & 0x00000003), 0) ;
 
                                                       sim_p.states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim_p.signals[s_expr[4]].value = 1;
