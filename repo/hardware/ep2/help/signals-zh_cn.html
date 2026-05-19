@@ -357,17 +357,15 @@
         </p>
       </div>
 
-          <div id ="SELCOP">
-          <div id ="MC">
+          <div id ="COP">
           <p>
-            <b> MC </b> <b> </b> 1位<br>
-            <b> SELCOP </b> <b> </b> 5位
+            <b> COP </b> <b> </b> 5位
           </p>
           <p>
             它允许选择COP的值。
           </p>
           </div>
-          </div>
+
 
           <div id ="SELA">
           <div id ="SELB">
@@ -1417,7 +1415,7 @@
 
 	<div id="MH">
           <p>
-            <b>MH</b><b>     </b>             1 bit
+            <b>MH</b><b>     </b>             2 bit
           </p>
           <p>
             该信号允许选择要使用的硬件性能计数器 (HPC):
@@ -1436,12 +1434,10 @@
         </div>
 
 
-        <div id ="SBWA">
-        <div id ="BWA">
-<div id ="R">
-<div id ="W">
-        <div id ="BE">
-<div id ="MRDY">
+	<div id ="R">
+	<div id ="W">
+        <div id ="BW">
+	<div id ="MRDY">
                   <p>
                     <b> R </b> <b> </b> 1位<br>
                     <b> W </b> <b> </b> 1位<br>
@@ -2511,8 +2507,6 @@
                       </TR>
                     </TBODY> </TABLE>
                   </div>
-        </div>
-        </div>
         </div>
         </div>
         </div>
@@ -4140,7 +4134,7 @@
                 <p>
                   <b>
                   注意：此机制仅用于测试目的。你不应该在你的微代码的最终版本中使用这些信号.<br>
-                  请避免直接使用RA、RB、RC、Cop，因为它的值是由SelA（SelB、SelC、SelCop）和MR产生的.<br>
+                  请避免直接使用RA、RB、RC、Cop，因为它的值是由SelA（SelB、SelC、Cop）和MR产生的.<br>
 		  </b>
                 </p>
                 <p>
