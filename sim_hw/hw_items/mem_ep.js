@@ -332,10 +332,10 @@ function mem_ep_register ( sim_p )
                                                       else if ( 1 == (bw & 0x0000000C) )
                                                           bw_type = "half" ;
 
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       address) ;
-                                                      if (typeof value === "undefined")
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, address) ;
+                                                      if (typeof value === "undefined") {
                                                           value = 0 ;
+						      }
 
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
@@ -345,7 +345,7 @@ function mem_ep_register ( sim_p )
                                                       }
 
                                                       verbal = "Memory[0x" + address.toString(16) + "] = " +
-                                                               "0x" + value.toString(16) +
+                                                               "0x" + dbvalue.toString(16) +
                                                                " (Write a " + bw_type +
                                                                " to 0x" + address.toString(16)  + "). " ;
 

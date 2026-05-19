@@ -357,8 +357,7 @@ function mem_poc_register ( sim_p )
 								 break ;
 						      }
 
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       address) ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
                                                       }

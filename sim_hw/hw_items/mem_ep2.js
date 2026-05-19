@@ -286,7 +286,7 @@ function mem_ep2_register ( sim_p )
 						      var address =  sim_p.states[s_expr[1]].value;
                                                       var dbvalue =  sim_p.states[s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
-                                                      var se      = sim_p.signals[s_expr[4]].value;
+                                                      var se      = sim_p.signals[s_expr[4]].value; // se not used on write operation
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       sim_p.signals[s_expr[6]].value = 0;
@@ -310,10 +310,6 @@ function mem_ep2_register ( sim_p )
                                                           value = 0 ;
                                                           full_redraw = true ;
                					      }
-
-						      if (1 == se)
-                                                           dbvalue = (dbvalue  >> 0) ;
-						      else dbvalue = (dbvalue >>> 0) ;
 
                                                       // bit-width
 						      value = main_memory_updatevalues(value,
@@ -353,9 +349,10 @@ function mem_ep2_register ( sim_p )
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim_p.states[s_expr[1]].value;
-                                                      var dbvalue = sim_p.states[s_expr[2]].value;
-                                                      var bw      = sim_p.signals[s_expr[3]].value;
+						      var address = get_value(sim_p.states[s_expr[1]]) ;
+                                                      var dbvalue = get_value(sim_p.states[s_expr[2]]) ;
+                                                      var bw      = get_value(sim_p.signals[s_expr[3]]) ;
+                                                      var se      = get_value(sim_p.signals[s_expr[4]]) ;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       // bit-width
@@ -371,20 +368,19 @@ function mem_ep2_register ( sim_p )
 								 break ;
 						      }
 
-                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                       address) ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, address) ;
 						      if (typeof value === "undefined") {
 						   	  value = 0 ;
                                                       }
 
                                                       var verbose = get_cfg('verbal_verbose') ;
                                                       if (verbose !== 'math') {
-                                                          verbal = "Try to write a " + bw_type + " to memory " +
+                                                          verbal = "Try to write a " + bw_type + " to memory (" + dbvalue.toString(16) + ") " +
 							           "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
                                                       }
 						      else {
                                                           verbal = "Memory[0x" + address.toString(16) + "] = " +
-                                                                   "0x" + value.toString(16) +
+                                                                   "0x" + dbvalue.toString(16) +
                                                                    " (Write a " + bw_type +
                                                                    " to 0x" + address.toString(16)  + "). " ;
                                                       }
