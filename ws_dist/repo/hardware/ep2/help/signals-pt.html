@@ -357,17 +357,15 @@
         </p>
       </div>
 
-          <div id="SELCOP">
-          <div id="MC">
+          <div id="COP">
           <p>
-            <b> MC </b> <b> </b> 1 bit <br>
-            <b> SELCOP </b> <b> </b> 5 bits
+            <b> COP </b> <b> </b> 5 bits
           </p>
           <p>
             Permite selecionar o valor para o COP.
           </p>
           </div>
-          </div>
+
 
           <div id="SELA">
           <div id="SELB">
@@ -471,7 +469,8 @@
           </p>
         </div>
 
-<div id="MB">
+
+          <div id="MB">
           <p>
             <b> MB </b> <b> </b> 2 bits
           </p>
@@ -555,6 +554,7 @@
 
           </p>
         </div>
+
 
         <div id="COP">
           <p>
@@ -1417,7 +1417,7 @@
 
 	<div id="MH">
           <p>
-            <b>MH</b><b>     </b>             1 bit
+            <b>MH</b><b>     </b>             2 bit
           </p>
           <p>
             Este sinal permite selecionar o Hardware Performance Counter (HPC) para trabalhar com:
@@ -1436,12 +1436,10 @@
         </div>
 
 
-        <div id="SBWA">
-        <div id="BWA">
-<div id="R">
-<div id="W">
-        <div id="BE">
-<div id="MRDY">
+	<div id="R">
+	<div id="W">
+        <div id="BW">
+	<div id="MRDY">
                   <p>
                     <b> R </b> <b> </b> 1 bit <br>
                     <b> W </b> <b> </b> 1 bit <br>
@@ -2511,7 +2509,6 @@ Por padrão, a memória lê ou grava em um ciclo de clock. Se a memória estiver
                       </tr>
                     </tbody> </table>
                   </div>
-        </div>
         </div>
         </div>
         </div>
@@ -4140,7 +4137,7 @@ Por padrão, a memória lê ou grava em um ciclo de clock. Se a memória estiver
                 <p>
                   <b>
                   NOTA: Este mecanismo é apenas para fins de teste. Você não deve usar esses sinais na versão final do seu microcódigo.<br>
-                  Evite usar RA, RB, RC e Cop diretamente porque seus valores são gerados por SelA (SelB, SelC, SelCop) e MR.<br>
+                  Evite usar RA, RB, RC e Cop diretamente porque seus valores são gerados por SelA (SelB, SelC, Cop) e MR.<br>
 		  </b>
                 </p>
                 <p>

@@ -357,17 +357,15 @@
         </p>
       </div>
 
-          <div id="SELCOP">
-          <div id="MC">
+          <div id="COP">
           <p>
-            <b> MC </b> <b> </b> 1 비트 <br>
-            <b> SELCOP </b> <b> </b> 5 비트
+            <b> COP </b> <b> </b> 5 비트
           </p>
           <p>
             COP 값을 선택할 수 있습니다.
           </p>
           </div>
-          </div>
+
 
           <div id="SELA">
           <div id="SELB">
@@ -1417,7 +1415,7 @@
 
 	<div id="MH">
           <p>
-            <b>MH</b><b>     </b>             1 bit
+            <b>MH</b><b>     </b>             2 bit
           </p>
           <p>
             이 신호를 통해 다음과 같이 작업할 하드웨어 성능 카운터(HPC)를 선택할 수 있습니다.
@@ -1436,12 +1434,10 @@
         </div>
 
 
-        <div id="SBWA">
-        <div id="BWA">
-<div id="R">
-<div id="W">
-        <div id="BE">
-<div id="MRDY">
+	<div id="R">
+	<div id="W">
+        <div id="BW">
+	<div id="MRDY">
                   <p>
                     <b> R </b> <b> </b> 1 비트 <br>
                     <b> W </b> <b> </b> 1 비트 <br>
@@ -2511,7 +2507,6 @@
                       </tr>
                     </tbody> </table>
                   </div>
-        </div>
         </div>
         </div>
         </div>
@@ -4140,7 +4135,7 @@
                 <p>
                   <b>
                   참고: 이 메커니즘은 테스트 목적으로만 사용됩니다. 마이크로코드의 최종 버전에서 이러한 신호를 사용하면 안 됩니다.<br>
-                  RA, RB, RC, Cop은 SelA(SelB, SelC, SelCop)와 MR에 의해 값이 생성되므로 직접 사용하지 마십시오.<br>
+                  RA, RB, RC, Cop은 SelA(SelB, SelC, Cop)와 MR에 의해 값이 생성되므로 직접 사용하지 마십시오.<br>
 		  </b>
                 </p>
                 <p>

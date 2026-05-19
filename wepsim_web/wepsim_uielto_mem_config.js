@@ -54,7 +54,7 @@
 	      {
                     var o1 = '' ;
                     var div_hash  = '#config_MP_' + this.name_str ;
-                    var input_div =      'mp_wc_' + this.name_str ;
+                    var input_div = this.name_str ;
 
 		    // if no active hardware -> empty
 		    if (simhw_active() === null) {
@@ -64,16 +64,24 @@
 
 		    // html holder
                     if (this.layout == "card")
-	                 o1 += this.render_populate_as_card(input_div) ;
+	                 o1 += this.render_populate_as_card (input_div) ;
 		    else o1 += this.render_populate_as_table(input_div) ;
 
                     $(div_hash).html(o1) ;
 
 		    // vue binding
-		    var curr_mp_wc = { value: vue_observable(0) } ;
-		    simhw_internalState_reset('MP_wc', curr_mp_wc) ;
-		    vue_appyBinding(curr_mp_wc.value,
-				    '#' + input_div,
+		    var base_mp_wc_read = get_value(simhw_internalState_get('MP_wc', 'read')) ;
+		    var curr_mp_read_wc = { value: vue_observable(base_mp_wc_read) } ;
+		    simhw_internalState_reset('MP_wc.read', curr_mp_read_wc) ;
+		    vue_appyBinding(curr_mp_read_wc.value,
+				    '#mp_wc_read_' + input_div,
+				    function(value){ return value; }) ;
+
+		    var base_mp_wc_write = get_value(simhw_internalState_get('MP_wc', 'write')) ;
+		    var curr_mp_write_wc = { value: vue_observable(base_mp_wc_write) } ;
+		    simhw_internalState_reset('MP_wc.write', curr_mp_write_wc) ;
+		    vue_appyBinding(curr_mp_write_wc.value,
+				    '#mp_wc_write_' + input_div,
 				    function(value){ return value; }) ;
 	      }
 
@@ -84,14 +92,25 @@
 		          "<div class='col p-2'>" +
 			  "<table class='table table-hover table-sm table-bordered m-0'>" +
 			  "<tbody>" +
-			  "<tr><td align=center'>Wait cycles (<u>0</u> - &infin;)</td>" +
+
+			  "<tr><td align=center'>Read wait cycles (<u>0</u> - &infin;)</td>" +
 			  "    <td align=center'>" +
-			  "<div id='" + input_div + "'>" +
+			  "<div id='mp_wc_read_" + input_div + "'>" +
 			  "<input type=number v-model.lazy='value' " +
-                          "       name='input_mem_wait' " +
+                          "       name='input_mem_read_wait' " +
                           "       min='0' max='99999999'>" +
 			  "</div>" +
 			  "    </td></tr>" +
+
+			  "<tr><td align=center'>Write wait cycles (<u>0</u> - &infin;)</td>" +
+			  "    <td align=center'>" +
+			  "<div id='mp_wc_write_" + input_div + "'>" +
+			  "<input type=number v-model.lazy='value' " +
+                          "       name='input_mem_write_wait' " +
+                          "       min='0' max='99999999'>" +
+			  "</div>" +
+			  "    </td></tr>" +
+
 			  "</tbody>" +
 			  "</table>" +
 			  "</div>" +
