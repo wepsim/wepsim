@@ -208,21 +208,21 @@
         {
 	    if ( 0 == (filter & 0x0000000C) )
 	    {  // byte
-		   if ( 0 == (filter & 0x00000003) )
-			dbvalue = (dbvalue & 0xFFFFFF00) | (value & 0x000000FF);
-		   if ( 1 == (filter & 0x00000003) )
-			dbvalue = (dbvalue & 0xFFFF00FF) | (value & 0x0000FF00);
-		   if ( 2 == (filter & 0x00000003) )
-			dbvalue = (dbvalue & 0xFF00FFFF) | (value & 0x00FF0000);
-		   if ( 3 == (filter & 0x00000003) )
-			dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
+		        if ( 0 == (filter & 0x00000003) )
+			     dbvalue = (dbvalue & 0xFFFFFF00) | (value & 0x000000FF);
+		   else if ( 1 == (filter & 0x00000003) )
+			     dbvalue = (dbvalue & 0xFFFF00FF) | (value & 0x0000FF00);
+		   else if ( 2 == (filter & 0x00000003) )
+			     dbvalue = (dbvalue & 0xFF00FFFF) | (value & 0x00FF0000);
+		   else if ( 3 == (filter & 0x00000003) )
+			     dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
 	     }
 	     else if ( 4 == (filter & 0x0000000C) )
 	     {  // half
-		   if ( 0 == (filter & 0x00000002) )
-			dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
-		   if ( 1 == (filter & 0x00000002) )
-			dbvalue = (dbvalue & 0x0000FFFF) | (value & 0xFFFF0000);
+		        if ( 0 == (filter & 0x00000002) )
+			     dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
+		   else if ( 1 == (filter & 0x00000002) )
+			     dbvalue = (dbvalue & 0x0000FFFF) | (value & 0xFFFF0000);
 	     }
 	     else
 	     {  // word
@@ -232,38 +232,66 @@
              return dbvalue ;
         }
 
-        function main_memory_extractvalues ( value, filter_size, filter_elto )
+        function main_memory_extractvalues ( value, filter_size, filter_elto, sign_extension )
         {
              var dbvalue = 0 ;
 
 	     switch (filter_size)
 	     {
 		 case 0: // byte
-			 if ( 0 == filter_elto )
-				dbvalue = (value & 0x000000FF) ;
-			 if ( 1 == filter_elto )
-				dbvalue = (value & 0x0000FF00) >> 8 ;
-			 if ( 2 == filter_elto )
-				dbvalue = (value & 0x00FF0000) >> 16 ;
-			 if ( 3 == filter_elto )
-				dbvalue = (value & 0xFF000000) >> 24 ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: dbvalue = (value & 0x000000FF) ;
+			             break ;
+		             case 1: dbvalue = (value & 0x0000FF00) >> 8 ;
+			             break ;
+		             case 2: dbvalue = (value & 0x00FF0000) >> 16 ;
+			             break ;
+		             case 3: dbvalue = (value & 0xFF000000) >> 24 ;
+			             break ;
+	                 }
+
+			 if (1 == sign_extension)
+			 {
+			     var svalue = (dbvalue & 0x80) >> 7 ;
+			     if (1 == svalue) {
+				 dbvalue = dbvalue | 0xFFFFFF00 ;
+			     }
+			 }
 			 break ;
+
 		 case 1: // half
-			 if ( 0 == filter_elto )
-				dbvalue = (value & 0x0000FFFF) ;
-			 if ( 1 == filter_elto )
-				dbvalue = (value & 0x0000FFFF) ;
-			 if ( 2 == filter_elto )
-				dbvalue = (value & 0xFFFF0000) >> 16 ;
-			 if ( 3 == filter_elto )
-				dbvalue = (value & 0xFFFF0000) >> 16 ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: dbvalue = (value & 0x0000FFFF) ;
+			             break ;
+		             case 1: dbvalue = (value & 0x0000FFFF) ;
+			             break ;
+		             case 2: dbvalue = (value & 0xFFFF0000) >> 16 ;
+			             break ;
+		             case 3: dbvalue = (value & 0xFFFF0000) >> 16 ;
+			             break ;
+	                 }
+
+			 if (1 == sign_extension)
+			 {
+			     var svalue = (dbvalue & 0x8000) >> 15 ;
+			     if (1 == svalue) {
+				 dbvalue = dbvalue | 0xFFFF0000 ;
+			     }
+			 }
 			 break ;
+
 		 case 2: // 3-bytes (for 0, 1)
-			 if ( 0 == filter_elto )
-				dbvalue = (value & 0x00FFFFFF) ;
-			 if ( 1 == filter_elto )
-				dbvalue = (value & 0xFFFFFF00) ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: dbvalue = (value & 0x00FFFFFF) ;
+			             break ;
+		             case 1: dbvalue = (value & 0xFFFFFF00) ;
+			             break ;
+	                 }
 			 break ;
+
 		 case 3: // word
 			 dbvalue = value ;
 			 break ;
@@ -279,29 +307,32 @@
 		 case 0: // byte
 			 if ( 0 == filter_elto )
 				value = (value & 0xFFFFFF00) |  (dbvalue & 0x000000FF)  ;
-			 if ( 1 == filter_elto )
+			 else if ( 1 == filter_elto )
 				value = (value & 0xFFFF00FF) | ((dbvalue & 0x000000FF) << 8) ;
-			 if ( 2 == filter_elto )
+			 else if ( 2 == filter_elto )
 				value = (value & 0xFF00FFFF) | ((dbvalue & 0x000000FF) << 16) ;
-			 if ( 3 == filter_elto )
+			 else if ( 3 == filter_elto )
 				value = (value & 0x00FFFFFF) | ((dbvalue & 0x000000FF) << 24) ;
 			 break ;
+
 		 case 1: // half
 			 if ( 0 == filter_elto )
 				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-			 if ( 1 == filter_elto )
+			 else if ( 1 == filter_elto )
 				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-			 if ( 2 == filter_elto )
+			 else if ( 2 == filter_elto )
 				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
-			 if ( 3 == filter_elto )
+			 else if ( 3 == filter_elto )
 				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
 			 break ;
+
 		 case 2: // 3-bytes (for 0, 1)
 			 if ( 0 == filter_elto )
 				value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
-			 if ( 1 == filter_elto )
+			 else if ( 1 == filter_elto )
 				value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
 			 break ;
+
 		 case 3: // word
 			 value = dbvalue ;
 			 break ;
