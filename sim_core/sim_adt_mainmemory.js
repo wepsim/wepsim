@@ -305,32 +305,42 @@
 	     switch (filter_size)
 	     {
 		 case 0: // byte
-			 if ( 0 == filter_elto )
-				value = (value & 0xFFFFFF00) |  (dbvalue & 0x000000FF)  ;
-			 else if ( 1 == filter_elto )
-				value = (value & 0xFFFF00FF) | ((dbvalue & 0x000000FF) << 8) ;
-			 else if ( 2 == filter_elto )
-				value = (value & 0xFF00FFFF) | ((dbvalue & 0x000000FF) << 16) ;
-			 else if ( 3 == filter_elto )
-				value = (value & 0x00FFFFFF) | ((dbvalue & 0x000000FF) << 24) ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: value = (value & 0xFFFFFF00) |  (dbvalue & 0x000000FF)  ;
+			             break ;
+		             case 1: value = (value & 0xFFFF00FF) | ((dbvalue & 0x000000FF) << 8) ;
+			             break ;
+		             case 2: value = (value & 0xFF00FFFF) | ((dbvalue & 0x000000FF) << 16) ;
+			             break ;
+		             case 3: value = (value & 0x00FFFFFF) | ((dbvalue & 0x000000FF) << 24) ;
+			             break ;
+	                 }
 			 break ;
 
 		 case 1: // half
-			 if ( 0 == filter_elto )
-				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-			 else if ( 1 == filter_elto )
-				value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
-			 else if ( 2 == filter_elto )
-				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
-			 else if ( 3 == filter_elto )
-				value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
+			             break ;
+		             case 1: value = (value & 0xFFFF0000) |  (dbvalue & 0x0000FFFF) ;
+			             break ;
+		             case 2: value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
+			             break ;
+		             case 3: value = (value & 0x0000FFFF) | ((dbvalue & 0x0000FFFF) << 16) ;
+			             break ;
+	                 }
+
 			 break ;
 
 		 case 2: // 3-bytes (for 0, 1)
-			 if ( 0 == filter_elto )
-				value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
-			 else if ( 1 == filter_elto )
-				value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
+	                 switch (filter_elto)
+	                 {
+		             case 0: value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
+			             break ;
+		             case 1: value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
+			             break ;
+	                 }
 			 break ;
 
 		 case 3: // word
