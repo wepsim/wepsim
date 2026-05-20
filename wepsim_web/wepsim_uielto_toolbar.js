@@ -384,6 +384,7 @@
                         wip_class = '' ;
                              if (item == "poc") wip_class = "wsx_poc" ;
                         else if (item == "ep2") wip_class = "wsx_ep2" ;
+                        else if (item == "rv")  wip_class = "wsx_rv" ;
 
                    o += '     <a class="dropdown-item py-2 ' + wip_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
@@ -396,6 +397,7 @@
 
                    o += '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 my-1 wsx_morecfg ms-auto border border-secondary"><span data-langkey="Assembly only">Assembly only</span>:</h6>' +
+                        '\n' +
                         '     <a class="dropdown-item wsx_morecfg mb-0 py-2" ' +
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -410,6 +412,22 @@
                         '        onclick="wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>i+m</sub></a>' +
+                        '\n' +
+                        '     <hr class="m-1 p-0 wsx_ep2">' +
+                        '     <a class="dropdown-item wsx_morecfg mb-0 py-2 wsx_ep2" ' +
+                        '        href="#" id="s4_ep2_asm_mips" value="ep2_asm_mips"' +
+			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
+			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
+                        '        onclick="wsweb_select_main(\'ep2_asm_mips\');' +
+                        '                 return false;"' +
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP2+MIPS<sub>int32</sub></a>' +
+                        '     <a class="dropdown-item wsx_morecfg mb-0 py-2 wsx_ep2" ' +
+                        '        href="#" id="s4_ep2_asm_rv32" value="ep2_asm_rv32"' +
+			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
+			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
+                        '        onclick="wsweb_select_main(\'ep2_asm_rv32\');' +
+                        '                 return false;"' +
+                        '     ><em class="fas fa-microchip"></em>&nbsp;E2P+RV32<sub>i+m</sub></a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;
