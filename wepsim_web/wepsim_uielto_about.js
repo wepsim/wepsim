@@ -58,7 +58,7 @@
 			      "	</div>" +
 			      "" +
 			      "	<div class='form-group'>" +
-			      "	   <label for='about_authors' class='text-secondary'>WepSIM Team:</label>" +
+			      "	   <label for='about_team' class='text-secondary'>WepSIM Team:</label>" +
 			      "	   <div id='about_" + this.name_str + "' " +
                               "         style='overflow:auto; -webkit-overflow-scrolling:touch;' >"+
 			      "	     <ul>" +
@@ -89,28 +89,28 @@
 
 	      render_populate ( )
 	      {
-                    // check if exists any author list...
-                    if ( (typeof ws_info === "undefined") || (typeof ws_info.authors === "undefined") )
+                    // check if exists any team member...
+                    if ( (typeof ws_info === "undefined") || (typeof ws_info.wepsim_team === "undefined") )
                     {
                           return ;
                     }
 
 		    // html holder
-		    var o1 = '<div id="authors_' + this.name_str + '" ' +
+		    var o1 = '<div id="team_' + this.name_str + '" ' +
                              '     class="card-desk row mx-auto">' +
-			     '<div v-for="author in authors" class="card bg-tertiary text-center col p-0">' +
+			     '<div v-for="member in team" class="card bg-tertiary text-center col p-0">' +
 			     '  <img class="card-img-top img-fluid shadow no-dark-mode" ' +
-                             '       v-bind:id="authors.c_id"' +
-                             '       v-bind:src="author.i_src" v-bind:alt="author.i_alt" />' +
+                             '       v-bind:id="member.c_id"' +
+                             '       v-bind:src="member.i_src" v-bind:alt="member.i_alt" />' +
 			     '  <div class="card-body pt-2 pb-1 px-0">' +
                              '       <a class="btn p-0 text-primary d-md-none text-vertical-lr "' +
-                             '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
+                             '          v-bind:id="member.a_id">{{ member.i_alt }}</a>' +
                              '       <a class="btn p-0 text-primary d-none d-md-block"' +
-                             '          v-bind:id="author.a_id">{{ author.i_alt }}</a>' +
+                             '          v-bind:id="member.a_id">{{ member.i_alt }}</a>' +
                              '  </div>' +
 			     '  <div class="card-footer p-0 collapse collapse7 show bg-secundary text-start">' +
 			     '	  <div class="list-group list-group-flush">' +
-		             '<component v-for="social in author.socials" ' +
+		             '<component v-for="social in member.socials" ' +
                              '           :is="social.href?\'a\':\'span\'" v-bind:href="social.href || \'\'" ' +
                              '           target="_blank" ' +
                              '           class="list-group-item p-2 mx-auto w-100">' +
@@ -125,8 +125,8 @@
 		    $('#about_' + this.name_str).html(o1) ;
 
 		    this.vueobj = new Vue({
-					     el: '#authors_' + this.name_str,
-					     data: { authors: ws_info.authors }
+					     el: '#team_' + this.name_str,
+					     data: { team: ws_info.wepsim_team }
 					  }) ;
 	      }
         }
