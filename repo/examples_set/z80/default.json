@@ -14,7 +14,7 @@
     "id": "S7E3",
     "title": "Z80-like",
     "type": "<span data-langkey='Native'>Native</span>",
-    "modes": "newbie,intro,ep2,asm_z80",
+    "modes": "newbie,intro,ep2,ep2_asm_z80",
     "hardware": "ep2",
     "microcode": "ep2_js2_l3",
     "assembly": "s7e3",
