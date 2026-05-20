@@ -1444,1083 +1444,311 @@
 		    <b>BW+A<sub>1</sub>A<sub>0</sub></b> <b> </b> 4ビット<br>
                     <b> MRRy</b> <b> </b> 1ビット<br>
                   </p>
+
                   <p>
 メインメモリの制御信号：読み取り用R、書き込み用W、バイト選択用BW。<br>
 デフォルトでは、メモリは1クロックサイクルで読み書きします。メモリが数クロックサイクルに設定されている場合、メモリがR/W要求を終了するとMRdy信号が設定されます。
                   </p>
-                  <p>
-                    BE3=BW1、BE2=BW0、BE1=A1、BE0=A0
-                  </p>
-                  <p>
 
-                  </p>
-                  <p>
-                    BEでは、ワード内の再読み取りするバイトと、それらをバス上のどこに配置するかを選択できます。
-                  </p>
-                  <p>
+                  <p> </p>
 
+                  <p>
+                    BW+A1A0では、ワード内の再読み取りするバイトと、それらをバス上のどこに配置するかを選択できます。
                   </p>
-                  <table width="1063" cellspacing="0" cellpadding="0" border="0" align="left">
-                    <tbody> <tr>
+
+                  <p> </p>
+
+
+                  <table width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <tbody>
+		    <tr>
                       <td valign="top" colspan="4">
-                        <p>
                           メモリワード内のバイト
-                        </p>
-                      </td>
+		      </td>
                       <td valign="top" colspan="4">
-                        <p>
                           バイト選択
-                        </p>
-                      </td>
+		      </td>
                       <td valign="top" colspan="4">
-                        <p>
                           バスへの出力
-                        </p>
-                      </td>
+		      </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          D 31 -D 24
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 23 </sub> -D <16>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 15 </sub> -D <sub> 8 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 7 </sub> -D <0>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 3 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 2 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 1 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 0 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D31〜D24
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D23〜D16
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D15〜D8
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D7〜D0
-                        </p>
-                      </td>
+                      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+                      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                      <td valign="top"> BW<sub>1</sub> </td>
+                      <td valign="top"> BW<sub>0</sub> </td>
+                      <td valign="top"> A1 </td>
+                      <td valign="top"> A0 </td>
+		      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+		      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+		      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+		      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> Byte 0 </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> --- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バツ
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 2 </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バツ
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バツ
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バツ
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          バイト0
-                        </p>
-                      </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
                     </tr>
-                  </tbody> </table>
+                  </tbody></table>
+
                   <p>
                     <br clear="all">
                   </p>
-                  <p>
 
-                  </p>
+                  <p> </p>
+
                   <p>
                     書き込むワード内のバイトを選択し、それらをメモリワードのどこに配置するかと同様に。
                   </p>
-                  <p>
 
-                  </p>
-                  <p>
+                  <p> </p>
 
-                  </p>
-                  <div >
-                    <table width="1084" cellspacing="0" cellpadding="0" border="0">
-                      <tbody> <tr>
+                  <p> </p>
+
+                  <div>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+		      <tr>
                         <td valign="top" colspan="4">
-                          <p>
                             バス内のデータ
-                          </p>
                         </td>
                         <td valign="top" colspan="4">
-                          <p>
                             バイト選択
-                          </p>
                         </td>
                         <td valign="top" colspan="4">
-                          <p>
                             メモリワードに書き込まれたバイト
-                          </p>
                         </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            D 31 -D 24
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 23 </sub> -D <16>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 15 </sub> -D <sub> 8 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 7 </sub> -D <0>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 3 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 2 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 1 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 0 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D 31 -D 24
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 23 </sub> -D <16>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 15 </sub> -D <sub> 8 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D7〜D0
-                          </p>
-                        </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+                        <td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                        <td valign="top"> BW<sub>1</sub> </td>
+                        <td valign="top"> BW<sub>0</sub> </td>
+                        <td valign="top"> A1 </td>
+                        <td valign="top"> A0 </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+			<td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> Byte 0 </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> --- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バツ
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 2 </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バツ
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バツ
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バツ
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            バイト0
-                          </p>
-                        </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
                       </tr>
-                    </tbody> </table>
+                    </tbody></table>
                   </div>
+
         </div>
         </div>
         </div>
         </div>
 
-                  <p>
-                  </p>
+                  <p> </p>
+
                   <br clear="all">
-                  <p>
-                  </p>
-                  <p>
-                  </p>
-                  <p>
-                  </p>
+
+                  <p> </p>
+                  <p> </p>
+                  <p> </p>
 
         <div id="BW">
         <div id="A1A0">
@@ -2530,16 +1758,18 @@
                     <b> SE </b>（1ビット）<br>
                     <b> W </b>（1ビット）
                   </p>
+
                   <p>
                     バイトセレクタの入力信号（WバイトセレクタとRバイトセレクタ）。
                   </p>
-                  <p>
 
-                  </p>
+                  <p> </p>
+
                   <p>
                     バイトセレクタ：W=0、SE=0（Rバイトセレクタ）：
                   </p>
-                  <div >
+
+                  <div>
                     <table width="1061" cellspacing="0" cellpadding="0" border="0">
                       <tbody> <tr>
                         <td valign="top" colspan="4">
