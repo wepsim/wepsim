@@ -371,7 +371,6 @@ sw reg addr {
      {
           (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
           (MR=0, SELA=10101,  T9=1, M1=0, C1=1),
-          (TA, R),
           (BW=11, TA=1, TD=1,  W=1, A0=1, B=1, C=0)
      }
 }
@@ -399,7 +398,6 @@ sb reg addr {
      {
           (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
           (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
-          (TA, R),
           (BW=0, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
      }
 }
@@ -432,7 +430,6 @@ out reg val {
      {
           (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
           (MR=0, SELA=10101,  T9=1,    M1=0, C1=1),
-          (TA, R),
           (TA=1, TD=1, BW=11, IOW=1,   A0=1, B=1, C=0)
      }
 }

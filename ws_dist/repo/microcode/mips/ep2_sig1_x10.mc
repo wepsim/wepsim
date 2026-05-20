@@ -7,36 +7,44 @@ begin
 {
 	  # if (NOT INT) go fetch
 	    (A0=0, B=1, C=1, MADDR=fetch),
+
 	  # push PC
 	    (MR=1, SELA=11101, MA=0, MB=10, COP=1011, T6=1, SELC=11101, LC=1, C0),
 	    (T2=1, M1=0, C1),
-            (TA=1),
 	    (BW=11, TA=1, TD=1, W=1)
+
 	  # push SR
 	    (MR=1, SELA=11101, MA=0, MB=10, COP=1011, T6=1, SELC=11101, LC=1, C0),
 	    (T8=1, M1=0, C1),
-            (TA=1),
 	    (BW=11, TA=1, TD=1, W=1),
+
 	  # MBR <- DB <- INTV
 	    (INTA, BW=11, M1=1, C1=1),
+
 	  # RT1 <- MBR
 	    (T1=1, C4=1),
+
 	  # MAR <- RT1*4
 	    (MA=1, MB=10, COP=1100, T6, M2=0, C0),
+
 	  # MBR <- MP[MAR]
-            (TA=1),
+            (TA=1, R=1),
 	    (TA=1, R=1, BW=11, M1=1, C1=1),
+
 	  # PC <- MAR
 	    (T1, M2=0, C2),
 
 fetch:
 	  # MAR <- PC
 	    (T2, C0),
+
 	  # MBR <- M[MAR]
-            (TA=1),
+            (TA=1, R=1),
 	    (TA, R, BW=11, M1=1, C1=1),
+
 	  # RI <- MBR, PC <- PC + 4
 	    (M2, C2, T1, C3),
+
 	  # go co2maddr
 	    (A0, B=0, C=0)
 }
@@ -54,13 +62,14 @@ reti {
            # pop SR
            (MR=1, SELA=11101, T9, C0),
            (MR=1, SELA=11101, MA=0, MB=10, COP=1010, T6=1, SELC=11101, LC=1),
-            (TA=1),
+            (TA=1, R=1),
            (TA=1, R=1, BW=11, M1=1, C1),
            (T1=1, M7=0, C7),
+
            # pop PC
            (MR=1, SELA=11101, T9, C0),
            (MR=1, SELA=11101, MA=0, MB=10, COP=1010, T6=1, SELC=11101, LC=1),
-            (TA=1),
+            (TA=1, R=1),
            (TA=1, R=1, BW=11, M1=1, C1),
            (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
      }
@@ -349,7 +358,7 @@ la  reg addr {
          help='r1 = addr32',
          {
              (T2, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA, R, BW=11, M1=1, C1=1),
              (M2, C2, T1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
          }
@@ -363,7 +372,7 @@ lw reg addr {
          help='r1 = (MEM[addr] ... MEM[addr+3])',
          {
              (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=11, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
          }
@@ -377,7 +386,7 @@ lw reg1 (reg2) {
          help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
          {
              (MR=0, SELA=10000, T9=1, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=11, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
          }
@@ -391,7 +400,7 @@ lb reg1 (reg2) {
          help='r1 = MEM[r2]',
          {
              (MR=0, SELA=10000, T9=1, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
          }
@@ -405,7 +414,7 @@ lbu reg1 (reg2) {
          help ='$r1 = (00 00 00 MEM[$r2])',
          {
              (MR=0, SELA=10000, T9=1, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=00, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, SE=0, A0=1, B=1, C=0)
          }
@@ -419,7 +428,7 @@ lw reg1 (reg2) {
          help='$r1 = (MEM[$r2+3] ... MEM[$r2])',
          {
              (MR=0, SELA=10000, T9=1, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=11, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
          }
@@ -434,7 +443,6 @@ sw reg addr {
          {
              (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
              (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
-            (TA=1),
              (BW=11, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
          }
 }
@@ -447,7 +455,6 @@ sw reg1 (reg2) {
          {
              (MR=0,  SELA=10000, T9=1, C0=1),
              (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
-            (TA=1),
              (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
          }
 }
@@ -460,7 +467,7 @@ lb reg addr {
          help='r1 = MEM[addr]',
          {
              (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
          }
@@ -475,7 +482,6 @@ sb reg addr {
          {
              (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
              (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
-            (TA=1),
              (BW=0, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
          }
 }
@@ -490,7 +496,6 @@ sb reg1 inm1(reg2) {
              (SE=1,  SIZE=10000, OFFSET=0, T3, C5),
              (MR=0,  SELA=10000, MB=1, COP=1010, T6=1, C0=1),
              (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
-            (TA=1),
              (BW=0,  TA=1, TD=1, W=1,  A0=1, B=1, C=0)
          }
 }
@@ -523,7 +528,6 @@ out reg val {
          {
              (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
              (MR=0, SELA=10101,  T9=1,    M1=0, C1=1),
-            (TA=1),
              (TA=1, TD=1, BW=11, IOW=1,   A0=1, B=1, C=0)
          }
 }
@@ -835,7 +839,7 @@ lw reg1 reg2+(reg3) {
          reg3 = reg(15,11),
          {
              (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, COP=1001, T6=1, C0),
-            (TA=1),
+            (TA=1, R=1),
              (TA=1, R=1, BW=11, M1=1, C1=1),
              (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
          }
