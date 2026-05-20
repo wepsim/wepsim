@@ -1351,1069 +1351,298 @@
 		    <b> BW+A<sub>1</sub>A<sub>0</sub> </b> <b> </b> 4 bits <br>
                     <b> MRdy </b> <b> </b> 1 bit <br>
                   </p>
+
                   <p>
 Signaux de commande de la mémoire principale: R en lecture, W en écriture, BE en sélection d'octets. <br>
 Par défaut, la mémoire lit ou écrit en un cycle d'horloge. Si la mémoire est configurée pour plusieurs cycles d'horloge, le signal MRdy est défini lorsque la mémoire met fin à la demande R/W.
                   </p>
-                  <p>
-                    BE3=BW1, BE2=BW0, BE1=A1, BE0=A0
-                  </p>
-                  <p>
 
-                  </p>
-                  <p>
-                    BE permet de sélectionner le ou les octets dans un mot à lire et l’endroit où les placer sur le bus:
-                  </p>
-                  <p>
+                  <p> </p>
 
+                  <p>
+                    BW+A1A0 permet de sélectionner le ou les octets dans un mot à lire et l’endroit où les placer sur le bus:
                   </p>
-                  <table width="1063" cellspacing="0" cellpadding="0" border="0" align="left">
-                    <tbody> <tr>
-                      <td valign="top" colspan="4">
-                        <p>
+
+                  <p> </p>
+
+                  <table width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <tbody>
+		    <tr>
+                      <td valign="top" colspan="4"> 
                           Octets dans le mot mémoire
-                        </p>
-                      </td>
-                      <td valign="top" colspan="4">
-                        <p>
+		      </td>
+                      <td valign="top" colspan="4"> 
                           Sélection d'octets
-                        </p>
-                      </td>
-                      <td valign="top" colspan="4">
-                        <p>
+		      </td>
+                      <td valign="top" colspan="4"> 
                           Sortie sur le bus
-                        </p>
-                      </td>
+		      </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          D <sub> 31 </sub> -D <sub> 24 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 23 </sub> -D <sub> 16 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 15 </sub> -D <sub> 8 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D <sub> 7 </sub> -D <sub> 0 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 3 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 2 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 1 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          BE <sub> 0 </sub>
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D31-D24
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D23-D16
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D15-D8
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          D7-D0
-                        </p>
-                      </td>
+                      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+                      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                      <td valign="top"> BW<sub>1</sub> </td>
+                      <td valign="top"> BW<sub>0</sub> </td>
+                      <td valign="top"> A1 </td>
+                      <td valign="top"> A0 </td>
+		      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+		      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+		      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+		      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> Octet 0 </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> --- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          X
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 2 </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          X
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ---
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          ----
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
                     </tr>
                     <tr>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          X
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          X
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 3
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 2
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 1
-                        </p>
-                      </td>
-                      <td valign="top">
-                        <p>
-                          Octet 0
-                        </p>
-                      </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Octet 3 </td>
+                      <td valign="top"> Octet 2 </td>
+                      <td valign="top"> Octet 1 </td>
+                      <td valign="top"> Octet 0 </td>
                     </tr>
-                  </tbody> </table>
+                  </tbody></table>
+
                   <p>
                     <br clear="all">
                   </p>
-                  <p>
 
-                  </p>
+                  <p> </p>
+
                   <p>
                     En plus de sélectionner le ou les octets dans un mot à écrire et l’endroit où les placer dans un mot mémoire:
                   </p>
-                  <p>
 
-                  </p>
-                  <p>
+                  <p> </p>
 
-                  </p>
-                  <div >
-                    <table width="1084" cellspacing="0" cellpadding="0" border="0">
-                      <tbody> <tr>
+                  <p> </p>
+
+                  <div>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+		      <tr>
                         <td valign="top" colspan="4">
-                          <p>
                             Données dans le bus
-                          </p>
                         </td>
                         <td valign="top" colspan="4">
-                          <p>
                             Sélection d'octets
-                          </p>
                         </td>
                         <td valign="top" colspan="4">
-                          <p>
                             Octets écrits dans un mot mémoire
-                          </p>
                         </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            D <sub> 31 </sub> -D <sub> 24 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 23 </sub> -D <sub> 16 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 15 </sub> -D <sub> 8 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 7 </sub> -D <sub> 0 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 3 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 2 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 1 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            BE <sub> 0 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 31 </sub> -D <sub> 24 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 23 </sub> -D <sub> 16 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D <sub> 15 </sub> -D <sub> 8 </sub>
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            D7-D0
-                          </p>
-                        </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+                        <td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                        <td valign="top"> BW<sub>1</sub> </td>
+                        <td valign="top"> BW<sub>0</sub> </td>
+                        <td valign="top"> A1 </td>
+                        <td valign="top"> A0 </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+			<td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> Octet 0 </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> --- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            X
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 2 </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            X
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ---
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            ----
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
                       </tr>
+
                       <tr>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            X
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            X
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 3
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 2
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 1
-                          </p>
-                        </td>
-                        <td valign="top">
-                          <p>
-                            Octet 0
-                          </p>
-                        </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Octet 3 </td>
+                        <td valign="top"> Octet 2 </td>
+                        <td valign="top"> Octet 1 </td>
+                        <td valign="top"> Octet 0 </td>
                       </tr>
-                    </tbody> </table>
+                    </tbody></table>
                   </div>
+
         </div>
         </div>
         </div>
