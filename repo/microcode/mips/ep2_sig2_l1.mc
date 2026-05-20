@@ -19,6 +19,7 @@ begin
          # IR  <- MBR, PC <- PC + 4
          # jump to associated microcode for op. code
          (T2, C0),
+         (TA, R),
          (TA, R, BW=11, M1=1, C1=1),
          (M2, C2, T1, C3),
          (A0, B=0, C=0)

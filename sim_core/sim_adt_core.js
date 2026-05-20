@@ -174,5 +174,5 @@
 			  }
                         ] ;
 
-        set_wsinfo('authors', wsteam) ;
+        set_wsinfo('wepsim_team', wsteam) ;
 
