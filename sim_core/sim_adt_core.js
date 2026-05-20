@@ -83,8 +83,8 @@
 
 	var wsteam = [
 			  {
-			    c_id:    "collapse-author-1",
-			    i_src:   "images/author_fgarcia.png",
+			    c_id:    "collapse-team-1",
+			    i_src:   "images/team_fgarcia.png",
 			    i_alt:   "Félix García Carballeira",
 			    a_id:    "fgarcia",
 			    a_name:  "F&eacute;lix Garc&iacute;a Carballeira",
@@ -98,8 +98,8 @@
 				     }
 			  },
 			  {
-			    c_id:    "collapse-author-2",
-			    i_src:   "images/author_acaldero.png",
+			    c_id:    "collapse-team-2",
+			    i_src:   "images/team_acaldero.png",
 			    i_alt:   "Alejandro Calderón Mateos",
 			    a_id:    "acaldero",
 			    a_name:  "Alejandro Calder&oacute;n Mateos",
@@ -113,8 +113,8 @@
 				     }
 			  },
 			  {
-			    c_id:    "collapse-author-3",
-			    i_src:   "images/author_jprieto.png",
+			    c_id:    "collapse-team-3",
+			    i_src:   "images/team_jprieto.png",
 			    i_alt:   "Javier Prieto Cepeda",
 			    a_id:    "jprieto",
 			    a_name:  "Javier Prieto Cepeda",
@@ -128,8 +128,8 @@
 				     }
 			  },
 			  {
-			    c_id:    "collapse-author-4",
-			    i_src:   "images/author_salonso.png",
+			    c_id:    "collapse-team-4",
+			    i_src:   "images/team_salonso.png",
 			    i_alt:   "Saúl Alonso Monsalve",
 			    a_id:    "salonso",
 			    a_name:  "Sa&uacute;l Alonso Monsalve",
@@ -143,8 +143,8 @@
 				     }
 			  },
 			  {
-			    c_id:    "collapse-author-5",
-			    i_src:   "images/author_juanbanpar.png",
+			    c_id:    "collapse-team-5",
+			    i_src:   "images/team_juanbanpar.png",
 			    i_alt:   "Juan Banga Pardo",
 			    a_id:    "juanbanpar",
 			    a_name:  "Juan Banga Pardo",
@@ -155,6 +155,21 @@
 						   href:"" },
 					github:  { name: "github", faclass: "fab fa-github",
 						   href:"https://github.com/juanbanpar/" }
+				     }
+			  },
+			  {
+			    c_id:    "collapse-team-6",
+			    i_src:   "images/team_alvarogu.png",
+			    i_alt:   "Álvaro Guerrero Espinosa",
+			    a_id:    "alvarogu",
+			    a_name:  "&Aacute;lvaro Guerrero Espinosa",
+			    socials: {
+					lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
+						   href:"https://www.linkedin.com/in/%C3%A1lvaro-guerrero-espinosa/" },
+					rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
+						   href:"" },
+					github:  { name: "github", faclass: "fab fa-github",
+						   href:"https://github.com/ALVAROPING1" }
 				     }
 			  }
                         ] ;
