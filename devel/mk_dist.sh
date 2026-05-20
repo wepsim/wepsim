@@ -387,26 +387,40 @@ cp    -a external/cordova.js            ws_dist/external/cordova.js
 
 ### default available examples
 # MIPS
-DEFAULT_EXAMPLE_SET="repo/examples_set/mips/es_ep.json repo/examples_set/mips/es_poc.json repo/examples_set/mips/es_ep_native.json repo/examples_set/mips/es_poc_native.json     repo/examples_set/mips/es_ep2.json"
+DEFAULT_EXAMPLE_SET_P1="repo/examples_set/mips/es_ep.json  repo/examples_set/mips/es_ep_native.json"
+DEFAULT_EXAMPLE_SET_P2="repo/examples_set/mips/es_ep2.json repo/examples_set/mips/es_ep2_native.json"
+DEFAULT_EXAMPLE_SET_P3="repo/examples_set/mips/es_poc.json repo/examples_set/mips/es_poc_native.json"
+DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips/default.json
+
 # MIPS instructive
 DEFAULT_EXAMPLE_SET="repo/examples_set/mips/es_ep_instructive.json repo/examples_set/mips/es_poc_instructive.json     repo/examples_set/mips/es_ep2_instructive.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips/default_instructive.json
+
 # RV32
-DEFAULT_EXAMPLE_SET="repo/examples_set/rv32/es_ep.json repo/examples_set/rv32/es_poc.json repo/examples_set/rv32/es_ep_native.json repo/examples_set/rv32/es_poc_native.json repo/examples_set/rv32/es_rv.json     repo/examples_set/rv32/es_ep2.json"
+DEFAULT_EXAMPLE_SET_P1="repo/examples_set/rv32/es_ep.json  repo/examples_set/rv32/es_ep_native.json"
+DEFAULT_EXAMPLE_SET_P2="repo/examples_set/rv32/es_ep2.json repo/examples_set/rv32/es_ep2_native.json"
+DEFAULT_EXAMPLE_SET_P3="repo/examples_set/rv32/es_poc.json repo/examples_set/rv32/es_poc_native.json"
+DEFAULT_EXAMPLE_SET_P4="repo/examples_set/rv32/es_rv.json"
+DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3 $DEFAULT_EXAMPLE_SET_P4"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default.json
+
 # RV32 instructive
 DEFAULT_EXAMPLE_SET="repo/examples_set/rv32/es_ep_instructive.json repo/examples_set/rv32/es_poc_instructive.json     repo/examples_set/rv32/es_ep2_instructive.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default_instructive.json
+
 # ARM
 DEFAULT_EXAMPLE_SET="repo/examples_set/arm/es_ep.json          repo/examples_set/arm/es_ep2.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/arm/default.json
+
 # Z80
 DEFAULT_EXAMPLE_SET="repo/examples_set/z80/es_ep.json          repo/examples_set/z80/es_ep2.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/z80/default.json
+
 # OpenCourseWare
 DEFAULT_EXAMPLE_SET="repo/examples_set/mips_ocw/es_ep.json     repo/examples_set/mips_ocw/es_ep2.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips_ocw/default.json
+
 # Aula Global (UC3M)
 DEFAULT_EXAMPLE_SET="repo/examples_set/rv32_ag/es_ep.json repo/examples_set/rv32_ag/es_poc.json       repo/examples_set/rv32_ag/es_ep2.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32_ag/default.json

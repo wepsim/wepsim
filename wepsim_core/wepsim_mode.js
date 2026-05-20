@@ -23,19 +23,28 @@
      * Execution Modes
      */
 
-    ws_info.modes = [ 'ep', 'ep2', 'rv', 'poc', 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
+    ws_info.modes = [ 'ep', 'ep2', 'rv', 'poc',
+	              'newbie', 'intro',
+	              'asm_mips', 'asm_rv32', 'asm_z80',
+	              'ep2_asm_mips', 'ep2_asm_rv32', 'ep2_asm_z80' ] ;
 
     ws_info.default_example = {
-	                         'ep':       'Default-MIPS',
-	                         'ep2':      'Default-RISCV',
-	                         'poc':      'Default-MIPS',
-	                         'rv':       'Default-RISCV',
-	                         'asm_mips': 'ep:ep_mix1_l3:mips_s4e1',
-	                         'asm_rv32': 'ep:ep_js1_l10:rv32_s7e2',
-	                         'asm_z80':  'ep:ep_js1_l3:z80_s7e3'
+	                         'ep':           'Default-MIPS',
+	                         'ep2':          'Default-RISCV',
+	                         'poc':          'Default-MIPS',
+	                         'rv':           'Default-RISCV',
+
+	                         'asm_mips':     'ep:ep_mix1_l3:mips_s4e1',
+	                         'asm_rv32':     'ep:ep_js1_l10:rv32_s7e2',
+	                         'asm_z80':      'ep:ep_js1_l3:z80_s7e3',
+
+	                         'ep2_asm_mips': 'ep2:ep2_sig1_l10:mips_s4e1',
+	                         'ep2_asm_rv32': 'ep2:ep2_sig1_l10:rv32_s7e2',
+	                         'ep2_asm_z80':  'ep2:ep2_js2_l3:z80_s7e3'
 	                      } ;
 
-    ws_info.modes_ep = [ 'newbie', 'intro', 'asm_mips', 'asm_rv32', 'asm_z80' ] ;
+    ws_info.modes_ep  = [ 'newbie', 'intro',     'asm_mips',     'asm_rv32',     'asm_z80' ] ;
+    ws_info.modes_ep2 = [ 'newbie', 'intro', 'ep2_asm_mips', 'ep2_asm_rv32', 'ep2_asm_z80' ] ;
 
 
     // get equivalent base mode
@@ -47,6 +56,9 @@
 
         if (ws_info.modes_ep.includes(derive_model)) {
             return 'ep' ;
+        }
+        if (ws_info.modes_ep2.includes(derive_model)) {
+            return 'ep2' ;
         }
 
         return derive_model ;
@@ -62,9 +74,16 @@
                 wepsim_activehw(hwid) ;
 	    }
 
+            // load default example set
+            var eset_name = get_cfg('ws_examples_set') ;
+            if (eset_name != 'Empty')
+                 wepsim_example_load(eset_name) ;
+	    else wepsim_example_load(ws_info.default_example[optValue]) ;
+
 	    // show/hide microcode...
             wepsim_activeview('extra_mcode', true) ;
-	    if (optValue.startsWith('asm_'))
+	    if ( optValue.startsWith('asm_') ||
+	         optValue.startsWith('ep2_asm_') )
 	    {
                 wepsim_activeview('extra_mcode', false) ;
 		load_from_example_firmware(ws_info.default_example[optValue], false) ;
@@ -85,12 +104,6 @@
                  wepsim_newbie_tour('tour2') ;
                  return true ;
             }
-
-            // load default example
-            var eset_name = get_cfg('ws_examples_set') ;
-            if (eset_name != 'Empty')
-                 wepsim_example_load(eset_name) ;
-	    else wepsim_example_load(ws_info.default_example[optValue]) ;
 
             return true ;
     }
