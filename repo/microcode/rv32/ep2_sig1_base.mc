@@ -117,6 +117,7 @@ in reg val {
      help='reg = device_registers[val]',
      {
          (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
+         (TA=1, R),
          (TA=1, IOR=1, BW=11, M1=1, C1=1),
          (T1=1, LC=1,  MR=0, SELC=10101, A0=1, B=1, C=0)
      }

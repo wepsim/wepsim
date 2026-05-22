@@ -1444,1082 +1444,307 @@
 		    <b> BW+A<sub>1</sub>A<sub>0</sub> </b> <b> </b> 4位<br>
                     <b> MRdy </b> <b> </b> 1位<br>
                   </p>
+
                   <p>
 主存储器的控制信号：R表示读取，W表示写入，BE表示字节选择
 默认情况下，存储器在一个时钟周期内进行读写。如果存储器配置了几个时钟周期，则当存储器结束R/W请求时，MRdy信号被置位。
                   </p>
-                  <p>
-                    BE3=BW1，BE2=BW0，BE1=A1，BE0=A0
-                  </p>
-                  <p>
 
-                  </p>
-                  <p>
-                    BE允许选择要加入的字中的字节以及将它们放在总线上的位置：
-                  </p>
-                  <p class="cleanuphtml-1">
+                  <p> </p>
 
+                  <p>
+                    BW+A1A0允许选择要加入的字中的字节以及将它们放在总线上的位置：
                   </p>
-                  <table width ="1063"cellspacing="0" cellpadding="0" border="0" align ="left">
-                    <TBODY> <TR>
+
+                  <p class="cleanuphtml-1"> </p>
+
+                  <table width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <tbody>
+		    <tr>
                       <td valign="top" colspan="4">
-                        <p>
                           记忆词中的字节
-                        </p>
-                      </TD>
+		      </td>
                       <td valign="top" colspan="4">
-                        <p>
                           字节选择
-                        </p>
-                      </TD>
+		      </td>
                       <td valign="top" colspan="4">
-                        <p>
                           输出到总线
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          d <子> 31 </子> -D <子> 24 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          d <子> 23 </子> -D <子> 16 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          d <子> 15 </子> -D <子> 8 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          d <子> 7 </子> -D <子> 0 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          BE <子> 3 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          BE <子> 2 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          BE <子> 1 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          BE <子> 0 </子>
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          D31-D24
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          D23-D16
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          D15-D8
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          D7-D0
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ----
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ----
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ----
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          X
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          X
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ---
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          ----
-                        </p>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          X
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          X
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节3
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节2
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节1
-                        </p>
-                      </TD>
-                      <td valign="top" >
-                        <p>
-                          字节0
-                        </p>
-                      </TD>
-                    </TR>
-                  </TBODY> </TABLE>
+		      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+                      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                      <td valign="top"> BW<sub>1</sub> </td>
+                      <td valign="top"> BW<sub>0</sub> </td>
+                      <td valign="top"> A1 </td>
+                      <td valign="top"> A0 </td>
+		      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+		      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+		      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+		      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> Byte 0 </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> --- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 2 </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                    </tr>
+                  </tbody></table>
+
                   <p class="cleanuphtml-1">
                     <br clear="all">
                   </p>
-                  <p class="cleanuphtml-1">
 
-                  </p>
+                  <p class="cleanuphtml-1"> </p>
+
                   <p>
                     除了选择要写入的字内的字节以及将它们放在存储器字中的位置：
                   </p>
-                  <p>
 
-                  </p>
-                  <p>
+                  <p> </p>
+                  <p> </p>
 
-                  </p>
                   <div class="cleanuphtml-2">
-                    <table width ="1084"cellspacing="0" cellpadding="0" border="0" >
-                      <TBODY> <TR>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+		      <tr>
                         <td valign="top" colspan="4">
-                          <p>
                             总线中的数据
-                          </p>
-                        </TD>
+                        </td>
                         <td valign="top" colspan="4">
-                          <p>
                             字节选择
-                          </p>
-                        </TD>
+                        </td>
                         <td valign="top" colspan="4">
-                          <p>
                             字节写在记忆词中
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            d <子> 31 </子> -D <子> 24 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 23 </子> -D <子> 16 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 15 </子> -D <子> 8 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 7 </子> -D <子> 0 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            BE <子> 3 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            BE <子> 2 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            BE <子> 1 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            BE <子> 0 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 31 </子> -D <子> 24 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 23 </子> -D <子> 16 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            d <子> 15 </子> -D <子> 8 </子>
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            D7-D0
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ----
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ----
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ----
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            X
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            X
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ---
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            ----
-                          </p>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            X
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            X
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节3
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节2
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节1
-                          </p>
-                        </TD>
-                        <td valign="top" >
-                          <p>
-                            字节0
-                          </p>
-                        </TD>
-                      </TR>
-                    </TBODY> </TABLE>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+                        <td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                        <td valign="top"> BW<sub>1</sub> </td>
+                        <td valign="top"> BW<sub>0</sub> </td>
+                        <td valign="top"> A1 </td>
+                        <td valign="top"> A0 </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+			<td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> Byte 0 </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> --- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 2 </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                      </tr>
+                    </tbody></table>
                   </div>
         </div>
         </div>
         </div>
 
-                  <p>
-                  </p>
+
+                  <p> </p>
                   <br clear="all">
-                  <p>
-                  </p>
-                  <p>
-                  </p>
-                  <p>
-                  </p>
+                  <p> </p>
+                  <p> </p>
+                  <p> </p>
+
 
         <div id ="BW">
         <div id ="A1A0">
