@@ -1447,1082 +1447,306 @@
 		    <b> BW+A<sub>1</sub>A<sub>0</sub> </b> <b> </b> 4 бита <br>
                     <b> MRdy </b> <b> </b> 1 бит <br>
                   </Р>
+
                   <Р>
 Управляющие сигналы основной памяти: R для чтения, W для записи, BW для выбора байтов. <br>
 По умолчанию память читает или записывает за один такт. Если память сконфигурирована на несколько тактов, сигнал MRdy устанавливается, когда память заканчивает запрос R/W.
                   </Р>
-                  <Р>
-                    BE3=BW1, BE2=BW0, BE1=A1, BE0=A0
-                  </Р>
-                  <Р>
 
-                  </Р>
-                  <Р>
-                    BE позволяет выбрать байт (ы) в слове для чтения и место их размещения в шине:
-                  </Р>
-                  <p>
+                  <Р> </Р>
 
+                  <Р>
+                    BW+A1A0 позволяет выбрать байт (ы) в слове для чтения и место их размещения в шине:
                   </Р>
-                  <table width="1063" cellspacing="0" cellpadding="0" border="0" align="left">
-                    <TBODY> <TR>
+
+                  <p> </Р>
+
+                  <table width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
+                    <tbody>
+		    <tr>
                       <td valign="top" colspan="4">
-                        <Р>
                           Байт в слове памяти
-                        </Р>
-                      </TD>
+		      </td>
                       <td valign="top" colspan="4">
-                        <Р>
                           Выбор байтов
-                        </Р>
-                      </TD>
+		      </td>
                       <td valign="top" colspan="4">
-                        <Р>
                           Выход на автобус
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          D <суб> 31 </суб> -D <суб> 24 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D <суб> 23 </суб> -D <суб> 16 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D <суб> 15 </суб> -D <суб> 8 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D <суб> 7 </суб> -D <суб> 0 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          BE <суб> 3 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          BE <суб> 2 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          BE <суб> 1 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          BE <суб> 0 </суб>
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D31-D24
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D23-D16
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D15-D8
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          D7-D0
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ----
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ----
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ----
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Икс
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Икс
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ---
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          ----
-                        </Р>
-                      </TD>
-                    </TR>
-                    <TR>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Икс
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Икс
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 3
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 2
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 1
-                        </Р>
-                      </TD>
-                      <td valign="top">
-                        <Р>
-                          Байт 0
-                        </Р>
-                      </TD>
-                    </TR>
-                  </TBODY> </table>
+		      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+                      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                      <td valign="top"> BW<sub>1</sub> </td>
+                      <td valign="top"> BW<sub>0</sub> </td>
+                      <td valign="top"> A1 </td>
+                      <td valign="top"> A0 </td>
+		      <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+		      <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+		      <td valign="top"> D<sub>15</sub> - D<sub>8</sub> </td>
+		      <td valign="top"> D<sub>7</sub>  - D<sub>0</sub> </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                      <td valign="top"> Byte 0 </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> --- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 2 </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> --- </td>
+                      <td valign="top"> ---- </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> 1 </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> X </td>
+                      <td valign="top"> Byte 3 </td>
+                      <td valign="top"> Byte 2 </td>
+                      <td valign="top"> Byte 1 </td>
+                      <td valign="top"> Byte 0 </td>
+                    </tr>
+                  </tbody></table>
+
                   <p>
                     <br clear="all">
                   </Р>
-                  <p>
+                  <p> </Р>
 
-                  </Р>
                   <Р>
                     А также выбор байта (байтов) в слове, которое нужно записать, и место их размещения в слове памяти:
                   </Р>
-                  <Р>
 
-                  </Р>
-                  <Р>
+                  <Р> </Р>
+                  <Р> </Р>
 
-                  </Р>
-                  <div >
-                    <table width="1084" cellspacing="0" cellpadding="0" border="0">
-                      <TBODY> <TR>
+                  <div>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tbody>
+		      <tr>
                         <td valign="top" colspan="4">
-                          <Р>
                             Данные в автобусе
-                          </Р>
-                        </TD>
+                        </td>
                         <td valign="top" colspan="4">
-                          <Р>
                             Выбор байтов
-                          </Р>
-                        </TD>
+                        </td>
                         <td valign="top" colspan="4">
-                          <Р>
                             Байты, записанные в слове памяти
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 31 </суб> -D <суб> 24 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 23 </суб> -D <суб> 16 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 15 </суб> -D <суб> 8 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 7 </суб> -D <суб> 0 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            BE <суб> 3 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            BE <суб> 2 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            BE <суб> 1 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            BE <суб> 0 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 31 </суб> -D <суб> 24 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 23 </суб> -D <суб> 16 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D <суб> 15 </суб> -D <суб> 8 </суб>
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            D7-D0
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ----
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ----
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ----
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Икс
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Икс
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ---
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            ----
-                          </Р>
-                        </TD>
-                      </TR>
-                      <TR>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Икс
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Икс
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 3
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 2
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 1
-                          </Р>
-                        </TD>
-                        <td valign="top">
-                          <Р>
-                            Байт 0
-                          </Р>
-                        </TD>
-                      </TR>
-                    </TBODY> </table>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+                        <td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                        <td valign="top"> BW<sub>1</sub> </td>
+                        <td valign="top"> BW<sub>0</sub> </td>
+                        <td valign="top"> A1 </td>
+                        <td valign="top"> A0 </td>
+                        <td valign="top"> D<sub>31</sub> - D<sub>24</sub> </td>
+                        <td valign="top"> D<sub>23</sub> - D<sub>16</sub> </td>
+                        <td valign="top"> D<sub>15</sub> - D<sub>8</sub>  </td>
+			<td valign="top"> D<sub>7</sub>  - D<sub>0</sub>  </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                        <td valign="top"> Byte 0 </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> --- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 2 </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> --- </td>
+                        <td valign="top"> ---- </td>
+                      </tr>
+
+                      <tr>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> 1 </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> X </td>
+                        <td valign="top"> Byte 3 </td>
+                        <td valign="top"> Byte 2 </td>
+                        <td valign="top"> Byte 1 </td>
+                        <td valign="top"> Byte 0 </td>
+                      </tr>
+                    </tbody></table>
                   </div>
         </div>
         </div>
         </div>
 
-                  <Р>
-                  </Р>
+
+                  <Р> </Р>
                   <br clear="all">
-                  <Р>
-                  </Р>
-                  <Р>
-                  </Р>
-                  <Р>
-                  </Р>
+                  <Р> </Р>
+                  <Р> </Р>
+                  <Р> </Р>
+
 
         <div id="BW">
         <div id="A1A0">
