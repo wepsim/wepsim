@@ -137,7 +137,8 @@ function mem_ep2_register ( sim_p )
 	 *  States
 	 */
 
-	sim_p.states["MAR_MEM_R"] = { name:"MAR_MEM_R", verbal: "Internal memory address register for reading",
+	sim_p.states["MAR_MEM_R"] = { name:"MAR_MEM_R",
+		                      verbal: "Internal memory address register for reading",
                                       visible:false, nbits:"32", value:0,  default_value:0,
                                       draw_data: [] };
 
@@ -176,10 +177,10 @@ function mem_ep2_register ( sim_p )
                                      draw_name: [[], []] };
 
         sim_p.signals.BW       = { name: "BW",
-                                     verbal: ['Access to one byte from memory. ',
-                                              'Access to two bytes from memory. ',
-                                              'Access to three bytes from memory. ',
-                                              'Access to a word from memory. '],
+                                     verbal: ['Access to one byte from memory (four options). ',
+                                              'Access to two bytes from memory   (upper/lower two). ',
+                                              'Access to three bytes from memory (upper/lower three). ',
+                                              'Access to a word from memory (one single option). '],
                                      visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
                                      behavior: ['FIRE R; FIRE W',
 				    	        'FIRE R; FIRE W',
