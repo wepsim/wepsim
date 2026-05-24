@@ -925,6 +925,12 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [['svg_p:path3749']],
 			              draw_name: [[]] };
 
+	 sim_p.signals["PAUSE"]   = { name: "PAUSE", visible: false, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
+		  	              behavior: ["NOP", "NOP"],
+			              fire_name: [],
+			              draw_data: [[]],
+			              draw_name: [[]] };
+
 
 	/*
 	 *  Syntax of behaviors
