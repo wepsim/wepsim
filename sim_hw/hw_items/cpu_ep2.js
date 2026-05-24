@@ -925,7 +925,7 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [['svg_p:path3749']],
 			              draw_name: [[]] };
 
-	 sim_p.signals["PAUSE"]   = { name: "PAUSE", visible: false, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
+	 sim_p.signals["PAUSE"]   = { name: "PAUSE", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 		  	              behavior: ["NOP", "NOP"],
 			              fire_name: [],
 			              draw_data: [[]],
@@ -1091,17 +1091,17 @@ function cpu_ep2_register ( sim_p )
 
                                                    var reg_w_obj  = sim_p.signals[reg_w_name] ;
                                                    if (typeof reg_w_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register name ' + reg_w_name) ;
+                                                       ws_alert('ERROR: undefined register name ' + reg_w_name) ;
                                                        return ;
                                                    }
                                                    var state_obj  = sim_p.states[state_name] ;
                                                    if (typeof state_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined state name ' + state_name) ;
+                                                       ws_alert('ERROR: undefined state name ' + state_name) ;
                                                        return ;
                                                    }
                                                    var rf_obj     = sim_p.states[rf_name][reg_w_obj.value] ;
                                                    if (typeof rf_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register element at ' + rf_name) ;
+                                                       ws_alert('ERROR: undefined register element at ' + rf_name) ;
                                                        return ;
                                                    }
 
@@ -2118,11 +2118,12 @@ function cpu_ep2_register ( sim_p )
 						   var offset       = parseInt(s_expr[3]) ;
 						   var size         = parseInt(s_expr[4]) ;
 
-						   var n1 = get_value(sim_elto_org).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-						       n2 = n2.substr(31 - (offset + size - 1), size);
+                                                   var value = get_value(sim_elto_org) >>> 0 ;
+                                                   var n3 = value << (31 - offset) ;
+                                                       n3 = n3   >>> (31 - offset) ;
+                                                       n3 = n3   >>> (offset - size + 1) ;
 
-						   set_value(sim_elto_dst, parseInt(n2, 2));
+						   set_value(sim_elto_dst, n3) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -2166,13 +2167,13 @@ function cpu_ep2_register ( sim_p )
                                                    // end: REG_MICROINS/xxx by default is the default_value
 						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
-						   var offset = parseInt(s_expr[4]) ;
+						   var size  = parseInt(s_expr[4]) ;
+                                                   var value = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+                                                   var n3 = (value << 31 - (base + size - 1)) ;
+                                                       n3 = (n3   >>> 31 - (base + size - 1)) ;
+                                                       n3 = (n3   >>> base) ;
 
-						   var n1 = get_value(sim_p.states[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
-						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
-
-						   set_value( sim_p.signals[s_expr[1]], parseInt(n3, 2));
+						   set_value(sim_p.signals[s_expr[1]], n3);
                                                 },
                                         verbal: function (s_expr)
                                                 {
