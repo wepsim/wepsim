@@ -153,6 +153,8 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_registers.js \
     sim_sw/firmware/firm_fields_v1.js \
     sim_sw/firmware/firm_fields_v2.js \
+    sim_sw/firmware/firm_oc_eoc_v1.js \
+    sim_sw/firmware/firm_oc_eoc_v2.js \
     sim_sw/firmware/firm_instruction.js \
     sim_sw/firmware.js \
     sim_sw/assembly/lexical.js \
