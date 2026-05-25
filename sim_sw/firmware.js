@@ -125,6 +125,9 @@ function find_first_oceoc ( context, curr_instruction, first_oc, last_oc )
                 if (eoc_overlaps === true) {
 		    continue ;
                 }
+                if (typeof context.oc_eoc[ret.label_oc].witheoc === "undefined") {
+		    continue ;
+                }
                 if (context.oc_eoc[ret.label_oc].witheoc === false) {
 		    continue ;
                 }
@@ -298,28 +301,30 @@ function loadFirmware (text)
            }
 
 	   // RESOLVE: oc=111111... (111111... === "please, find one free 'oc' for me...")
-	   var ir_oc_length = 6 ;
-	   if (typeof xr_info !== "undefined") {
-	       ir_oc_length = xr_info.ir.default_eltos.oc.length ;
-	   }
-
+	   var all_oc_ones_str = "" ;
+	   var last_oc  = 0 ;
 	   var first_oc = 0 ;
-	   var last_oc = Math.pow(2, ir_oc_length) - 1 ;
-	   var last_oc_str = last_oc.toString(2) ;
 
 	   var curr_instruction = null ;
 	   for (i=0; i<context.instrucciones.length; i++)
 	   {
 		curr_instruction = context.instrucciones[i] ;
 
-		// skip non-111111... cases
-		if ( (curr_instruction.name === "begin") || (curr_instruction.oc !== last_oc_str) ) {
-			continue ;
+		// skip begin
+		if (curr_instruction.name === "begin") {
+	            continue ;
 		}
 
-		// find first free 'oc-eoc' code
+		// skip non-111111... cases
+	        all_oc_ones_str = "".padStart(curr_instruction.oc.length, "1") ;
+		if (curr_instruction.oc !== all_oc_ones_str) {
+	            continue ;
+		}
+
+		// try to find first free 'oc-eoc' code
+	        last_oc = parseInt(all_oc_ones_str, 2) >>> 0 ;
 		var r = find_first_oceoc(context, curr_instruction, first_oc, last_oc) ;
-		if (r.j >= last_oc) {
+		if ('' == r.label_oc) {
 		    return frm_langError(context,
 					 i18n_get_TagFor('compiler', 'NO OC CODES')) ;
 		}
@@ -336,6 +341,19 @@ function loadFirmware (text)
 		    context.oc_eoc[r.label_oc].eoc[r.label_eoc] = curr_instruction.signature ;
 		    context.oc_eoc[r.label_oc].witheoc = true ;
 		}
+
+		// updating the opcode pattern (e.g.: "------10101-----1100") again, with the new oc/eoc
+		if (2 == context.metadata.version) {
+                    ret = firm_instruction_get_opcode_pattern    (context, curr_instruction) ;
+		}
+		else {
+		    ret = firm_instruction_compute_opcode_pattern(context, curr_instruction) ;
+		}
+
+                if (typeof ret.error != "undefined") {
+                    return ret ;
+                }
+
 	   }
 
            // TO RESOLVE labels
@@ -384,7 +402,9 @@ function loadFirmware (text)
 				    "} ;\n" ;
 		   }
 	   }
-	   eval(mk_native) ;
+	   if (mk_native != "") {
+	       eval(mk_native) ;
+	   }
 
 	   // oc_eoc_hash
            var fioc  = 0 ;
