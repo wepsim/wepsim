@@ -486,7 +486,7 @@
     {
             if (simhw_active() !== null)
             {
-                wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
+                wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 
 	        // show memory again
 		show_memories_values() ;
@@ -496,6 +496,8 @@
 		wepsim_reset_max_turbo() ;
 		wepsim_show_cache_memory_config() ;
             }
+
+	    $(".tooltip").hide() ;
 
             // add if recording
             simcore_record_append_new('Refresh in selection',
