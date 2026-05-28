@@ -34,6 +34,7 @@ function saveFirmware ( SIMWARE, firm_version )
               SIMWARE.metadata = new Object() ;
               SIMWARE.metadata.version  = 2 ;
               SIMWARE.metadata.rel_mult = 4 ;
+              SIMWARE.metadata.pc_rel_offset = 0 ;
               SIMWARE.metadata.endian   = 'little' ;
         }
         // But honor the firm_version argument

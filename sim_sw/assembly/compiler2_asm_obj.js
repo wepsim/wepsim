@@ -2097,7 +2097,10 @@ function wsasm_resolve_labels_elto ( context, ret, elto )
               if (elto.pending[j].rel)
               {
                   value = parseInt(value, 2) ;
-                  value = (value >>> 0) - (elto.elto_ptr + WORD_BYTES) ;
+                  let pc_addr = elto.elto_ptr + WORD_BYTES
+                  // 0: next instruction (mips-32), -4: current instruction (risc-v)
+                  pc_addr += context.options.pc_relative_offset;
+                  value = (value >>> 0) - pc_addr ;
 
                   // 1: bytes, 4: word (mips-32), 2: half(risc-v)
                   value = value / context.options.relative_offset_mult ;
