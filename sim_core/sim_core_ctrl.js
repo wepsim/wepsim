@@ -68,7 +68,8 @@
 	     var e = -1 ;
 	     for (var i=0; i<32; i++)
              {
-		  a = tri_mask & Math.pow(2, i) ;
+	       // a = tri_mask & Math.pow(2, i) ;
+		  a = tri_mask & (1 << i) ;
                   if (a > 0) {
 	              e = i ;
 		      n = n + 1 ;

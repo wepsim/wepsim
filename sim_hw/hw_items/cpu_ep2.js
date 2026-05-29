@@ -2133,7 +2133,7 @@ function cpu_ep2_register ( sim_p )
 						   var size         = parseInt(s_expr[4]) ;
 
 						   var n1 = get_value(sim_elto_org).toString(2) ; // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
@@ -2196,7 +2196,7 @@ function cpu_ep2_register ( sim_p )
 						   var offset = parseInt(s_expr[4]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
 
 						   // name
@@ -2282,13 +2282,13 @@ function cpu_ep2_register ( sim_p )
 						   var size   = parseInt(sim_p.signals[s_expr[5]].value) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[3]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
                                                    {    // check signed-extension
-							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+						        n3 = n2.padStart(32, '1') ;
 						   }
 
 						   set_value(sim_p.states[s_expr[1]], parseInt(n3, 2));
@@ -2299,13 +2299,13 @@ function cpu_ep2_register ( sim_p )
 						   var size   = parseInt(sim_p.signals[s_expr[5]].value) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[3]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
                                                    {    // check signed-extension
-							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+						        n3 = n2.padStart(32, '1') ;
 						   }
 
 						   n1 = parseInt(n3, 2) ;
@@ -2333,9 +2333,9 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   var n4 = "00000000000000000000000000000000".substr(0, posd);
 						   n3 = n3 + n4;
 
@@ -2348,9 +2348,9 @@ function cpu_ep2_register ( sim_p )
 						   var poso = parseInt(s_expr[5]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   var n4 = "00000000000000000000000000000000".substr(0, posd);
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
@@ -2370,24 +2370,28 @@ function cpu_ep2_register ( sim_p )
 				     types: ["E", "I"],
 				     operation: function (s_expr)
 		                                {
+						   var size = parseInt(s_expr[2]) ;
+
 						   var n1 = get_value(sim_p.states[s_expr[1]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
-						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n2 = n1.padStart(32, '0') ;
+						   var n3 = n2.substr(31 - size, 31);
 						   var n4 = n3;
-						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
-						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   if ("1" == n2[31 - size]) {  // check signed-extension
+						       n4 = n4.padStart(32, '1') ;
 						   }
 
 						   set_value(sim_p.states[s_expr[1]], parseInt(n4, 2));
                                                 },
                                         verbal: function (s_expr)
                                                 {
+						   var size = parseInt(s_expr[2]) ;
+
 						   var n1 = get_value(sim_p.states[s_expr[1]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
-						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n2 = n1.padStart(32, '0') ;
+						   var n3 = n2.substr(31 - size, 31);
 						   var n4 = n3;
-						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
-						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   if ("1" == n2[31 - size]) {  // check signed-extension
+						       n4 = n4.padStart(32, '1') ;
 						   }
                                                    var n5 = parseInt(n4, 2) ;
 
@@ -2478,11 +2482,11 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 =  sim_p.signals[s_expr[4]].value.toString(2); // to binary signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
+						   n1 = n1.padStart(32, '0') ;
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
 						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
+						   n2 = n2.padStart(32, '0') ;
 						   var m1 = n2.substr(0, 32 - (posd + len));
 						   var m2 = n2.substr(31 - posd + 1, posd);
 						   var n3 = m1 + n1 + m2;
@@ -2504,11 +2508,11 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 =  get_value(sim_p.states[s_expr[4]]).toString(2); // to state signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
+						   n1 = n1.padStart(32, '0') ;
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
 						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2);
+						   n2 = n2.padStart(32, '0') ;
 						   var m1 = n2.substr(0, 32 - (posd + len));
 						   var m2 = n2.substr(31 - posd + 1, posd);
 						   var n3 = m1 + n1 + m2;
