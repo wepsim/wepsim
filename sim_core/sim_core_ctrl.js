@@ -68,7 +68,7 @@
 	     var e = -1 ;
 	     for (var i=0; i<32; i++)
              {
-		  a = tri_mask & Math.pow(2, i) ;
+		  a = tri_mask & (1 << i) ;
                   if (a > 0) {
 	              e = i ;
 		      n = n + 1 ;
@@ -144,8 +144,9 @@
 
         function fn_updateL_now ( key )
         {
-	    update_draw(simhw_sim_signal(key), simhw_sim_signal(key).value) ;
-	    if ("L" == simhw_sim_signal(key).type) {
+		const signal = simhw_sim_signal(key);
+	    update_draw(signal, signal.value) ;
+	    if ("L" == signal.type) {
 		update_state(key) ;
 	    }
 	}
@@ -166,8 +167,9 @@
         function update_state ( key )
         {
            var index_behavior = 0;
-
-           switch (simhw_sim_signal(key).behavior.length)
+		   const signal = simhw_sim_signal(key);
+           const signal_length = signal.behavior.length;
+           switch (signal_length)
            {
                 case 0: // skip empty behavior
                      return;
@@ -178,8 +180,8 @@
                      break;
 
                 default:
-                     index_behavior = simhw_sim_signal(key).value ;
-                     if (simhw_sim_signal(key).behavior.length < index_behavior) {
+                     index_behavior = signal.value ;
+                     if (signal_length < index_behavior) {
                          ws_alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
                                   'key: ' + key + ' and signal value: ' + index_behavior);
                          return;

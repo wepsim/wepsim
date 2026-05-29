@@ -176,7 +176,6 @@ function cpu_ep2_register ( sim_p )
 
         sim_p.internal_states.FIRMWARE     = ws_empty_firmware ;
         sim_p.internal_states.io_hash      = {} ;
-        sim_p.internal_states.fire_stack   = [] ;
 
         sim_p.internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12" ] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
@@ -2575,23 +2574,23 @@ function cpu_ep2_register ( sim_p )
 					       types: ["S"],
 					   operation: function (s_expr)
 							{
+								const s_expr1 = s_expr[1];
+								const signal = sim_p.signals[s_expr1];
 							    // 0.- avoid loops
-							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
-								return ;
-							    }
-
-							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
+								if (signal.is_firing) {
+									return;
+								}
+								signal.is_firing = true;
 
 							    // 1.- update draw
-							    update_draw(sim_p.signals[s_expr[1]], sim_p.signals[s_expr[1]].value) ;
+							    update_draw(signal, signal.value) ;
 
 							    // 2.- for Level signals, propage it
-							    if ("L" ==  sim_p.signals[s_expr[1]].type)
+							    if ("L" ==  signal.type)
 							    {
-								update_state(s_expr[1]) ;
+								update_state(s_expr1) ;
 							    }
-
-							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
+								signal.is_firing = false;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2683,17 +2682,16 @@ function cpu_ep2_register ( sim_p )
                                                             var new_mins = Object.create(get_value(mcelto));
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
-                                                            // 4.- update signals
-							    var new_key_value = null ;
-							    for (var key in sim_p.signals)
-							    {
-							         new_key_value = new_mins[key] ;
-								 if (typeof new_key_value == "undefined") {
-							             new_key_value = sim_p.signals[key].default_value ;
-								 }
-
-								 set_value(sim_p.signals[key], new_key_value) ;
-							    }
+                                                             // 4.- update signals
+															for (const [key, signal] of Object.entries(sim_p.signals)) {
+																set_value(signal, signal.default_value);
+															}
+															for (const [key, value] of Object.entries(get_value(mcelto))) {
+																const signal = sim_p.signals[key];
+																if (signal) {
+																	set_value(signal, value);
+																}
+															}
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
