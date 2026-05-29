@@ -76,14 +76,14 @@ echo "  Done."
 echo ""
 
 
-# pre-bundle
-echo "  Step for rollup:"
-echo "  * codemirror6"
-node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
-terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
-rm -fr external/codemirror6/codemirror.bundle.js
-echo "  Done."
-echo ""
+# # pre-bundle
+# echo "  Step for rollup:"
+# echo "  * codemirror6"
+# node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
+# terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
+# rm -fr external/codemirror6/codemirror.bundle.js
+# echo "  Done."
+# echo ""
 
 
 # skeleton

@@ -45,9 +45,9 @@
            }
 
            // set value
-	   var old_value = sim_obj.value ;
-	   sim_obj.value = value ;
-	   if (old_value != value) {
+	   if (sim_obj.value != value)
+	   {
+	       sim_obj.value   = value ;
 	       sim_obj.changed = true ;
            }
         }
