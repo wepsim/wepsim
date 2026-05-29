@@ -199,43 +199,67 @@ function mem_ep2_register ( sim_p )
                                         types: ["E", "E", "S", "S", "E", "S"],
                                         operation: function (s_expr)
                                                    {
-						      var address =  sim_p.states[s_expr[1]].value;
-                                                      var dbvalue =  sim_p.states[s_expr[2]].value;
-                                                      var bw      = sim_p.signals[s_expr[3]].value;
-                                                      var se      = sim_p.signals[s_expr[4]].value;
-                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
-
-                                                      sim_p.signals[s_expr[6]].value = 0;
-						      var first_time = false ;
+						      var address  =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue  =  sim_p.states[s_expr[2]].value;
+                                                      var bw       = sim_p.signals[s_expr[3]].value;
+                                                      var se       = sim_p.signals[s_expr[4]].value;
+                                                      var clk      = get_value(sim_p.states[s_expr[5]]) ;
 
 						      // remaining clk cycles of the current operation
-						      var remain = get_value(sim_p.internal_states.MP_wc.read);
+						      var read_clk = get_value(sim_p.internal_states.MP_wc.read);
+						      var remain = read_clk ;
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
 						           (sim_p.events.mem[clk-1].remain > 0)
-                                                         ) {
-						              remain = sim_p.events.mem[clk-1].remain - 1;
-                                                           }
+                                                         )
+						      {
+						            remain = sim_p.events.mem[clk-1].remain - 1;
+                                                      }
 
 						      if (typeof sim_p.events.mem[clk] == "undefined")
 						      {
-						          first_time = true ;
+                                                          // reset events.mem (cleanup former trace)
+                                                          sim_p.events.mem = [] ;
+
+                                                          // set new event
 						          sim_p.events.mem[clk] = {};
 						          sim_p.events.mem[clk].address = address ;
 						          sim_p.events.mem[clk].dbvalue = dbvalue ;
 						          sim_p.events.mem[clk].bw = bw ;
 						          sim_p.events.mem[clk].se = se ;
-						      }
-						      sim_p.events.mem[clk].remain = remain;
+						          sim_p.events.mem[clk].remain = remain;
 
+						          // MRDY=0
+                                                          sim_p.signals[s_expr[6]].value = 0;
+						      }
+
+						      // if memory already updated and no any value changes -> skip to speed-up re-evaluations
+						      if (
+                                                           (1 == sim_p.signals[s_expr[6]].value) &&
+						           (sim_p.events.mem[clk].address == address) &&
+						           (sim_p.events.mem[clk].dbvalue == dbvalue) &&
+						           (sim_p.events.mem[clk].bw == bw) &&
+						           (sim_p.events.mem[clk].se == se)
+							 )
+						      {
+						           return ;
+						      }
+
+						      // first clk cycle when memory read operation is requested -> cache
+                                                      if (read_clk == remain) 
+					              {
+							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
+							  {
+							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
+							       }
+							  }
+                                                      }
+
+						      // if remain clk cycles > 0 -> skip not needed re-evaluations
                                                       if (remain > 0) {
                                                           return;
                                                       }
-
-						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
-                                                      ///if (1 == sim_p.signals[s_expr[6]].value) {
-						      ///  return ;
-						      ///}
 
 						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;
@@ -252,24 +276,13 @@ function mem_ep2_register ( sim_p )
                                                       sim_p.states[s_expr[2]].value = (dbvalue >>> 0) ;
                                                      sim_p.signals[s_expr[6]].value = 1;
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
-
-                                                      // cache
-                                                      if (first_time)
-					              {
-							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
-							  {
-							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
-                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
-							       }
-							  }
-                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
 					              var verbal = "" ;
 
-						      var address = sim_p.states[s_expr[1]].value;
-                                                      var dbvalue = sim_p.states[s_expr[2]].value;
+						      var address = sim_p.states [s_expr[1]].value;
+                                                      var dbvalue = sim_p.states [s_expr[2]].value;
                                                       var bw      = sim_p.signals[s_expr[3]].value;
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
@@ -303,43 +316,67 @@ function mem_ep2_register ( sim_p )
                                         types: ["E", "E", "S", "S", "E", "S"],
                                         operation: function (s_expr)
                                                    {
-						      var address =  sim_p.states[s_expr[1]].value;
-                                                      var dbvalue =  sim_p.states[s_expr[2]].value;
-                                                      var bw      = sim_p.signals[s_expr[3]].value;
-                                                      var se      = sim_p.signals[s_expr[4]].value; // se not used on write operation
-                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
-
-                                                      sim_p.signals[s_expr[6]].value = 0;
-						      var first_time = false ;
+						      var address   =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue   =  sim_p.states[s_expr[2]].value;
+                                                      var bw        = sim_p.signals[s_expr[3]].value;
+                                                      var se        = sim_p.signals[s_expr[4]].value; // se not used on write operation
+                                                      var clk       = get_value(sim_p.states[s_expr[5]]) ;
 
 						      // remaining clk cycles of the current operation
-						      var remain = get_value(sim_p.internal_states.MP_wc.write);
+						      var write_clk = get_value(sim_p.internal_states.MP_wc.write);
+						      var remain = write_clk ;
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
 						           (sim_p.events.mem[clk-1].remain > 0)
-                                                         ) {
-						              remain = sim_p.events.mem[clk-1].remain - 1;
-                                                           }
+                                                         )
+						      {
+						            remain = sim_p.events.mem[clk-1].remain - 1;
+                                                      }
 
 						      if (typeof sim_p.events.mem[clk] == "undefined")
 					              {
-						          first_time = true ;
+                                                          // reset events.mem (cleanup former trace)
+                                                          sim_p.events.mem = [] ;
+
+                                                          // set new event
 						          sim_p.events.mem[clk] = {};
 						          sim_p.events.mem[clk].address = address ;
 						          sim_p.events.mem[clk].dbvalue = dbvalue ;
 						          sim_p.events.mem[clk].bw = bw ;
 						          sim_p.events.mem[clk].se = se ;
-						      }
-						      sim_p.events.mem[clk].remain = remain;
+						          sim_p.events.mem[clk].remain = remain;
 
+						          // MRDY=0
+                                                          sim_p.signals[s_expr[6]].value = 0;
+						      }
+
+						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
+						      if (
+                                                           (1 == sim_p.signals[s_expr[6]].value) &&
+						           (sim_p.events.mem[clk].address == address) &&
+						           (sim_p.events.mem[clk].dbvalue == dbvalue) &&
+						           (sim_p.events.mem[clk].bw == bw) &&
+						           (sim_p.events.mem[clk].se == se)
+							 )
+						      {
+						           return ;
+						      }
+
+						      // first clk cycle when write operation is requested -> cache
+                                                      if (write_clk == remain)
+					              {
+							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
+							  {
+							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
+							       }
+							  }
+                                                      }
+
+						      // if remain clk cycles > 0 -> skip not needed re-evaluations
                                                       if (remain > 0) {
                                                           return;
                                                       }
-
-						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
-                                                      ///if (1 == sim_p.signals[s_expr[6]].value) {
-						      ///  return ;
-						      ///}
 
 						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;
@@ -351,10 +388,7 @@ function mem_ep2_register ( sim_p )
                					      }
 
                                                       // bit-width
-						      value = main_memory_updatevalues(value,
-									               dbvalue,
-									               bw,
-									               (address & 0x00000003)) ;
+						      value = main_memory_updatevalues(value, dbvalue, bw, (address & 0x00000003)) ;
 
 						      // PC
                                                       var origin = '' ;
@@ -373,26 +407,16 @@ function mem_ep2_register ( sim_p )
                                                       sim_p.signals[s_expr[6]].value = 1 ;
 				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
 
-                                                      // cache
-                                                      if (first_time)
-					              {
-							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
-							  {
-							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
-                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
-							       }
-							  }
-                                                      }
                                                    },
                                            verbal: function (s_expr)
                                                    {
 					              var verbal = "" ;
 
-						      var address = get_value(sim_p.states[s_expr[1]]) ;
-                                                      var dbvalue = get_value(sim_p.states[s_expr[2]]) ;
+						      var address = get_value(sim_p.states [s_expr[1]]) ;
+                                                      var dbvalue = get_value(sim_p.states [s_expr[2]]) ;
                                                       var bw      = get_value(sim_p.signals[s_expr[3]]) ;
                                                       var se      = get_value(sim_p.signals[s_expr[4]]) ;
-                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
+                                                      var clk     = get_value(sim_p.states [s_expr[5]]) ;
 
                                                       // bit-width
 						      switch (bw)
