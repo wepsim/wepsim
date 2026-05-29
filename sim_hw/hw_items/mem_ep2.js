@@ -206,19 +206,38 @@ function mem_ep2_register ( sim_p )
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       sim_p.signals[s_expr[6]].value = 0;
+						      var first_time = false ;
+
+						      // remaining clk cycles of the current operation
 						      var remain = get_value(sim_p.internal_states.MP_wc.read);
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
-						           (sim_p.events.mem[clk-1] > 0)
+						           (sim_p.events.mem[clk-1].remain > 0)
                                                          ) {
-						              remain = sim_p.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1].remain - 1;
                                                            }
-						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
-						      sim_p.events.mem[clk] = remain;
+
+						      if (typeof sim_p.events.mem[clk] == "undefined")
+						      {
+						          first_time = true ;
+						          sim_p.events.mem[clk] = {};
+						          sim_p.events.mem[clk].address = address ;
+						          sim_p.events.mem[clk].dbvalue = dbvalue ;
+						          sim_p.events.mem[clk].bw = bw ;
+						          sim_p.events.mem[clk].se = se ;
+						      }
+						      sim_p.events.mem[clk].remain = remain;
+
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
+						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
+                                                      ///if (1 == sim_p.signals[s_expr[6]].value) {
+						      ///  return ;
+						      ///}
+
+						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
                                                       var full_redraw = false ;
@@ -291,19 +310,38 @@ function mem_ep2_register ( sim_p )
                                                       var clk     = get_value(sim_p.states[s_expr[5]]) ;
 
                                                       sim_p.signals[s_expr[6]].value = 0;
+						      var first_time = false ;
+
+						      // remaining clk cycles of the current operation
 						      var remain = get_value(sim_p.internal_states.MP_wc.write);
 						      if (
                                                            (typeof sim_p.events.mem[clk-1] != "undefined") &&
-						           (sim_p.events.mem[clk-1] > 0)
+						           (sim_p.events.mem[clk-1].remain > 0)
                                                          ) {
-						              remain = sim_p.events.mem[clk-1] - 1;
+						              remain = sim_p.events.mem[clk-1].remain - 1;
                                                            }
-						      var first_time = typeof sim_p.events.mem[clk] == "undefined" ;
-						      sim_p.events.mem[clk] = remain;
+
+						      if (typeof sim_p.events.mem[clk] == "undefined")
+					              {
+						          first_time = true ;
+						          sim_p.events.mem[clk] = {};
+						          sim_p.events.mem[clk].address = address ;
+						          sim_p.events.mem[clk].dbvalue = dbvalue ;
+						          sim_p.events.mem[clk].bw = bw ;
+						          sim_p.events.mem[clk].se = se ;
+						      }
+						      sim_p.events.mem[clk].remain = remain;
+
                                                       if (remain > 0) {
                                                           return;
                                                       }
 
+						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
+                                                      ///if (1 == sim_p.signals[s_expr[6]].value) {
+						      ///  return ;
+						      ///}
+
+						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;
                                                       var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
                                                       var full_redraw = false ;
@@ -394,7 +432,7 @@ function mem_ep2_register ( sim_p )
                                         operation: function (s_expr)
                                                    {
                                                        // reset events.mem
-                                                       sim_p.events.mem = {} ;
+                                                       sim_p.events.mem = [] ;
                                                    },
                                            verbal: function (s_expr)
                                                    {
