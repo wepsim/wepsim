@@ -145,16 +145,9 @@
 
         function simcore_action_ui ( component_name, detail_id, action_name )
         {
-            var sim_components = simhw_sim_components() ;
-
-            if (typeof sim_components[component_name].details_ui === "undefined") {
-                return simcore_do_nothing_handler ;
-            }
-            if (typeof sim_components[component_name].details_ui[detail_id][action_name] === "undefined") {
-                return simcore_do_nothing_handler ;
-            }
-
-            return sim_components[component_name].details_ui[detail_id][action_name] ;
+            const component = simhw_sim_components()[component_name];
+            const action = component?.details_ui?.[detail_id]?.[action_name];
+            return action ?? simcore_do_nothing_handler;
         }
 
         /**
