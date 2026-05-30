@@ -359,6 +359,8 @@ function wsasm_prepare_context ( CU_data, options )
                 context.options.endian = context.metadata.endian ;
            else context.options.endian = 'little' ;
 
+        context.options.pc_relative_offset = parseInt(context.metadata.pc_rel_offset) || 0;
+
 	   // Fill register names
            context = wsasm_prepare_registers(context, CU_data) ;
 

@@ -2705,14 +2705,18 @@ function cpu_ep2_register ( sim_p )
                                                                 mcelto = { value: sim_p.states["REG_MICROINS"].default_value,   is_native: false } ;
                                                             }
                                                             var new_mins = Object.create(get_value(mcelto));
+							    var old_mins = sim_p.states["REG_MICROINS"].value ;
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    for (var key in sim_p.signals) {
-								 set_value(sim_p.signals[key], sim_p.signals[key].default_value) ;
-							    }
-
 							    var signal_obj = null ;
+							    for (var key in old_mins)
+							    {
+							         signal_obj = sim_p.signals[key] ;
+								 if (typeof signal_obj != "undefined") {
+								     set_value(signal_obj, signal_obj.default_value) ;
+								 }
+							    }
 							    for (var key in new_mins)
 							    {
 							         signal_obj = sim_p.signals[key] ;
