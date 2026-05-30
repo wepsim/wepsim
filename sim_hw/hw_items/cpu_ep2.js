@@ -2710,20 +2710,21 @@ function cpu_ep2_register ( sim_p )
 
                                                             // 4.- update signals
 							    var signal_obj = null ;
-							    for (var key in old_mins)
+                                                            for (var key in sim_p.signals)
+							    //for (var key in old_mins)
 							    {
 							         signal_obj = sim_p.signals[key] ;
 								 if (typeof signal_obj != "undefined") {
 								     set_value(signal_obj, signal_obj.default_value) ;
 								 }
-							    }
-							    for (var key in new_mins)
+                                                                 // set_value(sim_p.signals[key], sim_p.signals[key].default_value) ;
+                                                            }
+                                                            for (var key in new_mins)
 							    {
-							         signal_obj = sim_p.signals[key] ;
-								 if (typeof signal_obj != "undefined") {
-								     set_value(signal_obj, new_mins[key]) ;
-								 }
-							    }
+                                                                 if (typeof sim_p.signals[key] != "undefined") {
+                                                                     set_value(sim_p.signals[key], new_mins[key]) ;
+                                                                 }
+                                                            }
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)
