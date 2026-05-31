@@ -2700,29 +2700,22 @@ function cpu_ep2_register ( sim_p )
                                                             new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
                                                             set_value(sim_p.states["REG_MICROADDR"], new_maddr);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            if (typeof mcelto === "undefined")
-                                                            {
+                                                            if (typeof mcelto === "undefined") {
                                                                 mcelto = { value: sim_p.states["REG_MICROINS"].default_value,   is_native: false } ;
                                                             }
                                                             var new_mins = Object.create(get_value(mcelto));
-							    var old_mins = sim_p.states["REG_MICROINS"].value ;
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
 							    var signal_obj = null ;
-                                                            for (var key in sim_p.signals)
-							    //for (var key in old_mins)
-							    {
+                                                            for (var key in sim_p.signals) {
 							         signal_obj = sim_p.signals[key] ;
-								 if (typeof signal_obj != "undefined") {
-								     set_value(signal_obj, signal_obj.default_value) ;
-								 }
-                                                                 // set_value(sim_p.signals[key], sim_p.signals[key].default_value) ;
+								 set_value(signal_obj, signal_obj.default_value) ;
                                                             }
-                                                            for (var key in new_mins)
-							    {
-                                                                 if (typeof sim_p.signals[key] != "undefined") {
-                                                                     set_value(sim_p.signals[key], new_mins[key]) ;
+                                                            for (var key in new_mins) {
+							         signal_obj = sim_p.signals[key] ;
+                                                                 if (typeof signal_obj != "undefined") {
+                                                                     set_value(signal_obj, new_mins[key]) ;
                                                                  }
                                                             }
 
