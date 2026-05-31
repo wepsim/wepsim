@@ -232,7 +232,7 @@
 	                   ) ;
 
              // (2/3) prepare encoding...
-	     farg.encoding = SIMWARE.metadata.immediates ;
+	     farg.encodings = SIMWARE.metadata.immediates ;
 
              // (3/3) prepare endianness: "little" | "big"
 	     farg.endianness = "big" ;

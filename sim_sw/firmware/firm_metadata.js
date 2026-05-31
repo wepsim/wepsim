@@ -32,6 +32,7 @@ function firm_metadata_write ( context )
         var m = {
                    version:    2,
                    rel_mult:   2,
+                   pc_rel_offset: 0,
                    endian:     "little",
                    immediates: ''
                 } ;
@@ -43,6 +44,10 @@ function firm_metadata_write ( context )
 
         if (typeof context.metadata.rel_mult != "undefined") {
             m.rel_mult = context.metadata.rel_mult ;
+        }
+
+        if (typeof context.metadata.pc_rel_offset != "undefined") {
+            m.pc_rel_offset = context.metadata.pc_rel_offset ;
         }
 
         if (typeof context.metadata.endian != "undefined") {
@@ -62,6 +67,7 @@ function firm_metadata_write ( context )
              "firmware {\n" +
              "   version    = " + m.version    + ",\n" +
              "   rel_mult   = " + m.rel_mult   + ",\n" +
+             "   pc_rel_offset = " + m.pc_rel_offset + ",\n" +
              "   endian     = " + m.endian     + ",\n" +
              "   immediates = " + m.immediates +  "\n" +
              "}\n" +
@@ -77,6 +83,7 @@ function firm_metadata_read ( context )
         //   *firmware {
         //       version    = 2,
         //       rel_mult   = 2,
+        //       pc_rel_offset = 0,
         //       endian     = little,
         //       immediates = '...'
         //    }*
@@ -125,6 +132,26 @@ function firm_metadata_read ( context )
 		    frm_nextToken(context);
 		    // match mandatory relative_offset_multiplier (1, 2, 4, ...)
 		    context.metadata.rel_mult = frm_getToken(context) ;
+
+		    frm_nextToken(context);
+		    // match optional ,
+		    if (frm_isToken(context,","))
+			frm_nextToken(context);
+		}
+
+		// optional: *pc_rel_offset* = 0,
+		if (frm_isToken(context, "pc_rel_offset"))
+		{
+		    frm_nextToken(context);
+		    // match mandatory =
+		    if (! frm_isToken(context,"=")) {
+			  return frm_langError(context,
+					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+		    }
+
+		    frm_nextToken(context);
+		    // match mandatory pc_relative_offset (0, 4, -4, ...)
+		    context.metadata.pc_rel_offset = frm_getToken(context) ;
 
 		    frm_nextToken(context);
 		    // match optional ,

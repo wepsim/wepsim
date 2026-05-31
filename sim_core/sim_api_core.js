@@ -155,6 +155,14 @@
             }
 
             return sim_components[component_name].details_ui[detail_id][action_name] ;
+
+/* 
+ * Equivalent code hard to understand :-(
+ *
+            const component = simhw_sim_components()[component_name];
+            const action = component?.details_ui?.[detail_id]?.[action_name];
+            return action ?? simcore_do_nothing_handler;
+ */
         }
 
         /**

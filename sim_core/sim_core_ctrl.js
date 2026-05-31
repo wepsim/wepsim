@@ -68,7 +68,7 @@
 	     var e = -1 ;
 	     for (var i=0; i<32; i++)
              {
-		  a = tri_mask & Math.pow(2, i) ;
+                  a = tri_mask & (1 << i) ;
                   if (a > 0) {
 	              e = i ;
 		      n = n + 1 ;
@@ -137,15 +137,17 @@
         function fn_updateE_future ( key )
         {
             if (jit_fire_ndep[key] < 1) // 1 -> 2
-	        fn_updateE_now(key);
+	         fn_updateE_now(key);
 	    else
-	        return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
+	         return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
 	}
 
         function fn_updateL_now ( key )
         {
-	    update_draw(simhw_sim_signal(key), simhw_sim_signal(key).value) ;
-	    if ("L" == simhw_sim_signal(key).type) {
+	    var signal_obj = simhw_sim_signal(key) ;
+
+	    update_draw(signal_obj, signal_obj.value) ;
+	    if ("L" == signal_obj.type) {
 		update_state(key) ;
 	    }
 	}
@@ -153,9 +155,9 @@
         function fn_updateL_future ( key )
         {
             if (jit_fire_ndep[key] < 1) // 1 -> 2
-	        fn_updateL_now(key);
+	         fn_updateL_now(key);
 	    else
-	        return new Promise( function(resolve, reject) { fn_updateL_now(key); });
+	         return new Promise( function(resolve, reject) { fn_updateL_now(key); });
 	}
 
 
@@ -165,10 +167,11 @@
 
         function update_state ( key )
         {
-           var index_behavior = 0;
+            var index_behavior = 0;
+	    var signal_obj = simhw_sim_signal(key) ;
 
-           switch (simhw_sim_signal(key).behavior.length)
-           {
+            switch (signal_obj.behavior.length)
+            {
                 case 0: // skip empty behavior
                      return;
                      break;
@@ -178,16 +181,16 @@
                      break;
 
                 default:
-                     index_behavior = simhw_sim_signal(key).value ;
-                     if (simhw_sim_signal(key).behavior.length < index_behavior) {
+                     index_behavior = signal_obj.value ;
+                     if (signal_obj.behavior.length < index_behavior) {
                          ws_alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
                                   'key: ' + key + ' and signal value: ' + index_behavior);
                          return;
                      }
                      break;
-           }
+            }
 
-           compute_signal_behavior(key, index_behavior) ;
+            compute_signal_behavior(key, index_behavior) ;
         }
 
         function update_signal_firmware ( key )
@@ -244,9 +247,11 @@
         {
 	    if (true === get_cfg('is_interactive'))
 	    {
+	         var signal_obj = simhw_sim_signal(key) ;
+
 		 // update REG_MICROINS
-		 if (simhw_sim_signal(key).value != simhw_sim_signal(key).default_value)
-		      simhw_sim_state("REG_MICROINS").value[key] = simhw_sim_signal(key).value ;
+		 if (signal_obj.value != signal_obj.default_value)
+		      simhw_sim_state("REG_MICROINS").value[key] = signal_obj.value ;
 		 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 		 // update MC[uADDR]
@@ -260,7 +265,7 @@
                         mcelto = { value: {}, comments: null } ;
                  }
 
-                 mcelto.value[key] = simhw_sim_signal(key).value ;
+                 mcelto.value[key] = signal_obj.value ;
                  mcelto.comments   = [] ;
                  control_memory_set(mc_obj, curr_maddr, mcelto) ;
 

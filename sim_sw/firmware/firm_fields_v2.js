@@ -64,8 +64,7 @@ function firm_fields_v2_write ( elto_fields )
 function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_oc )
 {
        // semantic check: valid value
-       if ( (instruccionAux.oc.match("[01]*")[0] != instruccionAux.oc) ||
-	    (instruccionAux.oc.length !== xr_info.ir.default_eltos.oc.length) )
+       if (instruccionAux.oc.match("[01]*")[0] != instruccionAux.oc)
        {
 	   return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'INCORRECT OC BIN.') +
@@ -73,7 +72,9 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
        }
 
        // semantic check: 'oc' is not already used
-       if (instruccionAux.oc != all_ones_oc)
+       var all_ones_oc_len = "".padStart(instruccionAux.oc.length, "1") ;
+
+       if (instruccionAux.oc != all_ones_oc_len)
        {
 	   if ( (typeof context.oc_eoc[instruccionAux.oc] !== "undefined") &&
 		       (context.oc_eoc[instruccionAux.oc].eoc === null) )
@@ -91,6 +92,29 @@ function firm_instruction_check_oc ( context, instruccionAux, xr_info, all_ones_
 	   }
        }
 
+       // semantic check: 'oc' length
+       var oc_ins_len = 0 ;
+       var nbits_field = 0 ;
+       for (var i=0; i<instruccionAux.fields_all.length; i++)
+       {
+            for (var j=0; j<instruccionAux.fields_all[i].bits_stop.length; j++)
+            {
+	         if (instruccionAux.fields_all[i].type != "oc") continue ;
+
+                 nbits_field = Math.abs(parseInt(instruccionAux.fields_all[i].bits_stop[j]) - parseInt(instruccionAux.fields_all[i].bits_start[j])) + 1 ;
+                 oc_ins_len = oc_ins_len + nbits_field ;
+            }
+       }
+
+       if ( (instruccionAux["is_native"] === false) &&
+	    (instruccionAux.oc.length      > oc_ins_len) )
+       {
+	    return frm_langError(context,
+			         i18n_get_TagFor('compiler', 'BAD OC BIN. LEN.') +
+			         " at '" + instruccionAux.name + "'") ;
+       }
+
+       // ok by now
        return {} ;
 }
 
@@ -104,8 +128,11 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones
 			        "'" + instruccionAux.eoc + "'") ;
        }
 
+       // semantic check: 'oc' is not already used
+       var all_ones_oc_len = "".padStart(instruccionAux.oc.length, "1") ;
+
        // semantic check: 'oc+eoc' is not already used
-       if (instruccionAux.oc != all_ones_oc)
+       if (instruccionAux.oc != all_ones_oc_len)
        {
 	   if (context.oc_eoc[instruccionAux.oc].eoc == null) {
 	       context.oc_eoc[instruccionAux.oc].eoc = {} ;
@@ -122,7 +149,31 @@ function firm_instruction_check_eoc ( context, instruccionAux, xr_info, all_ones
 	   context.oc_eoc[instruccionAux.oc].eoc[instruccionAux.eoc] = instruccionAux.signature ;
        }
 
-        return {} ;
+       // semantic check: 'eoc' length
+       var eoc_ins_len = 0 ;
+       var nbits_field = 0 ;
+       for (var i=0; i<instruccionAux.fields_all.length; i++)
+       {
+            for (var j=0; j<instruccionAux.fields_all[i].bits_stop.length; j++)
+            {
+	         if (instruccionAux.fields_all[i].type != "eoc") continue ;
+
+                 nbits_field = Math.abs(parseInt(instruccionAux.fields_all[i].bits_stop[j]) - parseInt(instruccionAux.fields_all[i].bits_start[j])) + 1 ;
+                 eoc_ins_len = eoc_ins_len + nbits_field ;
+            }
+       }
+
+       if ( (instruccionAux["is_native"] === false) &&
+	    (typeof instruccionAux.eoc   !== 'undefined') &&
+	    (instruccionAux.eoc.length     > eoc_ins_len) )
+       {
+	    return frm_langError(context,
+			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +
+			         " at '" + instruccionAux.name + "'") ;
+       }
+
+       // ok by now
+       return {} ;
 }
 
 function firm_instruction_get_opcode_pattern ( context, instruccionAux )
@@ -266,7 +317,7 @@ function firm_instruction_field_read_v2 ( context, instruccionAux )
 {
         var tmp_fields = {} ;
 	var field_list = ["oc", "eoc", "reg", "imm", "inm", "address-rel", "address-abs"] ;
-	var complex_field_list = ["eoc", "address-rel", "address-abs"] ;
+	var complex_field_list = ["eoc", "address-rel", "address-abs", "imm"] ;
 
         // ...
         // reg(15:19)=rs1,
@@ -662,21 +713,6 @@ function firm_instruction_read_fields_v2 ( context, instruccionAux, xr_info, all
        {
 	   return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'NO FIELD')) ; // TODO
-       }
-
-       // semantic check: valid pending value (eoc.length if native.false)
-       var eoc_total_len = 0 ;
-       for (var i=0; i<xr_info.ir.default_eltos.eoc.length; i++) {
-       	    eoc_total_len = eoc_total_len + xr_info.ir.default_eltos.eoc[i].length ;
-       }
-
-       if ( (instruccionAux["is_native"] === false) &&
-	    (typeof instruccionAux.eoc   !== 'undefined') &&
-	    (instruccionAux.eoc.length   > eoc_total_len) )
-       {
-	    return frm_langError(context,
-			         i18n_get_TagFor('compiler', 'BAD EOC BIN. LEN.') +
-			     "'" + frm_getToken(context) + "'") ;
        }
 
        // updating the opcode pattern (e.g.: "------10101-----1100")

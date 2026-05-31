@@ -76,14 +76,14 @@ echo "  Done."
 echo ""
 
 
-# pre-bundle
-echo "  Step for rollup:"
-echo "  * codemirror6"
-node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
-terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
-rm -fr external/codemirror6/codemirror.bundle.js
-echo "  Done."
-echo ""
+# # pre-bundle
+# echo "  Step for rollup:"
+# echo "  * codemirror6"
+# node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
+# terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
+# rm -fr external/codemirror6/codemirror.bundle.js
+# echo "  Done."
+# echo ""
 
 
 # skeleton
@@ -153,6 +153,8 @@ cat sim_core/sim_cfg.js \
     sim_sw/firmware/firm_registers.js \
     sim_sw/firmware/firm_fields_v1.js \
     sim_sw/firmware/firm_fields_v2.js \
+    sim_sw/firmware/firm_oc_eoc_v1.js \
+    sim_sw/firmware/firm_oc_eoc_v2.js \
     sim_sw/firmware/firm_instruction.js \
     sim_sw/firmware.js \
     sim_sw/assembly/lexical.js \

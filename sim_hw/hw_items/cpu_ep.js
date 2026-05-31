@@ -1184,17 +1184,17 @@ function cpu_ep_register ( sim_p )
 
                                                    var reg_w_obj  = sim_p.signals[reg_w_name] ;
                                                    if (typeof reg_w_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register name ' + reg_w_name) ;
+                                                       ws_alert('ERROR: undefined register name ' + reg_w_name) ;
                                                        return ;
                                                    }
                                                    var state_obj  = sim_p.states[state_name] ;
                                                    if (typeof state_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined state name ' + state_name) ;
+                                                       ws_alert('ERROR: undefined state name ' + state_name) ;
                                                        return ;
                                                    }
                                                    var rf_obj     = sim_p.states[rf_name][reg_w_obj.value] ;
                                                    if (typeof rf_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register element at ' + rf_name) ;
+                                                       ws_alert('ERROR: undefined register element at ' + rf_name) ;
                                                        return ;
                                                    }
 

@@ -925,6 +925,12 @@ function cpu_ep2_register ( sim_p )
 			              draw_data: [['svg_p:path3749']],
 			              draw_name: [[]] };
 
+	 sim_p.signals["PAUSE"]   = { name: "PAUSE", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
+		  	              behavior: ["NOP", "NOP"],
+			              fire_name: [],
+			              draw_data: [[]],
+			              draw_name: [[]] };
+
 
 	/*
 	 *  Syntax of behaviors
@@ -1085,17 +1091,17 @@ function cpu_ep2_register ( sim_p )
 
                                                    var reg_w_obj  = sim_p.signals[reg_w_name] ;
                                                    if (typeof reg_w_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register name ' + reg_w_name) ;
+                                                       ws_alert('ERROR: undefined register name ' + reg_w_name) ;
                                                        return ;
                                                    }
                                                    var state_obj  = sim_p.states[state_name] ;
                                                    if (typeof state_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined state name ' + state_name) ;
+                                                       ws_alert('ERROR: undefined state name ' + state_name) ;
                                                        return ;
                                                    }
                                                    var rf_obj     = sim_p.states[rf_name][reg_w_obj.value] ;
                                                    if (typeof rf_obj === "undefined") {
-                                                       ws_alert.log('ERROR: undefined register element at ' + rf_name) ;
+                                                       ws_alert('ERROR: undefined register element at ' + rf_name) ;
                                                        return ;
                                                    }
 
@@ -2112,11 +2118,12 @@ function cpu_ep2_register ( sim_p )
 						   var offset       = parseInt(s_expr[3]) ;
 						   var size         = parseInt(s_expr[4]) ;
 
-						   var n1 = get_value(sim_elto_org).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-						       n2 = n2.substr(31 - (offset + size - 1), size);
+                                                   var value = get_value(sim_elto_org) >>> 0 ;
+                                                   var n3 = value << (31 - offset) ;
+                                                       n3 = n3   >>> (31 - offset) ;
+                                                       n3 = n3   >>> (offset - size + 1) ;
 
-						   set_value(sim_elto_dst, parseInt(n2, 2));
+						   set_value(sim_elto_dst, n3) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -2126,7 +2133,7 @@ function cpu_ep2_register ( sim_p )
 						   var size         = parseInt(s_expr[4]) ;
 
 						   var n1 = get_value(sim_elto_org).toString(2) ; // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
@@ -2160,13 +2167,13 @@ function cpu_ep2_register ( sim_p )
                                                    // end: REG_MICROINS/xxx by default is the default_value
 						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
-						   var offset = parseInt(s_expr[4]) ;
+						   var size  = parseInt(s_expr[4]) ;
+                                                   var value = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+                                                   var n3 = (value << 31 - (base + size - 1)) ;
+                                                       n3 = (n3   >>> 31 - (base + size - 1)) ;
+                                                       n3 = (n3   >>> base) ;
 
-						   var n1 = get_value(sim_p.states[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
-						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
-
-						   set_value( sim_p.signals[s_expr[1]], parseInt(n3, 2));
+						   set_value(sim_p.signals[s_expr[1]], n3);
                                                 },
                                         verbal: function (s_expr)
                                                 {
@@ -2189,7 +2196,7 @@ function cpu_ep2_register ( sim_p )
 						   var offset = parseInt(s_expr[4]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
 
 						   // name
@@ -2275,13 +2282,13 @@ function cpu_ep2_register ( sim_p )
 						   var size   = parseInt(sim_p.signals[s_expr[5]].value) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[3]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
                                                    {    // check signed-extension
-							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+						        n3 = n2.padStart(32, '1') ;
 						   }
 
 						   set_value(sim_p.states[s_expr[1]], parseInt(n3, 2));
@@ -2292,13 +2299,13 @@ function cpu_ep2_register ( sim_p )
 						   var size   = parseInt(sim_p.signals[s_expr[5]].value) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[3]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
                                                    {    // check signed-extension
-							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+						        n3 = n2.padStart(32, '1') ;
 						   }
 
 						   n1 = parseInt(n3, 2) ;
@@ -2326,9 +2333,9 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   var n4 = "00000000000000000000000000000000".substr(0, posd);
 						   n3 = n3 + n4;
 
@@ -2341,9 +2348,9 @@ function cpu_ep2_register ( sim_p )
 						   var poso = parseInt(s_expr[5]) ;
 
 						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n2 = n1.padStart(32, '0') ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n3 = n2.padStart(32, '0') ;
 						   var n4 = "00000000000000000000000000000000".substr(0, posd);
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
@@ -2363,24 +2370,28 @@ function cpu_ep2_register ( sim_p )
 				     types: ["E", "I"],
 				     operation: function (s_expr)
 		                                {
+						   var size = parseInt(s_expr[2]) ;
+
 						   var n1 = get_value(sim_p.states[s_expr[1]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
-						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n2 = n1.padStart(32, '0') ;
+						   var n3 = n2.substr(31 - size, 31);
 						   var n4 = n3;
-						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
-						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   if ("1" == n2[31 - size]) {  // check signed-extension
+						       n4 = n4.padStart(32, '1') ;
 						   }
 
 						   set_value(sim_p.states[s_expr[1]], parseInt(n4, 2));
                                                 },
                                         verbal: function (s_expr)
                                                 {
+						   var size = parseInt(s_expr[2]) ;
+
 						   var n1 = get_value(sim_p.states[s_expr[1]]).toString(2); // to binary
-						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
-						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n2 = n1.padStart(32, '0') ;
+						   var n3 = n2.substr(31 - size, 31);
 						   var n4 = n3;
-						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
-						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   if ("1" == n2[31 - size]) {  // check signed-extension
+						       n4 = n4.padStart(32, '1') ;
 						   }
                                                    var n5 = parseInt(n4, 2) ;
 
@@ -2471,11 +2482,11 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 =  sim_p.signals[s_expr[4]].value.toString(2); // to binary signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
+						   n1 = n1.padStart(32, '0') ;
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
 						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
+						   n2 = n2.padStart(32, '0') ;
 						   var m1 = n2.substr(0, 32 - (posd + len));
 						   var m2 = n2.substr(31 - posd + 1, posd);
 						   var n3 = m1 + n1 + m2;
@@ -2497,11 +2508,11 @@ function cpu_ep2_register ( sim_p )
 						   var len  = parseInt(s_expr[3]) ;
 
 						   var n1 =  get_value(sim_p.states[s_expr[4]]).toString(2); // to state signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
+						   n1 = n1.padStart(32, '0') ;
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
 						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2);
+						   n2 = n2.padStart(32, '0') ;
 						   var m1 = n2.substr(0, 32 - (posd + len));
 						   var m2 = n2.substr(31 - posd + 1, posd);
 						   var n3 = m1 + n1 + m2;
@@ -2565,9 +2576,31 @@ function cpu_ep2_register ( sim_p )
 				   };
 
 		sim_p.behaviors["FIRE"] = { nparameters: 2,
-					       types: ["S"],
-					   operation: function (s_expr)
-							{
+                                            types: ["S"],
+                                            operation: function (s_expr)
+						       {
+							    var signal = sim_p.signals[s_expr[1]];
+
+							    // 0.- avoid loops
+							    if (signal.is_firing) {
+								return;
+							    }
+
+							    signal.is_firing = true;
+
+							    // 1.- update draw
+							    update_draw(signal, signal.value) ;
+
+							    // 2.- for Level signals, propage it
+							    if ("L" ==  signal.type) {
+								update_state(s_expr[1]) ;
+							    }
+
+							    signal.is_firing = false;
+
+/*
+							    var signal_obj = sim_p.signals[s_expr[1]] ;
+
 							    // 0.- avoid loops
 							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
 								return ;
@@ -2576,15 +2609,16 @@ function cpu_ep2_register ( sim_p )
 							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
 
 							    // 1.- update draw
-							    update_draw(sim_p.signals[s_expr[1]], sim_p.signals[s_expr[1]].value) ;
+							    update_draw(signal_obj, signal_obj.value) ;
 
 							    // 2.- for Level signals, propage it
-							    if ("L" ==  sim_p.signals[s_expr[1]].type)
+							    if ("L" ==  signal_obj.type)
 							    {
 								update_state(s_expr[1]) ;
 							    }
 
 							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
+*/
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2653,10 +2687,9 @@ function cpu_ep2_register ( sim_p )
 						            set_value(sim_p.states["TTCPU"], 0) ;
 
                                                             // 2.- To treat the (Falling) Edge signals
-                                                           new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            if ( (typeof mcelto !== "undefined") &&
-                                                                 (false == mcelto.is_native) )
+                                                            if ( (typeof mcelto !== "undefined") && (false == mcelto.is_native) )
                                                             {
                                                                 for (var i=0; i<jit_fire_order.length; i++) {
                                                                      fn_updateE_now(jit_fire_order[i]) ;
@@ -2664,26 +2697,34 @@ function cpu_ep2_register ( sim_p )
                                                             }
 
                                                             // 3.- The (Falling) Edge part of the Control Unit...
-                                                          new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
                                                             set_value(sim_p.states["REG_MICROADDR"], new_maddr);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
                                                             if (typeof mcelto === "undefined")
                                                             {
-                                                                mcelto = {
-                                                              value: sim_p.states["REG_MICROINS"].default_value,
-                                                                            is_native: false
-                                                                         } ;
+                                                                mcelto = { value: sim_p.states["REG_MICROINS"].default_value,   is_native: false } ;
                                                             }
                                                             var new_mins = Object.create(get_value(mcelto));
+							    var old_mins = sim_p.states["REG_MICROINS"].value ;
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    for (var key in sim_p.signals)
+							    var signal_obj = null ;
+                                                            for (var key in sim_p.signals)
+							    //for (var key in old_mins)
 							    {
-								 if (typeof new_mins[key] != "undefined")
-								      set_value(sim_p.signals[key],   new_mins[key]);
-								 else set_value(sim_p.signals[key], sim_p.signals[key].default_value);
-							    }
+							         signal_obj = sim_p.signals[key] ;
+								 if (typeof signal_obj != "undefined") {
+								     set_value(signal_obj, signal_obj.default_value) ;
+								 }
+                                                                 // set_value(sim_p.signals[key], sim_p.signals[key].default_value) ;
+                                                            }
+                                                            for (var key in new_mins)
+							    {
+                                                                 if (typeof sim_p.signals[key] != "undefined") {
+                                                                     set_value(sim_p.signals[key], new_mins[key]) ;
+                                                                 }
+                                                            }
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
                                                             if (mcelto.is_native)

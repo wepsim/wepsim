@@ -140,7 +140,7 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
 
        // semantic check: valid value
        if ( (instruccionAux.oc.match("[01]*")[0] != instruccionAux.oc) ||
-	    (instruccionAux.oc.length !== xr_info.ir.default_eltos.oc.length) )
+	    (instruccionAux.oc.length             > xr_info.ir.default_eltos.oc.length) )
        {
 	   return frm_langError(context,
 			        i18n_get_TagFor('compiler', 'INCORRECT CO BIN.') +
@@ -148,7 +148,9 @@ function firm_instruction_co_read ( context, instruccionAux, xr_info, all_ones_c
        }
 
        // semantic check: 'co' is not already used
-       if (instruccionAux.oc != all_ones_co)
+       var all_ones_oc_len = "".padStart(instruccionAux.oc.length, "1") ;
+
+       if (instruccionAux.oc != all_ones_oc_len)
        {
 	   if ( (typeof context.oc_eoc[instruccionAux.oc] !== "undefined") &&
 		       (context.oc_eoc[instruccionAux.oc].eoc === null) )
