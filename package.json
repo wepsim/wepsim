@@ -43,5 +43,8 @@
     "vuex": "^4.1.0",
     "winston": "^2.4.7",
     "yargs": "^15.4.1"
+  },
+  "allowScripts": {
+    "spawn-sync@1.0.15": true
   }
 }
