@@ -3,14 +3,14 @@
 	position: relative;
 }
 
-.speech-input {
+.si-wrapper input {
 	margin: 0;
 }
 
 .si-wrapper button {
-	/* position: absolute; */
+	position: absolute;
 	top: 0;
-	right: -10;
+	right: 0;
 	height: 18px;
 	width: 18px;
 	margin: 0;
