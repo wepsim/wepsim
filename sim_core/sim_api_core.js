@@ -147,22 +147,11 @@
         {
             var sim_components = simhw_sim_components() ;
 
-            if (typeof sim_components[component_name].details_ui === "undefined") {
-                return simcore_do_nothing_handler ;
-            }
-            if (typeof sim_components[component_name].details_ui[detail_id][action_name] === "undefined") {
-                return simcore_do_nothing_handler ;
-            }
+            // if any part of "sim_components[component_name]?.details_ui?.[detail_id]?.[action_name]" is "undefined" then action is "undefined" but no more evaluation is performed
+            var action = sim_components[component_name]?.details_ui?.[detail_id]?.[action_name] ;
 
-            return sim_components[component_name].details_ui[detail_id][action_name] ;
-
-/* 
- * Equivalent code hard to understand :-(
- *
-            const component = simhw_sim_components()[component_name];
-            const action = component?.details_ui?.[detail_id]?.[action_name];
-            return action ?? simcore_do_nothing_handler;
- */
+	    // if action is "undefined" then return "simcore_do_nothing_handler", otherwise action is returned
+            return action ?? simcore_do_nothing_handler ;
         }
 
         /**

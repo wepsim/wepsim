@@ -2675,8 +2675,9 @@ function cpu_ep2_register ( sim_p )
 		sim_p.behaviors["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-                                                            var new_maddr = null ;
-                                                            var mcelto    = null ;
+                                                            var new_maddr  = null ;
+                                                            var mcelto     = null ;
+							    var signal_obj = null ;
 
 						            // measure time (1/2)
 					                    var t0 = performance.now() ;
@@ -2707,15 +2708,13 @@ function cpu_ep2_register ( sim_p )
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    var signal_obj = null ;
-                                                            for (var key in sim_p.signals) {
-							         signal_obj = sim_p.signals[key] ;
-								 set_value(signal_obj, signal_obj.default_value) ;
-                                                            }
-                                                            for (var key in new_mins) {
+                                                            for (const [key, signal_obj] of Object.entries(sim_p.signals)) {
+							         set_value(signal_obj, signal_obj.default_value);
+						            }
+                                                            for (const [key, value] of Object.entries(get_value(mcelto))) {
 							         signal_obj = sim_p.signals[key] ;
                                                                  if (typeof signal_obj != "undefined") {
-                                                                     set_value(signal_obj, new_mins[key]) ;
+                                                                     set_value(signal_obj, value) ;
                                                                  }
                                                             }
 
