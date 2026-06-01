@@ -1,5 +1,1 @@
-
- /*
-  * Place-holder for Cordova
-  */
-
+ /* Placeholder for Apache Cordova */

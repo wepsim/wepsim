@@ -352,7 +352,7 @@ cat external/vue/vue.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
-terser -o ws_dist/min.external.js ws_dist/external.js
+terser --comments -o ws_dist/min.external.js ws_dist/external.js
 rm -fr ws_dist/external.js
 
 echo "  * ws_dist/min.external.css"
