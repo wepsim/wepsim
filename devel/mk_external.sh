@@ -32,251 +32,247 @@ if [ $# -gt 0 ]; then
 fi
 
 # external (1/12)...
-mkdir -p  ./external2
-touch     ./external2/index.html
+mkdir -p  ./external
+touch     ./external/index.html
 
 echo " * jquery.min.js"
-wget  --backups=0  -q  -O ./external2/jquery.min.js                  https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js
+wget  --backups=0  -q  -O ./external/jquery.min.js                  https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js
 echo " * popper.min.js"
-wget  --backups=0  -q  -O ./external2/popper.min.js                  https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js
+wget  --backups=0  -q  -O ./external/popper.min.js                  https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js
 echo " * async.min.js"
-wget  --backups=0  -q  -O ./external2/async.min.js                   https://cdnjs.cloudflare.com/ajax/libs/async/3.2.6/async.min.js
+wget  --backups=0  -q  -O ./external/async.min.js                   https://cdnjs.cloudflare.com/ajax/libs/async/3.2.6/async.min.js
 
 echo " * jquery.knob.min.js"
-wget  --backups=0  -q  -O ./external2/jquery.knob.min.js             https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js
+wget  --backups=0  -q  -O ./external/jquery.knob.min.js             https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js
 echo " * bootstrap-tokenfield..."
-wget  --backups=0  -q  -O ./external2/bootstrap-tokenfield.css       https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.css
-wget  --backups=0  -q  -O ./external2/bootstrap-tokenfield.js        https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js
+wget  --backups=0  -q  -O ./external/bootstrap-tokenfield.css       https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.css
+wget  --backups=0  -q  -O ./external/bootstrap-tokenfield.js        https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js
 echo " * annyang.min.js"
-wget  --backups=0  -q  -O ./external2/annyang.min.js                 https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js
+wget  --backups=0  -q  -O ./external/annyang.min.js                 https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js
 echo " * tone.min.js"
-wget  --backups=0  -q  -O ./external2/tone.min.js                    https://cdnjs.cloudflare.com/ajax/libs/tone/15.3.5/Tone.min.js
+wget  --backups=0  -q  -O ./external/tone.min.js                    https://cdnjs.cloudflare.com/ajax/libs/tone/15.3.5/Tone.min.js
 
 echo " * speech-input.js"
-wget  --backups=0  -q  -O ./external2/speech-input.js                https://raw.githubusercontent.com/luchovelez/SpeechRecognition/refs/heads/master/speech-input.js
-wget  --backups=0  -q  -O ./external2/speech-input.css               https://raw.githubusercontent.com/luchovelez/SpeechRecognition/refs/heads/master/speech-input.css
+wget  --backups=0  -q  -O ./external/speech-input.js                https://raw.githubusercontent.com/luchovelez/SpeechRecognition/refs/heads/master/speech-input.js
+wget  --backups=0  -q  -O ./external/speech-input.css               https://raw.githubusercontent.com/luchovelez/SpeechRecognition/refs/heads/master/speech-input.css
 
 
 # external (2/12)...
-mkdir -p  ./external2/bootbox
-touch     ./external2/bootbox/index.html
+mkdir -p  ./external/bootbox
+touch     ./external/bootbox/index.html
 
 echo " * bootbox.*"
-wget  --backups=0  -q  -O ./external2/bootbox/bootbox.all.min.js             https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.all.min.js
-wget  --backups=0  -q  -O ./external2/bootbox/bootbox.locales.min.js         https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.locales.min.js
-wget  --backups=0  -q  -O ./external2/bootbox/bootbox.min.js                 https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.min.js
+echo ""                 > ./external/bootbox/bootbox.all.min.js-1
+wget  --backups=0  -q  -O ./external/bootbox/bootbox.all.min.js-2         https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.all.min.js
+cat    ./external/bootbox/bootbox.all.min.js-1 ./external/bootbox/bootbox.all.min.js-2 > ./external/bootbox/bootbox.all.min.js
+rm -fr ./external/bootbox/bootbox.all.min.js-1 ./external/bootbox/bootbox.all.min.js-2
+
+echo ""                 > ./external/bootbox/bootbox.locales.min.js-1
+wget  --backups=0  -q  -O ./external/bootbox/bootbox.locales.min.js-2     https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.locales.min.js
+cat    ./external/bootbox/bootbox.locales.min.js-1 ./external/bootbox/bootbox.locales.min.js-2 > ./external/bootbox/bootbox.locales.min.js
+rm -fr ./external/bootbox/bootbox.locales.min.js-1 ./external/bootbox/bootbox.locales.min.js-2
+
+echo ""                 > ./external/bootbox/bootbox.min.js-1
+wget  --backups=0  -q  -O ./external/bootbox/bootbox.min.js-2             https://github.com/bootboxjs/bootbox/releases/download/v6.0.4/bootbox.min.js
+cat    ./external/bootbox/bootbox.min.js-1 ./external/bootbox/bootbox.min.js-2 > ./external/bootbox/bootbox.min.js
+rm -fr ./external/bootbox/bootbox.min.js-1 ./external/bootbox/bootbox.min.js-2
 
 
 # external (3/12)...
-mkdir -p  ./external2/bootstrap
-touch     ./external2/bootstrap/index.html
+mkdir -p  ./external/bootstrap
+touch     ./external/bootstrap/index.html
 
 echo " * bootstrap.min.*"
-wget  --backups=0  -q  -O ./external2/bootstrap/bootstrap.min.css            https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/css/bootstrap.min.css
-wget  --backups=0  -q  -O ./external2/bootstrap/bootstrap.min.css.map        https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/css/bootstrap.min.css.map
-wget  --backups=0  -q  -O ./external2/bootstrap/bootstrap.min.js             https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/js/bootstrap.min.js
-wget  --backups=0  -q  -O ./external2/bootstrap/bootstrap.min.js.map         https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/js/bootstrap.min.js.map
+wget  --backups=0  -q  -O ./external/bootstrap/bootstrap.min.css            https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/css/bootstrap.min.css
+wget  --backups=0  -q  -O ./external/bootstrap/bootstrap.min.css.map        https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/css/bootstrap.min.css.map
+wget  --backups=0  -q  -O ./external/bootstrap/bootstrap.min.js             https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/js/bootstrap.min.js
+wget  --backups=0  -q  -O ./external/bootstrap/bootstrap.min.js.map         https://raw.githubusercontent.com/twbs/bootstrap/refs/heads/main/dist/js/bootstrap.min.js.map
 
 
 # external (4/12)...
-mkdir -p  ./external2/codemirror6
-touch     ./external2/codemirror6/index.html
+mkdir -p  ./external/codemirror6
+touch     ./external/codemirror6/index.html
 
 echo " * codemirror6..."
-cat > ./external2/codemirror6/codemirror.mjs << EOF
+cp devel/glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
+cp devel/glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
 
-   import { basicSetup, EditorView }                    from "codemirror"
-// import { languages }                                 from "@codemirror/language-data"
-   import { javascript }                                from "@codemirror/lang-javascript"
-   import { keymap }                                    from "@codemirror/view"
-   import { defaultKeymap, history, historyKeymap }     from "@codemirror/commands"
-// import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language"
-   import { autocompletion }                            from "@codemirror/autocomplete"
-
-
-   var view = new EditorView({
-                      doc: "\n\n\n\n\n\n\n\n\n\n",
-                      extensions: [
-                         basicSetup,
-                         history(),
-                         keymap.of([...defaultKeymap, ...historyKeymap]),
-                         javascript(),
-                         syntaxHighlighting(defaultHighlightStyle),
-                      ],
-                      parent: document.body
-              }) ;
-EOF
-
-cat > ./external2/codemirror6/rollup.config.mjs << EOF
-import {nodeResolve} from "@rollup/plugin-node-resolve"
-export default {
-  input: "external2/codemirror6/codemirror.mjs",
-  output: {
-    file: "external2/codemirror6/codemirror.bundle.js",
-    format: "iife"
-  },
-  plugins: [nodeResolve()]
-}
-EOF
-
-node_modules/.bin/rollup -c ./external2/codemirror6/rollup.config.mjs
-terser -o ./external2/codemirror6/min.codemirror.js     ./external2/codemirror6/codemirror.bundle.js
-rm    -fr ./external2/codemirror6/codemirror.bundle.js
+node_modules/.bin/rollup -c ./external/codemirror6/rollup.config.mjs
+terser -o ./external/codemirror6/min.codemirror.js ./external/codemirror6/codemirror.bundle.js
+rm -fr                                             ./external/codemirror6/codemirror.bundle.js
 
 
 echo " * codemirror5...*"
-mkdir -p  ./external2/codemirror
-touch     ./external2/codemirror/index.html
+mkdir -p  ./external/codemirror
+touch     ./external/codemirror/index.html
 
-wget  --backups=0  -q  -O /tmp/codemirror.zip       https://github.com/codemirror/codemirror5/archive/refs/tags/5.65.18.zip
-unzip  -d /tmp/    -qao   /tmp/codemirror.zip
-
-mv /tmp/codemirror5-5.65.18/src/codemirror.js      ./external2/codemirror/codemirror.js
-mv /tmp/codemirror5-5.65.18/lib/codemirror.css     ./external2/codemirror/codemirror.css
-
-mv /tmp/codemirror5-5.65.18/theme/                 ./external2/codemirror/theme/
-sed "s/59554f/36312e/g" ./external2/codemirror/theme/bespin.css         > /tmp/xch.txt
-mv /tmp/xch.txt         ./external2/codemirror/theme/bespin.css
-sed "s/a7a5b2/6c6783/g" ./external2/codemirror/theme/duotone-dark.css   > /tmp/xch.txt
-mv /tmp/xch.txt         ./external2/codemirror/theme/duotone-dark.css
-sed "s/6f6e6a/b6ad9a/g" ./external2/codemirror/theme/duotone-light.css  > /tmp/xch.txt
-mv /tmp/xch.txt         ./external2/codemirror/theme/duotone-light.css
-
-mkdir -p ./external2/codemirror/addon/
-touch    ./external2/codemirror/addon/index.html
-mv /tmp/codemirror5-5.65.18/addon/comment          ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/dialog           ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/edit             ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/fold             ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/hint             ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/runmode          ./external2/codemirror/addon/
-mv /tmp/codemirror5-5.65.18/addon/search           ./external2/codemirror/addon/
-
-mkdir -p ./external2/codemirror/keymap/
-touch    ./external2/codemirror/keymap/index.html
-mv /tmp/codemirror5-5.65.18/keymap/emacs.js        ./external2/codemirror/keymap/
-mv /tmp/codemirror5-5.65.18/keymap/sublime.js      ./external2/codemirror/keymap/
-wget --backups=0  -q  -O                           ./external2/codemirror/keymap/vim.js    https://raw.githubusercontent.com/replit/codemirror-vim/refs/heads/master/src/vim.js
-
-mkdir -p ./external2/codemirror/mode/
-touch    ./external2/codemirror/mode/index.html
-mv /tmp/codemirror5-5.65.18/mode/gas               ./external2/codemirror/mode/
-mv /tmp/codemirror5-5.65.18/mode/javascript        ./external2/codemirror/mode/
-
-rm -fr /tmp/codemirror.zip
+## wget  --backups=0  -q  -O /tmp/codemirror.zip       https://github.com/codemirror/codemirror5/archive/refs/tags/5.65.18.zip
+## unzip  -d /tmp/    -qao   /tmp/codemirror.zip
+## 
+## mv /tmp/codemirror5-5.65.18/src/codemirror.js      ./external/codemirror/codemirror.js
+## mv /tmp/codemirror5-5.65.18/lib/codemirror.css     ./external/codemirror/codemirror.css
+## 
+## mv /tmp/codemirror5-5.65.18/theme/                 ./external/codemirror/theme/
+## sed "s/59554f/36312e/g" ./external/codemirror/theme/bespin.css         > /tmp/xch.txt
+## mv /tmp/xch.txt         ./external/codemirror/theme/bespin.css
+## sed "s/a7a5b2/6c6783/g" ./external/codemirror/theme/duotone-dark.css   > /tmp/xch.txt
+## mv /tmp/xch.txt         ./external/codemirror/theme/duotone-dark.css
+## sed "s/6f6e6a/b6ad9a/g" ./external/codemirror/theme/duotone-light.css  > /tmp/xch.txt
+## mv /tmp/xch.txt         ./external/codemirror/theme/duotone-light.css
+## 
+## touch  ./external/codemirror/theme/index.html
+## 
+## mkdir -p ./external/codemirror/addon/
+## touch    ./external/codemirror/addon/index.html
+## mv /tmp/codemirror5-5.65.18/addon/comment          ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/addon/dialog           ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/addon/edit             ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/addon/fold             ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/addon/hint             ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/addon/runmode          ./external/codemirror/addon/
+## mv /tmp/codemirror5-5.65.18/src/addon/runmode/*    ./external/codemirror/addon/runmode/
+## mv /tmp/codemirror5-5.65.18/addon/search           ./external/codemirror/addon/
+## 
+## touch ./external/codemirror/addon/comment/index.html
+## touch ./external/codemirror/addon/dialog/index.html
+## touch ./external/codemirror/addon/edit/index.html
+## touch ./external/codemirror/addon/fold/index.html
+## touch ./external/codemirror/addon/hint/index.html
+## touch ./external/codemirror/addon/runmode/index.html
+## touch ./external/codemirror/addon/search/index.html
+## 
+## mkdir -p ./external/codemirror/keymap/
+## touch    ./external/codemirror/keymap/index.html
+## mv /tmp/codemirror5-5.65.18/keymap/emacs.js        ./external/codemirror/keymap/
+## mv /tmp/codemirror5-5.65.18/keymap/sublime.js      ./external/codemirror/keymap/
+## wget --backups=0  -q  -O                           ./external/codemirror/keymap/vim.js    https://raw.githubusercontent.com/replit/codemirror-vim/refs/heads/master/src/vim.js
+## 
+## mkdir -p ./external/codemirror/mode/
+## touch    ./external/codemirror/mode/index.html
+## mv /tmp/codemirror5-5.65.18/mode/gas               ./external/codemirror/mode/
+## mv /tmp/codemirror5-5.65.18/mode/javascript        ./external/codemirror/mode/
+## 
+## rm -fr /tmp/codemirror.zip
 
 
 # external (5/12)...
-mkdir -p  ./external2/compress
-touch     ./external2/compress/index.html
+mkdir -p  ./external/compress
+touch     ./external/compress/index.html
 
 echo " * lz-string.min.js"
-wget  --backups=0  -q  -O ./external2/compress/lz-string.min.js              https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js
+wget  --backups=0  -q  -O ./external/compress/lz-string.min.js              https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js
 
 
 # external (6/12)...
-mkdir -p  ./external2/dropify
-touch     ./external2/dropify/index.html
+mkdir -p  ./external/dropify
+touch     ./external/dropify/index.html
 
 echo " * dropify.*"
-wget  --backups=0  -q  -O ./external2/dropify/dropify.min.js                 https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js
-wget  --backups=0  -q  -O ./external2/dropify/dropify.min.css                https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css
-wget  --backups=0  -q  -O ./external2/dropify/dropify.eot                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.eot
-wget  --backups=0  -q  -O ./external2/dropify/dropify.svg                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.svg
-wget  --backups=0  -q  -O ./external2/dropify/dropify.ttf                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.ttf
-wget  --backups=0  -q  -O ./external2/dropify/dropify.woff                   https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.woff
+wget  --backups=0  -q  -O ./external/dropify/dropify.min.js                 https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js
+wget  --backups=0  -q  -O ./external/dropify/dropify.min.css                https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css
+wget  --backups=0  -q  -O ./external/dropify/dropify.eot                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.eot
+wget  --backups=0  -q  -O ./external/dropify/dropify.svg                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.svg
+wget  --backups=0  -q  -O ./external/dropify/dropify.ttf                    https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.ttf
+wget  --backups=0  -q  -O ./external/dropify/dropify.woff                   https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/fonts/dropify.woff
+
+sed "s/\.\.\/fonts/\.\/external\/dropify/g" external/dropify/dropify.min.css > /tmp/$$.css
+mv /tmp/$$.css external/dropify/dropify.min.css
 
 
 # external (7/12)...
-wget  --backups=0  -q  -O /tmp/fontawesome.zip        https://github.com/FortAwesome/Font-Awesome/releases/download/6.6.0/fontawesome-free-6.6.0-web.zip
+wget  --backups=0  -q  -O /tmp/fontawesome.zip        https://github.com/FortAwesome/Font-Awesome/releases/download/7.2.0/fontawesome-free-7.2.0-web.zip
 unzip  -d /tmp/    -qao   /tmp/fontawesome.zip
 
 echo " * fontawesome..."
-mkdir -p  ./external2/fontawesome
-touch     ./external2/fontawesome/index.html
-mv /tmp/fontawesome-free-6.6.0-web/LICENSE.txt        ./external2/fontawesome/LICENSE.txt
+mkdir -p  ./external/fontawesome
+touch     ./external/fontawesome/index.html
+mv /tmp/fontawesome-free-7.2.0-web/LICENSE.txt        ./external/fontawesome/LICENSE.txt
 
-mkdir -p  ./external2/fontawesome/css
-touch     ./external2/fontawesome/css/index.html
+mkdir -p  ./external/fontawesome/css
+touch     ./external/fontawesome/css/index.html
 
-mv /tmp/fontawesome-free-6.6.0-web/css/fontawesome.min.css            ./external2/fontawesome/css/fontawesome.min.css
-mv /tmp/fontawesome-free-6.6.0-web/css/all.min.css                    ./external2/fontawesome/css/all.min.css
-mv /tmp/fontawesome-free-6.6.0-web/css/regular.min.css                ./external2/fontawesome/css/regular.min.css
-mv /tmp/fontawesome-free-6.6.0-web/css/solid.min.css                  ./external2/fontawesome/css/solid.min.css
-mv /tmp/fontawesome-free-6.6.0-web/css/brands.min.css                 ./external2/fontawesome/css/brands.min.css
-mv /tmp/fontawesome-free-6.6.0-web/css/svg-with-js.min.css            ./external2/fontawesome/css/svg-with-js.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/fontawesome.min.css            ./external/fontawesome/css/fontawesome.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/all.min.css                    ./external/fontawesome/css/all.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/regular.min.css                ./external/fontawesome/css/regular.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/solid.min.css                  ./external/fontawesome/css/solid.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/brands.min.css                 ./external/fontawesome/css/brands.min.css
+mv /tmp/fontawesome-free-7.2.0-web/css/svg-with-js.min.css            ./external/fontawesome/css/svg-with-js.min.css
 
-mkdir -p  ./external2/fontawesome/webfonts
-touch     ./external2/fontawesome/webfonts/index.html
+mkdir -p  ./external/fontawesome/webfonts
+touch     ./external/fontawesome/webfonts/index.html
 
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-regular-400.woff2      ./external2/fontawesome/webfonts/fa-regular-400.woff2
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-brands-400.woff2       ./external2/fontawesome/webfonts/fa-brands-400.woff2
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-solid-900.ttf          ./external2/fontawesome/webfonts/fa-solid-900.ttf
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-regular-400.ttf        ./external2/fontawesome/webfonts/fa-regular-400.ttf
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-solid-900.woff2        ./external2/fontawesome/webfonts/fa-solid-900.woff2
-mv /tmp/fontawesome-free-6.6.0-web/webfonts/fa-brands-400.ttf         ./external2/fontawesome/webfonts/fa-brands-400.ttf
+mv /tmp/fontawesome-free-7.2.0-web/webfonts/fa-regular-400.woff2      ./external/fontawesome/webfonts/fa-regular-400.woff2
+mv /tmp/fontawesome-free-7.2.0-web/webfonts/fa-brands-400.woff2       ./external/fontawesome/webfonts/fa-brands-400.woff2
+mv /tmp/fontawesome-free-7.2.0-web/webfonts/fa-solid-900.woff2        ./external/fontawesome/webfonts/fa-solid-900.woff2
 
-mkdir -p  ./external2/fontawesome/js
-touch     ./external2/fontawesome/js/index.html
+mkdir -p  ./external/fontawesome/js
+touch     ./external/fontawesome/js/index.html
 
-mv /tmp/fontawesome-free-6.6.0-web/js/all.min.js                      ./external2/fontawesome/js/all.min.js
-mv /tmp/fontawesome-free-6.6.0-web/js/solid.min.js                    ./external2/fontawesome/js/solid.min.js
-mv /tmp/fontawesome-free-6.6.0-web/js/regular.min.js                  ./external2/fontawesome/js/regular.min.js
-mv /tmp/fontawesome-free-6.6.0-web/js/brands.min.js                   ./external2/fontawesome/js/brands.min.js
-mv /tmp/fontawesome-free-6.6.0-web/js/conflict-detection.min.js       ./external2/fontawesome/js/conflict-detection.min.js
-mv /tmp/fontawesome-free-6.6.0-web/js/fontawesome.min.js              ./external2/fontawesome/js/fontawesome.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/all.min.js                      ./external/fontawesome/js/all.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/solid.min.js                    ./external/fontawesome/js/solid.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/regular.min.js                  ./external/fontawesome/js/regular.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/brands.min.js                   ./external/fontawesome/js/brands.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/conflict-detection.min.js       ./external/fontawesome/js/conflict-detection.min.js
+mv /tmp/fontawesome-free-7.2.0-web/js/fontawesome.min.js              ./external/fontawesome/js/fontawesome.min.js
 
-rm -fr /tmp/fontawesome-free-6.6.0-web
+rm -fr /tmp/fontawesome-free-7.2.0-web
 
 
 # external (8/12)...
-mkdir -p  ./external2/introjs
-touch     ./external2/introjs/index.html
+mkdir -p  ./external/introjs
+touch     ./external/introjs/index.html
 
 echo " * introjs.min.*"
-wget  --backups=0  -q  -O ./external2/introjs/introjs.min.css                https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/introjs.min.css
-wget  --backups=0  -q  -O ./external2/introjs/introjs.min.css.map            https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/introjs.min.css.map
-wget  --backups=0  -q  -O ./external2/introjs/introjs.min.js                 https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/intro.min.js
-wget  --backups=0  -q  -O ./external2/introjs/introjs.min.js.map             https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/intro.min.js.map
+wget  --backups=0  -q  -O ./external/introjs/introjs.min.css                https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/introjs.min.css
+wget  --backups=0  -q  -O ./external/introjs/introjs.min.css.map            https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/introjs.min.css.map
+wget  --backups=0  -q  -O ./external/introjs/introjs.min.js                 https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/intro.min.js
+wget  --backups=0  -q  -O ./external/introjs/introjs.min.js.map             https://cdnjs.cloudflare.com/ajax/libs/intro.js/8.3.2/intro.min.js.map
 
 
 # external (9/12)...
-mkdir -p  ./external2/qrcode
-touch     ./external2/qrcode/index.html
+mkdir -p  ./external/qrcode
+touch     ./external/qrcode/index.html
 
 echo " * qrcode.min.js"
-wget  --backups=0  -q  -O ./external2/qrcode/qrcode.min.js                   https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js
+wget  --backups=0  -q  -O ./external/qrcode/qrcode.min.js                   https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js
 
 
 # external (10/12)...
-mkdir -p  ./external2/speechkitt
-touch     ./external2/speechkitt/index.html
-mkdir -p  ./external2/speechkitt/themes
-touch     ./external2/speechkitt/themes/index.html
+mkdir -p  ./external/speechkitt
+touch     ./external/speechkitt/index.html
+mkdir -p  ./external/speechkitt/themes
+touch     ./external/speechkitt/themes/index.html
 
 echo " * speechkitt.*"
-wget  --backups=0  -q  -O ./external2/speechkitt/speechkitt.flat.css         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
-wget  --backups=0  -q  -O ./external2/speechkitt/speechkitt.min.js           https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/speechkitt.min.js
-wget  --backups=0  -q  -O ./external2/speechkitt/themes/flat.css             https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
-wget  --backups=0  -q  -O ./external2/speechkitt/themes/flat.css.map         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css.map
+wget  --backups=0  -q  -O ./external/speechkitt/speechkitt.flat.css         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
+wget  --backups=0  -q  -O ./external/speechkitt/speechkitt.min.js           https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/speechkitt.min.js
+wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css             https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
+wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css.map         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css.map
+
+cp ./devel/glue/flat.fixed.css     ./external/speechkitt/themes/flat.fixed.css
+cp ./devel/glue/flat.original.css  ./external/speechkitt/themes/flat.original.css
 
 
 # external (11/12)...
-mkdir -p  ./external2/vis
-touch     ./external2/vis/index.html
+mkdir -p  ./external/vis
+touch     ./external/vis/index.html
 
 echo " * vis-network.min.*"
-wget  --backups=0  -q  -O ./external2/vis/vis-network.min.css                https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css
-wget  --backups=0  -q  -O ./external2/vis/vis-network.min.js                 https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js
+wget  --backups=0  -q  -O ./external/vis/vis-network.min.css                https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/dist/vis-network.min.css
+wget  --backups=0  -q  -O ./external/vis/vis-network.min.js                 https://cdnjs.cloudflare.com/ajax/libs/vis-network/10.0.2/dist/vis-network.min.js
 
 
 # external (12/12)...
-mkdir -p  ./external2/vue
-touch     ./external2/vue/index.html
+mkdir -p  ./external/vue
+touch     ./external/vue/index.html
 
 echo " * vue*.min.js"
-wget  --backups=0  -q  -O ./external2/vue/vue.min.js                         https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js
-wget  --backups=0  -q  -O ./external2/vue/vuex.min.js                        https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js
+wget  --backups=0  -q  -O ./external/vue/vue.min.js                         https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js
+wget  --backups=0  -q  -O ./external/vue/vuex.min.js                        https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js
+
+# external
+cp devel/glue/cordova.js      external/
+cp devel/glue/css-tricks.css  external/
 
 
 # farewell
