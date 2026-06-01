@@ -2675,8 +2675,9 @@ function cpu_ep2_register ( sim_p )
 		sim_p.behaviors["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-                                                            var new_maddr = null ;
-                                                            var mcelto    = null ;
+                                                            var new_maddr  = null ;
+                                                            var mcelto     = null ;
+							    var signal_obj = null ;
 
 						            // measure time (1/2)
 					                    var t0 = performance.now() ;
@@ -2700,29 +2701,20 @@ function cpu_ep2_register ( sim_p )
                                                             new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
                                                             set_value(sim_p.states["REG_MICROADDR"], new_maddr);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            if (typeof mcelto === "undefined")
-                                                            {
+                                                            if (typeof mcelto === "undefined") {
                                                                 mcelto = { value: sim_p.states["REG_MICROINS"].default_value,   is_native: false } ;
                                                             }
                                                             var new_mins = Object.create(get_value(mcelto));
-							    var old_mins = sim_p.states["REG_MICROINS"].value ;
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    var signal_obj = null ;
-                                                            for (var key in sim_p.signals)
-							    //for (var key in old_mins)
-							    {
+                                                            for (const [key, signal_obj] of Object.entries(sim_p.signals)) {
+							         set_value(signal_obj, signal_obj.default_value);
+						            }
+                                                            for (const [key, value] of Object.entries(get_value(mcelto))) {
 							         signal_obj = sim_p.signals[key] ;
-								 if (typeof signal_obj != "undefined") {
-								     set_value(signal_obj, signal_obj.default_value) ;
-								 }
-                                                                 // set_value(sim_p.signals[key], sim_p.signals[key].default_value) ;
-                                                            }
-                                                            for (var key in new_mins)
-							    {
-                                                                 if (typeof sim_p.signals[key] != "undefined") {
-                                                                     set_value(sim_p.signals[key], new_mins[key]) ;
+                                                                 if (typeof signal_obj != "undefined") {
+                                                                     set_value(signal_obj, value) ;
                                                                  }
                                                             }
 

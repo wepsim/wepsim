@@ -455,7 +455,7 @@
 	var ret = true ;
 
         if (typeof ref_mdash === "undefined") {
-	    return true ;
+	    return false ;
 	}
 
         // microcode with state:
@@ -549,7 +549,7 @@
             ref_mdash = simhw_internalState_get('MC', reg_maddr) ;
 	    ret = wepsim_check_memdashboard(ref_mdash, reg_maddr) ;
             if (false === ret) {
-                return pack_ret2(false, '', '') ;
+                return pack_ret2(false, '', 'ERROR: microaddress not within defined control memory.') ;
             }
 	    ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 	    if (true === ret) {
