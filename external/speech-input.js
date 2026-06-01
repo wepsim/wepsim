@@ -1,41 +1,84 @@
 /*global webkitSpeechRecognition */
 
-(function() {
-	'use strict';
+// default message
+var talkMsg = 'Speak now';
 
-	if (! ('webkitSpeechRecognition' in window) ) return;
+// seconds to wait for more input after last
+var defaultPatienceThreshold = 6;
 
-	var talkMsg = 'start talking';
-	var patience = 6;
+
+function setup_speech_input (inputEl) 
+{
+	// check for support (webkit only)
+	if (!('webkitSpeechRecognition' in window)) 
+		return;
 
 	function capitalize(str) {
-		return str.length ? str[0].toUpperCase() + str.slice(1) : str;
+		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
-	var speechInputWrappers = document.getElementsByClassName('si-wrapper');
+		var patience = parseInt(inputEl.dataset.patience, 10) || defaultPatienceThreshold;
+		var micBtn, micIcon, holderIcon, newWrapper;
+		var shouldCapitalize = true;
 
-	[].forEach.call(speechInputWrappers, function(speechInputWrapper) {
-		// find elements
-		var inputEl = speechInputWrapper.querySelector('.si-input');
-		var micBtn = speechInputWrapper.querySelector('.si-btn');
-
-		// size and position them
-		var inputHeight = inputEl.offsetHeight;
+		// gather inputEl data
+		var nextNode = inputEl.nextSibling;
+		var parent = inputEl.parentNode;
 		var inputRightBorder = parseInt(getComputedStyle(inputEl).borderRightWidth, 10);
-		var buttonSize = 0.8 * inputHeight;
-		micBtn.style.top = 0.1 * inputHeight + 'px';
-		micBtn.style.height = micBtn.style.width = buttonSize + 'px';
-		inputEl.style.paddingRight = buttonSize - inputRightBorder + 'px';
-		speechInputWrapper.appendChild(micBtn);
+		var buttonSize = 0.8 * (inputEl.dataset.buttonsize || inputEl.offsetHeight);
+
+		// default max size for textareas
+		if (!inputEl.dataset.buttonsize && inputEl.tagName.toUpperCase() === 'TEXTAREA' && buttonSize > 26) {
+			buttonSize = 26;
+		}
+
+		// create wrapper if not present
+		var wrapper = inputEl.parentNode;
+		if (!wrapper.classList.contains('si-wrapper')) {
+			wrapper = document.createElement('div');
+			wrapper.classList.add('si-wrapper');
+			wrapper.appendChild(parent.removeChild(inputEl));
+			newWrapper = true;
+		}
+
+		// create mic button if not present
+		var micBtn = wrapper.querySelector('.si-btn');
+		if (!micBtn) {
+			micBtn = document.createElement('button');
+			micBtn.type = 'button';
+			micBtn.classList.add('si-btn');
+			micBtn.textContent = 'speech input';
+			var micIcon = document.createElement('span');
+			var holderIcon = document.createElement('span');
+			micIcon.classList.add('si-mic');
+			holderIcon.classList.add('si-holder');
+			micBtn.appendChild(micIcon);
+			micBtn.appendChild(holderIcon);
+			wrapper.appendChild(micBtn);
+
+			// size and position mic and input
+			micBtn.style.cursor = 'pointer';
+			micBtn.style.top = 0.125 * buttonSize + 'px';
+			micBtn.style.height = micBtn.style.width = buttonSize + 'px';
+			inputEl.style.paddingRight = buttonSize - inputRightBorder + 'px';
+		}
+
+		// append wrapper where input was
+		if (newWrapper) parent.insertBefore(wrapper, nextNode);
 
 		// setup recognition
-		var finalTranscript = '';
+		var prefix = '';
+		var isSentence;
 		var recognizing = false;
 		var timeout;
 		var oldPlaceholder = null;
 		var recognition = new webkitSpeechRecognition();
 		recognition.continuous = true;
-		recognition.lang = "es";
+		recognition.interimResults = true;
+
+		// if lang attribute is set on field use that
+		// (defaults to use the lang of the root element)
+		if (inputEl.lang) recognition.lang = inputEl.lang;
 
 		function restartTimer() {
 			timeout = setTimeout(function() {
@@ -45,7 +88,7 @@
 
 		recognition.onstart = function() {
 			oldPlaceholder = inputEl.placeholder;
-			inputEl.placeholder = talkMsg;
+			inputEl.placeholder = inputEl.dataset.ready || talkMsg;
 			recognizing = true;
 			micBtn.classList.add('listening');
 			restartTimer();
@@ -58,26 +101,71 @@
 			if (oldPlaceholder !== null) inputEl.placeholder = oldPlaceholder;
 		};
 
+		var finalTranscript = '';
 		recognition.onresult = function(event) {
 			clearTimeout(timeout);
-			for (var i = event.resultIndex; i < event.results.length; ++i) {
-				if (event.results[i].isFinal) {
-					finalTranscript += event.results[i][0].transcript;
+
+			// get SpeechRecognitionResultList object
+			var resultList = event.results;
+
+			// go through each SpeechRecognitionResult object in the list
+			var interimTranscript = '';
+			for (var i = event.resultIndex; i < resultList.length; ++i) {
+				var result = resultList[i];
+
+				// get this result's first SpeechRecognitionAlternative object
+				var firstAlternative = result[0];
+
+				if (result.isFinal) {
+					finalTranscript += firstAlternative.transcript;
+				} else {
+					interimTranscript += firstAlternative.transcript;
 				}
 			}
-			finalTranscript = capitalize(finalTranscript);
-			inputEl.value = finalTranscript;
+
+			// capitalize transcript if start of new sentence
+			var transcript = finalTranscript || interimTranscript;
+			transcript = !prefix || isSentence ? capitalize(transcript) : transcript;
+
+			// append transcript to cached input value
+			inputEl.value = prefix + transcript;
+
+			// set cursur and scroll to end
+			inputEl.focus();
+			if (inputEl.tagName === 'INPUT') {
+				inputEl.scrollLeft = inputEl.scrollWidth;
+			} else {
+				inputEl.scrollTop = inputEl.scrollHeight;
+			}
+
 			restartTimer();
 		};
 
 		micBtn.addEventListener('click', function(event) {
 			event.preventDefault();
+
+			// stop and exit if already going
 			if (recognizing) {
 				recognition.stop();
 				return;
 			}
-			inputEl.value = finalTranscript = '';
+
+			// Cache current input value which the new transcript will be appended to
+			var endsWithWhitespace = inputEl.value.slice(-1).match(/\s/);
+			prefix = !inputEl.value || endsWithWhitespace ? inputEl.value : inputEl.value + ' ';
+
+			// check if value ends with a sentence
+			isSentence = prefix.trim().slice(-1).match(/[\.\?\!]/);
+
+			// restart recognition
+			finalTranscript = '';
 			recognition.start();
 		}, false);
-	});
+}
+
+(function() {
+	'use strict';
+
+	var inputEls = document.getElementsByClassName('speech-input');
+	[].forEach.call(inputEls, setup_speech_input) ;
 })();
