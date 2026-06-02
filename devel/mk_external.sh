@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #set -x
 
 
@@ -94,8 +94,8 @@ mkdir -p  ./external/codemirror6
 touch     ./external/codemirror6/index.html
 
 echo " * codemirror6..."
-cp devel/glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
-cp devel/glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
+cp devel/external_glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
+cp devel/external_glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
 
 node_modules/.bin/rollup -c ./external/codemirror6/rollup.config.mjs
 terser -o ./external/codemirror6/min.codemirror.js ./external/codemirror6/codemirror.bundle.js
@@ -106,53 +106,64 @@ echo " * codemirror5...*"
 mkdir -p  ./external/codemirror
 touch     ./external/codemirror/index.html
 
-## wget  --backups=0  -q  -O /tmp/codemirror.zip       https://github.com/codemirror/codemirror5/archive/refs/tags/5.65.18.zip
-## unzip  -d /tmp/    -qao   /tmp/codemirror.zip
-## 
-## mv /tmp/codemirror5-5.65.18/src/codemirror.js      ./external/codemirror/codemirror.js
-## mv /tmp/codemirror5-5.65.18/lib/codemirror.css     ./external/codemirror/codemirror.css
-## 
-## mv /tmp/codemirror5-5.65.18/theme/                 ./external/codemirror/theme/
-## sed "s/59554f/36312e/g" ./external/codemirror/theme/bespin.css         > /tmp/xch.txt
-## mv /tmp/xch.txt         ./external/codemirror/theme/bespin.css
-## sed "s/a7a5b2/6c6783/g" ./external/codemirror/theme/duotone-dark.css   > /tmp/xch.txt
-## mv /tmp/xch.txt         ./external/codemirror/theme/duotone-dark.css
-## sed "s/6f6e6a/b6ad9a/g" ./external/codemirror/theme/duotone-light.css  > /tmp/xch.txt
-## mv /tmp/xch.txt         ./external/codemirror/theme/duotone-light.css
-## 
-## touch  ./external/codemirror/theme/index.html
-## 
-## mkdir -p ./external/codemirror/addon/
-## touch    ./external/codemirror/addon/index.html
-## mv /tmp/codemirror5-5.65.18/addon/comment          ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/addon/dialog           ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/addon/edit             ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/addon/fold             ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/addon/hint             ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/addon/runmode          ./external/codemirror/addon/
-## mv /tmp/codemirror5-5.65.18/src/addon/runmode/*    ./external/codemirror/addon/runmode/
-## mv /tmp/codemirror5-5.65.18/addon/search           ./external/codemirror/addon/
-## 
-## touch ./external/codemirror/addon/comment/index.html
-## touch ./external/codemirror/addon/dialog/index.html
-## touch ./external/codemirror/addon/edit/index.html
-## touch ./external/codemirror/addon/fold/index.html
-## touch ./external/codemirror/addon/hint/index.html
-## touch ./external/codemirror/addon/runmode/index.html
-## touch ./external/codemirror/addon/search/index.html
-## 
-## mkdir -p ./external/codemirror/keymap/
-## touch    ./external/codemirror/keymap/index.html
-## mv /tmp/codemirror5-5.65.18/keymap/emacs.js        ./external/codemirror/keymap/
-## mv /tmp/codemirror5-5.65.18/keymap/sublime.js      ./external/codemirror/keymap/
-## wget --backups=0  -q  -O                           ./external/codemirror/keymap/vim.js    https://raw.githubusercontent.com/replit/codemirror-vim/refs/heads/master/src/vim.js
-## 
-## mkdir -p ./external/codemirror/mode/
-## touch    ./external/codemirror/mode/index.html
-## mv /tmp/codemirror5-5.65.18/mode/gas               ./external/codemirror/mode/
-## mv /tmp/codemirror5-5.65.18/mode/javascript        ./external/codemirror/mode/
-## 
-## rm -fr /tmp/codemirror.zip
+wget  --backups=0  -q  -O /tmp/codemirror.zip       https://github.com/codemirror/codemirror5/archive/refs/tags/5.65.21.zip
+unzip  -d /tmp/    -qao   /tmp/codemirror.zip
+pushd .
+cd /tmp/codemirror5-5.65.21/
+npm install
+npm run build
+popd
+sleep 1
+
+cp /tmp/codemirror5-5.65.21/lib/codemirror.js      ./external/codemirror/codemirror.js
+cp /tmp/codemirror5-5.65.21/lib/codemirror.css     ./external/codemirror/codemirror.css
+
+mv /tmp/codemirror5-5.65.21/theme/                 ./external/codemirror/theme/
+sed "s/59554f/36312e/g" ./external/codemirror/theme/bespin.css         > /tmp/xch.txt
+mv /tmp/xch.txt         ./external/codemirror/theme/bespin.css
+sed "s/a7a5b2/6c6783/g" ./external/codemirror/theme/duotone-dark.css   > /tmp/xch.txt
+mv /tmp/xch.txt         ./external/codemirror/theme/duotone-dark.css
+sed "s/6f6e6a/b6ad9a/g" ./external/codemirror/theme/duotone-light.css  > /tmp/xch.txt
+mv /tmp/xch.txt         ./external/codemirror/theme/duotone-light.css
+
+touch  ./external/codemirror/theme/index.html
+
+mkdir -p ./external/codemirror/addon/
+touch    ./external/codemirror/addon/index.html
+mv /tmp/codemirror5-5.65.21/addon/comment          ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/dialog           ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/edit             ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/fold             ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/hint             ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/runmode          ./external/codemirror/addon/
+mv /tmp/codemirror5-5.65.21/addon/search           ./external/codemirror/addon/
+
+touch ./external/codemirror/addon/comment/index.html
+touch ./external/codemirror/addon/dialog/index.html
+touch ./external/codemirror/addon/edit/index.html
+touch ./external/codemirror/addon/fold/index.html
+touch ./external/codemirror/addon/hint/index.html
+touch ./external/codemirror/addon/runmode/index.html
+touch ./external/codemirror/addon/search/index.html
+
+mkdir -p ./external/codemirror/keymap/
+touch    ./external/codemirror/keymap/index.html
+mv /tmp/codemirror5-5.65.21/keymap/emacs.js        ./external/codemirror/keymap/
+mv /tmp/codemirror5-5.65.21/keymap/sublime.js      ./external/codemirror/keymap/
+wget --backups=0  -q  -O                           ./external/codemirror/keymap/vim.js    https://codemirror.net/5/keymap/vim.js
+
+mkdir -p ./external/codemirror/mode/
+touch    ./external/codemirror/mode/index.html
+mv /tmp/codemirror5-5.65.21/mode/gas               ./external/codemirror/mode/
+rm -fr ./external/codemirror/mode/gas/index.html
+touch  ./external/codemirror/mode/gas/index.html
+
+mv /tmp/codemirror5-5.65.21/mode/javascript        ./external/codemirror/mode/
+rm -fr ./external/codemirror/mode/javascript/index.html
+touch  ./external/codemirror/mode/javascript/index.html
+rm -fr ./external/codemirror/mode/javascript/typescript.html
+
+rm -fr /tmp/codemirror.zip
 
 
 # external (5/12)...
@@ -249,8 +260,8 @@ wget  --backups=0  -q  -O ./external/speechkitt/speechkitt.min.js           http
 wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css             https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
 wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css.map         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css.map
 
-cp ./devel/glue/flat.fixed.css     ./external/speechkitt/themes/flat.fixed.css
-cp ./devel/glue/flat.original.css  ./external/speechkitt/themes/flat.original.css
+cp ./devel/external_glue/flat.fixed.css     ./external/speechkitt/themes/flat.fixed.css
+cp ./devel/external_glue/flat.original.css  ./external/speechkitt/themes/flat.original.css
 
 
 # external (11/12)...
@@ -271,8 +282,8 @@ wget  --backups=0  -q  -O ./external/vue/vue.min.js                         http
 wget  --backups=0  -q  -O ./external/vue/vuex.min.js                        https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js
 
 # external
-cp devel/glue/cordova.js      external/
-cp devel/glue/css-tricks.css  external/
+cp devel/external_glue/cordova.js      external/
+cp devel/external_glue/css-tricks.css  external/
 
 
 # farewell

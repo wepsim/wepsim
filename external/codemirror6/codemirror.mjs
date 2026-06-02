@@ -9,14 +9,13 @@
 
 
    var view = new EditorView({
-		      doc: "\n\n\n\n\n\n\n\n\n\n",
-		      extensions: [
-			 basicSetup,
-			 history(),
-			 keymap.of([...defaultKeymap, ...historyKeymap]),
-			 javascript(),
-			 syntaxHighlighting(defaultHighlightStyle),
-		      ],
+                      doc: "\n\n\n\n\n\n\n\n\n\n",
+                      extensions: [
+                         basicSetup,
+                         history(),
+                         keymap.of([...defaultKeymap, ...historyKeymap]),
+                         javascript(),
+                         syntaxHighlighting(defaultHighlightStyle),
+                      ],
                       parent: document.body
-	      }) ;
-
+              }) ;

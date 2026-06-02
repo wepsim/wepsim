@@ -1,4 +1,3 @@
-
 import {nodeResolve} from "@rollup/plugin-node-resolve"
 export default {
   input: "external/codemirror6/codemirror.mjs",
@@ -8,5 +7,3 @@ export default {
   },
   plugins: [nodeResolve()]
 }
-
-
