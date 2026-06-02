@@ -3,7 +3,7 @@
 
 ## 2.3.9 -> 2.4.0:
 * Main improvements:
-  * EP2 processor as beta (up to 20% faster)
+  * EP2 processor as beta (is up to 20% faster than EP)
 * Main external dependencies updated:
   * Bump fontawesome from 6.6.0  to 7.2.0
 

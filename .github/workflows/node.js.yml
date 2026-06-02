@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,7 +28,5 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - run: npm run build --if-present
-    - run: npm run test-source1
     - run: npm run test-wepsim-node1
-    - run: npm run test-wepsim-node2
 

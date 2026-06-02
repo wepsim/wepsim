@@ -94,8 +94,8 @@ mkdir -p  ./external/codemirror6
 touch     ./external/codemirror6/index.html
 
 echo " * codemirror6..."
-cp devel/glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
-cp devel/glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
+cp devel/external_glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
+cp devel/external_glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
 
 node_modules/.bin/rollup -c ./external/codemirror6/rollup.config.mjs
 terser -o ./external/codemirror6/min.codemirror.js ./external/codemirror6/codemirror.bundle.js
@@ -249,8 +249,8 @@ wget  --backups=0  -q  -O ./external/speechkitt/speechkitt.min.js           http
 wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css             https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css
 wget  --backups=0  -q  -O ./external/speechkitt/themes/flat.css.map         https://raw.githubusercontent.com/TalAter/SpeechKITT/refs/heads/master/dist/themes/flat.css.map
 
-cp ./devel/glue/flat.fixed.css     ./external/speechkitt/themes/flat.fixed.css
-cp ./devel/glue/flat.original.css  ./external/speechkitt/themes/flat.original.css
+cp ./devel/external_glue/flat.fixed.css     ./external/speechkitt/themes/flat.fixed.css
+cp ./devel/external_glue/flat.original.css  ./external/speechkitt/themes/flat.original.css
 
 
 # external (11/12)...
@@ -271,8 +271,8 @@ wget  --backups=0  -q  -O ./external/vue/vue.min.js                         http
 wget  --backups=0  -q  -O ./external/vue/vuex.min.js                        https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js
 
 # external
-cp devel/glue/cordova.js      external/
-cp devel/glue/css-tricks.css  external/
+cp devel/external_glue/cordova.js      external/
+cp devel/external_glue/css-tricks.css  external/
 
 
 # farewell
