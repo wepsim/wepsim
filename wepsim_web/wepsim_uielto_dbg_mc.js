@@ -151,6 +151,12 @@
 
         function light_refresh_control_memory ( memory, index )
         {
+	    // if not visible -> skip
+            o1 = $("#memory_MC") ;
+            if (o1.is(':visible') == false) {
+		return ;
+            }
+
             o1 = $("#maddr" + old_mc_addr + " td") ;
             if (o1.is(':visible'))
             {
