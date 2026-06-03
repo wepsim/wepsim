@@ -1889,7 +1889,7 @@ function cpu_ep2_register ( sim_p )
 						   var a = get_value(sim_p.states[s_expr[2]]) ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) ;
 
-						   var result = hex2float(a) / hex2float(b) ; // TODO
+						   var result = hex2float(a) / hex2float(b) ; // TODO: if b == 0 then...
 
 						   set_value(sim_p.states[s_expr[1]], float32_to_uint(result)) ;
 
@@ -2324,49 +2324,7 @@ function cpu_ep2_register ( sim_p )
                                                 }
 				   };
 
-	sim_p.behaviors["BSEL"] =  { nparameters: 6,
-				     types: ["E", "I", "I", "E", "I"],
-				     operation: function (s_expr)
-		                                {
-						   var posd = parseInt(s_expr[2]) ;
-						   var poso = parseInt(s_expr[5]) ;
-						   var len  = parseInt(s_expr[3]) ;
-
-						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = n1.padStart(32, '0') ;
-						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = n2.padStart(32, '0') ;
-						   var n4 = "00000000000000000000000000000000".substr(0, posd);
-						   n3 = n3 + n4;
-
-						   set_value(sim_p.states[s_expr[1]], parseInt(n3, 2));
-                                                },
-                                        verbal: function (s_expr)
-                                                {
-						   var posd = parseInt(s_expr[2]) ;
-						   var len  = parseInt(s_expr[3]) ;
-						   var poso = parseInt(s_expr[5]) ;
-
-						   var n1 = get_value(sim_p.states[s_expr[4]]).toString(2); // to binary
-						   var n2 = n1.padStart(32, '0') ;
-						       n2 = n2.substr(31 - (poso + len) + 1, len);
-						   var n3 = n2.padStart(32, '0') ;
-						   var n4 = "00000000000000000000000000000000".substr(0, posd);
-						       n3 = n3 + n4;
-						   var n5 = parseInt(n3, 2) ;
-
-                                                   var verbose = get_cfg('verbal_verbose') ;
-                                                   if (verbose !== 'math') {
-                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
-						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
-                                                   }
-
-                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) +
-						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso +
-						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
-                                                }
-				   };
-	sim_p.behaviors["EXT_SIG"] =  { nparameters: 3,
+	sim_p.behaviors["EXT_SIG"] = { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function (s_expr)
 		                                {
@@ -2398,6 +2356,7 @@ function cpu_ep2_register ( sim_p )
                                                    return "Sign Extension with value " + show_value(n5) + ". " ;
                                                 }
 				   };
+
 	sim_p.behaviors["GETIMM"] = { nparameters: 5,
 				     types: ["E", "E", "S", "S"],
 				     operation: function (s_expr)
@@ -2481,50 +2440,26 @@ function cpu_ep2_register ( sim_p )
 						   var poso = 0 ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 =  sim_p.signals[s_expr[4]].value.toString(2); // to binary signal origin
-						   n1 = n1.padStart(32, '0') ;
-						   n1 = n1.substr(31 - poso - len + 1, len);
+						   var n1 = sim_p.signals[s_expr[4]].value ;
+						       n1 = n1  << (32 - len) ; // get lower 'len' bits of n1 (1/2)
+						       n1 = n1 >>> (32 - len) ; // get lower 'len' bits of n1 (2/2)
 
-						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = n2.padStart(32, '0') ;
-						   var m1 = n2.substr(0, 32 - (posd + len));
-						   var m2 = n2.substr(31 - posd + 1, posd);
-						   var n3 = m1 + n1 + m2;
+						   var n2 = sim_p.signals[s_expr[1]].value ;
+						   var m1 = (1 << (posd+len)) - 1 ; // mask: 000...000 11111 (last      posd+len  bits to '1')
+						       m1 = ~m1                   ; // mask: 111...111 00000 (first 32-(posd+len) bits to '1')
+						       m1 = m1 & n2 ;             ; // get first 32-(posd+len) bits of n2
+						   var m2 = (1 << posd) - 1       ; // mask: 000...000 11111 (last 'posd' bits to '1')
+						       m2 = m2 & n2 ;             ; // get last 'posd' bits of n2
 
-						   set_value( sim_p.signals[s_expr[1]], parseInt(n3, 2));
+						   var n3 = m1 + (n1 << posd) + m2 ;
+						   set_value(sim_p.signals[s_expr[1]], n3) ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
                                                    return "" ;
                                                 }
 				   };
-	sim_p.behaviors["MOVE_BITSE"] = {
-					  nparameters: 6,
-				    types: ["S", "I", "I", "E", "I"],
-				    operation: function (s_expr)
-		                               {
-						   var posd = parseInt(s_expr[2]) ;
-						   var poso = parseInt(s_expr[5]) ;
-						   var len  = parseInt(s_expr[3]) ;
-
-						   var n1 =  get_value(sim_p.states[s_expr[4]]).toString(2); // to state signal origin
-						   n1 = n1.padStart(32, '0') ;
-						   n1 = n1.substr(31 - poso - len + 1, len);
-
-						   var n2 =  sim_p.signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = n2.padStart(32, '0') ;
-						   var m1 = n2.substr(0, 32 - (posd + len));
-						   var m2 = n2.substr(31 - posd + 1, posd);
-						   var n3 = m1 + n1 + m2;
-
-						   set_value( sim_p.signals[s_expr[1]], parseInt(n3, 2));
-                                                },
-                                        verbal: function (s_expr)
-                                                {
-                                                   return "" ;
-                                                }
-				  };
-	sim_p.behaviors["DECO"]    = { nparameters: 1,
+	sim_p.behaviors["DECO"]  = { nparameters: 1,
 				     operation: function(s_expr)
 						{
 						    sim_p.states['INEX'].value = 0 ;
@@ -2579,46 +2514,33 @@ function cpu_ep2_register ( sim_p )
                                             types: ["S"],
                                             operation: function (s_expr)
 						       {
-							    var signal = sim_p.signals[s_expr[1]];
+							    var signal_name = s_expr[1] ;
+							    var signal_obj  = sim_p.signals[signal_name] ;
 
-							    // 0.- avoid loops
-							    if (signal.is_firing) {
-								return;
+							    // 0. get if signal_name is_firing ...
+							    var is_firing = false ;
+							    if (typeof sim_p.internal_states.fire_stack[signal_name] != "undefined") {
+							        is_firing = sim_p.internal_states.fire_stack[signal_name] ;
 							    }
 
-							    signal.is_firing = true;
-
-							    // 1.- update draw
-							    update_draw(signal, signal.value) ;
-
-							    // 2.- for Level signals, propage it
-							    if ("L" ==  signal.type) {
-								update_state(s_expr[1]) ;
-							    }
-
-							    signal.is_firing = false;
-
-/*
-							    var signal_obj = sim_p.signals[s_expr[1]] ;
-
-							    // 0.- avoid loops
-							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
+							    // 1. if is_firing -> return (avoid loops)
+							    if (is_firing) {
 								return ;
 							    }
 
-							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
+							    // 2. is_firing = true
+							    sim_p.internal_states.fire_stack[signal_name] = true ;
 
-							    // 1.- update draw
+							    // 3. update draw
 							    update_draw(signal_obj, signal_obj.value) ;
 
-							    // 2.- for Level signals, propage it
-							    if ("L" ==  signal_obj.type)
-							    {
+							    // 4. for Level signals, propage it
+							    if ("L" ==  signal_obj.type) {
 								update_state(s_expr[1]) ;
 							    }
 
-							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
-*/
+							    // 5. is_firing = false
+							    sim_p.internal_states.fire_stack[signal_name] = false ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
