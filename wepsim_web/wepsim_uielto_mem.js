@@ -242,6 +242,12 @@
 
         function light_refresh_main_memory ( memory, index, redraw )
         {
+	    // if not visible -> skip
+            o1 = $("#memory_MP") ;
+            if (o1.is(':visible') == false) {
+	        return ;
+            }
+
 	    var cfg_nwords = get_cfg('MEM_show_nwords') ;
 
             if (redraw)
