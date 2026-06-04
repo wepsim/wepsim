@@ -157,7 +157,7 @@ function mem_ep2_register ( sim_p )
         sim_p.signals.MRDY      = { name: "MRDY",
                                      visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                      depends_on: ["CLK"],
-                                     behavior:  ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
+                                     behavior:  ["FIRE_IFSET C 3", "FIRE_IFSET C 3"],
                                      fire_name: ['svg_p:tspan3916','svg_p:text3909'],
                                      draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
                                      draw_name: [[], []] };
