@@ -122,7 +122,7 @@ function io_clk_base_register ( sim_p )
          sim_p.signals.INT         = { name: "INT",
                                         visible: true, type: "L", value: 0, default_value:0, nbits: "1",
                                         depends_on: ["CLK"],
-                                        behavior: ["FIRE C", "FIRE C"],
+                                        behavior: ["FIRE_IFSET C 1", "FIRE_IFSET C 1"],
                                         fire_name: ['svg_p:tspan4199'],
                                         draw_data: [[], ['svg_p:path3809']],
                                         draw_name: [[], []] };
@@ -151,7 +151,7 @@ function io_clk_base_register ( sim_p )
 
          sim_p.signals.IO_IE       = { name: "IO_IE",
                                         visible: true, type: "L", value: 1, default_value: 1, nbits: "1",
-                                        behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
+                                        behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE_IFSET C 1"],
                                         fire_name: [],
                                         draw_data: [[], []],
                                         draw_name: [[], []] };

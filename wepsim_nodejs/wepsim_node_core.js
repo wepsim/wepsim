@@ -855,7 +855,7 @@
 	    }
 
     	var input_help = '' ;
-    	var nvalues    = Math.pow(2, simhw_sim_signal(key).nbits) ;
+    	var nvalues    = 1 << simhw_sim_signal(key).nbits ; // Math.pow(2, simhw_sim_signal(key).nbits) ;
     	if (simhw_sim_signal(key).behavior.length == nvalues)
     	{
     	    input_help += 'Signal ' + key + ' has ' + nvalues + ' possible value:\n' ;

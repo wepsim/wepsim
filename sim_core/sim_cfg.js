@@ -209,7 +209,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.4.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.4.0.20260501A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.4.0.20260505A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },

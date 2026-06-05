@@ -2096,7 +2096,7 @@ function cpu_ep_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[1]]) << 0 ;
                                                    var b = parseInt(s_expr[2]) ;
-                                                   var m = Math.pow(2, b) ;
+                                                   var m = 1 << b ; // Math.pow(2, b) ;
                                                    var r = a | m ;
 						   set_value(sim_p.states[s_expr[1]], r) ;
 						   update_cpu_bus_fire(r, b) ;
@@ -2112,7 +2112,7 @@ function cpu_ep_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[1]]) << 0 ;
                                                    var b = parseInt(s_expr[2]) ;
-                                                   var m = Math.pow(2, b) ;
+                                                   var m = 1 << b ; // Math.pow(2, b) ;
                                                    var r = a & ~m ;
 						   set_value(sim_p.states[s_expr[1]], r) ;
 						   update_cpu_bus_fire(r, b) ;
