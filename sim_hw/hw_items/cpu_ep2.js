@@ -2071,7 +2071,7 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[1]]) << 0 ;
                                                    var b = parseInt(s_expr[2]) ;
-                                                   var m = Math.pow(2, b) ;
+                                                   var m = 1 << b; // Math.pow(2, b) ;
                                                    var r = a | m ;
 						   set_value(sim_p.states[s_expr[1]], r) ;
 						   update_cpu_bus_fire(r, b) ;
@@ -2087,7 +2087,7 @@ function cpu_ep2_register ( sim_p )
 		                                {
 						   var a = get_value(sim_p.states[s_expr[1]]) << 0 ;
                                                    var b = parseInt(s_expr[2]) ;
-                                                   var m = Math.pow(2, b) ;
+                                                   var m = 1 << b; // Math.pow(2, b) ;
                                                    var r = a & ~m ;
 						   set_value(sim_p.states[s_expr[1]], r) ;
 						   update_cpu_bus_fire(r, b) ;
@@ -2167,11 +2167,13 @@ function cpu_ep2_register ( sim_p )
                                                    // end: REG_MICROINS/xxx by default is the default_value
 						   else ws_alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
 
-						   var size  = parseInt(s_expr[4]) ;
                                                    var value = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
-                                                   var n3 = (value << 31 - (base + size - 1)) ;
-                                                       n3 = (n3   >>> 31 - (base + size - 1)) ;
-                                                       n3 = (n3   >>> base) ;
+						   var size  = parseInt(s_expr[4]) ;
+						   var shiftby = 32 - (base + size) ;
+
+                                                   var n3 = value << shiftby ;
+                                                       n3 = n3   >>> shiftby ;
+                                                       n3 = n3   >>> base ;
 
 						   set_value(sim_p.signals[s_expr[1]], n3);
                                                 },

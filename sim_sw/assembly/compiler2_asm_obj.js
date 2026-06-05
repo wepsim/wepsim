@@ -566,7 +566,7 @@ function wsasm_src2obj_data ( context, ret )
 			// Calculate offset
                         var align_offset = parseInt(possible_value) ;  // .balign
                         if (".align" == elto.datatype) {
-                            align_offset = Math.pow(2, align_offset) ; // .align
+                            align_offset = 1 << align_offset ;         // .align: Math.pow(2, align_offset) ;
 		        }
 
 			// ELTO: spaces/zeroes
