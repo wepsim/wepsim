@@ -10,10 +10,10 @@
 <html>
 	<ul>
 	<table>
-		<tr align="center" cellpadding="2">  
-		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/">WepSIM website</a> </td> 
-		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/info/">WepSIM documentation</a> </td> 
-		      <td> 🛠️ &nbsp;<br> <a href="https://wepsim.github.io/wepsim/">The WepSIM simulator</a> </td> 
+		<tr align="center" cellpadding="2">
+		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/">WepSIM website</a> </td>
+		      <td> 📖 &nbsp;<br> <a href="https://wepsim.github.io/info/">WepSIM documentation</a> </td>
+		      <td> 🛠️ &nbsp;<br> <a href="https://wepsim.github.io/wepsim/">The WepSIM simulator</a> </td>
 		</tr>
 	</table>
 	</ul>

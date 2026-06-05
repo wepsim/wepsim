@@ -126,7 +126,7 @@
        return ws_info.examples ;
     }
 
-    // wepsim_nodejs_examples2tests function will output the 'devel/test_wepsim_packX.json' content for examples
+    // wepsim_nodejs_examples2tests function will output the 'devel/test_pack/test_wepsim_pack<X>.json' content for examples
     function wepsim_nodejs_examples2tests ( example_pack_name, examples )
     {
        var d = '' ;

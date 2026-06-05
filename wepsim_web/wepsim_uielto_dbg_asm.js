@@ -40,12 +40,11 @@
 		   	     "<table class='table table-hover table-table-striped' style='margin-bottom:0px; min-width:700px;'>" +
 		   	     "<thead>" +
 			     "<tr>" +
-			     "<th width='1%'>" +
-			     "<a tabindex='0' href='#' class='multi-collapse-3 collapse show' " +
-                             "   data-bs-toggle='popover2' id='popover2_asm'>" +
+			     "<th width='1%'><span class='multi-collapse-3 collapse show'>" +
+			     "<a tabindex='0' href='#' data-bs-toggle='popover2' id='popover2_asm'>" +
                              "<strong class='fas fa-wrench text-secondary'></strong>" +
                              "</a>" +
-			     "</th>" +
+                             "</span></th>" +
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
 			     "<th width='15%' class='asm_addr  collapse' align='center'><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
                              "<th width='1%'  class='asm_brk   collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
