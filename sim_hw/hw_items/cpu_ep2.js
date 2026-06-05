@@ -2274,24 +2274,26 @@ function cpu_ep2_register ( sim_p )
                                                           " = " + sim_elto_org.value + ". " ;
                                                 }
 				   };
-	sim_p.behaviors["MBITS"]    = { nparameters: 8,
+	sim_p.behaviors["MBITS"] = { nparameters: 8,
 				     types: ["E", "I", "E", "S", "S", "I", "S"],
 				     operation: function(s_expr)
 						{
-						   var offset = parseInt(sim_p.signals[s_expr[4]].value) ;
 						   var size   = parseInt(sim_p.signals[s_expr[5]].value) ;
-
-						   var n1 = get_value(sim_p.states[s_expr[3]]).toString(2); // to binary
-						   var n2 = n1.padStart(32, '0') ;
-						       n2 = n2.substr(31 - (offset + size - 1), size);
-
-						   var n3 = n2.padStart(32, '0') ;
-						   if ( ("1" ==  sim_p.signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
-                                                   {    // check signed-extension
-						        n3 = n2.padStart(32, '1') ;
+						   if (0 == size) {
+						       set_value(sim_p.states[s_expr[1]], 0) ;
+						       return ;
 						   }
 
-						   set_value(sim_p.states[s_expr[1]], parseInt(n3, 2));
+						   var offset = parseInt(sim_p.signals[s_expr[4]].value) ;
+						   var se     = sim_p.signals[s_expr[7]].value ;
+						   var n5     = get_value(sim_p.states[s_expr[3]]) ;
+
+						   n5 = n5 << (32 - (offset + size)) ;
+						   if ("1" == se)
+						        n5 = n5  >> (32 - (offset + size)) ;
+						   else n5 = n5 >>> (32 - (offset + size)) ;
+
+						   set_value(sim_p.states[s_expr[1]], n5);
                                                 },
                                         verbal: function (s_expr)
                                                 {
