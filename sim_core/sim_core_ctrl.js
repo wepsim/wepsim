@@ -66,13 +66,16 @@
 	     var n = 0 ;
 	     var a = 0 ;
 	     var e = -1 ;
-	     for (var i=0; i<32; i++)
-             {
-                  a = tri_mask & (1 << i) ;
-                  if (a > 0) {
-	              e = i ;
-		      n = n + 1 ;
-	          }
+	     if (tri_mask) // 000...00 -> skip loop
+	     {
+	         for (var i=0; i<32; i++)
+                 {
+                      a = tri_mask & (1 << i) ;
+                      if (a > 0) {
+	                  e = i ;
+		          n = n + 1 ;
+	              }
+	         }
 	     }
 
 	     // 2.- paint the bus if any tri-state is active

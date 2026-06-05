@@ -82,7 +82,7 @@ function find_first_oceoc_v2 ( context, curr_instruction, first_oc, last_oc )
 
                 // new initial oc-eoc...
                 first_eoc = 0 ;
-                last_eoc  = Math.pow(2, eoc_len) - 1 ;
+                last_eoc  = (1 << eoc_len) - 1 ; // Math.pow(2, eoc_len) - 1 ;
 		for (k=first_eoc; k<last_eoc; k++)
 		{
 		     ret.label_eoc = k.toString(2).padStart(eoc_len, "0") ;

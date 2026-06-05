@@ -50,7 +50,7 @@
 		var n10 = 0;
 		var n2  = 0;
 
-		var nvalues = Math.pow(2, signal_obj.nbits) ;
+		var nvalues = 1 << signal_obj.nbits ; // Math.pow(2, signal_obj.nbits) ;
 		if (signal_obj.behavior.length == nvalues)
 		{
 		    input_help = '<ol start="0" class="list-group list-group-flush">' ;
@@ -185,7 +185,7 @@
 				    // ui ajust
 				    if (typeof $(".dial").knob !== "undefined")
 				    {
-		                        var nvalues = Math.pow(2, signal_obj.nbits) ;
+		                        var nvalues = 1 << signal_obj.nbits;  // Math.pow(2, signal_obj.nbits) ;
 				        $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
 						  .val(signal_obj.value)
 						  .trigger('change') ;
@@ -215,7 +215,7 @@
 	        }
 
 		// update signal
-		var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
+		var nvalues = 1 << simhw_sim_signal(key).nbits ; // Math.pow(2, simhw_sim_signal(key).nbits) ;
 		var user_input = simhw_sim_signal(key).value ;
 		user_input = (user_input + 1) % nvalues ;
 

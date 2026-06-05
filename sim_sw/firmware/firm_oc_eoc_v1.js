@@ -82,7 +82,7 @@ function find_first_oceoc_v1 ( context, curr_instruction, first_oc, last_oc )
 
                 // new initial oc-eoc...
                 first_eoc = 0 ;
-                last_eoc  = Math.pow(2, eoc_len) - 1 ;
+                last_eoc  = (1 << eoc_len) - 1 ; // Math.pow(2, eoc_len) - 1 ;
 		for (k=first_eoc; k<last_eoc; k++)
 		{
 		     ret.label_eoc = k.toString(2).padStart(eoc_len, "0") ;
@@ -117,7 +117,7 @@ function resolve_pending_oceoc_v1 ( context )
 	   }
 
 	   var first_oc = 0 ;
-	   var last_oc = Math.pow(2, ir_oc_length) - 1 ;
+	   var last_oc = (1 << ir_oc_length) - 1 ; // Math.pow(2, ir_oc_length) - 1 ;
 	   var last_oc_str = last_oc.toString(2) ;
 
 	   var curr_instruction = null ;
