@@ -40,6 +40,8 @@ test_wepsimnode_run ()
 
 test_wepsimnode_run_short ()
 {
+	echo "  -> Run tests, Short version..."
+
 	N=${#TEST_ARR[*]}
 	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
@@ -52,17 +54,19 @@ test_wepsimnode_run_short ()
 
 test_wepsimnode_mkoutput ()
 {
+	echo "  -> Make tests Output..."
+
 	N=${#TEST_ARR[*]}
 	for (( I=0; I<=$(( N -1 )); I++ )); do
 	    T="${TEST_ARR[$I]}"
 	    D="${DESC_ARR[$I]}"
 
 	    echo "$I.txt - $D"
-	    $T >& ./devel/output/$I.txt
+	    $T >& ./devel/test_output/$I.txt
 	done
 
-	rm -fr  ./devel/output/*.txt.gz
-	gzip -9 ./devel/output/*.txt
+	rm -fr  ./devel/test_output/*.txt.gz
+	gzip -9 ./devel/test_output/*.txt
 }
 
 test_wepsimnode_ckoutput_single ()
@@ -72,52 +76,74 @@ test_wepsimnode_ckoutput_single ()
 	D="${DESC_ARR[$I]}"
 
 	# expected...
-	gunzip -c ./devel/output/$I.txt.gz >& ./devel/output/test-expect-$I.txt
+	gunzip -c ./devel/test_output/$I.txt.gz >& ./devel/test_output/test-expect-$I.txt
 
 	# obtained...
-	$T >& ./devel/output/test-obtained-$I.txt
+	$T >& ./devel/test_output/test-obtained-$I.txt
 
 	# diff...
-	diff   ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt >& ./devel/output/diff-$I.txt
+	diff   ./devel/test_output/test-expect-$I.txt ./devel/test_output/test-obtained-$I.txt >& ./devel/test_output/diff-$I.txt
 	if [ $? -eq 0 ]; then
-	    echo "$I: OK: $D" >& ./devel/output/result-$I.txt
+	    echo "$I: OK: $D" >& ./devel/test_output/result-$I.txt
 	else
-	    echo "$I: KO: $D" >& ./devel/output/result-$I.txt
+	    echo "$I: KO: $D" >& ./devel/test_output/result-$I.txt
 
-	    echo "***********************" >> ./devel/output/result-$I.txt
-	    echo $T                        >> ./devel/output/result-$I.txt
-	    cat ./devel/output/diff-$I.txt >> ./devel/output/result-$I.txt
-	    echo "***********************" >> ./devel/output/result-$I.txt
+	    echo "***********************"      >> ./devel/test_output/result-$I.txt
+	    echo $T                             >> ./devel/test_output/result-$I.txt
+	    cat ./devel/test_output/diff-$I.txt >> ./devel/test_output/result-$I.txt
+	    echo "***********************"      >> ./devel/test_output/result-$I.txt
 	fi
 
 	# cleanup...
-	rm -fr ./devel/output/test-expect-$I.txt ./devel/output/test-obtained-$I.txt ./devel/output/diff-$I.txt
+	rm -fr ./devel/test_output/test-expect-$I.txt ./devel/test_output/test-obtained-$I.txt ./devel/test_output/diff-$I.txt
 }
 
 test_wepsimnode_ckoutput ()
 {
 	N=${#TEST_ARR[*]}
+	NC=$(nproc)
 
-	# (1/3) run in parallel
-	echo "     * running..."
+	# (1/2) run in parallel
+        echo -n "  -> Running tests... "
 	for (( I=0; I<=$(( N -1 )); I++ )); do
-
                test_wepsimnode_ckoutput_single $I &
-               # echo -n "$I    \r"
 
+	       if (( I % $NC == 0 )); then
+                     echo -en "🏃"
+	             wait $(jobs -p)
+	       fi
 	done
-
-	# (2/3) wait for all
-	echo "     * waiting..."
 	wait $(jobs -p)
+        echo " Done"
 
-	# (3/3) show results
+	# (2/2) show results
+	echo ""
+	echo "  -> Check tests output..."
 	echo ""
         echo "Id: Status: Description"
 	for (( I=0; I<=$(( N -1 )); I++ )); do
-	    cat    ./devel/output/result-$I.txt
-	    rm -fr ./devel/output/result-$I.txt
+	    cat    ./devel/test_output/result-$I.txt
+	    rm -fr ./devel/test_output/result-$I.txt
 	done
+}
+
+test_wepsimnode_load ()
+{
+	I=0
+	NC=$(nproc)
+
+	echo -n "  -> Loading tests... "
+        while IFS=$'\t' read -r T P D; do
+             TEST_ARR+=("$T")
+             DESC_ARR+=("$P - $D")
+
+	     I=$((I+1))
+	     if (( I % $NC == 0 )); then
+	           echo -n "🛠️ "
+	           wait $(jobs -p)
+	     fi
+        done < <(jq -r '.[] | [.test, .pack, .description] | @tsv' ./devel/test_pack/test_wepsim_pack*.json)
+	echo " Done"
 }
 
 
@@ -144,22 +170,9 @@ if [ $# -eq 0 ]; then
 fi
 
 # Load Test Pack
-echo -n "  -> Loading tests... "
-
 TEST_ARR=()
 DESC_ARR=()
-cat ./devel/test_wepsim_pack*.json | jq -cr '.[]' > kk.txt
-while read OBJ; do
-    T=$(echo "$OBJ" | jq -r '.test')
-    TEST_ARR+=("$T")
-    P=$(echo "$OBJ" | jq -r '.pack')
-    D=$(echo "$OBJ" | jq -r '.description')
-    DESC_ARR+=("$P - $D")
-    echo -n "."
-done < kk.txt
-rm -fr kk.txt
-echo " Done"
-
+test_wepsimnode_load
 
 # Do requests
 for arg_i in "$@"
@@ -171,15 +184,12 @@ do
 		test_wepsimnode_run
 	     ;;
 	     rs)
-		echo "  -> Run tests, Short version..."
 		test_wepsimnode_run_short
 	     ;;
 	     mo)
-		echo "  -> Make tests Output..."
 		test_wepsimnode_mkoutput
 	     ;;
 	     co)
-		echo "  -> Check tests Output..."
 		test_wepsimnode_ckoutput
 	     ;;
 	     *)

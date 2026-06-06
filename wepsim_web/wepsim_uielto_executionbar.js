@@ -135,17 +135,27 @@
                                   '  <span class="visually-hidden">Toggle Dropdown</span>' +
                                   '</button>' +
                                   '<ul class="dropdown-menu border border-secondary">' +
+			          '' +
                                   '    <li><a  class="dropdown-item" ' +
                                   '            onclick="wsweb_execution_run(); return false;">' +
                                   '<i class="fa-solid fa-person-running"></i>&nbsp;' +
 			          '<span data-langkey="Run">Run</span>' +
                                    '</a></li>' +
+			          '' +
                                   '    <li><hr class="dropdown-divider"></li>' +
                                   '    <li><a  class="dropdown-item" ' +
                                   '            onclick="wsweb_dialog_open(\'flash_fpga\');">' +
                                   '<i class="fa-solid fa-bolt"></i>&nbsp;' +
-			          '<span data-langkey="Flash">Flash</span>' +
+			          '<span data-langkey="Flash">Flash FPGA</span>' +
 			          '</a></li>' +
+			          '' +
+                                  '    <li class="wsx_esp32"><hr class="dropdown-divider"></li>' +
+                                  '    <li class="wsx_esp32"><a  class="dropdown-item" ' +
+                                  '            onclick="wsweb_dialog_open(\'flash_assembly\');">' +
+                                  '<i class="fa-solid fa-bolt"></i>&nbsp;' +
+			          '<span data-langkey="Flash">Flash ESP32</span>' +
+			          '</a></li>' +
+			          '' +
                                   '</ul>' +
                                   '</div>' ;
                                   break ;
