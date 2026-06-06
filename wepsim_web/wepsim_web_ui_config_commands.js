@@ -649,13 +649,13 @@
                       type:        "Extra Features",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14c-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14c-true'  aria-label='ep2-cpu: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_ep2-false' for='radio14c-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
 				   "		  onclick=\"wepsim_config_button_toggle2('beta_ep2',false,'14');\">Off" +
 				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14c-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14c-false' aria-label='ep2-cpu: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_ep2-true' for='radio14c-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
@@ -674,13 +674,13 @@
                       type:        "Extra Features",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14b-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14b-true'  aria-label='poc-cpu: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_poc-false' for='radio14b-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
 				   "		  onclick=\"wepsim_config_button_toggle2('beta_poc',false,'14');\">Off" +
 				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14b-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14b-false' aria-label='poc-cpu: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_poc-true' for='radio14b-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
@@ -699,13 +699,13 @@
                       type:        "Extra Features",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14d-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14d-true'  aria-label='rv-cpu: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_rv-false' for='radio14d-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
 				   "		  onclick=\"wepsim_config_button_toggle2('beta_rv',false,'14');\">Off" +
 				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14d-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14d-false' aria-label='rv-cpu: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-beta_rv-true' for='radio14d-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
@@ -723,13 +723,13 @@
                       type:        "Extra Features",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14d-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14d-true'  aria-label='more-cfg-options: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-extra_morecfg-false' for='radio14d-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
 				   "		  onclick=\"wepsim_config_button_toggle2('extra_morecfg',false,'14');\">Off" +
 				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14d-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14d-false' aria-label='more-cfg-options: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-extra_morecfg-true' for='radio14d-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
@@ -747,13 +747,13 @@
                       type:        "Extra Features",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "		<input type='radio' name='options' id='radio14e-true'  aria-label='cache: true'  autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14e-true'  aria-label='more-share-options: true'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-extra_share-false' for='radio14e-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
 				   "		  onclick=\"wepsim_config_button_toggle2('extra_share',false,'14');\">Off" +
 				   "	    </label>" +
-				   "		<input type='radio' name='options' id='radio14e-false' aria-label='cache: false' autocomplete='off' class='btn-check'>" +
+				   "		<input type='radio' name='options' id='radio14e-false' aria-label='more-share-options: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-extra_share-true' for='radio14e-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
@@ -764,5 +764,29 @@
                                        wepsim_config_button_pretoggle_val2('ws_skin_user', 'extra_share', '14') ;
 		                   },
                       description: "<span data-langkey='More share options'>More share options</span>&nbsp;"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "radio14f",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
+				   "		<input type='radio' name='options' id='radio14f-true'  aria-label='flash-esp32: true'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-flash_esp32-false' for='radio14f-true' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface for Flashing on ESP32 from WepSIM: true' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32',false,'14');\">Off" +
+				   "	    </label>" +
+				   "		<input type='radio' name='options' id='radio14f-false' aria-label='flash-esp32: false' autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label14-flash_esp32-true' for='radio14f-false' " +
+				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
+                                   "              aria-label='User Interface for Flashing on ESP32 from WepSIM: false' " +
+				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32',true,'14');\">On" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'flash_esp32', '14') ;
+		                   },
+                      description: "<span data-langkey='Flashing on ESP32 from WepSIM'>Flashing on ESP32 from WepSIM</span>&nbsp;"
                    });
 

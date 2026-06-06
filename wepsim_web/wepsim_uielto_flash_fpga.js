@@ -67,18 +67,17 @@
                         '' +
                         '<br><ul>' +
 			'<li><b>[1] Install required software</b></li>' +
-			'For example, follow the "Get started": ' +
-			'<a href="https://github.com/ALVAROPING1">Linux</a>, ' +
+			'Please follow the ' +
+			'<a href="https://github.com/ALVAROPING1/WepSIM-FPGA">Get Started Guide</a> ' +
 			'<p></p>' +
 			'<li><b>(2) Execute the gateway.py</b></li>' +
-			'For example:' +
 			'<pre>' +
 			'cd gateway; ' +
 			'python3 gateway.py' +
 			'</pre>' +
 			'<p></p>' +
 			'<li><b>(3) Use the Web page form to flash</b></li>' +
-			'Please open your web browser and use the Flash option.' +
+			'Please use the Flash option.' +
                         '</ul>' +
                         '' +
 			'  </div>' +

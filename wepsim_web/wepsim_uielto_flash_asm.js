@@ -73,8 +73,8 @@
 			'<li><b>[2] Get the gateway associated with your board</b></li>' +
 			'For example, for the ESP32-C3 board:' +
 			'<pre>' +
-			'wget https://wepsim.github.io/wepsim/ws_dist/gateway/esp32c3.zip\n' +
-			'unzip -a esp32c3.zip' +
+			'wget wget https://github.com/creatorsim/creator-gateway-esp32\n' +
+			'mv creator-gateway-esp32 gateway' +
 			'</pre>' +
 			'<p></p>' +
 			'<li><b>(3) Execute the gateway.py</b></li>' +
