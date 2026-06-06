@@ -235,7 +235,7 @@
                    "MEM_show_nwords":       { upgrade:false, type:"int",       value:1 },
 
 	           /* simulation screen: Execution */
-                   "DBG_delay":             { upgrade:false, type:"int",       value:5 },
+                   "DBG_delay":             { upgrade:false, type:"int",       value:50 },
                    "DBG_level":             { upgrade:false, type:"string",    value:"microinstruction" },
                    "DBG_limitins":          { upgrade:false, type:"int",       value:10000 },
                    "DBG_limitick":          { upgrade:false, type:"int",       value:2000 },
@@ -298,7 +298,7 @@
         {
             var dbg_delay = get_cfg('DBG_delay') ;
 
-            if (dbg_delay < 5)
+            if (dbg_delay < 50)
             {
                 cfg_show_rf_delay             = 350 ;
                 cfg_show_eltos_delay          = 350 ;

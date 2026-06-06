@@ -68,7 +68,7 @@
                     }
 
                     // get html code
-                    setTimeout(function(){
+                    wait_if_uievents(function(){
 	                var o = firmware2html(simware.firmware, true) ;
 	                $('#compile_bin2b').html(o) ;
                     }, 15);

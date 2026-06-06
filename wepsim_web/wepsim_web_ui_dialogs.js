@@ -383,7 +383,7 @@
                          // get binary
 			 var simware = wepsim_get_binary_code() ;
 			 if (null == simware) {
-                             setTimeout(function() {
+                             wait_if_uievents(function() {
                                 wsweb_dialog_close('binary_asm') ;
                              }, 50) ;
 			     return ;
@@ -394,7 +394,7 @@
 			 wepsim_uicfg_apply() ;
 
                          // show binary
-                         setTimeout(function() {
+                         wait_if_uievents(function() {
                             $('#bin_asm').modal('handleUpdate') ;
 			    wsweb_scroll_record('#scroller-bin2a') ;
 			    simcore_record_captureInit() ;
@@ -431,7 +431,7 @@
                          // get binary
 			 var simware = wepsim_get_binary_microcode() ;
 			 if (null == simware) {
-                             setTimeout(function() {
+                             wait_if_uievents(function() {
                                            wsweb_dialog_close('binary_fir');
                              }, 50) ;
 			     return ;
@@ -442,7 +442,7 @@
 			 wepsim_uicfg_apply() ;
 
                          // show binary
-                         setTimeout(function() {
+                         wait_if_uievents(function() {
                                        // binmc_load_mc2html(simware) ;
                                        $('#bin_fir').modal('handleUpdate') ;
 			               wsweb_scroll_record('#scroller-bin2b') ;
@@ -615,7 +615,7 @@
 	             },
             size:    'large',
             onshow:  function() {
-                         setTimeout(function() {
+                         wait_if_uievents(function() {
                                        $("#config2-scroller").scrollTop(0);
                          }, 50);
 

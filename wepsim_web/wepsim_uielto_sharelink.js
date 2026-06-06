@@ -89,7 +89,7 @@
 
                     // get URL and QR
 	            var this_jshare = this.jshare ;
-                    setTimeout(function() {
+                    wait_if_uievents(function() {
 				    try
 				    {
 				       var share_text = share_as_uri(this_jshare) ;

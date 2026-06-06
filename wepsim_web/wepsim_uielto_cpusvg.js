@@ -415,7 +415,7 @@
 			  obj_target.style.setProperty("visibility", "visible") ;
 			  obj_target.style.setProperty("display",    "none") ;
 			  if ('' != obj_target.img_data) {
-			      setTimeout(function(){ obj_target.style.setProperty("display", "block"); }, 25);
+			      wait_if_uievents(function(){ obj_target.style.setProperty("display", "block"); }, 25);
 			  }
 		}
 
