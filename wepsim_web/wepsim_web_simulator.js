@@ -94,6 +94,7 @@
 			  'extra_mcode':   '.wsx_microcode',
 			  'extra_morecfg': '.wsx_morecfg',
 			  'extra_share':   '.wsx_share',
+			  'flash_esp32':   '.wsx_esp32',
 			  'beta_ep2':      '.wsx_ep2',
 			  'beta_poc':      '.wsx_poc',
 			  'beta_rv':       '.wsx_rv',
