@@ -144,8 +144,8 @@
                          vue_appyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
 		    }
 
-		    l3d_apirest_endpoint.value = vue_observable_ifnotjetdone(l3d_apirest_endpoint.value) ;
-		    vue_appyBinding(l3d_apirest_endpoint.value, '#l3d_apirest_endpoint', f_computed_value) ;
+		    l3d_apirest_endpoint = vue_observable_ifnotjetdone(l3d_apirest_endpoint) ;
+		    vue_appyBinding(l3d_apirest_endpoint, '#l3d_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

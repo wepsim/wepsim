@@ -86,14 +86,14 @@ function io_clk_base_register ( sim_p )
 	 */
 
         sim_p.internal_states.io_int_factory = [] ;
-        sim_p.internal_states.io_int_factory[0] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[1] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[2] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[3] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[4] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[5] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[6] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[7] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[0] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[1] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[2] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[3] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[4] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[5] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[6] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
+        sim_p.internal_states.io_int_factory[7] = { period:{value:0}, probability:{value:0.5}, accumulated:{value:0}, active:{value:false} } ;
 
         sim_p.internal_states.io_hash[IOSR_ID] = "IOSR" ;
         sim_p.internal_states.io_hash[IOCR_ID] = "IOCR" ;
@@ -310,15 +310,15 @@ function io_clk_base_register ( sim_p )
                                                       }
 
 						      set_value(sim_p.signals[s_expr[2]], 0); // ['INT']  = 0
-						      set_value(sim_p.states[s_expr[5]], 0); // ['INTV'] = 0
+						      set_value(sim_p.states[s_expr[5]], 0);  // ['INTV'] = 0
 
 						      for (var i=0; i<sim_p.internal_states.io_int_factory.length; i++)
                                                       {
                                                            if (get_var(sim_p.internal_states.io_int_factory[i].active))
                                                            {
                                                                set_value(sim_p.signals[s_expr[2]], 0) ; // ['INT']  = 1
-                                                               set_value(sim_p.states[s_expr[5]], i) ; // ['INTV'] = i
-							       set_value(sim_p.states[s_expr[4]], i) ; // ['BUS_DB'] = i
+                                                               set_value(sim_p.states[s_expr[5]], i) ;  // ['INTV'] = i
+							       set_value(sim_p.states[s_expr[4]], i) ;  // ['BUS_DB'] = i
 
                                                                if (typeof sim_p.events.io[clk] == "undefined") {
                                                                    sim_p.events.io[clk] = [] ;

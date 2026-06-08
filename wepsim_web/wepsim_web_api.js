@@ -33,13 +33,13 @@
 			                  var actual_details = $('#select5b').text() ;
 			                  if (actual_details.includes('MicroCode')) {
                                               jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
-					      setTimeout(function() {
+					      wait_if_uievents(function() {
 							    inputfirm.refresh();
 						         }, 50) ;
 					  }
 			             else if (actual_details.includes('Assembly')) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2");
-					      setTimeout(function() {
+					      wait_if_uievents(function() {
 							    inputasm.refresh() ;
 						         }, 50) ;
 					  }
@@ -55,7 +55,7 @@
 
 					  if (inputfirm.is_refreshed != true) {
 					      inputfirm.is_refreshed = true ;
-			                      setTimeout(function(){
+			                      wait_if_uievents(function(){
 					                    inputfirm.refresh() ;
 				                         }, 50) ;
                                           }
@@ -71,7 +71,7 @@
 
 					  if (inputasm.is_refreshed != true) {
 					      inputasm.is_refreshed = true ;
-					      setTimeout(function(){
+					      wait_if_uievents(function(){
 							    inputasm.refresh() ;
 					    	         }, 50) ;
 					  }
@@ -99,7 +99,7 @@
 	    }
 
 	    // stats about ui
-	    setTimeout(function(){
+	    wait_if_uievents(function(){
 		           simcore_ga('ui', 'ui.workspace', 'ui.workspace.simulator') ;
 		       }, 50) ;
 
@@ -120,7 +120,7 @@
 	    }
 
 	    // stats about ui
-	    setTimeout(function(){
+	    wait_if_uievents(function(){
 			   simcore_ga('ui', 'ui.workspace', 'ui.workspace.microcode') ;
 		       }, 50) ;
 
@@ -141,7 +141,7 @@
 	    }
 
 	    // stats about ui
-	    setTimeout(function(){
+	    wait_if_uievents(function(){
 			   simcore_ga('ui', 'ui.workspace', 'ui.workspace.assembly') ;
 		       }, 50) ;
 
@@ -441,7 +441,7 @@
 					  if (![...ct3firm.children].includes(t3_firm)) {
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder2');
                                           }
-					  setTimeout(function() {
+					  wait_if_uievents(function() {
                                                         inputfirm.refresh();
 						     }, 50) ;
                                         },
@@ -451,7 +451,7 @@
 					  if (![...ct4asm.children].includes(t4_asm)) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
                                           }
-					  setTimeout(function() {
+					  wait_if_uievents(function() {
 							inputasm.refresh() ;
 						     }, 50) ;
                                         },

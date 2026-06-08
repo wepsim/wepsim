@@ -55,6 +55,28 @@
 	    return base_str.replace(new RegExp(base_escapeRegExp(match), 'g'), ()=>replacement);
 	}
 
+        async function wait_if_uievents ( function1, recommended_timeout )
+        {
+            if (globalThis.scheduler?.yield)
+            {
+                await scheduler.yield() ;
+                function1() ;
+            }
+            else
+            {
+                setTimeout(function1, recommended_timeout) ;
+            }
+	}
+
+        async function wait_uievents_and_settimeout ( function1, recommended_timeout )
+        {
+            if (globalThis.scheduler?.yield) {
+                await scheduler.yield() ;
+            }
+
+            setTimeout(function1, recommended_timeout) ;
+	}
+
 
         /*
          *  checking & updating

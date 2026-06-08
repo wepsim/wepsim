@@ -112,7 +112,7 @@
 
             // (2/2) show as table
             $('#cpu_view_table1').tab("show") ;
-	    setTimeout(function() {
+	    wait_if_uievents(function() {
                           cpucu_show_table('elements') ;
                        }, 100);
         }

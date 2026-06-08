@@ -141,7 +141,7 @@
      		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border py-0 me-1 w-75"' +
      		        '           onclick="simcore_record_append_pending();' +
      		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
-     		        '                    setTimeout(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
+     		        '                    wait_if_uievents(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
      		        '                    return false;"' +
                         '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                                     e_title +

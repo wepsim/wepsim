@@ -114,7 +114,7 @@
 	   }
 
            // get value
-	   return sim_var ;
+	   return sim_var.value ;
         }
 
         function set_var ( sim_var, value )
@@ -127,7 +127,7 @@
            }
 
            // set value
-	   sim_var = value ;
+	   sim_var.value = value ;
         }
 
 
@@ -194,7 +194,7 @@
 
             // vue_observable if not done before
             if (false == (element instanceof Vuex.Store)) {
-                element = vue_observable(element) ;
+                element = vue_observable(element.value) ;
             }
 
             return element ;

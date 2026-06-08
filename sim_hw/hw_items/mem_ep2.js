@@ -245,21 +245,21 @@ function mem_ep2_register ( sim_p )
 						           return ;
 						      }
 
-						      // first clk cycle when memory read operation is requested -> cache
-                                                      if (read_clk == remain) 
-					              {
-							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
-							  {
-							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
-                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
-							       }
-							  }
-                                                      }
-
 						      // if remain clk cycles > 0 -> skip not needed re-evaluations
                                                       if (remain > 0) {
                                                           return;
                                                       }
+
+						      // first clk cycle when memory read operation is requested -> cache
+                                                      if (0 == sim_p.signals[s_expr[6]].value)
+						      {
+						          for (var i=0; i<sim_p.internal_states.CM.length; i++)
+						          {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
+							       }
+						          }
+						      }
 
 						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;
@@ -362,21 +362,21 @@ function mem_ep2_register ( sim_p )
 						           return ;
 						      }
 
-						      // first clk cycle when write operation is requested -> cache
-                                                      if (write_clk == remain)
-					              {
-							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
-							  {
-							       if (1 == sim_p.internal_states.CM[i].cfg.level) {
-                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
-							       }
-							  }
-                                                      }
-
 						      // if remain clk cycles > 0 -> skip not needed re-evaluations
                                                       if (remain > 0) {
                                                           return;
                                                       }
+
+						      // first clk cycle when write operation is requested -> cache
+                                                      if (0 == sim_p.signals[s_expr[6]].value)
+						      {
+						          for (var i=0; i<sim_p.internal_states.CM.length; i++)
+						          {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
+							       }
+						          }
+						      }
 
 						      // memory update (and related work)...
                                                       var wordress = address & 0xFFFFFFFC ;

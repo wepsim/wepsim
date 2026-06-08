@@ -91,10 +91,10 @@
                         quickcfg_html_onoff('18',
                                             'WepSIM dark mode',
                                                 i18n_get_TagFor('cfg', 'Off'),
-                                            "  wepsim_restore_darkmode(false);" +
+                                            "  wepsim_set_darkmode('off');" +
                                             "  wepsim_config_button_toggle('ws_skin_dark_mode', false, '18');",
                                                 i18n_get_TagFor('cfg', 'On'),
-                                            "  wepsim_restore_darkmode(true);" +
+                                            "  wepsim_set_darkmode('on');" +
                                             "  wepsim_config_button_toggle('ws_skin_dark_mode', true, '18');") +
 			'</li>' ;
 

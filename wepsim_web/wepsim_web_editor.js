@@ -212,7 +212,7 @@
              if (inputfirm.getValue().trim() !== "") {
                  var wsi = get_cfg('ws_idiom') ;
                  var msg = i18n_get('gui', wsi, 'Microcode or Assembly are not compiled properly') ;
-	         setTimeout(function(){ wsweb_dlg_alert(msg + '.<br>\n') ; }, 50);
+	         wait_if_uievents(function(){ wsweb_dlg_alert(msg + '.<br>\n') ; }, 50);
              }
 
              return null ;

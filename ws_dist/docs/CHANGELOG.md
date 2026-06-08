@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.4.0 -> 2.4.1:
+* Main improvements:
+  * Work in progress...
+
 ## 2.3.9 -> 2.4.0:
 * Main improvements:
   * EP2 processor as beta
