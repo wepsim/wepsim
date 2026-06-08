@@ -211,7 +211,7 @@ function mem_ep_register ( sim_p )
 					              {
 							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
 							  {
-							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level.value)) {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
                                                                    cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
 							       }
 							  }
@@ -311,7 +311,7 @@ function mem_ep_register ( sim_p )
 					              {
 							  for (var i=0; i<sim_p.internal_states.CM.length; i++)
 							  {
-							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level.value)) {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
                                                                    cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
 							       }
 							  }

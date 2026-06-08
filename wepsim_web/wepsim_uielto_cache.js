@@ -114,13 +114,13 @@
                 "<div class='table-responsive'>" +
                 "<table class='table table-bordered table-hover table-sm w-auto'>" ;
 
-            if (0 == memory.cfg.set_size) {
+            if (0 == get_var(memory.cfg.set_size)) {
 		// full-associative
                 o1 += "<thead><tr><td>Tag: " + t_sz + " bits</td><td>Offset: " + o_sz + " bits</td></tr></thead>" +
                       "<tbody><tr><td><span id='" + p1 + "lp_tag'>{{ computed_value }}</span></td>"+
                                  "<td><span id='" + p1 + "lp_off'>{{ computed_value }}</span></td></tr></tbody>" ;
             }
-	    else if (memory.cfg.via_size == memory.cfg.set_size) {
+	    else if (get_var(memory.cfg.via_size) == get_var(memory.cfg.set_size)) {
 		// direct-mapped
                 o1 += "<thead><tr><td>Tag: " + t_sz + " bits</td><td>Index: " + s_sz + "</td><td>Offset: " + o_sz + "</td></tr></thead>" +
                       "<tbody><tr><td><span id='" + p1 + "lp_tag'>{{ computed_value }}</span></td>"+
@@ -196,7 +196,7 @@
             ks = Object.keys(memory.sets) ;
 	    for (const elto_set of ks)
 	    {
-                 elto_set_bin = parseInt(elto_set).toString(2).padStart(memory.cfg.set_size,'0') + '<sub>2</sub>';
+                 elto_set_bin = parseInt(elto_set).toString(2).padStart(get_var(memory.cfg.set_size), '0') + '<sub>2</sub>';
 
 	         o1 += "<table class='table table-bordered table-striped table-hover table-sm w-auto pb-2'>" +
                        "<thead>" +
@@ -207,13 +207,13 @@
 		 kt = Object.keys(memory.sets[elto_set].tags) ;
 	         for (const elto_tag of kt)
 		 {
-                      elto_tag_bin = parseInt(elto_tag).toString(2).padStart(memory.cfg.tag_size,'0') + '<sub>2</sub>';
+                      elto_tag_bin = parseInt(elto_tag).toString(2).padStart(get_var(memory.cfg.tag_size), '0') + '<sub>2</sub>';
 
 	              o1 += "<tr>" +
 		 	    "<td>" + elto_tag_bin + "</td>" +
-			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].valid)    + "</td>" +
-			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].dirty)    + "</td>" +
-			    "<td>" + get_var(memory.sets[elto_set].tags[elto_tag].n_access) + "</td>" +
+			    "<td>" + memory.sets[elto_set].tags[elto_tag].valid    + "</td>" +
+			    "<td>" + memory.sets[elto_set].tags[elto_tag].dirty    + "</td>" +
+			    "<td>" + memory.sets[elto_set].tags[elto_tag].n_access + "</td>" +
 			    "</tr>" ;
 	         }
 	         o1 += "</tbody></table>" ;
@@ -379,7 +379,7 @@
 	    vue_appyBinding(memory.stats.n_access, p1 + 'n_access', function(value){ return value; }) ;
 
 	    memory.stats.n_hits   = vue_observable_ifnotjetdone(memory.stats.n_hits) ;
-	    vue_appyBinding(memory.stats.n_hits,   p1 + 'n_hits', function(value){ return value; }) ;
+	    vue_appyBinding(memory.stats.n_hits,   p1 + 'n_hits',   function(value){ return value; }) ;
 
 	    memory.stats.n_misses = vue_observable_ifnotjetdone(memory.stats.n_misses) ;
 	    vue_appyBinding(memory.stats.n_misses, p1 + 'n_misses', function(value){ return value; }) ;

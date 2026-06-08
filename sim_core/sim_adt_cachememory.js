@@ -107,7 +107,7 @@
             var keys = Object.keys(memory.sets[set].tags) ;
             var tag_victim  = 0 ;
 
-            if (memory.cfg.replace_pol == "lfu")
+            if (get_var(memory.cfg.replace_pol) == "lfu")
             {
 		tag_victim  = keys[0] ;
                 var tag_naccess = memory.sets[parts.set].tags[tag_victim].n_access ;
@@ -120,7 +120,7 @@
                 }
             }
 
-       else if (memory.cfg.replace_pol == "fifo")
+       else if (get_var(memory.cfg.replace_pol) == "fifo")
             {
 		tag_victim  = keys[0] ;
                 var tag_stamp = memory.sets[parts.set].tags[tag_victim].timestamp ;
@@ -133,7 +133,7 @@
                 }
             }
 
-       else if (memory.cfg.replace_pol == "first") {
+       else if (get_var(memory.cfg.replace_pol) == "first") {
                 tag_victim = keys[0] ;
             }
 
@@ -222,10 +222,10 @@
         // Example: var cm = cache_memory_init_eltofromcfg(cfg) ;
         function cache_memory_init_eltofromcfg ( cfg )
         {
-            return cache_memory_init(cfg.name,
-                                     cfg.via_size,    cfg.off_size, cfg.set_size,
-                                     cfg.replace_pol, cfg.su_pol,
-                                     cfg.level,       cfg.next_cache) ;
+            return cache_memory_init(get_var(cfg.name),
+                                     get_var(cfg.via_size),    get_var(cfg.off_size), get_var(cfg.set_size),
+                                     get_var(cfg.replace_pol), get_var(cfg.su_pol),
+                                     get_var(cfg.level),       get_var(cfg.next_cache)) ;
 	    // next_cache: first, it is -1/value but not reference...
         }
 
@@ -233,9 +233,9 @@
         {
 	    // next_cache: ...then, it is reference associated
 
-            if (cfg_i.cfg.next_cache != -1)
-                 cm_i.cfg.next_cache = cm[cfg_i.cfg.next_cache] ;
-	    else cm_i.cfg.next_cache = null ;
+            if (get_var(cfg_i.cfg.next_cache) != -1)
+                 set_var(cm_i.cfg.next_cache, cm[cfg_i.cfg.next_cache]) ;
+	    else set_var(cm_i.cfg.next_cache, null) ;
 
 	    return cm_i ;
         }
@@ -297,10 +297,10 @@
 
         function cache_memory_update_eltofromcfg ( cfg )
         {
-            return cache_memory_update(cfg.name,
-                                       cfg.via_size,    cfg.off_size, cfg.set_size,
-                                       cfg.replace_pol, cfg.su_pol,
-                                       cfg.level,       cfg.next_cache) ;
+            return cache_memory_update(get_var(cfg.name),
+                                       get_var(cfg.via_size),    get_var(cfg.off_size),   get_var(cfg.set_size),
+                                       get_var(cfg.replace_pol), get_var(cfg.su_pol),
+                                       get_var(cfg.level),       get_var(cfg.next_cache)) ;
         }
 
         // Example: var parts = cache_memory_split(cm, 0x12345678)
@@ -314,9 +314,9 @@
                         } ;
 
             address      = (address >>> 0) ;
-            parts.tag    = (address & memory.cfg.mask_tag) >>> (32 - memory.cfg.tag_size) ;
-            parts.set    = (address & memory.cfg.mask_set) >>> (     memory.cfg.off_size) ;
-            parts.offset = (address & memory.cfg.mask_off) ;
+            parts.tag    = (address & get_var(memory.cfg.mask_tag)) >>> (32 - get_var(memory.cfg.tag_size)) ;
+            parts.set    = (address & get_var(memory.cfg.mask_set)) >>> (     get_var(memory.cfg.off_size)) ;
+            parts.offset = (address & get_var(memory.cfg.mask_off)) ;
 
             return parts ;
         }
@@ -335,12 +335,12 @@
         //                       * clk_stamp: 100
         function cache_memory_access ( memory, address, r_w, clock_timestamp )
         {
-            if (memory.cfg.su_pol != 'unified')
+            if (get_var(memory.cfg.su_pol) != 'unified')
             {
-                if (('split_i' == memory.cfg.su_pol) && (segments_addr_within_text(address) == false)) {
+                if (('split_i' == get_var(memory.cfg.su_pol)) && (segments_addr_within_text(address) == false)) {
                       return false ;
                 }
-                if (('split_d' == memory.cfg.su_pol) && (segments_addr_within_data(address) == false)) {
+                if (('split_d' == get_var(memory.cfg.su_pol)) && (segments_addr_within_data(address) == false)) {
                       return false ;
                 }
             }
@@ -376,8 +376,8 @@
             cache_memory_update_stats(memory, address, parts, r_w, "miss", clock_timestamp) ;
 
             // chain request to the next cache level... if any
-            if (memory.cfg.next_cache != null) {
-                cache_memory_access(memory.cfg.next_cache, address, r_w) ;
+            if (get_var(memory.cfg.next_cache) != null) {
+                cache_memory_access(get_var(memory.cfg.next_cache), address, r_w) ;
             }
 
             // return miss (false) for this cache
