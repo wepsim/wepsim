@@ -88,8 +88,7 @@ function io_l3d_base_register ( sim_p )
 
         sim_p.internal_states.l3d_dim    = 4 ;
         sim_p.internal_states.l3d_neltos = Math.pow(sim_p.internal_states.l3d_dim, 3) ;
-        sim_p.internal_states.l3d_state  = Array.from({length:sim_p.internal_states.l3d_neltos},
-						       () => ({active:false})) ;
+        sim_p.internal_states.l3d_state  = Array.from({length:sim_p.internal_states.l3d_neltos}, () => ({active: {value:false} })) ;
         sim_p.internal_states.l3d_frame  = '0'.repeat(sim_p.internal_states.l3d_neltos) ;
 
         sim_p.internal_states.io_hash[L3DSR_ID] = "L3DSR" ;

@@ -700,6 +700,6 @@
 
         wait_uievents_and_settimeout(function() {
 	                                wepsim_execute_chainplay(wepsim_execute_stop) ;
-	                             }, 5) ;
+	                             }, 1) ;
     }
 

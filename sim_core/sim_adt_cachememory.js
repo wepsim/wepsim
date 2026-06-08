@@ -61,7 +61,7 @@
             var val = '' ;
 
             // global stats
-            val= get_var(memory.stats.n_access) ;
+            val = get_var(memory.stats.n_access) ;
             set_var(memory.stats.n_access,   val + 1) ;
             set_var(memory.stats.last_addr,  address) ;
             set_var(memory.stats.last_r_w,   r_w) ;
@@ -156,34 +156,65 @@
         //                   * next_cache:               null (cm) | -1 (cm_cfg)
         function cache_memory_init ( name, via_size, off_size, set_size, replace_pol, su_pol, level, next_cache )
         {
-            var c = { "stats":{}, "cfg":{}, "sets":{} } ;
+            var c = {
+		       "stats": {
+				    n_access:{},
+				    n_hits:{},
+				    n_misses:{},
+				    last_addr:{},
+				    last_r_w:{},
+				    last_h_m:{},
+				    last_parts:{ tag:{}, set:{}, offset:{} }
+		                },
+		       "cfg":   {
+				    name:{},
+				    via_size:{},
+				    off_size:{},
+				    set_size:{},
+				    vps_size:{},
+				    tag_size:{},
+				    mask_tag:{},
+				    mask_set:{},
+				    mask_off:{},
+				    mask_tag:{},
+				    mask_set:{},
+				    replace_pol:{},
+				    su_pol:{},
+				    level:{},
+				    next_cache:{}
+		                },
+		       "sets":  {}
+	            } ;
 
-	    c.cfg.name     = name ;
-	    c.cfg.via_size = via_size ;
-	    c.cfg.off_size = off_size ;
-	    c.cfg.set_size = set_size ;
-	    c.cfg.vps_size = via_size - set_size ;
-	    c.cfg.tag_size = 32 - set_size - off_size ;
+	    set_var(c.cfg.name ,     name) ;
+	    set_var(c.cfg.via_size, via_size) ;
+	    set_var(c.cfg.off_size, off_size) ;
+	    set_var(c.cfg.set_size, set_size) ;
+	    set_var(c.cfg.vps_size, via_size - set_size) ;
+	    set_var(c.cfg.tag_size, 32 - set_size - off_size) ;
 
-            c.cfg.mask_tag = ((1 << c.cfg.tag_size) - 1) >>> 0 ; // (Math.pow(2, c.cfg.tag_size) - 1) >>> 0 ;
-            c.cfg.mask_set = ((1 << c.cfg.set_size) - 1) >>> 0 ; // (Math.pow(2, c.cfg.set_size) - 1) >>> 0 ;
-            c.cfg.mask_off = ((1 << c.cfg.off_size) - 1) >>> 0 ; // (Math.pow(2, c.cfg.off_size) - 1) >>> 0 ;
-            c.cfg.mask_tag = (c.cfg.mask_tag << (32 - c.cfg.tag_size)) >>> 0 ;
-            c.cfg.mask_set = (c.cfg.mask_set <<      (c.cfg.off_size)) >>> 0 ;
+            set_var(c.cfg.mask_tag, ((1 << get_var(c.cfg.tag_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_set, ((1 << get_var(c.cfg.set_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_off, ((1 << get_var(c.cfg.off_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_tag, (get_var(c.cfg.mask_tag) << (32 - get_var(c.cfg.tag_size))) >>> 0) ;
+            set_var(c.cfg.mask_set, (get_var(c.cfg.mask_set) <<      (get_var(c.cfg.off_size))) >>> 0) ;
 
-	    c.cfg.replace_pol = replace_pol ;
-	    c.cfg.su_pol      = su_pol ;
-	    c.cfg.level       = level ;
-	    c.cfg.next_cache  = next_cache ;
+	    set_var(c.cfg.replace_pol, replace_pol) ;
+	    set_var(c.cfg.su_pol,      su_pol) ;
+	    set_var(c.cfg.level,       level) ;
+	    set_var(c.cfg.next_cache,  next_cache) ;
 
-	    c.stats.n_access  = 0 ;
-	    c.stats.n_hits    = 0 ;
-	    c.stats.n_misses  = 0 ;
-            c.stats.last_addr = 0x0 ;
-            c.stats.last_r_w  = "" ;
-            c.stats.last_h_m  = "" ;
+	    set_var(c.stats.n_access,  0) ;
+	    set_var(c.stats.n_hits,    0) ;
+	    set_var(c.stats.n_misses,  0) ;
+            set_var(c.stats.last_addr, 0x0) ;
+            set_var(c.stats.last_r_w,  "") ;
+            set_var(c.stats.last_h_m,  "") ;
 
-            c.stats.last_parts = cache_memory_split(c, 0x0) ;
+            var p = cache_memory_split(c, 0x0) ;
+            set_var(c.stats.last_parts.tag,    p.tag) ;
+            set_var(c.stats.last_parts.set,    p.set) ;
+            set_var(c.stats.last_parts.offset, p.offset) ;
 
             return c ;
         }
@@ -238,11 +269,11 @@
 	    set_var(c.cfg.vps_size, via_size - set_size) ;
 	    set_var(c.cfg.tag_size, 32 - set_size - off_size) ;
 
-            set_var(c.cfg.mask_tag, ((1 << c.cfg.tag_size) - 1) >>> 0) ; // (Math.pow(2, c.cfg.tag_size) - 1) >>> 0) ;
-            set_var(c.cfg.mask_set, ((1 << c.cfg.set_size) - 1) >>> 0) ; // (Math.pow(2, c.cfg.set_size) - 1) >>> 0) ;
-            set_var(c.cfg.mask_off, ((1 << c.cfg.off_size) - 1) >>> 0) ; // (Math.pow(2, c.cfg.off_size) - 1) >>> 0) ;
-            set_var(c.cfg.mask_tag, (c.cfg.mask_tag << (32 - c.cfg.tag_size)) >>> 0) ;
-            set_var(c.cfg.mask_set, (c.cfg.mask_set <<      (c.cfg.off_size)) >>> 0) ;
+            set_var(c.cfg.mask_tag, ((1 << get_var(c.cfg.tag_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_set, ((1 << get_var(c.cfg.set_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_off, ((1 << get_var(c.cfg.off_size)) - 1) >>> 0) ;
+            set_var(c.cfg.mask_tag, (get_var(c.cfg.mask_tag) << (32 - get_var(c.cfg.tag_size))) >>> 0) ;
+            set_var(c.cfg.mask_set, (get_var(c.cfg.mask_set) <<      (get_var(c.cfg.off_size))) >>> 0) ;
 
 	    set_var(c.cfg.replace_pol, replace_pol) ;
 	    set_var(c.cfg.su_pol,      su_pol) ;

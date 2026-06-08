@@ -347,6 +347,13 @@
        // Main
        try
        {
+           // some initial checks...
+	   if (typeof argv.action.toUpperCase == "undefined")
+	   {
+               console.log(ws_help_usage() + '\n\n' + 'unknown action "' + argv.action + '"\n') ;
+               return false ;
+	   }
+
     	   // 1) options
     	   var options = {} ;
 
@@ -354,7 +361,6 @@
     	   options.cycles_limit      = parseInt(argv.maxc) ;
     	   options.verbalize         = (argv.verbal.toUpperCase() == "MATH") ? 'math' : 'text' ;
     	   options.purify            =  argv.purify ;
-
 
     	   // 2) workset
     	   var data = {} ;
