@@ -130,6 +130,26 @@
 	   sim_var = value ;
         }
 
+function get_var_value(sim_var) {
+    // get value with vue
+    if (sim_var instanceof Vuex.Store) {
+        return sim_var.state.value;
+    }
+
+    // get value
+    return sim_var.value;
+}
+
+function set_var_value(sim_var, value) {
+    // set value with vue
+    if (sim_var instanceof Vuex.Store) {
+        sim_var.commit('set_value', value);
+        return;
+    }
+
+    // set value
+    sim_var.value = value;
+}
 
         /*
          *  value toString

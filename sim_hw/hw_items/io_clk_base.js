@@ -86,14 +86,14 @@ function io_clk_base_register ( sim_p )
 	 */
 
         sim_p.internal_states.io_int_factory = [] ;
-        sim_p.internal_states.io_int_factory[0] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[1] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[2] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[3] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[4] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[5] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[6] = { period:0, probability:0.5, accumulated:0, active:false } ;
-        sim_p.internal_states.io_int_factory[7] = { period:0, probability:0.5, accumulated:0, active:false } ;
+        sim_p.internal_states.io_int_factory[0] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[1] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[2] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[3] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[4] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[5] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[6] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
+        sim_p.internal_states.io_int_factory[7] = { period: {value: 0}, probability: {value: 0.5}, accumulated: {value: 0}, active: {value: false} } ;
 
         sim_p.internal_states.io_hash[IOSR_ID] = "IOSR" ;
         sim_p.internal_states.io_hash[IOCR_ID] = "IOCR" ;
@@ -232,12 +232,12 @@ function io_clk_base_register ( sim_p )
                                                       if ( (iocr_id < 0) || (iocr_id > 7) )
                                                             return;
 
-                                                      set_var(sim_p.internal_states.io_int_factory[iocr_id].period, iodr_id);
-                                                      set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 1) ;
-                                                      if (0 == iodr_id) {
-                                                          set_var(sim_p.internal_states.io_int_factory[iocr_id].probability, 0) ;
-                                                      }
-                                                   },
+                                                       set_var_value(sim_p.internal_states.io_int_factory[iocr_id].period, iodr_id);
+                                                       set_var_value(sim_p.internal_states.io_int_factory[iocr_id].probability, 1);
+                                                       if (0 == iodr_id) {
+                                                           set_var_value(sim_p.internal_states.io_int_factory[iocr_id].probability, 0);
+                                                       }
+                                                    },
                                            verbal: function (s_expr)
                                                    {
                                                       var verbal = "" ;
@@ -259,27 +259,27 @@ function io_clk_base_register ( sim_p )
                                         types: ["E", "S", "E"],
                                         operation: function (s_expr)
                                                    {
-                                                      var clk = get_value(sim_p.states[s_expr[1]]) ;
+                                                       var clk = get_value(sim_p.states[s_expr[1]]) ;
 
 						      for (var i=sim_p.internal_states.io_int_factory.length-1; i>=0; i--)
                                                       {
-                                                           if (get_var(sim_p.internal_states.io_int_factory[i].period) == 0)
+                                                           if (get_var_value(sim_p.internal_states.io_int_factory[i].period) == 0)
  							       continue;
 
-                                                           if (get_var(sim_p.internal_states.io_int_factory[i].active) == true)
+                                                           if (get_var_value(sim_p.internal_states.io_int_factory[i].active) == true)
                                                            {
                                                                set_value(sim_p.signals[s_expr[2]], 1); // ['INT']=1
                                                                set_value( sim_p.states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
-                                                           if ((clk % get_var(sim_p.internal_states.io_int_factory[i].period)) == 0)
+                                                           if ((clk % get_var_value(sim_p.internal_states.io_int_factory[i].period)) == 0)
                                                            {
-                                                              if (Math.random() > get_var(sim_p.internal_states.io_int_factory[i].probability))
+                                                              if (Math.random() > get_var_value(sim_p.internal_states.io_int_factory[i].probability))
                                                                   continue ;
 
-                                                              var acc = get_var(sim_p.internal_states.io_int_factory[i].accumulated) ;
-                                                              set_var(sim_p.internal_states.io_int_factory[i].accumulated, acc + 1) ;
-                                                              set_var(sim_p.internal_states.io_int_factory[i].active, true) ;
+                                                               var acc = get_var_value(sim_p.internal_states.io_int_factory[i].accumulated) ;
+                                                               set_var_value(sim_p.internal_states.io_int_factory[i].accumulated, acc + 1) ;
+                                                               set_var_value(sim_p.internal_states.io_int_factory[i].active, true) ;
 
                                                               if (typeof sim_p.events.io[clk] == "undefined") {
                                                                   sim_p.events.io[clk] = [] ;
@@ -314,7 +314,7 @@ function io_clk_base_register ( sim_p )
 
 						      for (var i=0; i<sim_p.internal_states.io_int_factory.length; i++)
                                                       {
-                                                           if (get_var(sim_p.internal_states.io_int_factory[i].active))
+                                                           if (get_var_value(sim_p.internal_states.io_int_factory[i].active))
                                                            {
                                                                set_value(sim_p.signals[s_expr[2]], 0) ; // ['INT']  = 1
                                                                set_value(sim_p.states[s_expr[5]], i) ; // ['INTV'] = i
@@ -325,7 +325,7 @@ function io_clk_base_register ( sim_p )
                                                                }
                                                                sim_p.events.io[clk].push(i) ;
 
-							       set_var(sim_p.internal_states.io_int_factory[i].active, false);
+							       set_var_value(sim_p.internal_states.io_int_factory[i].active, false);
                                                                break; // stop at first INT
                                                            }
                                                       }
@@ -346,10 +346,10 @@ function io_clk_base_register ( sim_p )
 						     var io_int_factory = sim_p.internal_states.io_int_factory ;
 						     for (var i=0; i<io_int_factory.length; i++)
 						     {
-						          set_var(io_int_factory[i].accumulated, 0) ;
-						          set_var(io_int_factory[i].active,      false) ;
-						          set_var(io_int_factory[i].probability, 0.5) ;
-						          set_var(io_int_factory[i].period,      0) ;
+						          set_var_value(io_int_factory[i].accumulated , 0) ;
+						          set_var_value(io_int_factory[i].active      , false) ;
+						          set_var_value(io_int_factory[i].probability , 0.5) ;
+						          set_var_value(io_int_factory[i].period      , 0) ;
 						     }
                                                   },
                                           verbal: function (s_expr)
