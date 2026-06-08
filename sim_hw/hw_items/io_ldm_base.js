@@ -88,8 +88,7 @@ function io_ldm_base_register ( sim_p )
 
         sim_p.internal_states.ledm_dim    = 24 ;
         sim_p.internal_states.ledm_neltos = Math.pow(sim_p.internal_states.ledm_dim, 2) ;
-        sim_p.internal_states.ledm_state  = Array.from({length:sim_p.internal_states.ledm_neltos},
-                                                        () => ({color:0})) ;
+        sim_p.internal_states.ledm_state  = Array.from({length:sim_p.internal_states.ledm_neltos}, () => ({color: {value:0} })) ;
         sim_p.internal_states.ledm_colors = colors_clone('') ;
         sim_p.internal_states.ledm_frame  = '0'.repeat(sim_p.internal_states.ledm_neltos) ;
 

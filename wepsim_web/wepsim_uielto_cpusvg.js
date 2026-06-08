@@ -140,7 +140,7 @@
 	    cfg_size_inactive       = get_cfg('size_inactive') ;
 
             // 2) modify because dark-mode
-            is_dark_mode = get_cfg("ws_skin_dark_mode") ;
+            is_dark_mode = is_darkmode() ;
 
             if (false == is_dark_mode) {
                 cfg_color_background    = 'white' ;
@@ -365,16 +365,12 @@
                  {
 	             elements[i].style.fill   = def_color ;
 	             elements[i].style.stroke = def_color ;
-                  // elements[i].setAttribute('fill',   def_color) ;
-                  // elements[i].setAttribute('stroke', def_color) ;
 
                      continue ;
                  }
 
 	         elements[i].style.fill   = cfg_color_data_inactive ;
 	         elements[i].style.stroke = cfg_color_data_inactive ;
-             //  elements[i].setAttribute('fill',   cfg_color_data_inactive) ;
-             //  elements[i].setAttribute('stroke', cfg_color_data_inactive) ;
 	    }
 
             // 3) text
@@ -415,7 +411,7 @@
 			  obj_target.style.setProperty("visibility", "visible") ;
 			  obj_target.style.setProperty("display",    "none") ;
 			  if ('' != obj_target.img_data) {
-			      setTimeout(function(){ obj_target.style.setProperty("display", "block"); }, 25);
+			      wait_if_uievents(function(){ obj_target.style.setProperty("display", "block"); }, 25);
 			  }
 		}
 

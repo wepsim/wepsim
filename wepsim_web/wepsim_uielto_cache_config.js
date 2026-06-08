@@ -98,7 +98,7 @@
 		  "    <td align='center' class='border border-0 border-tertiary'>" +
 		  "    <div id='via_size_" + index + "_" + this.name_str + "'>Id.: " +
 		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.via_size + "' " +
+		  "           value='" + get_var(memory_cfg_i.cfg.via_size) + "' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
@@ -119,7 +119,7 @@
 		  "    <td align='center' class='border border-0 border-tertiary'>" +
 		  "    <div id='off_size_" + index + "_" + this.name_str + "'>Offset: " +
 		  "    <input type='number' " +
-		  "           value='" + memory_cfg_i.cfg.off_size + "' " +
+		  "           value='" + get_var(memory_cfg_i.cfg.off_size) + "' " +
 		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
@@ -410,7 +410,7 @@
                   return ;
               }
               if ( (('via_size' == field) || ('set_size' == field)) &&
-                   (curr_cfg[index].cfg['set_size'] > curr_cfg[index].cfg['via_size']) ) {
+                   (get_var(curr_cfg[index].cfg.set_size) > get_var(curr_cfg[index].cfg.via_size)) ) {
                     return ;
               }
               if ('via_size' == field) {
@@ -422,7 +422,7 @@
 		   value = parseInt(value) ;
               }
 
-              curr_cfg[index].cfg[field] = value ;
+              set_var(curr_cfg[index].cfg[field], value) ;
 
               curr_cm[index] = cache_memory_init_eltofromcfg(curr_cfg[index].cfg) ;
               cache_memory_init_eltonextcache(curr_cm, curr_cfg[index], curr_cm[index]) ;
@@ -458,7 +458,7 @@
               if ('sa' == value)
               {
                   var curr_cfg = simhw_internalState('CM_cfg') ;
-                      curr_sz  = parseInt(curr_cfg[index].cfg['via_size']) ;
+                      curr_sz  = parseInt(get_var(curr_cfg[index].cfg.via_size)) ;
                   wepsim_cm_update_cfg(index, "set_size", curr_sz) ;
                   $("#cpp_sa").show();
               }
@@ -471,7 +471,7 @@
                   if ( (typeof curr_cfg != "undefined") &&
                        (typeof curr_cfg[index] != "undefined") )
                   {
-                      curr_sz  = parseInt(curr_cfg[index].cfg['via_size']) ;
+                      curr_sz  = parseInt(get_var(curr_cfg[index].cfg.via_size)) ;
                   }
 
                   wepsim_cm_update_cfg(index, "set_size", curr_sz) ;

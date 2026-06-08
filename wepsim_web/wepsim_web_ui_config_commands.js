@@ -43,17 +43,29 @@
                       id:          "radio15",
                       type:        "General",
                       u_class:     "",
-                      code_cfg:    wepsim_config_button_html_onoff('15', 'Dark mode',
-                                                  i18n_get_TagFor('cfg', 'Off'),
-		                                   "wepsim_restore_darkmode(false);" +
-		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',false,'15');",
-                                                  i18n_get_TagFor('cfg', 'On'),
-		                                   "wepsim_restore_darkmode(true);" +
-		                                   "wepsim_config_button_toggle('ws_skin_dark_mode',true,'15');"),
+                      code_cfg:    "<div class='btn-group d-flex'>" +
+				   "	    <input type='radio' name='options' id='radio15-off'   autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label15-off' for='radio15-off' data-bs-toggle='buttons' " +
+				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Dark mode: Off'" +
+				   "		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','off','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
+				   "	    </label>" +
+				   "	    <input type='radio' name='options' id='radio15-on'    autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label15-on' for='radio15-on' data-bs-toggle='buttons' " +
+				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Dark mode: On'" +
+				   "		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','on','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
+				   "	    </label>" +
+				   "	    <input type='radio' name='options' id='radio15-auto'   autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label15-auto' for='radio15-auto' data-bs-toggle='buttons' " +
+				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Dark mode: Auto'" +
+				   "		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','auto','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
+				   "	    </label>" +
+				   "	</div>",
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('ws_skin_dark_mode', '15') ;
-			               var optValue = get_cfg('ws_skin_dark_mode') ;
-			               wepsim_restore_darkmode(optValue) ;
+                                       wepsim_restore_darkmode() ;
 		                   },
                       description: "<span data-langkey='Dark Mode'>Dark Mode</span>"
                    });
@@ -98,17 +110,17 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "	    <input type='radio' name='options' id='radio12-50'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label12-50' for='radio12-50' " +
+				   "	    <input type='radio' name='options' id='radio12-100'   autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label12-100' for='radio12-100' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '12');\"><span data-langkey='Slow'>Slow</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 100, '12');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
-				   "	    <input type='radio' name='options' id='radio12-5'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label12-5' for='radio12-5' " +
+				   "	    <input type='radio' name='options' id='radio12-50'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label12-50' for='radio12-50' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 5, '12');\"><span data-langkey='Normal'>Normal</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '12');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "        <input type='radio' name='options' id='radio12-1'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-1' for='radio12-1'" +

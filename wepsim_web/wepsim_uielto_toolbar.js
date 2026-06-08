@@ -359,7 +359,7 @@
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
 			'           id="select4"' +
-                        '           onclick="setTimeout(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
+                        '           onclick="wait_if_uievents(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
                         '                    wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'	          // wsweb_set_details(\'HARDWARE\');' +
 			'	             return false;">HW</button>' +
