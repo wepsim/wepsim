@@ -204,12 +204,35 @@
              return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
         }
 
+        function is_darkmode ( )
+        {
+            var is_dark = false ;
+
+	    cfgValue = get_cfg('ws_skin_dark_mode') ;
+            switch (cfgValue)
+	    {
+               case 'on':
+	            is_dark = true ;
+                    break;
+
+               case 'off':
+	            is_dark = false ;
+                    break;
+
+               default: // 'auto':
+	            is_dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+                    break;
+            }
+
+	    return is_dark ;
+        }
+
         function get_primary_cfg ( )
         {
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.4.1" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.4.1.20260505A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.4.1.20260510A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -262,7 +285,7 @@
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
                    "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2' },
-                   "ws_skin_dark_mode":     { upgrade:false, type:"boolean",   value:false },
+                   "ws_skin_dark_mode":     { upgrade:true,  type:"string",    value:'off' },
 
 	           /* micro/assembly screen: editor */
                    "editor_theme":          { upgrade:false, type:"string",    value:'default' },

@@ -47,7 +47,7 @@
 
 	    // dark mode
 	    cfgValue = get_cfg('ws_skin_dark_mode') ;
-            wepsim_restore_darkmode(cfgValue) ;
+            wepsim_set_darkmode(cfgValue) ;
     }
 
     function wepsim_uicfg_restore ( )
@@ -136,7 +136,7 @@
 	    }
     }
 
-    function wepsim_appy_darkmode ( adm )
+    function wepsim_appy_darkmode ( is_darkmode )
     {
 	    var o = null ;
             var id_arr = [ "svg_p", "svg_cu" ] ;
@@ -146,10 +146,10 @@
 
             // updating editors
             var edt_theme = get_cfg('editor_theme') ;
-            if (('default' == edt_theme) && (adm)) {
+            if (('default' == edt_theme) && (is_darkmode)) {
                  edt_theme = 'blackboard' ;
             }
-            if (('blackboard' == edt_theme) && (false == adm)) {
+            if (('blackboard' == edt_theme) && (false == is_darkmode)) {
                  edt_theme = 'default' ;
             }
 
@@ -161,20 +161,43 @@
 	    return true ;
     }
 
-    function wepsim_restore_darkmode ( adm )
+    function wepsim_set_darkmode ( mode )
     {
-	    var o = null ;
+            var is_dark_mode = false ;
 
             // document
-	    if (adm === false)
-                 document.documentElement.setAttribute('data-bs-theme', 'light') ;
-            else document.documentElement.setAttribute('data-bs-theme', 'dark') ;
+            switch (mode)
+	    {
+               case 'on':
+	            is_dark_mode = true ;
+                    document.documentElement.setAttribute('data-bs-theme', 'dark') ;
+                    break;
+
+               case 'off':
+	            is_dark_mode = false ;
+                    document.documentElement.setAttribute('data-bs-theme', 'light') ;
+                    break;
+
+               default: // 'auto':
+	            is_dark_mode = window.matchMedia('(prefers-color-scheme: dark)').matches
+                    if (is_dark_mode)
+                         document.documentElement.setAttribute('data-bs-theme', 'dark') ;
+	            else document.documentElement.setAttribute('data-bs-theme', 'light') ;
+                    break;
+            }
 
             // set visual updates for dark/light mode
-            wepsim_appy_darkmode(adm) ;
+            wepsim_appy_darkmode(is_dark_mode) ;
 
 	    return true ;
     }
+
+    function wepsim_restore_darkmode ( )
+    {
+            var optValue = get_cfg('ws_skin_dark_mode') ;
+            return wepsim_set_darkmode(optValue) ;
+    }
+
 
     var observer_darkmode = null ;
 
@@ -184,8 +207,8 @@
             if (observer_darkmode == null)
             {
                 observer = new MutationObserver(function ( mutations ) {
-						    var is_black_mode = get_cfg("ws_skin_dark_mode") ;
-						    wepsim_appy_darkmode(is_black_mode) ;
+						    var is_dark_mode = is_darkmode() ;
+						    wepsim_appy_darkmode(is_dark_mode) ;
 			                        }) ;
 
                 observer.observe(document.documentElement, {
@@ -193,6 +216,33 @@
                                     attributeFilter: [ "data-bs-theme" ]
                                  });
             }
+
+	    return true ;
+    }
+
+        function wepsim_keepsync_darkmode_onEvent ( event )
+        {
+            cfgValue = get_cfg('ws_skin_dark_mode') ;
+	    if (cfgValue != 'auto') {
+		return ;
+	    }
+
+	    if (event.matches)
+	         wepsim_set_darkmode('on') ;
+	    else wepsim_set_darkmode('off') ;
+        }
+
+    function wepsim_keepsync_darkmode_start ( )
+    {
+            // event handler for onChange
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', wepsim_keepsync_darkmode_onEvent) ;
+
+	    return true ;
+    }
+
+    function wepsim_keepsync_darkmode_stop ( )
+    {
+            window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', wepsim_keepsync_darkmode_onEvent) ;
 
 	    return true ;
     }

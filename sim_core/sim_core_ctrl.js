@@ -68,6 +68,15 @@
             }
 	}
 
+        async function wait_uievents_and_settimeout ( function1, recommended_timeout )
+        {
+            if (globalThis.scheduler?.yield) {
+                await scheduler.yield() ;
+            }
+
+            setTimeout(function1, recommended_timeout) ;
+	}
+
 
         /*
          *  checking & updating

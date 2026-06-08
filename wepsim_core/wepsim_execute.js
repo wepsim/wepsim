@@ -698,8 +698,8 @@
             return ;
 	}
 
-        wait_if_uievents(function() {
-	               wepsim_execute_chainplay(wepsim_execute_stop) ;
-	            }, get_cfg('DBG_delay')) ;
+        wait_uievents_and_settimeout(function() {
+	                                wepsim_execute_chainplay(wepsim_execute_stop) ;
+	                             }, 5) ;
     }
 
