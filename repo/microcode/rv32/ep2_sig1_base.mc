@@ -1167,7 +1167,7 @@ pseudoinstructions
 
     # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
-    { 
+    {
         addi rd x0 expression
     }
 

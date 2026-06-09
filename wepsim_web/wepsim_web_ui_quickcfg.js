@@ -88,19 +88,31 @@
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label><span data-langkey="dark mode">dark mode</span>:</label>' +
-                        quickcfg_html_onoff('18',
-                                            'WepSIM dark mode',
-                                                i18n_get_TagFor('cfg', 'Off'),
-                                            "  wepsim_set_darkmode('off');" +
-                                            "  wepsim_config_button_toggle('ws_skin_dark_mode', false, '18');",
-                                                i18n_get_TagFor('cfg', 'On'),
-                                            "  wepsim_set_darkmode('on');" +
-                                            "  wepsim_config_button_toggle('ws_skin_dark_mode', true, '18');") +
+			"   <div class='btn-group d-flex'>" +
+			"	 <input type='radio' name='options' id='radio18-off'   autocomplete='off' class='btn-check'>" +
+			"	 <label id='label18-off' for='radio18-off' data-bs-toggle='buttons' " +
+			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+			"		   aria-label='Dark mode: Off'" +
+			"		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','off','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
+			"	 </label>" +
+			"	 <input type='radio' name='options' id='radio18-on'    autocomplete='off' class='btn-check'>" +
+			"	 <label id='label18-on' for='radio18-on' data-bs-toggle='buttons' " +
+			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+			"		   aria-label='Dark mode: On'" +
+			"		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','on','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
+			"	 </label>" +
+			"	 <input type='radio' name='options' id='radio18-auto'   autocomplete='off' class='btn-check'>" +
+			"	 <label id='label18-auto' for='radio18-auto' data-bs-toggle='buttons' " +
+			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
+			"		   aria-label='Dark mode: Auto'" +
+			"		   onclick=\"wepsim_config_button_toggle('ws_skin_dark_mode','auto','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
+			"	 </label>" +
+			"   </div>" +
 			'</li>' ;
 
 		   o += '<li class="list-group-item px-0 d-grid"> ' +
 			'<label class="w-100"><span data-langkey="Reload">Reload</span>...:</label>' +
-			"   <div class='btn btn-sm btn-outline-secondary p-1 col-8 mx-auto' " +
+			"   <div class='btn btn-sm btn-outline-secondary p-1 col-8 mx-start' " +
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"wsweb_quickslider_close(); " +
 			"                  wsweb_dialog_open('reload'); " +
