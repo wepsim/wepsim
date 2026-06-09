@@ -3,7 +3,10 @@
 
 ## 2.4.0 -> 2.4.1:
 * Main improvements:
-  * Work in progress...
+  * Improve default testing pack (./devel/test_wepsim.sh co)
+  * Improve command-line support for I/O devices
+  * Improve dark mode with "auto" support (use system settings)
+  * More responsive dialog boxes
 
 ## 2.3.9 -> 2.4.0:
 * Main improvements:

@@ -86,7 +86,7 @@ syscall {
 # Related to power consumption
 #
 
-# RDCYCLE rd  	Load clock cycles 	rd ← ux(clock_cycles_acc) 
+# RDCYCLE rd  	Load clock cycles 	rd ← ux(clock_cycles_acc)
 rdcycle reg1  {
 	 co=111111,
 	 nwords=1,

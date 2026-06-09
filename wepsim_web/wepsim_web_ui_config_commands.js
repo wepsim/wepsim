@@ -677,8 +677,7 @@
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_ep2', '14') ;
 		                   },
-                      description: "<span data-langkey='EP2 CPU'>Elemental Processor 2 (EP2) CPU</span>&nbsp;" +
-                                   "<span class='badge text-bg-secondary py-0 px-1'>beta</span>"
+                      description: "<span data-langkey='EP2 CPU'>EP2 (Elemental Processor 2) CPU</span>&nbsp;"
                    });
 
     ws_info.config_ui.push({
