@@ -110,17 +110,17 @@
                       type:        "Execution",
                       u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-bs-toggle='buttons' >" +
-				   "	    <input type='radio' name='options' id='radio12-100'   autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label12-100' for='radio12-100' " +
+				   "	    <input type='radio' name='options' id='radio12-200'   autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label12-200' for='radio12-200' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 100, '12');\"><span data-langkey='Slow'>Slow</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 200, '12');\"><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
-				   "	    <input type='radio' name='options' id='radio12-50'  autocomplete='off' class='btn-check'>" +
-				   "	    <label id='label12-50' for='radio12-50' " +
+				   "	    <input type='radio' name='options' id='radio12-100'  autocomplete='off' class='btn-check'>" +
+				   "	    <label id='label12-100' for='radio12-100' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
-				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 50, '12');\"><span data-langkey='Normal'>Normal</span>" +
+				   "		   onclick=\"wepsim_config_button_toggle('DBG_delay', 100, '12');\"><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "        <input type='radio' name='options' id='radio12-1'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label12-1' for='radio12-1'" +
