@@ -78,8 +78,9 @@
             wepsim_popover_action('po1', action) ;
 
             // set UI config (if shown)
-            if (action != 'hide')
+            if (action != 'hide') {
     	        wepsim_uicfg_apply() ;
+	    }
 
             // return ok
             return true ;

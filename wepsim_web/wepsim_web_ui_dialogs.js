@@ -590,7 +590,7 @@
 							    "i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
-                        return "<ws-config id='config2'></ws-config>" ;
+                          return "<ws-config id='config2'></ws-config>" ;
 		     },
 	    buttons: {
 			Reset: {
@@ -636,44 +636,68 @@
 		id:      'config_confirm_reset',
 		title:   function() {
 			     var wsi = get_cfg('ws_idiom') ;
+
 			     return i18n_get('dialogs', wsi, 'Confirm reset configuration...') ;
 			 },
 		body:    function() {
 			     var wsi = get_cfg('ws_idiom') ;
 
+                             var o1 = '&lt;Empty preset configurations&gt;' ;
+                             var e_cfgs = cfgset_getSet() ;
+                             if (typeof e_cfgs !== "undefined")
+                             {
+                                 o1 = '<div class="list-group overflow-y-auto h-100">' ;
+                                 for (var e_cfg in e_cfgs)
+                                 {
+                                      o1 += '<a  href="#" ' +
+                                            '    class="list-group-item list-group-item-action" ' +
+                                            '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
+                                            '             wepsim_notify_success(\'<strong>INFO</strong>\',' +
+                                            '                                   \'Configuration loaded!.\') ;' +
+                                            '             wepsim_uicfg_restore() ;' +
+                                            '             wsweb_dialog_open(\'config\');' +
+                                            '             return false;">' +
+                                            '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
+                                            '</a>' ;
+                                 }
+                                 o1 += '</div>' ;
+                             }
+
 			     return '<div class="container">' +
 			            '<div class="row py-2">' +
-			            '<div class="col-auto p-2">' +
-                                    '<i class="fas fa-trash-restore-alt mx-auto" style="font-size:10vw;"></i>' +
+			            '<div class="col-6 p-2 text-center">' +
+				    '' +
+                                    '<i class="fas fa-trash-restore-alt mx-auto pb-2 w-100"' +
+				    '   style="font-size:10vw;"></i>' +
+				    '<br>' +
+                                    '<button type="button" ' +
+                                    '    class="text-danger btn border-secondary m-1 btn-block col-6 text-center" ' +
+                                    '    onclick="reset_cfg();' +
+                                    '             wepsim_notify_success(\'<strong>INFO</strong>\',' +
+                                    '                                   \'Configuration reset done!.\') ;' +
+                                    '             wsweb_dialog_open(\'config\');' +
+                                    '             return false;">' +
+                                    '<span data-langkey="Reset">Reset</span>' +
+                                    '</button>' +
+				    '' +
 				    '</div>' +
-			            '<h4 class="col p-3 align-self-center">' +
+			            '<div class="col-6 p-2 text-center">' + o1 + '</div>' +
+				    '</div>' +
+			            '<div class="row py-2">' +
+			            '<h4 class="col p-3 text-center">' +
 			            i18n_get('dialogs', wsi, 'Close or Reset...') +
 				    '</h4>' +
 				    '</div>' +
 				    '</div>' ;
 			 },
+                size:    'large',
 		buttons: {
-				reset: {
-				   label:     "<span data-langkey='Reset'>Reset</span>",
-				   className: 'btn-danger col float-start',
-				   callback: function() {
-						// reset
-						reset_cfg() ;
-						wepsim_notify_success('<strong>INFO</strong>',
-								      'Configuration reset done!.') ;
-						// ui elements
-						wsweb_dialog_open('config') ;
-
-						return true;
-					     },
-				},
 				close: {
 				   label:     '<i class="fa fa-times me-2"></i>' +
 					      '<span data-langkey="Close">Close</span>',
-				   className: 'btn-dark col float-end'
+				   className: 'btn-info col-6 mx-auto'
 				}
 			 },
-		size:    '',
 		onshow:  function() {
 			    // ui lang
 			    var ws_idiom = get_cfg('ws_idiom') ;

@@ -87,7 +87,7 @@
   "DBG_delay": {
     "upgrade": false,
     "type": "int",
-    "value": 5
+    "value": 100
   },
   "DBG_level": {
     "upgrade": false,
@@ -195,9 +195,9 @@
     "value": "extra_mcode:extra_morecfg:extra_share"
   },
   "ws_skin_dark_mode": {
-    "upgrade": false,
-    "type": "boolean",
-    "value": false
+    "upgrade": true,
+    "type": "string",
+    "value": "on"
   },
   "editor_theme": {
     "upgrade": false,
