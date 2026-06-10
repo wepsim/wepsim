@@ -5,8 +5,9 @@
 * Main improvements:
   * Improve default testing pack (./devel/test_wepsim.sh co)
   * Improve command-line support for I/O devices
-  * Improve dark mode with "auto" support (use system settings)
+  * Improve dark mode with "auto" support (system settings selection)
   * More responsive dialog boxes
+  * Sound example updated
 
 ## 2.3.9 -> 2.4.0:
 * Main improvements:
