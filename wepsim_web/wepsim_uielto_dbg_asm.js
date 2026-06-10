@@ -602,7 +602,7 @@
 
 	function wepsim_show_asmdbg_pc ( )
 	{
-            if (get_cfg('DBG_delay') > 50) {
+            if (get_cfg('DBG_delay') > 100) {
 	        return fullshow_asmdbg_pc();
 	    }
 

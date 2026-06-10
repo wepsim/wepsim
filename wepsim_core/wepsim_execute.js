@@ -656,7 +656,7 @@
 	}
 
         var turbo = 1;
-	if (get_cfg('DBG_delay') < 5) {
+	if (get_cfg('DBG_delay') < 100) {
             turbo = Math.trunc(max_turbo) ;
         }
         if (max_turbo === 5) {

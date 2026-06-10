@@ -14,5 +14,9 @@
    {
       "name": "Mobile-Dark",
       "url":  "repo/configuration/mobile_dark.json"
+   },
+   {
+      "name": "Developer",
+      "url":  "repo/configuration/developer.json"
    }
 ]
