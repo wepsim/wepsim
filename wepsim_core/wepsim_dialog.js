@@ -38,6 +38,8 @@
 		    scrollable:     true,
 		    size:           dialog_obj.size,
 		    centerVertical: true,
+		    backdrop:       true,
+		    onEscape:       true,
 		    keyboard:       true,
 		    animate:        false,
 		    onShow:         function() {
@@ -104,6 +106,8 @@
                             message:        '<div class="p-2">' + msg + '</div>',
 			    scrollable:     true,
 			    centerVertical: true,
+			    backdrop:       true,
+			    onEscape:       true,
 			    keyboard:       true,
 			    animate:        false,
 			    buttons:        {
