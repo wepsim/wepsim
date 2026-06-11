@@ -192,12 +192,12 @@
   "ws_skin_user": {
     "upgrade": false,
     "type": "string",
-    "value": "extra_mcode:extra_morecfg:extra_share"
+    "value": "extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2"
   },
   "ws_skin_dark_mode": {
-    "upgrade": true,
+    "upgrade": false,
     "type": "string",
-    "value": "on"
+    "value": "auto"
   },
   "editor_theme": {
     "upgrade": false,
@@ -213,6 +213,16 @@
     "upgrade": false,
     "type": "string",
     "value": "math"
+  },
+  "AS_enable": {
+    "upgrade": false,
+    "type": "boolean",
+    "value": false
+  },
+  "flash_esp32": {
+    "upgrade": true,
+    "type": "boolean",
+    "value": true
   },
   "base_url": {
     "upgrade": true,
