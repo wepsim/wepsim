@@ -130,7 +130,9 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/cpu_ep2.js \
     sim_hw/hw_items/mem_ep2.js \
     sim_hw/hw_items/cpu_rv.js \
+    sim_hw/hw_items/cpu_rvpipe.js \
     sim_hw/hw_items/mem_rv.js \
+    sim_hw/hw_items/mem_rvpipe.js \
     sim_hw/hw_items/cpu_poc.js \
     sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cu_poc.js \
@@ -144,6 +146,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_ep.js \
     sim_hw/hw_ep2.js \
     sim_hw/hw_rv.js \
+    sim_hw/hw_rvpipe.js \
     sim_hw/hw_poc.js \
     \
     sim_sw/firmware/lexical.js \

@@ -86,5 +86,16 @@
     "assembly": 	"s6e1",
     "description": 	"<span data-langkey='example_06_01'>Test example.</span>",
     "testing": 		true
+  },
+  {
+    "id":		"RVP1E1",
+    "title":		"Add 2 and 3",
+    "type":		"<span data-langkey='Initial'>Initial</span>",
+    "modes":		"rvpipe",
+    "hardware":		"rvpipe",
+    "microcode":	"rvpipe_s1e1",
+    "assembly":		"rvpipe_s1e1",
+    "description":	"Simple example with fetch, add, and basic .text segment.",
+    "testing":          false
   }
 ]
