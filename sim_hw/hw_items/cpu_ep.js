@@ -2624,24 +2624,18 @@ function cpu_ep_register ( sim_p )
 						            set_value(sim_p.states["TTCPU"], 0) ;
 
                                                             // 2.- To treat the (Falling) Edge signals
-                                                           new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            if ( (typeof mcelto !== "undefined") &&
-                                                                 (false == mcelto.is_native) )
-                                                            {
-																for (const key of jit_fire_order_E) {
-                                                                    update_state(key);
-                                                                }
-                                                            }
+                                                            signals_update_ALL_Edge(mcelto) ;
 
                                                             // 3.- The (Falling) Edge part of the Control Unit...
-                                                          new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
                                                             set_value(sim_p.states["REG_MICROADDR"], new_maddr);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
                                                             if (typeof mcelto === "undefined")
                                                             {
                                                                 mcelto = {
-                                                              value: sim_p.states["REG_MICROINS"].default_value,
+                                                                            value: sim_p.states["REG_MICROINS"].default_value,
                                                                             is_native: false
                                                                          } ;
                                                             }
@@ -2660,21 +2654,7 @@ function cpu_ep_register ( sim_p )
                                                             }
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
-                                                            if (mcelto.is_native)
-                                                            {
-							        compute_behavior("FIRE IOCHK") ;
-
-                                                                     if (typeof mcelto.NATIVE_JIT != "undefined")
-                                                                         mcelto.NATIVE_JIT() ;
-                                                                else if (typeof mcelto.NATIVE != "undefined")
-                                                                         eval(mcelto.NATIVE) ;
-                                                            }
-                                                            else
-                                                            {
-                                                                for (var i=0; i<jit_fire_order.length; i++) {
-                                                                     fn_updateL_now(jit_fire_order[i]) ;
-                                                                }
-                                                            }
+                                                            signals_update_ALL_Level(mcelto) ;
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;

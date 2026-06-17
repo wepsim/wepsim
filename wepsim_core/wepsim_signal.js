@@ -235,6 +235,8 @@
 
         // Show signal dependencies
 
+        var jit_dep_network = null ;
+
         function show_visgraph ( jit_fire_dep, jit_fire_order )
         {
 	    var sig = {} ;
