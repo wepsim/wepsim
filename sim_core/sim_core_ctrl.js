@@ -149,44 +149,6 @@
 
 
         /*
-	 * CLOCK (parallel / sequential)
-	 */
-
-        function fn_updateE_now ( key )
-        {
-	    if ("E" == simhw_sim_signal(key).type) {
-		update_state(key) ;
-	    }
-	}
-
-        function fn_updateE_future ( key )
-        {
-            if (jit_fire_ndep[key] < 1) // 1 -> 2
-	         fn_updateE_now(key);
-	    else
-	         return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
-	}
-
-        function fn_updateL_now ( key )
-        {
-	    var signal_obj = simhw_sim_signal(key) ;
-
-	    update_draw(signal_obj, signal_obj.value) ;
-	    if ("L" == signal_obj.type) {
-		update_state(key) ;
-	    }
-	}
-
-        function fn_updateL_future ( key )
-        {
-            if (jit_fire_ndep[key] < 1) // 1 -> 2
-	         fn_updateL_now(key);
-	    else
-	         return new Promise( function(resolve, reject) { fn_updateL_now(key); });
-	}
-
-
-        /*
          *  Show/Update the global state
          */
 
@@ -402,4 +364,129 @@
             show_control_memory(mc_obj, 0, true) ;
 	    show_cache_memory  (curr_cm) ;
 	}
+
+
+        /*
+	 * CLOCK (parallel / sequential)
+	 */
+
+        var jit_fire_dep  = null ;
+        var jit_fire_ndep = null ;
+        var jit_fire_order   = null ;
+        var jit_fire_order_E = null ;
+        var jit_fire_order_L = null ;
+
+        function firedep_to_fireorder ( jit_fire_dep )
+        {
+            var allfireto = false;
+
+	    // build dependency graph
+            jit_fire_order = [] ;
+            jit_fire_ndep  = [] ;
+            for (var sig in simhw_sim_signals())
+            {
+                if (typeof jit_fire_dep[sig] == "undefined") {
+                    jit_fire_order.push(sig) ;
+                    continue ;
+                }
+
+		ndep = 0 ;
+                allfireto = false ;
+                for (var sigorg in jit_fire_dep[sig])
+                {
+	             ndep++ ;
+                     if (jit_fire_dep[sig][sigorg] == simhw_sim_signal(sigorg).behavior.length) {
+                         allfireto = true ;
+                     }
+                }
+		jit_fire_ndep[sig] = ndep;
+                if (allfireto == false)
+                    jit_fire_order.push(sig) ;
+            }
+
+	    // split Edge/Level signals
+            jit_fire_order_E = [] ;
+            jit_fire_order_L = [] ;
+            for (var i=0; i<jit_fire_order.length; i++)
+	    {
+                if (simhw_sim_signal(jit_fire_order[i]).type == "E") {
+                    jit_fire_order_E.push(jit_fire_order[i]) ;
+                }
+	   else if (simhw_sim_signal(jit_fire_order[i]).type == "L") {
+                    jit_fire_order_L.push(jit_fire_order[i]) ;
+                }
+            }
+        }
+
+        // function update edge/level now
+        function fn_updateE_now ( key )
+        {
+	    var signal_obj = simhw_sim_signal(key) ;
+
+	    if ("E" == signal_obj.type) {
+		update_state(key) ;
+	    }
+	}
+
+        function fn_updateL_now ( key )
+        {
+	    var signal_obj = simhw_sim_signal(key) ;
+
+	    update_draw(signal_obj, signal_obj.value) ;
+
+	    if ("L" == signal_obj.type) {
+		update_state(key) ;
+	    }
+	}
+
+        // function update edge/level future
+        function fn_updateE_future ( key )
+        {
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
+	         fn_updateE_now(key);
+	    else return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
+	}
+
+        function fn_updateL_future ( key )
+        {
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
+	         fn_updateL_now(key);
+	    else return new Promise( function(resolve, reject) { fn_updateL_now(key); });
+	}
+
+        // function update edge/level future
+        function signals_update_ALL_Edge ( mcelto )
+        {
+	    if ( (typeof mcelto == "undefined") || (mcelto.is_native) ) {
+		  return ;
+	    }
+
+	    for (const key of jit_fire_order_E) {
+		 update_state(key);
+	    }
+	}
+
+        function signals_update_ALL_Level ( mcelto )
+        {
+	    if (mcelto.is_native)
+	    {
+		compute_behavior("FIRE IOCHK") ;
+
+		     if (typeof mcelto.NATIVE_JIT != "undefined")
+			 mcelto.NATIVE_JIT() ;
+		else if (typeof mcelto.NATIVE != "undefined")
+			 eval(mcelto.NATIVE) ;
+	    }
+	    else
+	    {
+		var signal_obj = null ;
+	        for (const key of jit_fire_order_L)
+		{
+		    signal_obj = simhw_sim_signal(key) ;
+		    update_draw(signal_obj, signal_obj.value) ;
+		    update_state(key) ;
+	        }
+	    }
+	}
+
 

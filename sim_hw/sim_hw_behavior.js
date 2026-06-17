@@ -97,37 +97,6 @@
 
         var jit_behaviors   = false ;
         var jit_verbals     = false ;
-        var jit_fire_dep    = null ;
-        var jit_fire_order  = null ;
-	var jit_dep_network = null ;
-        var jit_fire_ndep   = null ;
-
-        function firedep_to_fireorder ( jit_fire_dep )
-        {
-            var allfireto = false;
-            jit_fire_order = [];
-            jit_fire_ndep  = [];
-            for (var sig in simhw_sim_signals())
-            {
-                if (typeof jit_fire_dep[sig] == "undefined") {
-                    jit_fire_order.push(sig);
-                    continue;
-                }
-
-		ndep = 0;
-                allfireto = false;
-                for (var sigorg in jit_fire_dep[sig])
-                {
-	             ndep++;
-                     if (jit_fire_dep[sig][sigorg] == simhw_sim_signal(sigorg).behavior.length) {
-                         allfireto = true;
-                     }
-                }
-		jit_fire_ndep[sig] = ndep;
-                if (allfireto == false)
-                    jit_fire_order.push(sig);
-            }
-        }
 
         // behaviors
         function compile_behaviors ()
