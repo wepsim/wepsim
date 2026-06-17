@@ -2586,8 +2586,8 @@ function cpu_ep2_register ( sim_p )
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
                                                             if ( (typeof mcelto !== "undefined") && (false == mcelto.is_native) )
                                                             {
-                                                                for (var i=0; i<jit_fire_order.length; i++) {
-                                                                     fn_updateE_now(jit_fire_order[i]) ;
+																for (const key of jit_fire_order_E) {
+                                                                    update_state(key);
                                                                 }
                                                             }
 
