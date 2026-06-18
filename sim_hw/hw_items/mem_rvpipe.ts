@@ -23,7 +23,7 @@
  *  Memory
  */
 
-function mem_rvpipe_register(sim_p) {
+function mem_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.components.MEMORY = {
         name: "MEMORY",
         version: "1",
@@ -34,16 +34,16 @@ function mem_rvpipe_register(sim_p) {
         details_fire: [['svg_p:text7483'], []],
 
         // state: write_state, read_state, get_state
-        write_state: function (vec) {
+        write_state: function (vec: any) {
             if (typeof vec.MEMORY == "undefined")
                 vec.MEMORY = {};
 
-            var key = 0;
-            var value = 0;
+            var key: any = 0;
+            var value: any = 0;
             for (var index in sim_p.internal_states.MP) {
                 value = main_memory_getvalue(sim_p.internal_states.MP,
                     index);
-                value = parseInt(value);
+                if (typeof value === "undefined") value = 0;
                 if (value != 0) {
                     key = parseInt(index).toString(16);
                     vec.MEMORY["0x" + key] = {
@@ -77,22 +77,22 @@ function mem_rvpipe_register(sim_p) {
 
             return false;
         },
-        get_state: function (pos) {
+        get_state: function (pos: any) {
             var index = parseInt(pos);
             var value = main_memory_getvalue(sim_p.internal_states.MP,
-                elto);
+                index);
             if (typeof value === "undefined") {
                 return null;
             }
-            return "0x" + parseInt(value).toString(16);
+            return "0x" + value.toString(16);
         },
 
         // native: get_value, set_value
-        get_value: function (elto) {
+        get_value: function (elto: any) {
             var value = main_memory_getvalue(sim_p.internal_states.MP,
                 elto);
             show_main_memory(sim_p.internal_states.MP, elto, false, false);
-            return (value >>> 0);
+            return ((value || 0) >>> 0);
         },
         set_value: function (elto, value) {
             // PC
@@ -196,8 +196,9 @@ function mem_rvpipe_register(sim_p) {
     sim_p.behaviors.MEM_READ = {
         nparameters: 5,
         types: ["E", "E", "S", "E"],
-        operation: function (s_expr) {
-            var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
+        operation: function (s_expr: string[]): void {
+            var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
+            var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
             var bw = sim_p.signals[s_expr[3]].value;
             var clk = get_value(sim_p.states[s_expr[4]]);
@@ -215,7 +216,7 @@ function mem_rvpipe_register(sim_p) {
                 return;
             }
 
-            address = address & 0xFFFFFFFC;
+            address = addr_val & 0xFFFFFFFC;
             var value = main_memory_getvalue(sim_p.internal_states.MP,
                 address);
             var full_redraw = false;
@@ -249,7 +250,7 @@ function mem_rvpipe_register(sim_p) {
                 }
             }
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var verbal = "";
 
             var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
@@ -284,8 +285,9 @@ function mem_rvpipe_register(sim_p) {
     sim_p.behaviors.MEM_WRITE = {
         nparameters: 5,
         types: ["E", "E", "S", "E"],
-        operation: function (s_expr) {
-            var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
+        operation: function (s_expr: string[]): void {
+            var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
+            var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
             var bw = sim_p.signals[s_expr[3]].value;
             var clk = get_value(sim_p.states[s_expr[4]]);
@@ -303,7 +305,7 @@ function mem_rvpipe_register(sim_p) {
                 return;
             }
 
-            address = address & 0xFFFFFFFC;
+            address = addr_val & 0xFFFFFFFC;
             var value = main_memory_getvalue(sim_p.internal_states.MP,
                 address);
             var full_redraw = false;
@@ -352,7 +354,7 @@ function mem_rvpipe_register(sim_p) {
                 }
             }
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var verbal = "";
 
             var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
@@ -386,11 +388,11 @@ function mem_rvpipe_register(sim_p) {
 
     sim_p.behaviors.MEMORY_RESET = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             // reset events.mem
             sim_p.events.mem = {};
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             return "Reset main memory (all values will be zeroes). ";
         }
     };

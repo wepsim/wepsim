@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -x
+set -e
 
 
 #*
@@ -97,6 +97,12 @@ cp external/jquery.min.js    ws_dist/external
                     mkdir -p ws_dist/help
                     touch    ws_dist/help/index.html
 
+#  compile TypeScript files (cpu_rvpipe, mem_rvpipe, hw_rvpipe)
+echo "  * compile TypeScript (sim_hw/*.ts)"
+tsc -p sim_hw/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
+echo "  Done."
+echo ""
+
 #  hardware model + software model + core (simulation ctrl + UI)
 echo "  * ws_dist/min.sim_all.js"
 cat sim_core/sim_cfg.js \
@@ -130,9 +136,9 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/cpu_ep2.js \
     sim_hw/hw_items/mem_ep2.js \
     sim_hw/hw_items/cpu_rv.js \
-    sim_hw/hw_items/cpu_rvpipe.js \
+    sim_hw/ts_out/hw_items/cpu_rvpipe.js \
     sim_hw/hw_items/mem_rv.js \
-    sim_hw/hw_items/mem_rvpipe.js \
+    sim_hw/ts_out/hw_items/mem_rvpipe.js \
     sim_hw/hw_items/cpu_poc.js \
     sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cu_poc.js \
@@ -146,7 +152,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_ep.js \
     sim_hw/hw_ep2.js \
     sim_hw/hw_rv.js \
-    sim_hw/hw_rvpipe.js \
+    sim_hw/ts_out/hw_rvpipe.js \
     sim_hw/hw_poc.js \
     \
     sim_sw/firmware/lexical.js \

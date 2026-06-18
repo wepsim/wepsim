@@ -23,7 +23,7 @@
  *  CPU - 5-stage pipeline (IF, ID, EX, MEM, WB)
  */
 
-function cpu_rvpipe_register(sim_p) {
+function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.components["CPU"] = {
         name: "CPU",
         version: "1",
@@ -44,7 +44,7 @@ function cpu_rvpipe_register(sim_p) {
 
             var value = 0;
             for (var i = 0; i < sim_p.states.BR.length; i++) {
-                value = parseInt(get_value(sim_p.states.BR[i])) >>> 0;
+                value = get_value(sim_p.states.BR[i]) >>> 0;
                 if (value != 0) {
                     vec.CPU["R" + i] = {
                         "type": "register",
@@ -57,7 +57,7 @@ function cpu_rvpipe_register(sim_p) {
             }
 
             for (i = 0; i < internal_reg.length; i++) {
-                value = parseInt(get_value(sim_p.states['REG_' + internal_reg[i]])) >>> 0;
+                value = get_value(sim_p.states['REG_' + internal_reg[i]]) >>> 0;
                 if (value != 0) {
                     vec.CPU[internal_reg[i]] = {
                         "type": "register",
@@ -128,7 +128,7 @@ function cpu_rvpipe_register(sim_p) {
                 throw new Error("unknown element named " + elto);
             }
 
-            return set_value(r_ref, value);
+            set_value(r_ref, value);
         }
     };
 
@@ -603,16 +603,16 @@ function cpu_rvpipe_register(sim_p) {
         behavior: ["NOP"],
         depends_on: ["CLK"],
         fire_name: ['svg_p:text7229-7', 'svg_p:text7229'],
-        draw_data: [['svg_p:path6775', 'svg_p:path6777'],['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7003-8'],['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7']],
+        draw_data: [['svg_p:path6775', 'svg_p:path6777'], ['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7003-8'], ['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7']],
         draw_name: [['svg_p:path7199', 'svg_p:path7013']]
     };
-    
+
     sim_p.signals["M2"] = {
         name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
         behavior: ["NOP"],
         depends_on: ["CLK"],
         fire_name: ['svg_p:text7237', 'svg_p:text7237-9-0'],
-        draw_data: [['svg_p:path6821', 'svg_p:path6823'],['svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8'],['svg_p:path6827', 'svg_p:path6825', 'svg_p:path7013-9-0']],
+        draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8'], ['svg_p:path6827', 'svg_p:path6825', 'svg_p:path7013-9-0']],
         draw_name: [['svg_p:path7197', 'svg_p:path7013-0']]
     };
 
@@ -763,27 +763,27 @@ function cpu_rvpipe_register(sim_p) {
 
     sim_p.behaviors["NOP"] = {
         nparameters: 1,
-        operation: function (s_expr) { },
-        verbal: function (s_expr) { return ""; }
+        operation: function (s_expr: string[]): void { },
+        verbal: function (s_expr: string[]): string { return ""; }
     };
     sim_p.behaviors["NOP_ALU"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             sim_p.internal_states.alu_flags.flag_n = 0;
             sim_p.internal_states.alu_flags.flag_z = 0;
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
     sim_p.behaviors["MV"] = {
         nparameters: 3,
         types: ["X", "X"],
-        operation: function (s_expr) {
-            sim_elto_org = get_reference(s_expr[2]);
-            sim_elto_dst = get_reference(s_expr[1]);
-            newval = get_value(sim_elto_org);
+        operation: function (s_expr: string[]): void {
+            var sim_elto_org = get_reference(s_expr[2]);
+            var sim_elto_dst = get_reference(s_expr[1]);
+            var newval = get_value(sim_elto_org);
             set_value(sim_elto_dst, newval);
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var sim_elto_org = get_reference(s_expr[2]);
             var newval = get_value(sim_elto_org);
             var verbose = get_cfg('verbal_verbose');
@@ -799,13 +799,13 @@ function cpu_rvpipe_register(sim_p) {
     sim_p.behaviors["LOAD"] = {
         nparameters: 3,
         types: ["X", "X"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var sim_elto_org = get_reference(s_expr[2]);
             var sim_elto_dst = get_reference(s_expr[1]);
             var newval = get_value(sim_elto_org);
             set_value(sim_elto_dst, newval);
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var sim_elto_org = get_reference(s_expr[2]);
             var newval = get_value(sim_elto_org);
             var verbose = get_cfg('verbal_verbose');
@@ -821,13 +821,13 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["AND"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var result = get_value(sim_p.states[s_expr[2]]) & get_value(sim_p.states[s_expr[3]]);
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var result = get_value(sim_p.states[s_expr[2]]) & get_value(sim_p.states[s_expr[3]]);
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -837,13 +837,13 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["OR"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var result = get_value(sim_p.states[s_expr[2]]) | get_value(sim_p.states[s_expr[3]]);
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var result = get_value(sim_p.states[s_expr[2]]) | get_value(sim_p.states[s_expr[3]]);
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -853,13 +853,13 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["XOR"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var result = get_value(sim_p.states[s_expr[2]]) ^ get_value(sim_p.states[s_expr[3]]);
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var result = get_value(sim_p.states[s_expr[2]]) ^ get_value(sim_p.states[s_expr[3]]);
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -869,13 +869,13 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["NOT"] = {
         nparameters: 3, types: ["E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var result = ~(get_value(sim_p.states[s_expr[2]]));
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var result = ~(get_value(sim_p.states[s_expr[2]]));
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -885,7 +885,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["ADD"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a + b;
@@ -893,7 +893,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a + b;
@@ -905,7 +905,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["SUB"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a - b;
@@ -913,7 +913,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a - b;
@@ -925,7 +925,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["ADDU"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a + b;
@@ -933,7 +933,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a + b;
@@ -945,13 +945,13 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["LUI"] = {
         nparameters: 3, types: ["E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var result = (get_value(sim_p.states[s_expr[2]])) << 16;
             set_value(sim_p.states[s_expr[1]], result);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var result = (get_value(sim_p.states[s_expr[2]])) << 16;
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -961,7 +961,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["MUL"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a * b;
@@ -969,7 +969,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a * b;
@@ -981,7 +981,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["DIV"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -989,7 +989,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -1001,7 +1001,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["MOD"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? a % b : 0;
@@ -1009,7 +1009,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? a % b : 0;
@@ -1021,7 +1021,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["SUBU"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a - b;
@@ -1029,7 +1029,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a - b;
@@ -1041,7 +1041,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["MULU"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a * b;
@@ -1049,7 +1049,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a * b;
@@ -1061,7 +1061,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["DIVU"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -1069,7 +1069,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -1081,14 +1081,14 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["SRL"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
             var verbose = get_cfg('verbal_verbose');
@@ -1099,14 +1099,14 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["SRA"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >> shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >> shifts;
             var verbose = get_cfg('verbal_verbose');
@@ -1117,14 +1117,14 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["SL"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             var verbose = get_cfg('verbal_verbose');
@@ -1137,7 +1137,7 @@ function cpu_rvpipe_register(sim_p) {
     /* READ INSTRUCTION MEMORY */
     sim_p.behaviors["RR"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
             var carry = (get_value(sim_p.states[s_expr[2]])) >> (shifts - 1) & 1;
@@ -1146,7 +1146,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var carry = (get_value(sim_p.states[s_expr[2]])) >> (shifts - 1) & 1;
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
@@ -1159,7 +1159,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["RL"] = {
         nparameters: 4, types: ["E", "E", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             var carry = (get_value(sim_p.states[s_expr[2]])) >>> (32 - shifts);
@@ -1168,7 +1168,7 @@ function cpu_rvpipe_register(sim_p) {
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             var carry = (get_value(sim_p.states[s_expr[2]])) >>> (32 - shifts);
@@ -1181,7 +1181,7 @@ function cpu_rvpipe_register(sim_p) {
     };
     sim_p.behaviors["READ_IM"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var address = get_value(sim_p.states['REG_PC']);
             var clk = get_value(sim_p.states['CLK']);
             var remain = get_value(sim_p.internal_states.MP_wc);
@@ -1209,7 +1209,7 @@ function cpu_rvpipe_register(sim_p) {
             if (typeof ins === "undefined") ins = 0;
             set_value(sim_p.states['RDATA'], ins);
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             var verbal = "";
             var address = get_value(sim_p.states['REG_PC']);
             var value = main_memory_getvalue(sim_p.internal_states.MP, address);
@@ -1229,11 +1229,11 @@ function cpu_rvpipe_register(sim_p) {
 
     sim_p.behaviors["DECO"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var oi = decode_instruction(sim_p.internal_states.FIRMWARE,
                 sim_p.ctrl_states.ir,
                 get_value(sim_p.states['REG_IR']));
-            if (null == oi.oinstruction) return -1;
+            if (null == oi.oinstruction) return;
             var val = get_value(sim_p.states['DECO_INS']);
             set_value(sim_p.states["DECO_INS"], val + 1);
             var pc = get_value(sim_p.states['REG_PC']) - 4;
@@ -1241,12 +1241,12 @@ function cpu_rvpipe_register(sim_p) {
             set_value(sim_p.states['REG_IR_DECO'], decins);
             show_dbg_ir(get_value(sim_p.states['REG_IR_DECO']));
         },
-        verbal: function (s_expr) { return "Decode instruction. "; }
+        verbal: function (s_expr: string[]): string { return "Decode instruction. "; }
     };
 
     sim_p.behaviors["FIRE"] = {
         nparameters: 2, types: ["S"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) return;
             sim_p.internal_states.fire_stack.push(s_expr[1]);
             update_draw(sim_p.signals[s_expr[1]], sim_p.signals[s_expr[1]].value);
@@ -1254,21 +1254,21 @@ function cpu_rvpipe_register(sim_p) {
                 update_state(s_expr[1]);
             sim_p.internal_states.fire_stack.pop(s_expr[1]);
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     sim_p.behaviors["FIRE_IFSET"] = {
         nparameters: 3, types: ["S", "I"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             if (get_value(sim_p.signals[s_expr[1]]) != parseInt(s_expr[2])) return;
             sim_p.behaviors["FIRE"].operation(s_expr);
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     sim_p.behaviors["MBIT_SN"] = {
         nparameters: 5, types: ["S", "E", "E", "I"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var base = 0;
             var r = s_expr[3].split('/');
             if (1 == r.length)
@@ -1286,20 +1286,20 @@ function cpu_rvpipe_register(sim_p) {
             var n3 = n2.substr(31 - (base + offset - 1), offset);
             set_value(sim_p.signals[s_expr[1]], parseInt(n3, 2));
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     sim_p.behaviors["GET"] = {
         nparameters: 4, types: ["E", "E", "S"],
-        operation: function (s_expr) {
-            set_value(sim_p.states[s_expr[1]], get_value(sim_p.states[s_expr[2]][sim_p.signals[s_expr[3]].value]));
+        operation: function (s_expr: string[]): void {
+            set_value(sim_p.states[s_expr[1]], (get_value((sim_p.states[s_expr[2]] as any)[sim_p.signals[s_expr[3]].value])));
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     sim_p.behaviors["SET"] = {
         nparameters: 4, types: ["E", "S", "E"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var rf_name = s_expr[1];
             var reg_w_name = s_expr[2];
             var state_name = s_expr[3];
@@ -1313,23 +1313,23 @@ function cpu_rvpipe_register(sim_p) {
                 ws_alert('ERROR: undefined state name ' + state_name);
                 return;
             }
-            var rf_obj = sim_p.states[rf_name][reg_w_obj.value];
+            var rf_obj = (sim_p.states[rf_name] as any)[reg_w_obj.value];
             if (typeof rf_obj === "undefined") {
                 ws_alert('ERROR: undefined register element at ' + rf_name);
                 return;
             }
             set_value(rf_obj, get_value(state_obj));
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     sim_p.behaviors["DECO_IMM"] = {
         nparameters: 9, types: ["E", "I", "E", "S", "S", "I", "S", "S"],
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var oi = decode_instruction(sim_p.internal_states.FIRMWARE,
                 sim_p.ctrl_states.ir,
                 get_value(sim_p.states['REG_IR']));
-            var bits = [];
+            var bits: any[] = [];
             for (var i = 0; i < oi.oinstruction.fields.length; i++) {
                 if (oi.oinstruction.fields[i].type == "inm" ||
                     oi.oinstruction.fields[i].type == "imm" ||
@@ -1343,8 +1343,8 @@ function cpu_rvpipe_register(sim_p) {
                     }
                 }
             }
-            var offset = parseInt(sim_p.signals[s_expr[4]].value);
-            var size = parseInt(sim_p.signals[s_expr[5]].value);
+            var offset = sim_p.signals[s_expr[4]].value;
+            var size = sim_p.signals[s_expr[5]].value;
             var n1 = get_value(sim_p.states[s_expr[3]]).toString(2);
             n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
             var n2 = "";
@@ -1354,30 +1354,30 @@ function cpu_rvpipe_register(sim_p) {
             n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2);
             n2 = n2.substr(31 - (size - 1), size);
             n2 = n2 + "0".repeat(offset);
-            var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
-            if (("1" == sim_p.signals[s_expr[7]].value) && ("1" == n2[0]))
+            var n3: any = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+            if ((1 == sim_p.signals[s_expr[7]].value) && ("1" == n2[0]))
                 n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
             if ("1" == n3[0]) n3 = parseInt(n3, 2) >> 0;
             else n3 = parseInt(n3, 2) >>> 0;
-            if ("1" == sim_p.signals[s_expr[8]].value) n3 = 2 * n3;
+            if (1 == sim_p.signals[s_expr[8]].value) n3 = 2 * n3;
             set_value(sim_p.states[s_expr[1]], n3);
         },
-        verbal: function (s_expr) { return "Generate immediate value"; }
+        verbal: function (s_expr: string[]): string { return "Generate immediate value"; }
     };
 
     /* UPDATE UPDATEDPC */
     sim_p.behaviors["UPDATEDPC"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             show_asmdbg_pc();
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     /* UPDATE_NZ */
     sim_p.behaviors["UPDATE_NZ"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             set_value(simhw_sim_state("FLAG_N"), sim_p.internal_states.alu_flags.flag_n);
             set_value(simhw_sim_state("FLAG_Z"), sim_p.internal_states.alu_flags.flag_z);
             set_value(simhw_sim_signal("TEST_N"), sim_p.internal_states.alu_flags.flag_n);
@@ -1385,7 +1385,7 @@ function cpu_rvpipe_register(sim_p) {
             update_draw(sim_p.signals["TEST_N"], sim_p.signals["TEST_N"].value);
             update_draw(sim_p.signals["TEST_Z"], sim_p.signals["TEST_Z"].value);
         },
-        verbal: function (s_expr) {
+        verbal: function (s_expr: string[]): string {
             return "Update flags N (" + sim_p.internal_states.alu_flags.flag_n
                 + ") and Z (" + sim_p.internal_states.alu_flags.flag_z + ").";
         }
@@ -1394,44 +1394,44 @@ function cpu_rvpipe_register(sim_p) {
     /* CPU_RESET */
     sim_p.behaviors["CPU_RESET"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             for (var key in sim_p.states) reset_value(sim_p.states[key]);
             for (var key in sim_p.signals) reset_value(sim_p.signals[key]);
             sim_p.internal_states.MP_wc = 0;
             sim_p.internal_states.halt = 0;
         },
-        verbal: function (s_expr) { return "Reset CPU. "; }
+        verbal: function (s_expr: string[]): string { return "Reset CPU. "; }
     };
 
     /* PIPELINE HELPERS */
-    function get_rs1(ins) {
+    function get_rs1(ins: number): number {
         return (ins >>> 15) & 0x1F;
     }
-    function get_rs2(ins) {
+    function get_rs2(ins: number): number {
         return (ins >>> 20) & 0x1F;
     }
-    function get_rd(ins) {
+    function get_rd(ins: number): number {
         return (ins >>> 7) & 0x1F;
     }
-    function get_opcode(ins) {
+    function get_opcode(ins: number): number {
         return ins & 0x7F;
     }
-    function get_funct3(ins) {
+    function get_funct3(ins: number): number {
         return (ins >>> 12) & 0x7;
     }
-    function get_funct7(ins) {
+    function get_funct7(ins: number): number {
         return (ins >>> 25) & 0x7F;
     }
-    function is_rtype(op) { return op == 0x33; }
-    function is_itype(op) { return op == 0x13 || op == 0x03 || op == 0x67; }
-    function is_stype(op) { return op == 0x23; }
-    function is_btype(op) { return op == 0x63; }
-    function is_lui(op) { return op == 0x16; }
-    function is_auipc(op) { return op == 0x17; }
-    function is_jal(op) { return op == 0x6F; }
-    function is_jalr(op) { return op == 0x67; }
+    function is_rtype(op: number): boolean { return op == 0x33; }
+    function is_itype(op: number): boolean { return op == 0x13 || op == 0x03 || op == 0x67; }
+    function is_stype(op: number): boolean { return op == 0x23; }
+    function is_btype(op: number): boolean { return op == 0x63; }
+    function is_lui(op: number): boolean { return op == 0x16; }
+    function is_auipc(op: number): boolean { return op == 0x17; }
+    function is_jal(op: number): boolean { return op == 0x6F; }
+    function is_jalr(op: number): boolean { return op == 0x67; }
 
-    function decode_aluop(ins) {
+    function decode_aluop(ins: number): number {
         var op = get_opcode(ins);
         var f3 = get_funct3(ins);
         var f7 = get_funct7(ins);
@@ -1455,30 +1455,30 @@ function cpu_rvpipe_register(sim_p) {
         return 10; // default to ADD
     }
 
-    function imm_i(ins) {
+    function imm_i(ins: number): number {
         var val = (ins >>> 20) & 0xFFF;
         if (val & 0x800) val |= 0xFFFFF000;
         return val;
     }
 
-    function imm_s(ins) {
+    function imm_s(ins: number): number {
         var val = ((ins >>> 25) << 5) | ((ins >>> 7) & 0x1F);
         if (val & 0x800) val |= 0xFFFFF000;
         return val;
     }
 
-    function imm_b(ins) {
+    function imm_b(ins: number): number {
         var val = ((ins >>> 31) << 12) | ((ins >>> 25) << 5) |
             ((ins >>> 8) & 0xF) << 1 | ((ins >>> 7) & 1) << 11;
         if (val & 0x1000) val |= 0xFFFFE000;
         return val;
     }
 
-    function imm_u(ins) {
+    function imm_u(ins: number): number {
         return ins & 0xFFFFF000;
     }
 
-    function imm_j(ins) {
+    function imm_j(ins: number): number {
         var val = ((ins >>> 31) << 20) | ((ins >>> 21) & 0x3FF) << 1 |
             ((ins >>> 20) & 1) << 11 | ((ins >>> 12) & 0xFF) << 12;
         if (val & 0x100000) val |= 0xFFE00000;
@@ -1488,7 +1488,7 @@ function cpu_rvpipe_register(sim_p) {
     /* CLOCK - Pipeline execution */
     sim_p.behaviors["CLOCK"] = {
         nparameters: 1,
-        operation: function (s_expr) {
+        operation: function (s_expr: string[]): void {
             var t0 = performance.now();
 
             // Update clock counter
@@ -1671,8 +1671,7 @@ function cpu_rvpipe_register(sim_p) {
 
             if (in_bounds && !sim_p.internal_states.draining) {
                 var address = pc_val & 0xFFFFFFFC;
-                ins_val = main_memory_getvalue(sim_p.internal_states.MP, address);
-                if (typeof ins_val === "undefined") ins_val = 0;
+                ins_val = main_memory_getvalue(sim_p.internal_states.MP, address) || 0;
                 show_main_memory(sim_p.internal_states.MP, address, false, false);
                 next_pc = pc_val + 4;
                 // If next PC would be past code_end, enter drain
@@ -1746,11 +1745,11 @@ function cpu_rvpipe_register(sim_p) {
                 refresh();
             }
         },
-        verbal: function (s_expr) { return ""; }
+        verbal: function (s_expr: string[]): string { return ""; }
     };
 
     // Helper: highlight pipeline stages in the assembly debugger
-    function show_pipeline_display(sim_p, if_pc, id_pc, ex_pc, mem_pc, wb_pc) {
+    function show_pipeline_display(sim_p: any, if_pc: number, id_pc: number, ex_pc: number, mem_pc: number, wb_pc: number): void {
         if (typeof $ === "undefined") return;
         var stage_pcs = [if_pc, id_pc, ex_pc, mem_pc, wb_pc];
         var stage_pc_names = ["if_pc", "id_pc", "ex_pc", "mem_pc", "wb_pc"];
@@ -1767,7 +1766,7 @@ function cpu_rvpipe_register(sim_p) {
             $("td", "#asmdbg0x" + pc.toString(16)).addClass(stage_cls[i]);
         }
         // Update SVG text elements with decoded instruction at each pipeline stage
-        var svg_o = document.getElementById('svg_p');
+        var svg_o = document.getElementById('svg_p') as HTMLIFrameElement | null;
         if (svg_o !== null) {
             var svg = svg_o.contentDocument;
             if (svg !== null) {
