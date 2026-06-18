@@ -597,6 +597,25 @@ function cpu_rvpipe_register(sim_p) {
         draw_name: [['svg_p:path7291']]
     };
 
+    /* MUX Forwarding */
+    sim_p.signals["M1"] = {
+        name: "M1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+        behavior: ["NOP"],
+        depends_on: ["CLK"],
+        fire_name: ['svg_p:text7229-7', 'svg_p:text7229'],
+        draw_data: [['svg_p:path6775', 'svg_p:path6777'],['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7003-8'],['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7']],
+        draw_name: [['svg_p:path7199', 'svg_p:path7013']]
+    };
+    
+    sim_p.signals["M2"] = {
+        name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+        behavior: ["NOP"],
+        depends_on: ["CLK"],
+        fire_name: ['svg_p:text7237', 'svg_p:text7237-9-0'],
+        draw_data: [['svg_p:path6821', 'svg_p:path6823'],['svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8'],['svg_p:path6827', 'svg_p:path6825', 'svg_p:path7013-9-0']],
+        draw_name: [['svg_p:path7197', 'svg_p:path7013-0']]
+    };
+
     /* MUX 4 (PC source) */
     sim_p.signals["M4"] = {
         name: "M4", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
@@ -674,16 +693,16 @@ function cpu_rvpipe_register(sim_p) {
         draw_name: [['svg_p:path7529', 'svg_p:path7425']]
     };
     /* MUX 2 (ALU input A) */
-    sim_p.signals["M2"] = {
-        name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
-        depends_on: ["ALUOP"],
-        fire_name: ['svg_p:text7229'],
-        draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983',
-            'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'],
-        ['svg_p:path6779', 'svg_p:path6781']],
-        draw_name: [['svg_p:path7199']]
-    };
+    // sim_p.signals["M2"] = {
+    //     name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+    //     behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
+    //     depends_on: ["ALUOP"],
+    //     fire_name: ['svg_p:text7229'],
+    //     draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983',
+    //         'svg_p:path6991', 'svg_p:path6775', 'svg_p:path6777'],
+    //     ['svg_p:path6779', 'svg_p:path6781']],
+    //     draw_name: [['svg_p:path7199']]
+    // };
 
     /* MUX 3 (ALU input B) */
     sim_p.signals["M3"] = {
@@ -692,13 +711,15 @@ function cpu_rvpipe_register(sim_p) {
             "MV M3_ALU VAL_ONE; FIRE ALUOP",
             "MV M3_ALU VAL_FOUR; FIRE ALUOP",
             "MV M3_ALU VAL_IMM; FIRE ALUOP"],
-        fire_name: ['svg_p:text7237'],
+        // fire_name: ['svg_p:text7237'],
+        fire_name: [''],
         depends_on: ["ALUOP"],
-        draw_data: [['svg_p:path6821', 'svg_p:path6823'],
-        ['svg_p:path7001', 'svg_p:path7003'],
-        ['svg_p:path7003-3', 'svg_p:path7001-9'],
-        ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
-        draw_name: [['svg_p:path7197']]
+        draw_data: [[]],
+        // draw_data: [['svg_p:path6821', 'svg_p:path6823'],
+        // ['svg_p:path7001', 'svg_p:path7003'],
+        // ['svg_p:path7003-3', 'svg_p:path7001-9'],
+        // ['svg_p:path7015', 'svg_p:path7013', 'svg_p:path6825', 'svg_p:path6827']],
+        draw_name: [[]]
     };
 
     /* I/O Devices */
@@ -1525,18 +1546,28 @@ function cpu_rvpipe_register(sim_p) {
             var rs1_val = id_ex_rs1;
             var rs2_val = id_ex_rs2;
 
+            set_value(sim_p.signals["M1"], 0);
+            set_value(sim_p.signals["M2"], 0);
             // Forward from MEM/WB to EX for rs1
-            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a)
+            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
                 rs1_val = mem_wb_data;
+                set_value(sim_p.signals["M1"], 1);
+            }
             // Forward from MEM/WB to EX for rs2
-            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2a)
+            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2a) {
                 rs2_val = mem_wb_data;
+                set_value(sim_p.signals["M2"], 1);
+            }
             // Forward from EX/MEM to EX for rs1 (check that EX/MEM isn't same as MEM/WB)
-            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs1a)
+            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs1a) {
                 rs1_val = ex_mem_alu;
+                set_value(sim_p.signals["M1"], 2);
+            }
             // Forward from EX/MEM to EX for rs2
-            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2a)
+            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2a) {
                 rs2_val = ex_mem_alu;
+                set_value(sim_p.signals["M2"], 2);
+            }
 
             var alu_in_a = rs1_val << 0;
             var alu_in_b;
@@ -1710,6 +1741,10 @@ function cpu_rvpipe_register(sim_p) {
             var val2 = get_value(sim_p.states["ACC_TIME"]);
             val2 = val2 + (t1 - t0);
             set_value(sim_p.states["ACC_TIME"], val2);
+
+            if (typeof wepsim_svg_is_drawing === 'function' && wepsim_svg_is_drawing()) {
+                refresh();
+            }
         },
         verbal: function (s_expr) { return ""; }
     };
