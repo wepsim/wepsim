@@ -149,74 +149,8 @@
 
 
         /*
-	 * CLOCK (parallel / sequential)
-	 */
-
-        function fn_updateE_now ( key )
-        {
-	    if ("E" == simhw_sim_signal(key).type) {
-		update_state(key) ;
-	    }
-	}
-
-        function fn_updateE_future ( key )
-        {
-            if (jit_fire_ndep[key] < 1) // 1 -> 2
-	         fn_updateE_now(key);
-	    else
-	         return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
-	}
-
-        function fn_updateL_now ( key )
-        {
-	    var signal_obj = simhw_sim_signal(key) ;
-
-	    update_draw(signal_obj, signal_obj.value) ;
-	    if ("L" == signal_obj.type) {
-		update_state(key) ;
-	    }
-	}
-
-        function fn_updateL_future ( key )
-        {
-            if (jit_fire_ndep[key] < 1) // 1 -> 2
-	         fn_updateL_now(key);
-	    else
-	         return new Promise( function(resolve, reject) { fn_updateL_now(key); });
-	}
-
-
-        /*
          *  Show/Update the global state
          */
-
-        function update_state ( key )
-        {
-            var index_behavior = 0;
-	    var signal_obj = simhw_sim_signal(key) ;
-
-            switch (signal_obj.behavior.length)
-            {
-                case 0: // skip empty behavior
-                     return;
-                     break;
-
-                case 1: // several signal values share the same behavior -> behavior[0]
-                     index_behavior = 0;
-                     break;
-
-                default:
-                     index_behavior = signal_obj.value ;
-                     if (signal_obj.behavior.length < index_behavior) {
-                         ws_alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
-                                  'key: ' + key + ' and signal value: ' + index_behavior);
-                         return;
-                     }
-                     break;
-            }
-
-            compute_signal_behavior(key, index_behavior) ;
-        }
 
         function update_signal_firmware ( key )
         {
@@ -303,7 +237,8 @@
 	    }
 
 	    // fire signal
-	    compute_behavior('FIRE ' + key) ;
+	    //compute_behavior('FIRE ' + key) ;
+	    signal_fire(key) ;
         }
 
 	function oceoc2rom_addr ( oc_code, eoc_code, eoc )

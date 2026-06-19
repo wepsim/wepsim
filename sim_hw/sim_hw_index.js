@@ -24,9 +24,9 @@
          */
 
         var sim = {
-		    systems: [],
-		    active:  null,
-		    index:   0,
+		     systems: [],
+		     active:  null,
+		     index:   0,
 	          } ;
 
 

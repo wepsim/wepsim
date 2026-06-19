@@ -178,7 +178,6 @@ function cpu_rv_register ( sim_p )
 
         sim_p.internal_states.FIRMWARE     = ws_empty_firmware ;
         sim_p.internal_states.io_hash      = {} ;
-        sim_p.internal_states.fire_stack   = [] ;
 
         sim_p.internal_states.tri_state_names = [] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
@@ -2588,26 +2587,10 @@ function cpu_rv_register ( sim_p )
 				   };
 
 		sim_p.behaviors["FIRE"] = { nparameters: 2,
-					       types: ["S"],
-					   operation: function (s_expr)
+					         types: ["S"],
+					     operation: function (s_expr)
 							{
-							    // 0.- avoid loops
-							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
-								return ;
-							    }
-
-							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
-
-							    // 1.- update draw
-							    update_draw(sim_p.signals[s_expr[1]], sim_p.signals[s_expr[1]].value) ;
-
-							    // 2.- for Level signals, propage it
-							    if ("L" ==  sim_p.signals[s_expr[1]].type)
-							    {
-								update_state(s_expr[1]) ;
-							    }
-
-							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2623,7 +2606,7 @@ function cpu_rv_register ( sim_p )
                                                                 return ;
                                                             }
 
-                                                            sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2640,7 +2623,7 @@ function cpu_rv_register ( sim_p )
 								return ;
                                                             }
 
-							    sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2676,24 +2659,18 @@ function cpu_rv_register ( sim_p )
 						            set_value(sim_p.states["TTCPU"], 0) ;
 
                                                             // 2.- To treat the (Falling) Edge signals
-                                                           new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            if ( (typeof mcelto !== "undefined") &&
-                                                                 (false == mcelto.is_native) )
-                                                            {
-                                                                for (var i=0; i<jit_fire_order.length; i++) {
-                                                                     fn_updateE_now(jit_fire_order[i]) ;
-                                                                }
-                                                            }
+                                                            signal_apply_behaviour_allByEdge(mcelto) ;
 
                                                             // 3.- The (Falling) Edge part of the Control Unit...
-                                                          new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
+                                                            new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
                                                             set_value(sim_p.states["REG_MICROADDR"], new_maddr);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
                                                             if (typeof mcelto === "undefined")
                                                             {
                                                                 mcelto = {
-                                                              value: sim_p.states["REG_MICROINS"].default_value,
+                                                                            value: sim_p.states["REG_MICROINS"].default_value,
                                                                             is_native: false
                                                                          } ;
                                                             }
@@ -2701,33 +2678,13 @@ function cpu_rv_register ( sim_p )
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    for (var key in sim_p.signals)
-							    {
-								 if (typeof new_mins[key] != "undefined")
-								      set_value(sim_p.signals[key],   new_mins[key]);
-								 else set_value(sim_p.signals[key], sim_p.signals[key].default_value);
-							    }
+                                                            signal_reset_and_apply(sim_p.signals, mcelto) ;
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
-                                                            if (mcelto.is_native)
-                                                            {
-							        compute_behavior("FIRE IOCHK") ;
+                                                            signal_apply_behaviour_allByLevel(mcelto) ;
 
-                                                                     if (typeof mcelto.NATIVE_JIT != "undefined")
-                                                                         mcelto.NATIVE_JIT() ;
-                                                                else if (typeof mcelto.NATIVE != "undefined")
-                                                                         eval(mcelto.NATIVE) ;
-                                                            }
-                                                            else
-                                                            {
-                                                                for (var i=0; i<jit_fire_order.length; i++) {
-                                                                     fn_updateL_now(jit_fire_order[i]) ;
-                                                                }
-                                                            }
-
-                                                            // 5.- Register 0 must always be zero.
+                                                            // X.- Register 0 must always be zero.
                                                             sim_p.states.BR[0].value = 0;
-
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;
