@@ -56,7 +56,8 @@ echo "checking sim_hw..."
      eslint ./sim_hw/sim_hw_index.js \
             ./sim_hw/sim_hw_values.js \
             ./sim_hw/sim_hw_eltos.js \
-            ./sim_hw/sim_hw_behavior.js
+            ./sim_hw/sim_hw_behavior.js \
+            ./sim_hw/sim_hw_signal.js
 
      eslint ./sim_hw/hw_items/board_base.js \
             ./sim_hw/hw_items/cpu_ep.js \
