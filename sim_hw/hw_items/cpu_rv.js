@@ -178,7 +178,6 @@ function cpu_rv_register ( sim_p )
 
         sim_p.internal_states.FIRMWARE     = ws_empty_firmware ;
         sim_p.internal_states.io_hash      = {} ;
-        sim_p.internal_states.fire_stack   = [] ;
 
         sim_p.internal_states.tri_state_names = [] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
@@ -2588,26 +2587,10 @@ function cpu_rv_register ( sim_p )
 				   };
 
 		sim_p.behaviors["FIRE"] = { nparameters: 2,
-					       types: ["S"],
-					   operation: function (s_expr)
+					         types: ["S"],
+					     operation: function (s_expr)
 							{
-							    // 0.- avoid loops
-							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
-								return ;
-							    }
-
-							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
-
-							    // 1.- update draw
-							    update_draw(sim_p.signals[s_expr[1]], sim_p.signals[s_expr[1]].value) ;
-
-							    // 2.- for Level signals, propage it
-							    if ("L" ==  sim_p.signals[s_expr[1]].type)
-							    {
-								signal_apply_behaviour(s_expr[1]) ;
-							    }
-
-							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2623,7 +2606,7 @@ function cpu_rv_register ( sim_p )
                                                                 return ;
                                                             }
 
-                                                            sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {
@@ -2640,7 +2623,7 @@ function cpu_rv_register ( sim_p )
 								return ;
                                                             }
 
-							    sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
                                                         },
                                                 verbal: function (s_expr)
                                                         {

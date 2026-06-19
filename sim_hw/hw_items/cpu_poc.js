@@ -166,7 +166,6 @@ function cpu_poc_register ( sim_p )
 	 */
 
         sim_p.internal_states.io_hash      = {} ;
-        sim_p.internal_states.fire_stack   = [] ;
 
         sim_p.internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11","T12" ] ;
         sim_p.internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
@@ -2079,23 +2078,7 @@ function cpu_poc_register ( sim_p )
 					     types: ["S"],
 					     operation: function (s_expr)
 							{
-							    // 0.- avoid loops
-							    if (sim_p.internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
-								return ;
-							    }
-
-							    sim_p.internal_states.fire_stack.push(s_expr[1]) ;
-
-							    // 1.- update draw
-							    update_draw( sim_p.signals[s_expr[1]],  sim_p.signals[s_expr[1]].value) ;
-
-							    // 2.- for Level signals, propage it
-							    if ("L" ==  sim_p.signals[s_expr[1]].type)
-							    {
-								signal_apply_behaviour(s_expr[1]) ;
-							    }
-
-							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
+                                                            signal_fire(s_expr[1]) ;
 							},
 						verbal: function (s_expr)
 							{
@@ -2111,7 +2094,7 @@ function cpu_poc_register ( sim_p )
                                                                 return ;
                                                             }
 
-                                                            sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
 							},
 						verbal: function (s_expr)
 							{
@@ -2124,10 +2107,11 @@ function cpu_poc_register ( sim_p )
 					     operation: function (s_expr)
 							{
 						            sim_elto = get_reference(s_expr[2]) ;
-							    if (sim_elto.changed == false)
+							    if (sim_elto.changed == false) {
 								return ;
+							    }
 
-							    sim_p.behaviors["FIRE"].operation(s_expr) ;
+                                                            signal_fire(s_expr[1]) ;
 							},
 						verbal: function (s_expr)
 							{

@@ -562,7 +562,7 @@
                 ref_mdash = simhw_internalState_get('MP', reg_pc) ;
 	        ret = wepsim_check_memdashboard(ref_mdash, reg_pc) ;
 	        if (false === ret) {
-                    return pack_ret2(false, '', '') ;
+                    return pack_ret2(false, 'Info', 'INFO: The program has finished because the PC register points outside .ktext/.text code segments') ;
 	        }
 		ret = wepsim_check_stopbybreakpoint(ref_mdash) ;
 		if (true === ret) {

@@ -99,6 +99,37 @@
             compute_signal_behavior(signal_name, index_behavior) ;
         }
 
+        var fire_stack = [] ;
+
+        function signal_fire ( signal_name )
+        {
+	    // 0. get if signal_name is_firing ...
+	    var is_firing = false ;
+	    if (typeof fire_stack[signal_name] != "undefined") {
+		is_firing = fire_stack[signal_name] ;
+	    }
+
+	    // 1. if is_firing -> return (avoid loops)
+	    if (is_firing) {
+		return ;
+	    }
+
+	    // 2. is_firing = true
+	    fire_stack[signal_name] = true ;
+
+	    // 3. update draw
+	    var signal_obj = simhw_sim_signal(signal_name) ;
+	    update_draw(signal_obj, signal_obj.value) ;
+
+	    // 4. for Level signals, propage it
+	    if ("L" ==  signal_obj.type) {
+		signal_apply_behaviour(signal_name) ;
+	    }
+
+	    // 5. is_firing = false
+	    fire_stack[signal_name] = false ;
+        }
+
 
         /*
 	 * CLOCK (parallel / sequential)
@@ -110,7 +141,7 @@
 	    var signal_obj = simhw_sim_signal(signal_name) ;
 
 	    if ("E" == signal_obj.type) {
-		update_state(signal_name) ;
+		signal_apply_behaviour(signal_name) ;
 	    }
 	}
 
@@ -121,7 +152,7 @@
 	    update_draw(signal_obj, signal_obj.value) ;
 
 	    if ("L" == signal_obj.type) {
-		update_state(signal_name) ;
+		signal_apply_behaviour(signal_name) ;
 	    }
 	}
 
@@ -180,7 +211,8 @@
         {
 	    if (mc_elto.is_native)
 	    {
-		compute_behavior("FIRE IOCHK") ;
+		// compute_behavior("FIRE IOCHK") ;
+                signal_fire("IOCHK") ;
 
 		     if (typeof mc_elto.NATIVE_JIT != "undefined")
 			 mc_elto.NATIVE_JIT() ;

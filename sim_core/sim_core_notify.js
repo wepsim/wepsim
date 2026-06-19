@@ -39,20 +39,20 @@
         function simcore_notifications_add2 ( ntf )
         {
 	    simcore_notifications.push({
-		                            title:   ntf.title,
-		                            message: ntf.message,
-		                            type:    ntf.type,
-		                            date:    ntf.date
-	                                 }) ;
+		                          title:   ntf.title,
+		                          message: ntf.message,
+		                          type:    ntf.type,
+		                          date:    ntf.date
+	                               }) ;
         }
 
         function simcore_notifications_add ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
 	    simcore_notifications.push({
-		                            title:   $('<p>').html(ntf_title).text(),
-		                            message: $('<p>').html(ntf_message).text(),
-		                            type:    ntf_type,
-		                            date:    new Date().getTime()
-	                                 }) ;
+		                          title:   ntf_title,
+		                          message: ntf_message,
+		                          type:    ntf_type,
+		                          date:    new Date().getTime()
+	                               }) ;
         }
 
