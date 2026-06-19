@@ -237,7 +237,8 @@
 	    }
 
 	    // fire signal
-	    compute_behavior('FIRE ' + key) ;
+	    //compute_behavior('FIRE ' + key) ;
+	    signal_fire(key) ;
         }
 
 	function oceoc2rom_addr ( oc_code, eoc_code, eoc )
