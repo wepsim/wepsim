@@ -2604,7 +2604,7 @@ function cpu_rv_register ( sim_p )
 							    // 2.- for Level signals, propage it
 							    if ("L" ==  sim_p.signals[s_expr[1]].type)
 							    {
-								update_state(s_expr[1]) ;
+								signal_apply_behaviour(s_expr[1]) ;
 							    }
 
 							    sim_p.internal_states.fire_stack.pop(s_expr[1]) ;
@@ -2678,7 +2678,7 @@ function cpu_rv_register ( sim_p )
                                                             // 2.- To treat the (Falling) Edge signals
                                                             new_maddr = get_value(sim_p.states["REG_MICROADDR"]);
                                                             mcelto = sim_p.internal_states['MC'][new_maddr];
-                                                            signals_update_ALL_Edge(mcelto) ;
+                                                            signal_apply_behaviour_allByEdge(mcelto) ;
 
                                                             // 3.- The (Falling) Edge part of the Control Unit...
                                                             new_maddr = get_value(sim_p.states["MUXA_MICROADDR"]);
@@ -2695,19 +2695,13 @@ function cpu_rv_register ( sim_p )
                                                             sim_p.states["REG_MICROINS"].value = new_mins;
 
                                                             // 4.- update signals
-							    for (var key in sim_p.signals)
-							    {
-								 if (typeof new_mins[key] != "undefined")
-								      set_value(sim_p.signals[key], new_mins[key]);
-								 else set_value(sim_p.signals[key], sim_p.signals[key].default_value);
-							    }
+                                                            signal_reset_and_apply(sim_p.signals, mcelto) ;
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
-                                                            signals_update_ALL_Level(mcelto) ;
+                                                            signal_apply_behaviour_allByLevel(mcelto) ;
 
-                                                            // 5.- Register 0 must always be zero.
+                                                            // X.- Register 0 must always be zero.
                                                             sim_p.states.BR[0].value = 0;
-
 
 						            // measure time (2/2)
 					                    var t1 = performance.now() ;

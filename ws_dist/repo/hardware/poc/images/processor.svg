@@ -65,8 +65,8 @@
        y="220.0"
        x="520.0" /></text>
   <image
-     sodipodi:absref="x:\work\docencia\grado\info-ec\2017-2018\sim\fire.gif"
-     xlink:href="/wepsim/images/fire.gif"
+     sodipodi:absref="fire.gif"
+     xlink:href="../../../../images/fire.gif"
      x="108.53031"
      y="334.1333"
      height="50"
@@ -75,8 +75,8 @@
      visibility="hidden"
      style="visibility:hidden" />
   <image
-     sodipodi:absref="x:\work\docencia\grado\info-ec\2017-2018\sim\fire.gif"
-     xlink:href="/wepsim/images/fire.gif"
+     sodipodi:absref="fire.gif"
+     xlink:href="../../../../images/fire.gif"
      x="399.46991"
      y="114.0588"
      height="50"
