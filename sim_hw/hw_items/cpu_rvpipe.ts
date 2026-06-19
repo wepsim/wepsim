@@ -24,6 +24,7 @@
  */
 
 function cpu_rvpipe_register(sim_p: Simulator): Simulator {
+    const DEBUG = false;
     sim_p.components["CPU"] = {
         name: "CPU",
         version: "1",
@@ -246,8 +247,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     /* ALU (RELATED) STATES */
-    sim_p.states["M2_ALU"] = {
-        name: "M2_ALU", verbal: "Input ALU via M2",
+    sim_p.states["M1_ALU"] = {
+        name: "M1_ALU", verbal: "Input ALU via M1",
         visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
@@ -257,7 +258,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: []
     };
     sim_p.states["ALU_WOUT"] = {
-        name: "ALU_WOUT", verbal: "Input of OUT Register",
+        name: "ALU_WOUT", verbal: "ALU out value",
         visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
@@ -603,7 +604,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         behavior: ["NOP"],
         depends_on: ["CLK"],
         fire_name: ['svg_p:text7229-7', 'svg_p:text7229'],
-        draw_data: [['svg_p:path6775', 'svg_p:path6777'], ['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7003-8'], ['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7']],
+        draw_data: [[]],
         draw_name: [['svg_p:path7199', 'svg_p:path7013']]
     };
 
@@ -611,9 +612,38 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
         behavior: ["NOP"],
         depends_on: ["CLK"],
-        fire_name: ['svg_p:text7237', 'svg_p:text7237-9-0'],
-        draw_data: [['svg_p:path6821', 'svg_p:path6823'], ['svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8'], ['svg_p:path6827', 'svg_p:path6825', 'svg_p:path7013-9-0']],
+        fire_name: ['svg_p:text7237', 'svg_p:text7237-0'],
+        draw_data: [[]],
         draw_name: [['svg_p:path7197', 'svg_p:path7013-0']]
+    };
+
+    const F1_DRAW_DATA = ['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8', 'svg_p:path7567-0-8-6-9', 'svg_p:path7013-0-2-9-3', 'svg_p:path7567-0-6-9'];
+    const F2_DRAW_DATA = ['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7', 'svg_p:path6827', 'svg_p:path6825', 'svg_p:path7567-0-8-6', 'svg_p:path7013-5-6-4'];
+    const F1_F2_DRAW_DATA = [...F1_DRAW_DATA, ...F2_DRAW_DATA];
+    sim_p.signals["FORWARNING_UNIT"] = {
+        name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "4",
+        behavior: ["NOP"], // TODO calculate forwarding and move to M1 and M2 the bits
+        depends_on: ["CLK"],
+        fire_name: [],
+        draw_data: [
+            [],                     //  0
+            [...F1_DRAW_DATA],      //  1 -> M1 0 M2 1
+            [...F2_DRAW_DATA],      //  2 -> M1 0 M2 2
+            [],                     //  3
+            [...F1_DRAW_DATA],      //  4 -> M1 1 M2 0
+            [...F1_DRAW_DATA],      //  5 -> M1 1 M2 1
+            [...F1_F2_DRAW_DATA],   //  6 -> M1 1 M2 2
+            [],                     //  7
+            [...F2_DRAW_DATA],      //  8 -> M1 2 M2 0
+            [...F1_F2_DRAW_DATA],   //  9 -> M1 2 M2 1
+            [...F2_DRAW_DATA],      // 10 -> M1 2 M2 2
+            [],                     // 11
+            [],                     // 12
+            [],                     // 13
+            [],                     // 14
+            [],                     // 15
+        ],
+        draw_name: [[]]
     };
 
     /* MUX 4 (PC source) */
@@ -653,29 +683,29 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals["ALUOP"] = {
         name: "ALUOP", visible: true, type: "L", value: 0, default_value: 0, nbits: "5",
         behavior: ["NOP_ALU; UPDATE_NZ",
-            "AND ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "OR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "NOT ALU_WOUT M2_ALU; UPDATE_NZ",
-            "XOR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "SRL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "SRA ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "SL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "RR ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "RL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "ADD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "SUB ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "MUL ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "DIV ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "MOD ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "LUI ALU_WOUT M2_ALU; UPDATE_NZ",
-            "ADDU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "SUBU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "MULU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
-            "DIVU ALU_WOUT M2_ALU M3_ALU; UPDATE_NZ",
+            "AND ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "OR ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "NOT ALU_WOUT M1_ALU; UPDATE_NZ",
+            "XOR ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "SRL ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "SRA ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "SL ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "RR ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "RL ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "ADD ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "SUB ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "MUL ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "DIV ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "MOD ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "LUI ALU_WOUT M1_ALU; UPDATE_NZ",
+            "ADDU ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "SUBU ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "MULU ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
+            "DIVU ALU_WOUT M1_ALU M3_ALU; UPDATE_NZ",
             "NOP_ALU", "NOP_ALU", "NOP_ALU", "NOP_ALU",
             "NOP_ALU", "NOP_ALU", "NOP_ALU", "NOP_ALU",
             "NOP_ALU", "NOP_ALU", "NOP_ALU",
-            "MV ALU_WOUT M2_ALU; UPDATE_NZ",
+            "MV ALU_WOUT M1_ALU; UPDATE_NZ",
             "MV ALU_WOUT M3_ALU; UPDATE_NZ"],
         fire_name: ['svg_p:text7269'],
         draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6841', 'svg_p:path6843']],
@@ -695,7 +725,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     /* MUX 2 (ALU input A) */
     // sim_p.signals["M2"] = {
     //     name: "M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-    //     behavior: ["MV M2_ALU REG_PC; FIRE ALUOP", "MV M2_ALU R_DATA1; FIRE ALUOP"],
+    //     behavior: ["MV M1_ALU REG_PC; FIRE ALUOP", "MV M1_ALU R_DATA1; FIRE ALUOP"],
     //     depends_on: ["ALUOP"],
     //     fire_name: ['svg_p:text7229'],
     //     draw_data: [['svg_p:path6691-3', 'svg_p:path6987', 'svg_p:path6989', 'svg_p:path6983',
@@ -1530,6 +1560,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (mem_wb_wb && mem_wb_rd != 0) {
                 set_value(sim_p.states.BR[mem_wb_rd], mem_wb_data >>> 0);
                 set_value(sim_p.states["W_DATA"], mem_wb_data >>> 0);
+                if (DEBUG) console.log("Save", mem_wb_data, "in reg", mem_wb_rd);
             }
 
             // ==========================================
@@ -1546,8 +1577,16 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var rs1_val = id_ex_rs1;
             var rs2_val = id_ex_rs2;
 
+            if (DEBUG) console.log("--------------------------");
+            if (DEBUG) console.log("id_ex_rs1a", id_ex_rs1a);
+            if (DEBUG) console.log("id_ex_rs2a", id_ex_rs2a);
+            if (DEBUG) console.log("mem_wb_wb", mem_wb_wb);
+            if (DEBUG) console.log("mem_wb_rd", mem_wb_rd);
+            if (DEBUG) console.log("ex_mem_wb", ex_mem_wb);
+            if (DEBUG) console.log("ex_mem_rd", ex_mem_rd);
             set_value(sim_p.signals["M1"], 0);
             set_value(sim_p.signals["M2"], 0);
+            set_value(sim_p.signals["FORWARNING_UNIT"], 0);
             // Forward from MEM/WB to EX for rs1
             if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
                 rs1_val = mem_wb_data;
@@ -1568,6 +1607,21 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                 rs2_val = ex_mem_alu;
                 set_value(sim_p.signals["M2"], 2);
             }
+            let forwarding = [
+                get_value(sim_p.signals["M1"]) == 2 ? '1' : '0',
+                get_value(sim_p.signals["M1"]) == 1 ? '1' : '0',
+                get_value(sim_p.signals["M2"]) == 2 ? '1' : '0',
+                get_value(sim_p.signals["M2"]) == 1 ? '1' : '0'
+            ];
+
+            set_value(sim_p.signals["FORWARNING_UNIT"], parseInt(forwarding.join(''), 2));
+
+            if (DEBUG) console.log("M1", get_value(sim_p.signals["M1"]));
+            if (DEBUG) console.log("M2", get_value(sim_p.signals["M2"]));
+            if (DEBUG) console.log("FORWARNING_UNIT", get_value(sim_p.signals["FORWARNING_UNIT"]), forwarding.join(''));
+            if (DEBUG) console.log("rs1_val", rs1_val);
+            if (DEBUG) console.log("rs2_val", rs2_val);
+            if (DEBUG) console.log("--------------------------");
 
             var alu_in_a = rs1_val << 0;
             var alu_in_b;
@@ -1594,7 +1648,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             sim_p.internal_states.alu_flags.flag_n = (ex_result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (ex_result == 0) ? 1 : 0;
 
-            set_value(sim_p.states["M2_ALU"], alu_in_a >>> 0);
+            set_value(sim_p.states["M1_ALU"], alu_in_a >>> 0);
             set_value(sim_p.states["M3_ALU"], alu_in_b >>> 0);
             set_value(sim_p.states["ALU_WOUT"], ex_result >>> 0);
 
@@ -1613,8 +1667,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var id_rs1_addr = get_rs1(ins);
             var id_rs2_addr = get_rs2(ins);
             var id_rd_addr = get_rd(ins);
-            var id_rs1_val = sim_p.states.BR[id_rs1_addr].value;
-            var id_rs2_val = sim_p.states.BR[id_rs2_addr].value;
+            var id_rs1_val = get_value(sim_p.states.BR[id_rs1_addr]);
+            var id_rs2_val = get_value(sim_p.states.BR[id_rs2_addr]);
             set_value(sim_p.states["R_DATA1"], id_rs1_val >>> 0);
             set_value(sim_p.states["R_DATA2"], id_rs2_val >>> 0);
             var id_aluop = decode_aluop(ins);
@@ -1814,9 +1868,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         type: "subcomponent",
         belongs: "CPU",
         states: {
-            "a": { ref: "M2_ALU" },
+            "a": { ref: "M1_ALU" },
             "b": { ref: "M3_ALU" },
-            "alu": { ref: "ALU_WOUT" },
+            "alu": { ref: "ALU_OUT" },
             "flagn": { ref: "FLAG_N" },
             "flagz": { ref: "FLAG_Z" }
         },
