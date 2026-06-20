@@ -409,6 +409,87 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: []
     };
 
+    // Pipeline control states for memory operations (load/store)
+    // Decode stage
+    sim_p.states["DECODE_DMR"] = {
+        name: "DECODE_DMR", verbal: "Decoded Data Mem Read",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["DECODE_DMW"] = {
+        name: "DECODE_DMW", verbal: "Decoded Data Mem Write",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    // ID/EX stage
+    sim_p.states["ID_EX_DMR"] = {
+        name: "ID_EX_DMR", verbal: "ID/EX Data Mem Read",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["ID_EX_DMW"] = {
+        name: "ID_EX_DMW", verbal: "ID/EX Data Mem Write",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    // EX/MEM stage
+    sim_p.states["EX_MEM_DMR"] = {
+        name: "EX_MEM_DMR", verbal: "EX/MEM Data Mem Read",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["EX_MEM_DMW"] = {
+        name: "EX_MEM_DMW", verbal: "EX/MEM Data Mem Write",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["EX_MEM_IS_LOAD"] = {
+        name: "EX_MEM_IS_LOAD", verbal: "EX/MEM Is Load Instr",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    /* PIPE STALL */
+    // Decode stage: WBE (byte select) and SE (sign extend for loads)
+    sim_p.states["DECODE_WBE"] = {
+        name: "DECODE_WBE", verbal: "Decoded Write Byte Enable",
+        visible: false, nbits: "2", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["DECODE_SE"] = {
+        name: "DECODE_SE", verbal: "Decoded Sign Extend",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    // ID/EX stage
+    sim_p.states["ID_EX_WBE"] = {
+        name: "ID_EX_WBE", verbal: "ID/EX Write Byte Enable",
+        visible: false, nbits: "2", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["ID_EX_SE"] = {
+        name: "ID_EX_SE", verbal: "ID/EX Sign Extend",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    // EX/MEM stage
+    sim_p.states["EX_MEM_WBE"] = {
+        name: "EX_MEM_WBE", verbal: "EX/MEM Write Byte Enable",
+        visible: false, nbits: "2", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states["EX_MEM_SE"] = {
+        name: "EX_MEM_SE", verbal: "EX/MEM Sign Extend",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+
+    /* PIPE STALL */
+    sim_p.states["PIPE_STALL"] = {
+        name: "PIPE_STALL", verbal: "Pipeline Stall Flag",
+        visible: true, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+
     // Pipeline PC tracking (for debug display)
     sim_p.states["IF_ID_PC"] = {
         name: "IF_ID_PC", verbal: "IF/ID PC",
@@ -744,14 +825,45 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: [[]],
         draw_name: [[]]
     };
+    /* LOAD WB DATA for loads: overwrite MEM_WB_DATA with RDATAM when load */
+    sim_p.signals["LOAD_MEM_WB_DATA"] = {
+        name: "LOAD_MEM_WB_DATA", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
+        behavior: ["NOP", "PIPE_WB_LOAD"],
+        depends_on: ["LOAD_MEM_WB"],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
     sim_p.signals["LOAD_EX_MEM"] = {
         name: "LOAD_EX_MEM", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
         behavior: ["NOP",
-            "MV EX_MEM_ALUOUT ALU_OUT; MV EX_MEM_WDATA ID_EX_RS2; " +
+            "MV EX_MEM_ALUOUT ALU_OUT; MV EX_MEM_WDATA M2_ALU; " +
             "MV EX_MEM_PC ID_EX_PC; " +
-            "MV EX_MEM_RD ID_EX_RD; MV EX_MEM_WB ID_EX_WB"
+            "MV EX_MEM_RD ID_EX_RD; MV EX_MEM_WB ID_EX_WB; " +
+            "MV EX_MEM_DMR ID_EX_DMR; MV EX_MEM_DMW ID_EX_DMW; " +
+            "MV EX_MEM_IS_LOAD ID_EX_DMR"
         ],
         depends_on: ["LOAD_MEM_WB", 'ALUOP'],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+    /* Propagate WBE and SE through EX/MEM */
+    sim_p.signals["LOAD_EX_MEM_WBE"] = {
+        name: "LOAD_EX_MEM_WBE", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
+        behavior: ["NOP",
+            "MV EX_MEM_WBE ID_EX_WBE; MV EX_MEM_SE ID_EX_SE"
+        ],
+        depends_on: ["LOAD_EX_MEM"],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+    /* HAZARD CHECK: detect load-use hazard before ID/EX capture */
+    sim_p.signals["PIPE_STALL_CHECK"] = {
+        name: "PIPE_STALL_CHECK", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
+        behavior: ["NOP", "PIPE_HAZARD_CHECK"],
+        depends_on: ["LOAD_EX_MEM"],
         fire_name: [],
         draw_data: [[]],
         draw_name: [[]]
@@ -763,9 +875,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             "MV ID_EX_RS1_ADDR DECODE_RS1_ADDR; MV ID_EX_RS2_ADDR DECODE_RS2_ADDR; " +
             "MV ID_EX_RD DECODE_RD_ADDR; MV ID_EX_ALUOP DECODE_ALUOP; " +
             "MV ID_EX_ALUSRC DECODE_ALUSRC; MV ID_EX_IMM VAL_IMM; " +
-            "MV ID_EX_PC IF_ID_PC; MV ID_EX_WB DECODE_WB"
+            "MV ID_EX_PC IF_ID_PC; MV ID_EX_WB DECODE_WB; " +
+            "MV ID_EX_DMR DECODE_DMR; MV ID_EX_DMW DECODE_DMW; " +
+            "MV ID_EX_WBE DECODE_WBE; MV ID_EX_SE DECODE_SE"
         ],
-        depends_on: ["LOAD_EX_MEM"],
+        depends_on: ["PIPE_STALL_CHECK"],
         fire_name: [],
         draw_data: [[]],
         draw_name: [[]]
@@ -827,6 +941,16 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         fire_name: ['svg_p:text7269'],
         draw_data: [['svg_p:path6845', 'svg_p:path6847', 'svg_p:path6843']],
         draw_name: [['svg_p:path7249']]
+    };
+
+    /* MEMORY STAGE control for load/store */
+    sim_p.signals["PIPE_MEM_STAGE"] = {
+        name: "PIPE_MEM_STAGE", visible: false, type: "L", value: 1, default_value: 1, nbits: "1",
+        behavior: ["NOP", "PIPE_MEM_STAGE_OP"],
+        depends_on: [],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
     };
 
     sim_p.signals["WBE"] = {
@@ -1535,7 +1659,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (DEBUG) console.log(s_expr);
             for (var key in sim_p.states) reset_value(sim_p.states[key]);
             for (var key in sim_p.signals) reset_value(sim_p.signals[key]);
-            sim_p.internal_states.MP_wc = 0;
             sim_p.internal_states.halt = 0;
             sim_p.internal_states.pipe_next_pc = undefined;
         },
@@ -1665,6 +1788,22 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                 let rw_val = (typeof micro['RW'] !== "undefined") ? micro['RW'] : 0;
                 if (typeof rw_val !== "number") rw_val = parseInt(rw_val);
                 set_value(sim_p.states["DECODE_WB"], (rw_val && rd_addr != 0) ? 1 : 0);
+
+                let dmr_val = (typeof micro['DMR'] !== "undefined") ? micro['DMR'] : 0;
+                if (typeof dmr_val !== "number") dmr_val = parseInt(dmr_val);
+                set_value(sim_p.states["DECODE_DMR"], dmr_val);
+
+                let dmw_val = (typeof micro['DMW'] !== "undefined") ? micro['DMW'] : 0;
+                if (typeof dmw_val !== "number") dmw_val = parseInt(dmw_val);
+                set_value(sim_p.states["DECODE_DMW"], dmw_val);
+
+                let wbe_val = (typeof micro['WBE'] !== "undefined") ? micro['WBE'] : 0;
+                if (typeof wbe_val !== "number") wbe_val = parseInt(wbe_val);
+                set_value(sim_p.states["DECODE_WBE"], wbe_val);
+
+                let se_val = (typeof micro['SE'] !== "undefined") ? micro['SE'] : 0;
+                if (typeof se_val !== "number") se_val = parseInt(se_val);
+                set_value(sim_p.states["DECODE_SE"], se_val);
             }
 
             sim_p.behaviors["DECO_IMM"].operation(
@@ -1683,12 +1822,34 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (DEBUG) console.log(s_expr);
             var id_ex_rs1a = get_value(sim_p.states["ID_EX_RS1_ADDR"]);
             var id_ex_rs2a = get_value(sim_p.states["ID_EX_RS2_ADDR"]);
+            var id_ex_dmr = get_value(sim_p.states["ID_EX_DMR"]);
+            var id_ex_rd = get_value(sim_p.states["ID_EX_RD"]);
             var ex_mem_rd = get_value(sim_p.states["EX_MEM_RD"]);
             var ex_mem_wb = get_value(sim_p.states["EX_MEM_WB"]);
+            var ex_mem_dmr = get_value(sim_p.states["EX_MEM_DMR"]);
             var mem_wb_rd = get_value(sim_p.states["MEM_WB_RD"]);
             var mem_wb_wb = get_value(sim_p.states["MEM_WB_WB"]);
+            var decode_rs1 = get_value(sim_p.states["DECODE_RS1_ADDR"]);
+            var decode_rs2 = get_value(sim_p.states["DECODE_RS2_ADDR"]);
             var m1 = 0;
             var m2 = 0;
+            // Load-use hazard detection:
+            // Check 1: load in EX (ID_EX_DMR), dependent in ID (DECODE matches)
+            var stall = get_value(sim_p.states["PIPE_STALL"]);
+            if (!stall && id_ex_dmr && id_ex_rd != 0) {
+                if (id_ex_rd == decode_rs1 || id_ex_rd == decode_rs2) {
+                    stall = 1;
+                }
+            }
+            // Check 2: load in MEM (EX_MEM_DMR), dependent in EX (ID_EX matches)
+            // Data is in RDATAM, not EX_MEM_ALUOUT → need to stall
+            if (!stall && ex_mem_dmr && ex_mem_rd != 0) {
+                if (ex_mem_rd == id_ex_rs1a || ex_mem_rd == id_ex_rs2a) {
+                    stall = 1;
+                }
+            }
+            set_value(sim_p.states["PIPE_STALL"], stall);
+            // Forwarding (only when not stalled for check 2)
             if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
                 m1 = 1;
             }
@@ -1717,8 +1878,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (DEBUG) console.log("mem_wb_rd", mem_wb_rd);
             if (DEBUG) console.log("mem_wb_wb", mem_wb_wb);
             if (DEBUG) console.log("forwarding", forwarding);
+            if (DEBUG) console.log("stall", stall);
         },
-        verbal: function (s_expr: string[]): string { return "Detect forwarding. "; }
+        verbal: function (s_expr: string[]): string { return "Detect forwarding and hazards. "; }
     };
 
     sim_p.behaviors["PIPE_FWD_M2"] = {
@@ -1777,7 +1939,92 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         verbal: function (s_expr: string[]): string { return "Update pipeline display. "; }
     };
 
+    /* PIPE_HAZARD_CHECK: handles stalling (zeroes decode, freezes IF) */
+    sim_p.behaviors["PIPE_HAZARD_CHECK"] = {
+        nparameters: 1,
+        operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(s_expr);
+            var stall = get_value(sim_p.states["PIPE_STALL"]);
+            if (stall) {
+                set_value(sim_p.states["DECODE_RS1_ADDR"], 0);
+                set_value(sim_p.states["DECODE_RS2_ADDR"], 0);
+                set_value(sim_p.states["DECODE_RD_ADDR"], 0);
+                set_value(sim_p.states["R_DATA1"], 0);
+                set_value(sim_p.states["R_DATA2"], 0);
+                set_value(sim_p.states["VAL_IMM"], 0);
+                set_value(sim_p.states["DECODE_ALUOP"], 0);
+                set_value(sim_p.states["DECODE_ALUSRC"], 0);
+                set_value(sim_p.states["DECODE_WB"], 0);
+                set_value(sim_p.states["DECODE_DMR"], 0);
+                set_value(sim_p.states["DECODE_DMW"], 0);
+                set_value(sim_p.states["DECODE_WBE"], 0);
+                set_value(sim_p.states["DECODE_SE"], 0);
+                // Keep IF/ID from advancing: set RDATA to current IF_ID_INS
+                var current_ins = get_value(sim_p.states["IF_ID_INS"]);
+                set_value(sim_p.states["RDATA"], current_ins);
+                // Clear stall flag
+                set_value(sim_p.states["PIPE_STALL"], 0);
+                if (DEBUG) console.log("STALL: bubble inserted, IF frozen");
+            }
+        },
+        verbal: function (s_expr: string[]): string { return "Check pipeline stall condition."; }
+    };
 
+    /* PIPE_WB_LOAD: overwrite MEM_WB_DATA with RDATAM for loads */
+    sim_p.behaviors["PIPE_WB_LOAD"] = {
+        nparameters: 1,
+        operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(s_expr);
+            var is_load = get_value(sim_p.states["EX_MEM_IS_LOAD"]);
+            if (is_load) {
+                var rd_data = get_value(sim_p.states["RDATAM"]) << 0;
+                set_value(sim_p.states["MEM_WB_DATA"], rd_data >>> 0);
+                if (DEBUG) console.log("LOAD WB: forward RDATAM to MEM_WB_DATA", rd_data);
+            }
+        },
+        verbal: function (s_expr: string[]): string { return "Forward load data to WB stage."; }
+    };
+
+    /* PIPE_MEM_STAGE_OP: handle MEM stage memory operations (DMR/DMW) */
+    sim_p.behaviors["PIPE_MEM_STAGE_OP"] = {
+        nparameters: 1,
+        operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(s_expr);
+            var dmr = get_value(sim_p.states["EX_MEM_DMR"]);
+            var dmw = get_value(sim_p.states["EX_MEM_DMW"]);
+            var wbe = get_value(sim_p.states["EX_MEM_WBE"]);
+            if (dmr) {
+                sim_p.behaviors["MEM_READ"].operation(
+                    ["MEM_READ", "EX_MEM_ALUOUT", "RDATAM", "EX_MEM_WBE", "CLK"]);
+                if (wbe == 1 || wbe == 2) {
+                    var rd_data = get_value(sim_p.states["RDATAM"]) >>> 0;
+                    var addr = get_value(sim_p.states["EX_MEM_ALUOUT"]) >>> 0;
+                    var se = get_value(sim_p.states["EX_MEM_SE"]);
+                    if (wbe == 1) {
+                        var byte_offset = addr & 3;
+                        rd_data = (rd_data >>> (byte_offset * 8)) & 0xFF;
+                        if (se && (rd_data & 0x80)) rd_data = rd_data | 0xFFFFFF00;
+                    } else {
+                        var half_offset = (addr >>> 1) & 1;
+                        rd_data = (rd_data >>> (half_offset * 16)) & 0xFFFF;
+                        if (se && (rd_data & 0x8000)) rd_data = rd_data | 0xFFFF0000;
+                    }
+                    set_value(sim_p.states["RDATAM"], rd_data >>> 0);
+                }
+                set_value(sim_p.signals["DMR"], 1);
+                update_draw(sim_p.signals["DMR"], 1);
+                if (DEBUG) console.log("MEM: DMR at addr", get_value(sim_p.states["EX_MEM_ALUOUT"]));
+            }
+            if (dmw) {
+                sim_p.behaviors["MEM_WRITE"].operation(
+                    ["MEM_WRITE", "EX_MEM_ALUOUT", "EX_MEM_WDATA", "EX_MEM_WBE", "CLK"]);
+                set_value(sim_p.signals["DMW"], 1);
+                update_draw(sim_p.signals["DMW"], 1);
+                if (DEBUG) console.log("MEM: DMW at addr", get_value(sim_p.states["EX_MEM_ALUOUT"]));
+            }
+        },
+        verbal: function (s_expr: string[]): string { return "Execute MEM stage load/store operations."; }
+    };
 
     /* CLOCK - Pipeline execution */
     sim_p.behaviors["CLOCK"] = {
@@ -1800,6 +2047,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             // Capture old values before L phase overwrites them.
             // Order: MEM_WB before EX_MEM before ID_EX before IF_ID
             // ====================================================================
+            // Capture stall BEFORE E phase (PIPE_STALL_CHECK clears it)
+            var stall = get_value(sim_p.states["PIPE_STALL"]);
             var next_pc = sim_p.internal_states.pipe_next_pc;
             if (typeof next_pc === "undefined") {
                 next_pc = get_value(sim_p.states["REG_PC"]);
@@ -1812,6 +2061,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             }
 
             // Update PC after all E signals capture the old REG_PC value
+            // If stall was active, freeze PC (keep fetching same address)
+            if (stall) {
+                next_pc = get_value(sim_p.states["REG_PC"]);
+                if (DEBUG) console.log("STALL: PC frozen at", next_pc.toString(16));
+            }
             show_asmdbg_pc();
             set_value(sim_p.states["REG_PC"], next_pc);
 

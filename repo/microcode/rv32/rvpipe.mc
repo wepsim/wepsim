@@ -329,6 +329,110 @@ lui rd imm {
       {
           (SE_IMM=1, OFFSET=1100, SIZE=10100, M3=11, AluOp=11111, RW)
       }
+ }
+
+#  LW rd,offset(rs1)         Load Word                         rd ← s32[rs1 + offset]
+lw rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=010,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, RW)
+      }
+}
+
+#  SW rs2,offset(rs1)         Store Word                         u32[rs1 + offset] ← rs2
+sw rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=010,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:7|31:25)=offset,
+      help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW)
+      }
+}
+
+#  LB rd,offset(rs1)         Load Byte                         rd ← s8[rs1 + offset]
+lb rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = s8[rs1 + offset]',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=1, RW)
+      }
+}
+
+#  LH rd,offset(rs1)         Load Half                         rd ← s16[rs1 + offset]
+lh rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = s16[rs1 + offset]',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=10, RW)
+      }
+}
+
+#  LBU rd,offset(rs1)         Load Byte Unsigned                     rd ← u8[rs1 + offset]
+lbu rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=100,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = u8[rs1 + offset]',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=1, RW)
+      }
+}
+
+#  LHU rd,offset(rs1)         Load Half Unsigned                     rd ← u16[rs1 + offset]
+lhu rd offset(rs1) {
+      oc(6:0)=0000011,
+      eoc(14:12)=101,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      address-abs(31:20)=offset,
+      help='rd = u16[rs1 + offset]',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=10, RW)
+      }
+}
+
+#  SB rs2,offset(rs1)         Store Byte                         u8[rs1 + offset] ← rs2
+sb rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=000,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:7|31:25)=offset,
+      help='MEM[rs1 + offset] = rs2/8',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW, WBE=1)
+      }
+}
+
+#  SH rs2,offset(rs1)         Store Half                         u16[rs1 + offset] ← rs2
+sh rs2 offset(rs1) {
+      oc(6:0)=0100011,
+      eoc(14:12)=001,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      address-rel(11:7|31:25)=offset,
+      help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW, WBE=10)
+      }
 }
 
 pseudoinstructions

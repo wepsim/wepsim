@@ -88,25 +88,47 @@
     "testing": 		true
   },
   {
-    "id":		"RVP1E1_add",
-    "title":		"Add 2 and 3",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"rvpipe",
-    "hardware":		"rvpipe",
-    "microcode":	"rvpipe_s1e1",
-    "assembly":		"rvpipe_s1e1",
-    "description":	"Simple example with fetch, add, and basic .text segment.",
-    "testing":          false
+    "id": "RVP1E1_add",
+    "title": "ALU forward",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e1_forward",
+    "description": "Simple example to view forwarding in ALU results.",
+    "testing": false
   },
   {
-    "id":		"RVP1E1",
-    "title":		"Instructions",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"rvpipe",
-    "hardware":		"rvpipe",
-    "microcode":	"rvpipe_s1e1",
-    "assembly":		"s1e1",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
+    "id": "RVP1E1_add",
+    "title": "Memory forward",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e2_forward",
+    "description": "Simple example to view forwarding in load memory.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E1",
+    "title": "Instructions",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s1e1",
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
+  },
+  {
+    "id": "RVP1E2",
+    "title": "Memory access",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s1e2",
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   }
 ]

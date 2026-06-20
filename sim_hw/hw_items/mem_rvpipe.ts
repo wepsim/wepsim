@@ -24,6 +24,7 @@
  */
 
 function mem_rvpipe_register(sim_p: Simulator): Simulator {
+    const DEBUG = false;
     sim_p.components.MEMORY = {
         name: "MEMORY",
         version: "1",
@@ -159,8 +160,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     /* DATA MEMORY SIGNALS */
     sim_p.signals.DMR = {
         name: "DMR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: ["NOP",
-            "MEM_READ ALU_OUT RDATAM WBE CLK;"],
+        behavior: ["NOP", "NOP"],
         depends_on: [],
         fire_name: ['svg_p:text7589', 'svg_p:text7507'],
         draw_data: [[],
@@ -170,8 +170,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     };
     sim_p.signals.DMW = {
         name: "DMW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: ["NOP",
-            "MEM_WRITE ALU_OUT REG_OUT WBE CLK"],
+        behavior: ["NOP", "NOP"],
         depends_on: [],
         fire_name: ['svg_p:text7597', 'svg_p:text7515'],
         draw_data: [[],
@@ -198,13 +197,14 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
 
     sim_p.behaviors.MEM_READ = {
         nparameters: 5,
-        types: ["E", "E", "S", "E"],
+        types: ["E", "E", "E", "E"],
         operation: function (s_expr: string[]): void {
             var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
             var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
-            var bw = sim_p.signals[s_expr[3]].value;
+            var bw = get_value(sim_p.states[s_expr[3]]);
             var clk = get_value(sim_p.states[s_expr[4]]);
+            if (DEBUG) console.log(s_expr, "address", address, "dbvalue", dbvalue, "bw", bw, "clk", clk);
 
             var remain = get_value(sim_p.internal_states.MP_wc.read);
             if (
@@ -231,15 +231,16 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             // BW -> See Tables in Help
             dbvalue = value;
 
-            /* TODO: review BW Tables :-)
-               if (bw == 1) {
-                   var byte_s = 0x0000;
-                   dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
-               } else if (bw == 2) {
-                   var byte_s = 0x0004;
-                   dbvalue = main_memory_fusionvalues(dbvalue, value, byte_s) ;
-               }
-            */
+            if (bw == 1) {
+                var byte_s = 0x0000;
+                value = main_memory_fusionvalues(value, dbvalue, byte_s);
+            } else if (bw == 2) {
+                var byte_s = 0x0004;
+                value = main_memory_fusionvalues(value, dbvalue, byte_s);
+            } else {
+                var byte_s = 0x000C;
+                value = main_memory_fusionvalues(value, dbvalue, byte_s);
+            }
 
             set_value(sim_p.states[s_expr[2]], dbvalue >>> 0);
             show_main_memory(sim_p.internal_states.MP, address, full_redraw, false);
@@ -287,13 +288,14 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
 
     sim_p.behaviors.MEM_WRITE = {
         nparameters: 5,
-        types: ["E", "E", "S", "E"],
+        types: ["E", "E", "E", "E"],
         operation: function (s_expr: string[]): void {
             var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
             var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
-            var bw = sim_p.signals[s_expr[3]].value;
+            var bw = get_value(sim_p.states[s_expr[3]]);
             var clk = get_value(sim_p.states[s_expr[4]]);
+            if (DEBUG) console.log(s_expr, "address", address, "dbvalue", dbvalue, "bw", bw, "clk", clk);
 
             var remain = get_value(sim_p.internal_states.MP_wc.write);
             if (
@@ -392,6 +394,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors.MEMORY_RESET = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(s_expr);
             // reset events.mem
             sim_p.events.mem = {};
         },
