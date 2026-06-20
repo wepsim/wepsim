@@ -160,7 +160,8 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals.DMR = {
         name: "DMR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: ["NOP",
-            "MEM_READ ALU_WOUT RDATAM WBE CLK; FIRE M5"],
+            "MEM_READ ALU_OUT RDATAM WBE CLK;"],
+        depends_on: [],
         fire_name: ['svg_p:text7589', 'svg_p:text7507'],
         draw_data: [[],
         ['svg_p:path6837-6', 'svg_p:path7073',
@@ -170,7 +171,8 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals.DMW = {
         name: "DMW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: ["NOP",
-            "MEM_WRITE ALU_WOUT REG_OUT WBE CLK"],
+            "MEM_WRITE ALU_OUT REG_OUT WBE CLK"],
+        depends_on: [],
         fire_name: ['svg_p:text7597', 'svg_p:text7515'],
         draw_data: [[],
         ['svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619',
@@ -182,6 +184,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals["IMR"] = {
         name: "IMR", visible: true, type: "E", value: 0, default_value: 0, nbits: "1",
         behavior: ["NOP", "READ_IM"],
+        depends_on: [],
         fire_name: ['svg_p:text7213'],
         draw_data: [['svg_p:path6691', 'svg_p:path6693', 'svg_p:path6691-3-3',
             'svg_p:path6711']],

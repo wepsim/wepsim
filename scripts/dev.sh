@@ -31,7 +31,7 @@ nodemon \
     --watch external \
     --ignore sim_hw/ts_out \
     --ext js,ts,json,html,css \
-    --exec "bash devel/mk_dist.sh" &
+    --exec "bash devel/mk_dist_parallel.sh" &
 NODEMON_PID=$!
 
 echo ""

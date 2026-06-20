@@ -48,7 +48,8 @@
                              "<th width='10%' class='asm_label collapse' align='right'><span data-langkey='labels'>labels</span></th>" +
 			     "<th width='15%' class='asm_addr  collapse' align='center'><span><span data-langkey='addr'>addr</span></span><span class='d-none d-sm-inline-flex'><span data-langkey='ess'>ess</span></span></th>" +
                              "<th width='1%'  class='asm_brk   collapse' align='right'><span data-langkey='breakpoint'>breakpoint</span></th>" +
-                             "<th width='14%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
+                             "<th width='5%'  class='asm_stage d-none' align='center'><span>stage</span></th>" +
+                             "<th width='12%' class='asm_hex   collapse' align='right'><span data-langkey='content'>content</span></th>" +
                              "<th width='30%' class='asm_ins   collapse' align='left' ><span data-langkey='assembly'>assembly</span></th>" +
 			     "<th width='30%' class='asm_pins  collapse' align='left' ><span>pseudo</span><span class='d-none d-md-inline'><small><span data-langkey='instructions'>instructions</span></small></span></th>" +
 			     "</tr>" +
@@ -267,7 +268,7 @@
                          o_tdf = "<td class='font-monospace col-auto pb-0' " +
                                  "    style='line-height:0.9;' align='left'>" +
                                  "&vellip;&vellip; &times;" + n_ellipsis + "</td>" ;
-                         o += "<tr>" + o_tde + o_tdf + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
+                         o += "<tr>" + o_tde + o_tdf + o_tde + o_tde + o_tdf + o_tde + o_tde + o_tdf + "</tr>" ;
                          n_ellipsis = 0 ;
                      }
 		     old_s3_val = s3_val ;
@@ -285,7 +286,7 @@
 		     if (typeof a2s[p] !== "undefined")
 		     {
 			 o += "<tr>" +
-			      "<td class='sticky-top bg-body' colspan='7' align='left' style='line-height:0.3;'>" +
+			      "<td class='sticky-top bg-body' colspan='8' align='left' style='line-height:0.3;'>" +
                               "<small><font color='gray'>" + a2s[p] + "</font></small>" +
                               "</td>" +
 			      "</tr>" ;
@@ -323,6 +324,8 @@
 		     "<td class='asm_break  font-monospace col-auto show p-0' " +
 		     "    style='line-height:0.9;' id='bp" + p + "' width='1%'>" +
 		     "</td>" +
+		     "<td class='asm_stage  font-monospace col-auto d-none' " +
+		     "    style='line-height:0.9;' align='center'></td>" +
 		     "<td class='asm_hex    font-monospace col-auto collapse text-secondary' " +
 		     "    style='line-height:0.9; width:13%' align='center'>" + s4_hex +
 		     "</td>" +
@@ -376,6 +379,8 @@
 		   "    style='line-height:0.9;' id='bp" + p + "' width='1%' " + oclk + ">" +
 	           "<span data-bs-toggle='tooltip' rel='tooltip1' title='click to toggle breakpoint'>.</span>" +
 		   "</td>" +
+		   "<td class='asm_stage  font-monospace col-auto d-none' " +
+		   "    style='line-height:0.9;' align='center'></td>" +
 		   "<td class='asm_hex    font-monospace col-auto collapse' " +
 		   "    style='line-height:0.9; width:13%' align='center' " + oclk + ">" + s4_hex +
 		   "</td>" +
@@ -817,5 +822,8 @@
 	    }
 
 	    asmdbg_loadContent(asmdbg_content) ;
+
+		// hide stage column (may be shown later by pipeline CPU)
+		$(".asm_stage").addClass("d-none");
 	}
 

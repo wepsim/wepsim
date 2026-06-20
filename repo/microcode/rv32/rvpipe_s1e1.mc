@@ -8,13 +8,7 @@ firmware {
    endian   = little
 }
 
-begin
-{
-   fetch:   # IR <- MP[PC]
-              (IMR),
-            # Decode, PC <- PC + 4
-              (AluOp=1010, M3=10, M4, PCWrite, IRWrite),
-}
+begin{fetch:()}
 
 #  ADD rd,rs1,rs2         Add                                 rd ← rs1 + rs2
 add rd rs1 rs2 {
@@ -24,7 +18,7 @@ add rd rs1 rs2 {
       reg(19:15)=rs1,
       reg(24:20)=rs2,
       {
-          (M2, M3=0, AluOp=1010, M5=0, RW)
+          (AluOp=1010, RW)
       }
 }
 
@@ -36,20 +30,294 @@ addi rd rs1 imm {
       reg(19:15)=rs1,
       imm(31:20)=imm,
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2, M3=11, AluOp=1010, M5=0, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, RW)
       }
 }
 
-#  JALR rd,rs1,offset       Jump and Link Register           rd = pc; pc = rs1 + offset
-jalr rd rs1 offset {
-      oc(6:0)=1100111,
-      eoc(14:12)=000,
+#  ADDU rd,rs1,imm         Add Unsigned                         rd ← rs1 + sx(imm)
+addu rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=101,
       reg(11:7)=rd,
       reg(19:15)=rs1,
-      address-rel(31:20)=offset,
+      imm(31:20)=imm,
+      help='rd = rs1 + imm',
       {
-          (M2=0, AluOp=11110, M5=0, RW)
-          (SE_IMM=1, OFFSET=0, SIZE=1100, GEN_IMM=1, M2, M3=11, AluOp=1010, M4, PCWrite)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=10000, RW)
+      }
+}
+
+#  AND rd,rs1,rs2         And                                 rd ← ux(rs1) ∧ ux(rs2)
+and rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1110000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 & r3',
+      {
+          (AluOp=0001, RW)
+      }
+}
+
+#  ANDI rd,rs1,imm         And Immediate                         rd ← ux(rs1) ∧ ux(imm)
+andi rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=111,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 & imm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0001, RW)
+      }
+}
+
+#  MULL rd,rs1,rs2         Multiply                            rd ← sx(rs1) × sx(rs2)
+mul rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0000000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 * r3',
+      {
+          (AluOp=1100, RW)
+      }
+}
+
+# DIV rd,rs1,rs2         Divide Signed         rd ← sx(rs1) ÷ sx(rs2)
+div rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1000000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='reg1 = reg2 / reg3',
+      {
+          (AluOp=1101, RW) # TODO handle div 0 exception
+      }
+}
+
+# DIVU rd,rs1,rs2         Divide Unsigned         rd ← ux(rs1) ÷ ux(rs2)
+divu rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='reg1 = ux(reg2) / ux(reg3)',
+      {
+          (AluOp=10011, RW) # TODO handle div 0 exception
+      }
+}
+
+#  OR rd,rs1,rs2         Or                                    rd ← ux(rs1) ∨ ux(rs2)
+or rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1100000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 | r3',
+      {
+          (AluOp=0010, RW)
+      }
+}
+
+#  ORI rd,rs1,imm         Or Immediate                         rd ← ux(rs1) ∨ ux(imm)
+ori rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=110,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 | imm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0010, RW)
+      }
+}
+
+# REM rd,rs1,rs2         Remainder Signed         rd ← sx(rs1) mod sx(rs2)
+rem rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1100000001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='reg1 = reg2 % reg3',
+      {
+          (AluOp=1110, RW)
+      }
+}
+
+#  SLL rd,rs1,rs2         Shift Left Logical                     rd ← ux(rs1) « rs2
+sll rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 <<< rs2',
+      {
+            (AluOp=111, RW)
+      }
+}
+
+#  SLLI rd,rs1,imm         Shift Left Logical Immediate             rd ← ux(rs1) « ux(imm)
+slli rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=0010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 << imm)',
+      {
+            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=111, RW)
+      }
+}
+
+#  SLT rd,rs1,rs2         Set Less Than                         rd ← sx(rs1) < sx(rs2)
+slt rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0100000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = (rs1 < rs2) ? 1 : 0',
+      {
+          (AluOp=1011, RW),
+      }
+}
+
+#  SLTI rd,rs1,imm         Set Less Than Immediate             rd ← sx(rs1) < sx(imm)
+slti rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=010,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = (rs1 < imm) ? 1 : 0',
+      {
+        (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=1011, RW)
+      }
+}
+
+#  SLTU rd,rs1,rs2         Set Less Than Unsigned                     rd ← ux(rs1) < ux(rs2)
+sltu rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0110000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = (ux(rs1) < ux(rs2)) ? 1 : 0',
+      {
+          (AluOp=10001, RW),
+      }
+}
+
+
+#  SRA rd,rs1,rs2         Shift Right Arithmetic                     rd ← sx(rs1) » rs2
+sra rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 >> rs2',
+      {
+            (AluOp=110, RW)
+      }
+}
+
+#  SRAI rd,rs1,imm         Shift Right Arithmetic Immediate         rd ← sx(rs1) » ux(imm)
+srai rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=1010100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 >> imm)',
+      {
+            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=110, RW)
+      }
+}
+
+#  SRL rd,rs1,rs2         Shift Right Logical                     rd ← ux(rs1) » rs2
+srl rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='rd = rs1 >>> rs2',
+      {
+            (AluOp=101, RW)
+      }
+}
+
+#  SRLI rd,rs1,imm         Shift Right Logical Immediate             rd ← ux(rs1) » ux(imm)
+srli rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12|31:25)=1010000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(24:20)=imm,
+      help='rd = (rs1 >>> imm)',
+      {
+            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=101, RW)
+      }
+}
+
+#  SUB rd,rs1,rs2         Sub                                 rd ← sx(rs1) - sx(rs2)
+sub rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=0000100000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 + r3',
+      {
+          (AluOp=1011, RW)
+      }
+}
+
+#  SUBI rd,rs1,imm         Sub Immediate                         rd ← rs1 - sx(imm)
+subi rd rs1 imm {
+      oc(6:0)=1000000,
+      eoc(14:12)=001,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 - SignEx(imm)',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1011, RW)
+      }
+}
+
+#  XOR rd,rs1,rs2         Xor                                 rd ← ux(rs1) ⊕ ux(rs2)
+xor rd rs1 rs2 {
+      oc(6:0)=0110011,
+      eoc(14:12|31:25)=1000000000,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      reg(24:20)=rs2,
+      help='r1 = r2 ^ r3',
+      {
+          (AluOp=0100, RW)
+      }
+}
+
+#  XORI rd,rs1,imm         Xor Immediate                         rd ← ux(rs1) ⊕ ux(imm)
+xori rd rs1 imm {
+      oc(6:0)=0010011,
+      eoc(14:12)=100,
+      reg(11:7)=rd,
+      reg(19:15)=rs1,
+      imm(31:20)=imm,
+      help='rd = rs1 ^ imm',
+      {
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0100, RW)
       }
 }
 
@@ -59,7 +327,7 @@ lui rd imm {
       reg(11:7)=rd,
       imm(31:12)=imm,
       {
-          (SE_IMM=1, OFFSET=1100, SIZE=10100, GEN_IMM=1, M2, M3=11, AluOp=11111, M5=0, RW)
+          (SE_IMM=1, OFFSET=1100, SIZE=10100, M3=11, AluOp=11111, RW)
       }
 }
 
@@ -70,6 +338,13 @@ pseudoinstructions
     {
         lui  rd,     sel(31,12,expression)
         addi rd, rd, sel(11,0,expression)
+    }
+
+    # la rd, label        (several expansions)        Load address
+    la rd=reg, label=imm
+    {
+        lui  rd,     sel(31,12,label)
+        addu rd, rd, sel(11,0,label)
     }
 
     # mv rd, rs               addi rd, rs, 0              Copy register
@@ -83,17 +358,23 @@ pseudoinstructions
     {
         addi zero, zero, 0
     }
-
-    # jr rs                   jalr zero, rs, 0            Jump register
-    jr rs=reg
+    
+    # not rd, rs1        xori rd, rs, -1        One’s complement
+    not rd=reg, rs=reg
     {
-        jalr zero, rs, 0
+        xori rd, rs, -1
     }
 
-    # ret                     jalr zero, ra, 0            Return
-    ret
+    # neg rd, rs1        sub rd, x0, rs        Two’s complement
+    neg rd=reg, rs=reg
     {
-        jalr zero, ra, 0
+        sub rd, zero, rs
+    }
+    
+    # jr rs            jalr x0, rs, 0        Jump register
+    jr rs=reg
+    {
+        addi zero, zero, 0 # nop TODO
     }
 }
 

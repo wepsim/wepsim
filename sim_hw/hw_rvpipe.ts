@@ -47,9 +47,9 @@ cpu_rvpipe_register(rvpipe_def);
 mem_rvpipe_register(rvpipe_def);
 io_screen_base_register(rvpipe_def);
 io_keyboard_base_register(rvpipe_def);
-io_clk_base_register(rvpipe_def);
-io_l3d_base_register(rvpipe_def);
-io_ldm_base_register(rvpipe_def);
-io_sound_base_register(rvpipe_def);
+// io_clk_base_register(rvpipe_def);
+// io_l3d_base_register(rvpipe_def);
+// io_ldm_base_register(rvpipe_def);
+// io_sound_base_register(rvpipe_def);
 
 simhw_add(rvpipe_def);

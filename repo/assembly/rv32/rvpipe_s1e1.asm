@@ -21,3 +21,4 @@ main:
     add     a1, a0, a2   # a1 = 2 + a2 = 15
     add     a2, a0, a1   # a2 = 2 + a1 = 17
     add     a2, a0, a1   # a2 = 2 + a1 = 17
+    nop # finish
