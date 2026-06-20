@@ -60,8 +60,7 @@ function io_ldm_base_register ( sim_p )
 
                                                     set_value(simhw_sim_state('BUS_AB'), elto) ;
                                                     set_value(simhw_sim_signal('IOR'), 1) ;
-                                                    //compute_behavior("FIRE IOR") ;
-						    signal_fire("IOR") ;
+						    signal_fire("IOR") ; //compute_behavior("FIRE IOR") ;
                                                     value = get_value(simhw_sim_state('BUS_DB')) ;
 
                                                     return value ;
@@ -76,8 +75,7 @@ function io_ldm_base_register ( sim_p )
                                                     set_value(simhw_sim_state('BUS_AB'), elto) ;
                                                     set_value(simhw_sim_state('BUS_DB'), value) ;
                                                     set_value(simhw_sim_signal('IOW'), 1) ;
-                                                    //compute_behavior("FIRE IOW") ;
-						    signal_fire("IOW") ;
+						    signal_fire("IOW") ; //compute_behavior("FIRE IOW") ;
 
                                                     return value ;
                                                }
@@ -93,6 +91,7 @@ function io_ldm_base_register ( sim_p )
         sim_p.internal_states.ledm_state  = Array.from({length:sim_p.internal_states.ledm_neltos}, () => ({color: {value:0} })) ;
         sim_p.internal_states.ledm_colors = colors_clone('') ;
         sim_p.internal_states.ledm_frame  = '0'.repeat(sim_p.internal_states.ledm_neltos) ;
+        sim_p.internal_states.ledm_sync   = false ;
 
         sim_p.internal_states.io_hash[LEDMSR_ID] = "LEDMSR" ;
         sim_p.internal_states.io_hash[LEDMCR_ID] = "LEDMCR" ;
@@ -233,6 +232,8 @@ function io_ldm_base_register ( sim_p )
                                                               // update internal state
                                                               var p = y*sim_p.internal_states.ledm_dim + x ;
                                                               set_var(sim_p.internal_states.ledm_state[p].color, s);
+
+                                                              sim_p.internal_states.ledm_sync = false ;
                                                           }
 
                                                           // 0x20 -> DMA
@@ -250,6 +251,8 @@ function io_ldm_base_register ( sim_p )
                                                                    set_var(sim_p.internal_states.ledm_state[p+2].color, (s & 0x00FF0000) >>> 16);
                                                                    set_var(sim_p.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >>> 24);
                                                               }
+
+                                                              sim_p.internal_states.ledm_sync = false ;
                                                           }
 
                                                           // 0x40 -> DMA colors
@@ -277,6 +280,8 @@ function io_ldm_base_register ( sim_p )
                                                                    set_var(sim_p.internal_states.ledm_state[p].color, ~s);
                                                                    set_var(sim_p.internal_states.ledm_state[p].color, s);
                                                               }
+
+                                                              sim_p.internal_states.ledm_sync = false ;
                                                           }
 
                                                           // 0x80 -> DMA for limited number of rows
@@ -301,6 +306,8 @@ function io_ldm_base_register ( sim_p )
                                                                    set_var(sim_p.internal_states.ledm_state[p+2].color, (s & 0x00FF0000) >>> 16);
                                                                    set_var(sim_p.internal_states.ledm_state[p+3].color, (s & 0xFF000000) >>> 24);
                                                               }
+
+                                                              sim_p.internal_states.ledm_sync = false ;
                                                           }
                                                       }
                                                    },
@@ -368,6 +375,8 @@ function io_ldm_base_register ( sim_p )
                                                         simcore_rest_call('LEDM', 'POST', '/', {'frame': o}) ;
                                                             // 201 (Created) -> ok
                                                             // 400 (Bad request) -> ko
+
+                                                        sim_p.internal_states.ledm_sync = false ;
                                                   },
                                           verbal: function (s_expr)
                                                   {
@@ -378,6 +387,10 @@ function io_ldm_base_register ( sim_p )
         sim_p.behaviors.LEDM_SYNC  = { nparameters: 1,
                                        operation: function (s_expr)
                                                   {
+                                                        if (sim_p.internal_states.ledm_sync) {
+							    return ;
+							}
+
                                                         // internal state -> frame in REST
                                                         var ledmstates = sim_p.internal_states.ledm_state ;
                                                         var o = '' ;
@@ -400,6 +413,8 @@ function io_ldm_base_register ( sim_p )
                                                                 // 201 (Created) -> ok
                                                                 // 400 (Bad request) -> ko
                                                         }
+
+                                                        sim_p.internal_states.ledm_sync = true ;
                                                    },
                                           verbal: function (s_expr)
                                                   {

@@ -60,8 +60,7 @@ function io_l3d_base_register ( sim_p )
 
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
 						    set_value(simhw_sim_signal('IOR'), 1) ;
-						    //compute_behavior("FIRE IOR") ;
-						    signal_fire("IOR") ;
+						    signal_fire("IOR") ; //compute_behavior("FIRE IOR") ;
 						    value = get_value(simhw_sim_state('BUS_DB')) ;
 
 						    return value ;
@@ -76,8 +75,7 @@ function io_l3d_base_register ( sim_p )
 						    set_value(simhw_sim_state('BUS_AB'), elto) ;
 						    set_value(simhw_sim_state('BUS_DB'), value) ;
 						    set_value(simhw_sim_signal('IOW'), 1) ;
-						    //compute_behavior("FIRE IOW") ;
-						    signal_fire("IOW") ;
+						    signal_fire("IOW") ; //compute_behavior("FIRE IOW") ;
 
 						    return value ;
                                                }

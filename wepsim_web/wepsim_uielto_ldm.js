@@ -160,6 +160,7 @@
 		return false ;
 	    }
 
+	    simhw_internalState_set('ledm_sync', false) ;
             compute_general_behavior('LEDM_SYNC') ;
             return true ;
         }
