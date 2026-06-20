@@ -211,8 +211,7 @@
         {
 	    if (mc_elto.is_native)
 	    {
-		// compute_behavior("FIRE IOCHK") ;
-                signal_fire("IOCHK") ;
+                signal_fire("IOCHK") ; // compute_behavior("FIRE IOCHK") ;
 
 		     if (typeof mc_elto.NATIVE_JIT != "undefined")
 			 mc_elto.NATIVE_JIT() ;

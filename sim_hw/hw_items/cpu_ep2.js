@@ -784,8 +784,8 @@ function cpu_ep2_register ( sim_p )
 			              draw_name: [['svg_p:path3121']] };
 
 	 sim_p.signals["SE"]     = { name: "SE", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE_IFSET T11 1; FIRE BW",
-			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE T3; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE_IFSET T11 1; FIRE BW"],
+			              behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE_IFSET T3 1; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; FIRE_IFSET T11 1; FIRE BW",
+			                         "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE_IFSET T3 1; CP_FIELD EXCODE_SE REG_MICROINS/EXCODE; EXT_SIG EXCODE_SE 5; FIRE_IFSET T11 1; FIRE BW"],
                                       depends_on: ["T3", "T11"],
 			              fire_name: ['svg_cu:text3147-5-6', 'svg_p:text3593', 'svg_p:text3431'],
 			              draw_data: [['svg_p:path3559-3']],
