@@ -32,8 +32,7 @@
     {
         set_value(simhw_sim_signal(elto), value) ;
 
-	//compute_behavior("FIRE " + elto) ;
-	signal_fire(elto) ;
+	signal_fire(elto) ; //compute_behavior("FIRE " + elto) ;
 
 	return value ;
     }
