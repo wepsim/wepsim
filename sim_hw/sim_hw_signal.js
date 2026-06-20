@@ -29,6 +29,12 @@
         var jit_fire_order_E = null ;
         var jit_fire_order_L = null ;
 
+     // to avoid loops such as M1->...->M1
+        var fire_array_isfiring = [] ;
+     // to avoid re-evaluations in the same clock cycle
+        var fire_array_updated  = [] ;
+
+
         function firedep_to_fireorder ( jit_fire_dep )
         {
             var allfireto = false;
@@ -69,6 +75,12 @@
                     jit_fire_order_L.push(jit_fire_order[i]) ;
                 }
             }
+
+	    // fire_array
+            for (var signal_name in simhw_sim_signals()) {
+		 fire_array_isfiring[signal_name] = false ;
+		  fire_array_updated[signal_name] = false ;
+            }
         }
 
         // TIP: update_state now is signal_apply_behaviour
@@ -99,36 +111,46 @@
             compute_signal_behavior(signal_name, index_behavior) ;
         }
 
-        var fire_stack = [] ;
-
         function signal_fire ( signal_name )
         {
-	    // 0. get if signal_name is_firing ...
-	    var is_firing = false ;
-	    if (typeof fire_stack[signal_name] != "undefined") {
-		is_firing = fire_stack[signal_name] ;
-	    }
-
 	    // 1. if is_firing -> return (avoid loops)
-	    if (is_firing) {
+	    if (fire_array_isfiring[signal_name]) {
 		return ;
 	    }
 
-	    // 2. is_firing = true
-	    fire_stack[signal_name] = true ;
+	    // 2 is_firing = true
+	    fire_array_isfiring[signal_name] = true ;
+	     fire_array_updated[signal_name] = true ;
 
-	    // 3. update draw
+	    // 3. processing signal...
 	    var signal_obj = simhw_sim_signal(signal_name) ;
-	    update_draw(signal_obj, signal_obj.value) ;
 
-	    // 4. for Level signals, propage it
+	    update_draw(signal_obj, signal_obj.value) ;
 	    if ("L" ==  signal_obj.type) {
 		signal_apply_behaviour(signal_name) ;
 	    }
 
-	    // 5. is_firing = false
-	    fire_stack[signal_name] = false ;
+	    // 4. is_firing = false
+	    fire_array_isfiring[signal_name] = false ;
         }
+
+        function signal_fireL ( )
+        {
+	    // 1. not updated by default
+	    for (const signal_name of jit_fire_order_L) {
+	         fire_array_updated[signal_name] = false ;
+	    }
+
+	    // 2. try to fire once per clock cycle
+	    for (const signal_name of jit_fire_order_L)
+	    {
+		 if (fire_array_updated[signal_name]) {
+		     continue ;
+		 }
+
+                 signal_fire(signal_name) ;
+	    }
+	}
 
 
         /*
@@ -220,14 +242,7 @@
 	    }
 	    else
 	    {
-		var signal_obj = null ;
-
-		for (const signal_name of jit_fire_order_L)
-		{
-		     signal_obj = simhw_sim_signal(signal_name) ;
-		     update_draw(signal_obj, signal_obj.value) ;
-		     signal_apply_behaviour(signal_name) ;
-		}
+                signal_fireL() ;
 	    }
 	}
 
