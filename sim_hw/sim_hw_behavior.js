@@ -164,7 +164,7 @@
             jit_behaviors = true ;
         }
 
-        function compute_behavior (input_behavior)
+        function compute_behavior ( input_behavior )
         {
             // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
             var s_exprs = input_behavior.split(";");

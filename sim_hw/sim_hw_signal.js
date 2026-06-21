@@ -118,7 +118,7 @@
 		return ;
 	    }
 
-	    // 2 is_firing = true
+	    // 2. is_firing = true
 	    fire_array_isfiring[signal_name] = true ;
 	     fire_array_updated[signal_name] = true ;
 
@@ -136,6 +136,8 @@
 
         function signal_fireL ( )
         {
+	    var signal_obj = null ;
+
 	    // 1. not updated by default
 	    for (const signal_name of jit_fire_order_L) {
 	         fire_array_updated[signal_name] = false ;
@@ -148,7 +150,14 @@
 		     continue ;
 		 }
 
-                 signal_fire(signal_name) ;
+                 // compact version of "signal_fire(signal_name);"
+		 fire_array_updated[signal_name] = true ;
+		 signal_obj = simhw_sim_signal(signal_name) ;
+
+		 update_draw(signal_obj, signal_obj.value) ;
+		 if ("L" ==  signal_obj.type) {
+		     signal_apply_behaviour(signal_name) ;
+		 }
 	    }
 	}
 
