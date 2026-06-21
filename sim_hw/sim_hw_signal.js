@@ -155,9 +155,7 @@
 		 signal_obj = simhw_sim_signal(signal_name) ;
 
 		 update_draw(signal_obj, signal_obj.value) ;
-		 if ("L" ==  signal_obj.type) {
-		     signal_apply_behaviour(signal_name) ;
-		 }
+		 signal_apply_behaviour(signal_name) ;
 	    }
 	}
 
