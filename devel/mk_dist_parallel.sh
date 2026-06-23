@@ -158,6 +158,7 @@ PARALLEL_PIDS=""
       sim_sw/assembly/compiler3_obj2mem_wepsim.js \
       sim_sw/assembly/compiler_options.js \
       sim_sw/assembly.js > ws_dist/sim_all.js
+  # terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
   cp ws_dist/sim_all.js ws_dist/min.sim_all.js
   rm -f ws_dist/sim_all.js
 } &
@@ -183,6 +184,7 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
     cp wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
     cp wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
   done
+  # terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
   cp ws_dist/wepsim_i18n.js ws_dist/min.wepsim_i18n.js
   rm -f ws_dist/wepsim_i18n.js
 } &
@@ -217,6 +219,7 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       wepsim_core/wepsim_voice_commands.js \
       \
       wepsim_core/wepsim_dbg_breakpointicons.js > ws_dist/wepsim_core.js
+  # terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
   cp ws_dist/wepsim_core.js ws_dist/min.wepsim_core.js
   rm -f ws_dist/wepsim_core.js
 } &
@@ -297,7 +300,8 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       wepsim_web/wepsim_web_api.js \
       wepsim_web/wepsim_web_editor.js \
       wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_webui.js
-  terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
+  # terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
+  cp ws_dist/wepsim_webui.js ws_dist/min.wepsim_webui.js
   rm -f ws_dist/wepsim_webui.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
@@ -345,7 +349,8 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       external/annyang.min.js \
       external/speechkitt/speechkitt.min.js \
       external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
-  terser --comments -o ws_dist/min.external.js ws_dist/external.js
+  # terser --comments -o ws_dist/min.external.js ws_dist/external.js
+  cp ws_dist/external.js ws_dist/min.external.js
   rm -f ws_dist/external.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"

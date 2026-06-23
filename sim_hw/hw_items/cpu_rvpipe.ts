@@ -171,6 +171,156 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         is_pointer: false
     };
 
+    enum STATES {
+        REG_PC = "REG_PC",
+        IF_FETCH_PC = "IF_FETCH_PC",
+        ADDER_PC = "ADDER_PC",
+        M1_ALU = "M1_ALU",
+        M2_ALU = "M2_ALU",
+        M3_ALU = "M3_ALU",
+        ALU_OUT = "ALU_OUT",
+        FLAG_N = "FLAG_N",
+        FLAG_Z = "FLAG_Z",
+        R_DATA1 = "R_DATA1",
+        R_DATA2 = "R_DATA2",
+        INTV = "INTV",
+        IORdy = "IORdy",
+        BUS_DB = "BUS_DB",
+        BUS_AB = "BUS_AB",
+        IF_ID_IR = "IF_ID_IR",
+        IF_ID_PC = "IF_ID_PC",
+        ID_EX_RS1 = "ID_EX_RS1",
+        ID_EX_RS2 = "ID_EX_RS2",
+        ID_EX_RS1_ADDR = "ID_EX_RS1_ADDR",
+        ID_EX_RS2_ADDR = "ID_EX_RS2_ADDR",
+        ID_EX_RD = "ID_EX_RD",
+        ID_EX_ALUOP = "ID_EX_ALUOP",
+        ID_EX_M3 = "ID_EX_M3",
+        ID_EX_IMM = "ID_EX_IMM",
+        ID_EX_PC = "ID_EX_PC",
+        ID_EX_WB = "ID_EX_WB",
+        ID_EX_DMR = "ID_EX_DMR",
+        ID_EX_DMW = "ID_EX_DMW",
+        ID_EX_WBE = "ID_EX_WBE",
+        ID_EX_SE = "ID_EX_SE",
+        EX_MEM_ALUOUT = "EX_MEM_ALUOUT",
+        EX_MEM_WDATA = "EX_MEM_WDATA",
+        EX_MEM_RD = "EX_MEM_RD",
+        EX_MEM_WB = "EX_MEM_WB",
+        EX_MEM_PC = "EX_MEM_PC",
+        EX_MEM_DMR = "EX_MEM_DMR",
+        EX_MEM_DMW = "EX_MEM_DMW",
+        EX_MEM_WBE = "EX_MEM_WBE",
+        EX_MEM_SE = "EX_MEM_SE",
+        MEM_WB_DATA = "MEM_WB_DATA",
+        MEM_WB_RD = "MEM_WB_RD",
+        MEM_WB_WB = "MEM_WB_WB",
+        MEM_WB_PC = "MEM_WB_PC",
+        MEM_WB_LOAD = "MEM_WB_LOAD",
+        DECODE_DMR = "DECODE_DMR",
+        DECODE_DMW = "DECODE_DMW",
+        DECODE_WBE = "DECODE_WBE",
+        DECODE_SE = "DECODE_SE",
+        DECODE_RS1_ADDR = "DECODE_RS1_ADDR",
+        DECODE_RS2_ADDR = "DECODE_RS2_ADDR",
+        DECODE_RD_ADDR = "DECODE_RD_ADDR",
+        DECODE_ALUOP = "DECODE_ALUOP",
+        DECODE_M3 = "DECODE_M3",
+        DECODE_WB = "DECODE_WB",
+        PIPE_STALL = "PIPE_STALL",
+        RDATA = "RDATA",
+        RDATAM = "RDATAM",
+        VAL_ZERO = "VAL_ZERO",
+        VAL_ONE = "VAL_ONE",
+        VAL_FOUR = "VAL_FOUR",
+        VAL_IMM = "VAL_IMM",
+        CLK = "CLK",
+        REG_IR_DECO = "REG_IR_DECO",
+        REG_MICROADDR = "REG_MICROADDR",
+        MUXA_MICROADDR = "MUXA_MICROADDR",
+        REG_MICROINS = "REG_MICROINS",
+        DECO_INS = "DECO_INS",
+        ACC_TIME = "ACC_TIME",
+        TTCPU = "TTCPU",
+    };
+
+    enum SIGNALS {
+        ADDER_PC = "ADDER_PC",
+        PIPE_FETCH = "PIPE_FETCH",
+        RW = "RW",
+        PIPE_DECODE = "PIPE_DECODE",
+        PIPE_HAZARD = "PIPE_HAZARD",
+        PIPE_FORWARD = "PIPE_FORWARD",
+        PCWRITE = "PCWRITE",
+        SE_IMM = "SE_IMM",
+        SIZE = "SIZE",
+        OFFSET = "OFFSET",
+        X2_IMM = "X2_IMM",
+        M1 = "M1",
+        M2 = "M2",
+        M3 = "M3",
+        FORWARDING_UNIT = "FORWARDING_UNIT",
+        M4 = "M4",
+        IMR = "IMR",
+        LOAD_MEM_WB_DATA = "LOAD_MEM_WB_DATA",
+        LOAD_ALUOP = "LOAD_ALUOP",
+        ALUOP = "ALUOP",
+        PIPE_MEM_STAGE = "PIPE_MEM_STAGE",
+        WBE = "WBE",
+        IOCHK = "IOCHK",
+        DB_UPDATED = "DB_UPDATED",
+        CLK = "CLK",
+        DMR = "DMR",
+        DMW = "DMW",
+        TEST_N = "TEST_N",
+        TEST_Z = "TEST_Z",
+        IF_ID_RST = "IF_ID_RST",
+        ID_EX_RST = "ID_EX_RST",
+        EX_MEM_RST = "EX_MEM_RST",
+        MEM_WB_RST = "MEM_WB_RST",
+    };
+
+    enum BEHAVIORS {
+        NOP = "NOP",
+        NOP_ALU = "NOP_ALU",
+        MV = "MV",
+        AND = "AND",
+        OR = "OR",
+        XOR = "XOR",
+        NOT = "NOT",
+        ADD = "ADD",
+        SUB = "SUB",
+        ADDU = "ADDU",
+        LUI = "LUI",
+        MUL = "MUL",
+        DIV = "DIV",
+        MOD = "MOD",
+        SUBU = "SUBU",
+        MULU = "MULU",
+        DIVU = "DIVU",
+        SRL = "SRL",
+        SRA = "SRA",
+        SL = "SL",
+        RR = "RR",
+        RL = "RL",
+        READ_IM = "READ_IM",
+        FIRE = "FIRE",
+        FIRE_IFSET = "FIRE_IFSET",
+        DECO_IMM = "DECO_IMM",
+        UPDATE_NZ = "UPDATE_NZ",
+        CPU_RESET = "CPU_RESET",
+        PIPE_IF = "PIPE_IF",
+        PIPE_DECO = "PIPE_DECO",
+        HAZARD_DETECTION_UNIT = "HAZARD_DETECTION_UNIT",
+        FORWARDING_UNIT = "FORWARDING_UNIT",
+        PIPE_WB_WRITE = "PIPE_WB_WRITE",
+        PIPE_DISPLAY = "PIPE_DISPLAY",
+        PIPE_WB_LOAD = "PIPE_WB_LOAD",
+        PIPE_MEM_STAGE_OP = "PIPE_MEM_STAGE_OP",
+        MEM_READ = "MEM_READ",
+        MEM_WRITE = "MEM_WRITE",
+        CLOCK = "CLOCK",
+    };
 
     /*
      *  Internal States
@@ -181,15 +331,46 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.internal_states.fire_once = [];
     sim_p.internal_states.MC = { 0: { is_native: true, value: {}, default_value: {} } };
     sim_p.internal_states.ROM = {};
-    sim_p.internal_states.drain = 0;
-    sim_p.internal_states.draining = false;
 
     sim_p.internal_states.tri_state_names = [];
     sim_p.internal_states.fire_visible = { 'databus': false, 'internalbus': false };
-    sim_p.internal_states.filter_states = ["REG_IR_DECO,virtual", "REG_IR,real",
-        "REG_PC,real", "ID_EX_RS1_ADDR,real", "ID_EX_RS1,real", "ID_EX_RS2_ADDR,real", "ID_EX_RS2,real", "M1_ALU,real", "M3_ALU,real", "ALU_OUT,real"];
+    sim_p.internal_states.filter_states = ["REG_IR_DECO,virtual", "IF_ID_IR,real",
+        "REG_PC,real",
+        STATES.M1_ALU + ",real",
+        STATES.M3_ALU + ",real",
+        STATES.ALU_OUT + ",real",
+        STATES.IF_ID_IR + ",real",
+        STATES.IF_ID_PC + ",real",
+        STATES.ID_EX_RS1 + ",real",
+        STATES.ID_EX_RS2 + ",real",
+        STATES.ID_EX_RS1_ADDR + ",real",
+        STATES.ID_EX_RS2_ADDR + ",real",
+        STATES.ID_EX_RD + ",real",
+        STATES.ID_EX_ALUOP + ",real",
+        STATES.ID_EX_M3 + ",real",
+        STATES.ID_EX_IMM + ",real",
+        STATES.ID_EX_PC + ",real",
+        STATES.ID_EX_WB + ",real",
+        STATES.ID_EX_DMR + ",real",
+        STATES.ID_EX_DMW + ",real",
+        STATES.ID_EX_WBE + ",real",
+        STATES.ID_EX_SE + ",real",
+        STATES.EX_MEM_ALUOUT + ",real",
+        STATES.EX_MEM_WDATA + ",real",
+        STATES.EX_MEM_RD + ",real",
+        STATES.EX_MEM_WB + ",real",
+        STATES.EX_MEM_PC + ",real",
+        STATES.EX_MEM_DMR + ",real",
+        STATES.EX_MEM_DMW + ",real",
+        STATES.EX_MEM_WBE + ",real",
+        STATES.EX_MEM_SE + ",real",
+        STATES.MEM_WB_DATA + ",real",
+        STATES.MEM_WB_RD + ",real",
+        STATES.MEM_WB_WB + ",real",
+        STATES.MEM_WB_PC + ",real",
+        STATES.MEM_WB_LOAD + ",real"];
     sim_p.internal_states.filter_signals = ["ALUOP,0",
-        "IMR,0", "IRWRITE,0", "RW,0", "DMR,0", "DMW,0"];
+        "IMR,0", "RW,0", "DMR,0", "DMW,0"];
     sim_p.internal_states.alu_flags = { 'flag_n': 0, 'flag_z': 0 };
     sim_p.internal_states.halt = 0;
 
@@ -233,159 +414,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.states.BR[30] = { name: "R30", verbal: "Register 30", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[31] = { name: "R31", verbal: "Register 31", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
-    enum STATES {
-        REG_PC = "REG_PC",
-        M1_ALU = "M1_ALU",
-        M2_ALU = "M2_ALU",
-        M3_ALU = "M3_ALU",
-        ALU_OUT = "ALU_OUT",
-        FLAG_N = "FLAG_N",
-        FLAG_Z = "FLAG_Z",
-        R_DATA1 = "R_DATA1",
-        R_DATA2 = "R_DATA2",
-        INTV = "INTV",
-        IORdy = "IORdy",
-        BUS_DB = "BUS_DB",
-        BUS_AB = "BUS_AB",
-        IF_ID_INS = "IF_ID_INS",
-        IF_ID_PC = "IF_ID_PC",
-        ID_EX_RS1 = "ID_EX_RS1",
-        ID_EX_RS2 = "ID_EX_RS2",
-        ID_EX_RS1_ADDR = "ID_EX_RS1_ADDR",
-        ID_EX_RS2_ADDR = "ID_EX_RS2_ADDR",
-        ID_EX_RD = "ID_EX_RD",
-        ID_EX_ALUOP = "ID_EX_ALUOP",
-        ID_EX_ALUSRC = "ID_EX_ALUSRC",
-        ID_EX_IMM = "ID_EX_IMM",
-        ID_EX_PC = "ID_EX_PC",
-        ID_EX_WB = "ID_EX_WB",
-        ID_EX_DMR = "ID_EX_DMR",
-        ID_EX_DMW = "ID_EX_DMW",
-        ID_EX_WBE = "ID_EX_WBE",
-        ID_EX_SE = "ID_EX_SE",
-        EX_MEM_ALUOUT = "EX_MEM_ALUOUT",
-        EX_MEM_WDATA = "EX_MEM_WDATA",
-        EX_MEM_RD = "EX_MEM_RD",
-        EX_MEM_WB = "EX_MEM_WB",
-        EX_MEM_PC = "EX_MEM_PC",
-        EX_MEM_DMR = "EX_MEM_DMR",
-        EX_MEM_DMW = "EX_MEM_DMW",
-        EX_MEM_WBE = "EX_MEM_WBE",
-        EX_MEM_SE = "EX_MEM_SE",
-        MEM_WB_DATA = "MEM_WB_DATA",
-        MEM_WB_RD = "MEM_WB_RD",
-        MEM_WB_WB = "MEM_WB_WB",
-        MEM_WB_PC = "MEM_WB_PC",
-        DECODE_DMR = "DECODE_DMR",
-        DECODE_DMW = "DECODE_DMW",
-        DECODE_WBE = "DECODE_WBE",
-        DECODE_SE = "DECODE_SE",
-        DECODE_RS1_ADDR = "DECODE_RS1_ADDR",
-        DECODE_RS2_ADDR = "DECODE_RS2_ADDR",
-        DECODE_RD_ADDR = "DECODE_RD_ADDR",
-        DECODE_ALUOP = "DECODE_ALUOP",
-        DECODE_ALUSRC = "DECODE_ALUSRC",
-        DECODE_WB = "DECODE_WB",
-        PIPE_STALL = "PIPE_STALL",
-        RDATA = "RDATA",
-        RDATAM = "RDATAM",
-        VAL_ZERO = "VAL_ZERO",
-        VAL_ONE = "VAL_ONE",
-        VAL_FOUR = "VAL_FOUR",
-        VAL_IMM = "VAL_IMM",
-        CLK = "CLK",
-        REG_IR_DECO = "REG_IR_DECO",
-        REG_MICROADDR = "REG_MICROADDR",
-        MUXA_MICROADDR = "MUXA_MICROADDR",
-        REG_MICROINS = "REG_MICROINS",
-        DECO_INS = "DECO_INS",
-        ACC_TIME = "ACC_TIME",
-        TTCPU = "TTCPU",
-    };
-
-    enum SIGNALS {
-        PIPE_FETCH = "PIPE_FETCH",
-        RW = "RW",
-        PIPE_DECODE = "PIPE_DECODE",
-        PIPE_HAZARD = "PIPE_HAZARD",
-        PIPE_FORWARD = "PIPE_FORWARD",
-        PCWRITE = "PCWRITE",
-        SE_IMM = "SE_IMM",
-        SIZE = "SIZE",
-        OFFSET = "OFFSET",
-        X2_IMM = "X2_IMM",
-        M1 = "M1",
-        M2 = "M2",
-        M3 = "M3",
-        FORWARDING_UNIT = "FORWARDING_UNIT",
-        M4 = "M4",
-        IMR = "IMR",
-        LOAD_MEM_WB = "LOAD_MEM_WB",
-        LOAD_MEM_WB_DATA = "LOAD_MEM_WB_DATA",
-        LOAD_EX_MEM = "LOAD_EX_MEM",
-        LOAD_EX_MEM_WBE = "LOAD_EX_MEM_WBE",
-        PIPE_STALL_CHECK = "PIPE_STALL_CHECK",
-        LOAD_ID_EX = "LOAD_ID_EX",
-        LOAD_IF_ID = "LOAD_IF_ID",
-        LOAD_ALUOP = "LOAD_ALUOP",
-        ALUOP = "ALUOP",
-        PIPE_MEM_STAGE = "PIPE_MEM_STAGE",
-        WBE = "WBE",
-        IOCHK = "IOCHK",
-        DB_UPDATED = "DB_UPDATED",
-        CLK = "CLK",
-        DMR = "DMR",
-        DMW = "DMW",
-        TEST_N = "TEST_N",
-        TEST_Z = "TEST_Z",
-    };
-
-    enum BEHAVIORS {
-        NOP = "NOP",
-        NOP_ALU = "NOP_ALU",
-        MV = "MV",
-        AND = "AND",
-        OR = "OR",
-        XOR = "XOR",
-        NOT = "NOT",
-        ADD = "ADD",
-        SUB = "SUB",
-        ADDU = "ADDU",
-        LUI = "LUI",
-        MUL = "MUL",
-        DIV = "DIV",
-        MOD = "MOD",
-        SUBU = "SUBU",
-        MULU = "MULU",
-        DIVU = "DIVU",
-        SRL = "SRL",
-        SRA = "SRA",
-        SL = "SL",
-        RR = "RR",
-        RL = "RL",
-        READ_IM = "READ_IM",
-        FIRE = "FIRE",
-        FIRE_IFSET = "FIRE_IFSET",
-        DECO_IMM = "DECO_IMM",
-        UPDATE_NZ = "UPDATE_NZ",
-        CPU_RESET = "CPU_RESET",
-        PIPE_IF = "PIPE_IF",
-        PIPE_DECO = "PIPE_DECO",
-        PIPE_HAZARD_DETECT = "PIPE_HAZARD_DETECT",
-        FORWARDING_UNIT = "FORWARDING_UNIT",
-        PIPE_WB_WRITE = "PIPE_WB_WRITE",
-        PIPE_DISPLAY = "PIPE_DISPLAY",
-        PIPE_HAZARD_CHECK = "PIPE_HAZARD_CHECK",
-        PIPE_WB_LOAD = "PIPE_WB_LOAD",
-        PIPE_MEM_STAGE_OP = "PIPE_MEM_STAGE_OP",
-        MEM_READ = "MEM_READ",
-        MEM_WRITE = "MEM_WRITE",
-        CLOCK = "CLOCK",
-    };
-
     sim_p.states[STATES.REG_PC] = {
         name: "PC", verbal: "Program Counter Register",
         visible: true, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.IF_FETCH_PC] = {
+        name: "IF_PC", verbal: "IF Stage Program Counter",
+        visible: false, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.ADDER_PC] = {
+        name: "ADDER_PC", verbal: "Result of PC + 4",
+        visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
 
@@ -458,8 +499,13 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
     /* PIPELINE REGISTERS */
     // IF/ID
-    sim_p.states[STATES.IF_ID_INS] = {
+    sim_p.states[STATES.IF_ID_IR] = {
         name: "IF_ID_INS", verbal: "IF/ID Instruction",
+        visible: true, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.IF_ID_PC] = {
+        name: "IF_ID_PC", verbal: "IF/ID PC",
         visible: true, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
@@ -494,8 +540,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: true, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
-    sim_p.states[STATES.ID_EX_ALUSRC] = {
-        name: "ID_EX_ALUSRC", verbal: "ID/EX ALU Src",
+    sim_p.states[STATES.ID_EX_M3] = {
+        name: "ID_EX_M3", verbal: "ID/EX M3",
         visible: true, nbits: "2", value: 0, default_value: 0,
         draw_data: []
     };
@@ -619,11 +665,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     // Pipeline PC tracking (for debug display)
-    sim_p.states[STATES.IF_ID_PC] = {
-        name: "IF_ID_PC", verbal: "IF/ID PC",
-        visible: true, nbits: "32", value: 0, default_value: 0,
-        draw_data: []
-    };
     sim_p.states[STATES.ID_EX_PC] = {
         name: "ID_EX_PC", verbal: "ID/EX PC",
         visible: true, nbits: "32", value: 0, default_value: 0,
@@ -642,6 +683,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.states[STATES.MEM_WB_PC] = {
         name: "MEM_WB_PC", verbal: "MEM/WB PC",
         visible: true, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.MEM_WB_LOAD] = {
+        name: "MEM_WB_LOAD", verbal: "MEM/WB Is Load",
+        visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
 
@@ -695,8 +741,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: false, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
-    sim_p.states[STATES.DECODE_ALUSRC] = {
-        name: "DECODE_ALUSRC", verbal: "Decoded ALU source",
+    sim_p.states[STATES.DECODE_M3] = {
+        name: "DECODE_M3", verbal: "Decoded M3",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
@@ -717,16 +763,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: true, nbits: "0", value: 0, default_value: 0,
         draw_data: []
     };
+    // Necessary for logic in wepsim but not in rvpipe
     sim_p.states[STATES.REG_MICROADDR] = {
         name: "uADDR", verbal: "Microaddress Register",
         visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
+    // Necessary for logic in wepsim but not in rvpipe
     sim_p.states[STATES.MUXA_MICROADDR] = {
         name: "MUXA_MICROADDR", verbal: "Input microaddress",
         visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
+    // Necessary for logic in wepsim but not in rvpipe
     sim_p.states[STATES.REG_MICROINS] = {
         name: "uINS", verbal: "Microinstruction Register",
         visible: false, nbits: "32", value: {}, default_value: {},
@@ -754,6 +803,15 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
      */
 
     /* Pipeline stage enable signals (L type, fire before other L signals) */
+    sim_p.signals[SIGNALS.ADDER_PC] = {
+        name: "PC_ADDER", visible: false, type: "E", value: 0, default_value: 0, nbits: "32",
+        behavior: [create_op(BEHAVIORS.ADD, STATES.ADDER_PC, STATES.IF_FETCH_PC, STATES.VAL_FOUR)],
+        depends_on: [],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+
     sim_p.signals[SIGNALS.PIPE_FETCH] = {
         name: "PIPE_FETCH", visible: false, type: "L", value: 1, default_value: 1, nbits: "1",
         behavior: [create_op(BEHAVIORS.PIPE_IF)],
@@ -768,7 +826,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "RW", visible: true, type: "L", value: 1, default_value: 1, nbits: "1",
         behavior: [create_op(BEHAVIORS.PIPE_WB_WRITE)],
         depends_on: [],
-        fire_name: ['svg_p:text7299'],
+        fire_name: ['svg_p:text7229-4'],
         draw_data: [['svg_p:path6725', 'svg_p:path6727', 'svg_p:path6729',
             'svg_p:path6731', 'svg_p:path6733', 'svg_p:path6735', 'svg_p:path6915',
             'svg_p:path6913', 'svg_p:path6907', 'svg_p:path6909']],
@@ -784,28 +842,22 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
 
-    sim_p.signals[SIGNALS.PIPE_HAZARD] = {
-        name: "PIPE_HAZARD", visible: false, type: "L", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.PIPE_HAZARD_DETECT)],
-        depends_on: [SIGNALS.PIPE_DECODE],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
-
     sim_p.signals[SIGNALS.PIPE_FORWARD] = {
         name: "PIPE_FORWARD", visible: false, type: "L", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.FORWARDING_UNIT) + create_op(BEHAVIORS.MV, SIGNALS.M3, STATES.ID_EX_ALUSRC)],
-        fire_name: ['LOAD_ID_EX'],
+        behavior: [create_op(BEHAVIORS.FORWARDING_UNIT) + create_op(BEHAVIORS.MV, SIGNALS.M3, STATES.ID_EX_M3)],
+        fire_name: ['ID_EX_RST'],
         draw_data: [[]],
         draw_name: [[]]
     };
 
     /* PC */
     sim_p.signals[SIGNALS.PCWRITE] = {
-        name: "PCWRITE", visible: true, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP)],
-        depends_on: [],
+        name: "PCWRITE", visible: true, type: "E", value: 1, default_value: 1, nbits: "2",
+        behavior: [create_op(BEHAVIORS.NOP),
+        create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.ADDER_PC),
+        create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.VAL_ZERO),
+        create_op(BEHAVIORS.NOP)],
+        depends_on: [SIGNALS.ADDER_PC, SIGNALS.IF_ID_RST],
         fire_name: ['svg_p:text7155'],
         draw_data: [[]],
         draw_name: [['svg_p:path7135', 'svg_p:path7125', 'svg_p:path7137']]
@@ -859,7 +911,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         depends_on: [SIGNALS.PIPE_FORWARD, SIGNALS.CLK],
         fire_name: ['svg_p:text7229-7', 'svg_p:text7229'],
         draw_data: [['svg_p:path6775', 'svg_p:path6777'], [], [], []],
-        draw_name: [['svg_p:path7199', 'svg_p:path7013']]
+        draw_name: [[], ['svg_p:path7199', 'svg_p:path7013'], ['svg_p:path7199', 'svg_p:path7013']]
     };
 
     sim_p.signals[SIGNALS.M2] = {
@@ -871,7 +923,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         depends_on: [SIGNALS.PIPE_FORWARD, SIGNALS.CLK],
         fire_name: ['svg_p:text7237', 'svg_p:text7237-0'],
         draw_data: [['svg_p:path6821', 'svg_p:path6823'], [], [], []],
-        draw_name: [['svg_p:path7197', 'svg_p:path7013-0']]
+        draw_name: [[], ['svg_p:path7197', 'svg_p:path7013-0'], ['svg_p:path7197', 'svg_p:path7013-0']]
     };
 
     sim_p.signals[SIGNALS.M3] = {
@@ -886,7 +938,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         ['svg_p:path7003-3', 'svg_p:path7001-4'],
         ['svg_p:path6827-3', 'svg_p:path6825-7'],
         ['svg_p:path6903-8-4-9', 'svg_p:path7013-5', 'svg_p:path6827-3-4', 'svg_p:path6825-7-8']],
-        draw_name: [['svg_p:path7197-7']]
+        draw_name: [[], ['svg_p:path7197-7'], ['svg_p:path7197-7'], ['svg_p:path7197-7']]
     };
 
     const F1_DRAW_DATA = ['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8', 'svg_p:path7567-0-8-6-9', 'svg_p:path7013-0-2-9-3', 'svg_p:path7567-0-6-9'];
@@ -938,101 +990,145 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
 
-    /* PIPELINE REGISTER TRANSFERS (always-active E signals)
-     * Fire order: MEM_WB before EX_MEM before ID_EX before IF_ID
-     * This ensures each LOAD captures the OLD register value before
-     * the next LOAD overwrites it.
-     */
-    sim_p.signals[SIGNALS.LOAD_MEM_WB] = {
-        name: "LOAD_MEM_WB", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP),
-        create_op(BEHAVIORS.MV, STATES.MEM_WB_DATA, STATES.EX_MEM_ALUOUT) +
-        create_op(BEHAVIORS.MV, STATES.MEM_WB_RD, STATES.EX_MEM_RD) +
-        create_op(BEHAVIORS.MV, STATES.MEM_WB_WB, STATES.EX_MEM_WB) +
-        create_op(BEHAVIORS.MV, STATES.MEM_WB_PC, STATES.EX_MEM_PC)
-        ],
-        depends_on: [],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
     /* LOAD WB DATA for loads: overwrite MEM_WB_DATA with RDATAM when load */
     sim_p.signals[SIGNALS.LOAD_MEM_WB_DATA] = {
         name: "LOAD_MEM_WB_DATA", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.PIPE_WB_LOAD)],
-        depends_on: [SIGNALS.LOAD_MEM_WB],
+        depends_on: [SIGNALS.MEM_WB_RST],
         fire_name: [],
         draw_data: [[]],
         draw_name: [[]]
     };
-    sim_p.signals[SIGNALS.LOAD_EX_MEM] = {
-        name: "LOAD_EX_MEM", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP),
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_ALUOUT, STATES.ALU_OUT) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_WDATA, STATES.M2_ALU) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_PC, STATES.ID_EX_PC) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_RD, STATES.ID_EX_RD) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_WB, STATES.ID_EX_WB) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_DMR, STATES.ID_EX_DMR) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_DMW, STATES.ID_EX_DMW)
-        ],
-        depends_on: [SIGNALS.LOAD_MEM_WB, SIGNALS.ALUOP],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
-    /* Propagate WBE and SE through EX/MEM */
-    sim_p.signals[SIGNALS.LOAD_EX_MEM_WBE] = {
-        name: "LOAD_EX_MEM_WBE", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP),
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_WBE, STATES.ID_EX_WBE) +
-        create_op(BEHAVIORS.MV, STATES.EX_MEM_SE, STATES.ID_EX_SE)
-        ],
-        depends_on: [SIGNALS.LOAD_EX_MEM],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
+
     /* HAZARD CHECK: detect load-use hazard before ID/EX capture */
-    sim_p.signals[SIGNALS.PIPE_STALL_CHECK] = {
-        name: "PIPE_STALL_CHECK", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.PIPE_HAZARD_CHECK)],
-        depends_on: [SIGNALS.LOAD_EX_MEM],
-        fire_name: [],
+    sim_p.signals[SIGNALS.PIPE_HAZARD] = {
+        name: "PIPE_HAZARD", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.HAZARD_DETECTION_UNIT), create_op(BEHAVIORS.HAZARD_DETECTION_UNIT)],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_p:text7229-7-2'],
         draw_data: [[]],
-        draw_name: [[]]
+        draw_name: [[], ['svg_p:path7013-51']]
     };
-    sim_p.signals[SIGNALS.LOAD_ID_EX] = {
-        name: "LOAD_ID_EX", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP),
-        create_op(BEHAVIORS.MV, STATES.ID_EX_RS1, STATES.R_DATA1) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_RS2, STATES.R_DATA2) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_RS1_ADDR, STATES.DECODE_RS1_ADDR) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_RS2_ADDR, STATES.DECODE_RS2_ADDR) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_RD, STATES.DECODE_RD_ADDR) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_ALUOP, STATES.DECODE_ALUOP) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_ALUSRC, STATES.DECODE_ALUSRC) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_IMM, STATES.VAL_IMM) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_PC, STATES.IF_ID_PC) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_WB, STATES.DECODE_WB) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_DMR, STATES.DECODE_DMR) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_DMW, STATES.DECODE_DMW) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_WBE, STATES.DECODE_WBE) +
-        create_op(BEHAVIORS.MV, STATES.ID_EX_SE, STATES.DECODE_SE)
+
+    sim_p.signals[SIGNALS.IF_ID_RST] = {
+        name: "IF_ID_RST", visible: false, type: "E", value: 0, default_value: 0, nbits: "2",
+        behavior: [
+            // 0 -> load values
+            create_op(BEHAVIORS.MV, STATES.IF_ID_IR, STATES.RDATA) +
+            create_op(BEHAVIORS.MV, STATES.IF_ID_PC, STATES.IF_FETCH_PC),
+            // 1 -> reset values
+            create_op(BEHAVIORS.MV, STATES.IF_ID_IR, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.IF_ID_PC, STATES.VAL_ZERO),
+            // 2 and 3 -> nop
+            create_op(BEHAVIORS.NOP),
+            create_op(BEHAVIORS.NOP),
         ],
-        depends_on: [SIGNALS.PIPE_STALL_CHECK],
-        fire_name: [],
+        depends_on: [SIGNALS.IMR, SIGNALS.ID_EX_RST, SIGNALS.PIPE_HAZARD, SIGNALS.CLK],
+        fire_name: ['svg_p:textIF_ID_RST'],
         draw_data: [[]],
-        draw_name: [[]]
-    };
-    sim_p.signals[SIGNALS.LOAD_IF_ID] = {
-        name: "LOAD_IF_ID", visible: false, type: "E", value: 1, default_value: 1, nbits: "1",
-        behavior: [create_op(BEHAVIORS.MV, STATES.IF_ID_INS, STATES.RDATA) + create_op(BEHAVIORS.MV, STATES.IF_ID_PC, STATES.REG_PC)],
-        depends_on: [SIGNALS.PIPE_STALL_CHECK],
-        fire_name: [],
+        draw_name: [[], ['svg_p:path7199-9-6-1'], ['svg_p:path7199-9-6-1'], ['svg_p:path7199-9-6-1']]
+    }
+
+    sim_p.signals[SIGNALS.ID_EX_RST] = {
+        name: "ID_EX_RST", visible: false, type: "E", value: 0, default_value: 0, nbits: "2",
+        behavior: [
+            // 0 -> load values
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS1, STATES.R_DATA1) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS2, STATES.R_DATA2) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS1_ADDR, STATES.DECODE_RS1_ADDR) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS2_ADDR, STATES.DECODE_RS2_ADDR) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RD, STATES.DECODE_RD_ADDR) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_ALUOP, STATES.DECODE_ALUOP) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_M3, STATES.DECODE_M3) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_IMM, STATES.VAL_IMM) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_PC, STATES.IF_ID_PC) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_WB, STATES.DECODE_WB) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_DMR, STATES.DECODE_DMR) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_DMW, STATES.DECODE_DMW) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_WBE, STATES.DECODE_WBE) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_SE, STATES.DECODE_SE),
+            // 1 -> reset values
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS1, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS2, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS1_ADDR, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RS2_ADDR, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_RD, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_ALUOP, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_M3, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_IMM, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_PC, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_WB, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_DMR, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_DMW, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_WBE, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.ID_EX_SE, STATES.VAL_ZERO),
+            // 2 and 3 -> nop
+            create_op(BEHAVIORS.NOP),
+            create_op(BEHAVIORS.NOP),
+        ],
+        depends_on: [SIGNALS.PIPE_DECODE, SIGNALS.EX_MEM_RST, SIGNALS.PIPE_HAZARD, SIGNALS.CLK],
+        fire_name: ['svg_p:textID_EX_RST'],
         draw_data: [[]],
-        draw_name: [[]]
-    };
+        draw_name: [[], ['svg_p:path7199-9-6-14'], ['svg_p:path7199-9-6-14'], ['svg_p:path7199-9-6-14']]
+    }
+
+    sim_p.signals[SIGNALS.EX_MEM_RST] = {
+        name: "EX_MEM_RST", visible: false, type: "E", value: 0, default_value: 0, nbits: "2",
+        behavior: [
+            // 0 -> load values
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_ALUOUT, STATES.ALU_OUT) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WDATA, STATES.M2_ALU) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_PC, STATES.ID_EX_PC) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_RD, STATES.ID_EX_RD) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WB, STATES.ID_EX_WB) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_DMR, STATES.ID_EX_DMR) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_DMW, STATES.ID_EX_DMW) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WBE, STATES.ID_EX_WBE) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_SE, STATES.ID_EX_SE),
+            // 1 -> reset values
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_ALUOUT, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WDATA, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_PC, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_RD, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WB, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_DMR, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_DMW, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_WBE, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_SE, STATES.VAL_ZERO),
+            // 2 and 3 -> nop
+            create_op(BEHAVIORS.NOP),
+            create_op(BEHAVIORS.NOP),
+        ],
+        depends_on: [SIGNALS.M2, SIGNALS.ALUOP, SIGNALS.MEM_WB_RST, SIGNALS.CLK],
+        fire_name: ['svg_p:textEX_MEM_RST'],
+        draw_data: [[]],
+        draw_name: [[], ['svg_p:path7199-9-6-14-7'], ['svg_p:path7199-9-6-14-7'], ['svg_p:path7199-9-6-14-7']]
+    }
+
+    sim_p.signals[SIGNALS.MEM_WB_RST] = {
+        name: "MEM_WB_RST", visible: false, type: "E", value: 0, default_value: 0, nbits: "2",
+        behavior: [
+            // 0 -> load values
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_DATA, STATES.EX_MEM_ALUOUT) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_RD, STATES.EX_MEM_RD) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_WB, STATES.EX_MEM_WB) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_PC, STATES.EX_MEM_PC) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_LOAD, STATES.EX_MEM_DMR),
+            // 1 -> reset values
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_DATA, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_RD, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_WB, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_PC, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_LOAD, STATES.VAL_ZERO),
+            // 2 and 3 -> nop
+            create_op(BEHAVIORS.NOP),
+            create_op(BEHAVIORS.NOP),
+        ],
+        depends_on: [SIGNALS.M2, SIGNALS.ALUOP, SIGNALS.CLK],
+        fire_name: ['svg_p:textMEM_WB_RST'],
+        draw_data: [[]],
+        draw_name: [[], ['svg_p:path7199-9-6-14-0'], ['svg_p:path7199-9-6-14-0']]
+    }
 
     /* ALU */
     sim_p.signals[SIGNALS.LOAD_ALUOP] = {
@@ -1617,13 +1713,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
     function fire(key: string): void {
         if (DEBUG) console.log("FIRE", key, "fire_once", sim_p.internal_states.fire_once[key]);
-        if (typeof sim_p.signals[key] == "undefined") { if (DEBUG) console.log("return not a signal"); return; }
+        const signal = sim_p.signals[key];
+        if (typeof signal == "undefined") { if (DEBUG) console.log("return not a signal"); return; }
         if (sim_p.internal_states.fire_once[key]) { if (DEBUG) console.log("return already fire"); return; }
         sim_p.internal_states.fire_once[key] = true;
-        const deps = sim_p.signals[key].depends_on;
+        const deps = signal.depends_on;
         if (deps) {
             for (const d of deps) {
-                fire(d);
+                // L:  only L
+                // E: L and E
+                const signal_dep_type = sim_p.signals[d]?.type;
+                if (signal.type === signal_dep_type || signal_dep_type === 'E') {
+                    fire(d);
+                }
             }
         }
         update_state(key);
@@ -1730,6 +1832,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             for (var key in sim_p.signals) reset_value(sim_p.signals[key]);
             sim_p.internal_states.halt = 0;
             sim_p.internal_states.pipe_next_pc = undefined;
+            // Set resets to 1 so that on cycle 0 all are zeroed
+            set_value(sim_p.signals[SIGNALS.IF_ID_RST], 1);
+            set_value(sim_p.signals[SIGNALS.ID_EX_RST], 1);
+            set_value(sim_p.signals[SIGNALS.EX_MEM_RST], 1);
+            set_value(sim_p.signals[SIGNALS.MEM_WB_RST], 1);
         },
         verbal: function (s_expr: string[]): string { return "Reset CPU. "; }
     };
@@ -1739,9 +1846,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(s_expr);
-            var pc_val = get_value(sim_p.states[STATES.REG_PC]);
-            var next_pc = pc_val + 4;
-            var ins_val = 0x00000013;
+            var pc_val = get_value(sim_p.states[STATES.IF_FETCH_PC]);
+            var next_pc = 0;
+            var ins_val = 0;
             var segments = sim_p.internal_states.segments;
             var in_bounds = false;
             var code_begin_s = 0;
@@ -1758,31 +1865,26 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                     if (pc_val >= kbegin && pc_val < kend) { in_bounds = true; code_begin_s = kbegin; code_end_s = kend; }
                 }
             }
-            if (in_bounds && !sim_p.internal_states.draining) {
+            if (in_bounds) {
                 var address = pc_val & 0xFFFFFFFC;
                 ins_val = main_memory_getvalue(sim_p.internal_states.MP, address) || 0;
                 show_main_memory(sim_p.internal_states.MP, address, false, false);
                 next_pc = pc_val + 4;
+                set_value(sim_p.states[STATES.REG_PC], pc_val);
                 if (next_pc >= code_end_s) {
-                    sim_p.internal_states.draining = true;
-                    sim_p.internal_states.drain = 0;
-                    next_pc = pc_val;
-                } else {
-                    sim_p.internal_states.drain = 0;
-                }
-            } else {
-                sim_p.internal_states.drain++;
-                if (sim_p.internal_states.drain >= 4) {
-                    sim_p.internal_states.draining = false;
-                    next_pc = pc_val + 4;
-                } else {
-                    next_pc = pc_val;
+                    next_pc = 0;
                 }
             }
             set_value(sim_p.states[STATES.RDATA], ins_val);
             sim_p.internal_states.pipe_next_pc = next_pc >>> 0;
-            sim_p.internal_states.pipe_ins_val = ins_val;
-            sim_p.internal_states.pipe_pc_val = pc_val;
+            // Termination: when next fetch address is 0,
+            // tell PCWRITE to write 0 instead of +4 in next cycle.
+            // Do NOT zero IF_FETCH_PC here: PCWRITE=2 will do it in Phase 1
+            // of the next cycle, after IF_ID_RST has captured IF_FETCH_PC
+            // (IF_ID_RST fires before PCWRITE).
+            if (next_pc === 0) {
+                set_value(sim_p.signals[SIGNALS.PCWRITE], 2);
+            }
         },
         verbal: function (s_expr: string[]): string { return "Fetch instruction at PC. "; }
     };
@@ -1791,7 +1893,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(s_expr);
-            let ins = get_value(sim_p.states[STATES.IF_ID_INS]);
+            let ins = get_value(sim_p.states[STATES.IF_ID_IR]);
 
             set_value(sim_p.states[STATES.DECODE_RS1_ADDR], 0);
             set_value(sim_p.states[STATES.DECODE_RS2_ADDR], 0);
@@ -1800,7 +1902,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             set_value(sim_p.states[STATES.R_DATA2], 0);
             set_value(sim_p.states[STATES.VAL_IMM], 0);
             set_value(sim_p.states[STATES.DECODE_ALUOP], 0);
-            set_value(sim_p.states[STATES.DECODE_ALUSRC], 0);
+            set_value(sim_p.states[STATES.DECODE_M3], 0);
             set_value(sim_p.states[STATES.DECODE_WB], 0);
 
             let oi = decode_instruction(sim_p.internal_states.FIRMWARE,
@@ -1852,7 +1954,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
                 let m3_val = (typeof micro['M3'] !== "undefined") ? micro['M3'] : 0;
                 if (typeof m3_val !== "number") m3_val = parseInt(m3_val);
-                set_value(sim_p.states[STATES.DECODE_ALUSRC], m3_val);
+                set_value(sim_p.states[STATES.DECODE_M3], m3_val);
 
                 let rw_val = (typeof micro['RW'] !== "undefined") ? micro['RW'] : 0;
                 if (typeof rw_val !== "number") rw_val = parseInt(rw_val);
@@ -1876,7 +1978,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             }
 
             sim_p.behaviors[BEHAVIORS.DECO_IMM].operation(
-                [BEHAVIORS.DECO_IMM, STATES.VAL_IMM, STATES.IF_ID_INS, SIGNALS.OFFSET, SIGNALS.SIZE, SIGNALS.SE_IMM, SIGNALS.X2_IMM]);
+                [BEHAVIORS.DECO_IMM, STATES.VAL_IMM, STATES.IF_ID_IR, SIGNALS.OFFSET, SIGNALS.SIZE, SIGNALS.SE_IMM, SIGNALS.X2_IMM]);
 
             let decins = get_deco_from_pc(get_value(sim_p.states[STATES.IF_ID_PC]));
             set_value(sim_p.states[STATES.REG_IR_DECO], decins);
@@ -1885,7 +1987,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         verbal: function (s_expr: string[]): string { return "Decode instruction using microcode. "; }
     };
 
-    sim_p.behaviors[BEHAVIORS.PIPE_HAZARD_DETECT] = {
+    sim_p.behaviors[BEHAVIORS.HAZARD_DETECTION_UNIT] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(s_expr);
@@ -1911,6 +2013,15 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                 }
             }
             set_value(sim_p.states[STATES.PIPE_STALL], stall);
+            set_value(sim_p.signals[SIGNALS.PIPE_HAZARD], stall);
+            if (stall) {
+                // Not update PC because bubble
+                set_value(sim_p.signals[SIGNALS.PCWRITE], 0);
+                // IF_ID do nothing
+                set_value(sim_p.signals[SIGNALS.IF_ID_RST], 2);
+                // ID_EX reset values to make bubble
+                set_value(sim_p.signals[SIGNALS.ID_EX_RST], 1);
+            }
             if (DEBUG) console.log("HAZARD stall", stall);
         },
         verbal: function (s_expr: string[]): string { return "Detect load-use hazards."; }
@@ -1979,12 +2090,22 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(s_expr);
-            var if_pc = get_value(sim_p.states[STATES.REG_PC]);
+            var if_pc = get_value(sim_p.states[STATES.IF_FETCH_PC]);
             var if_id_pc = get_value(sim_p.states[STATES.IF_ID_PC]);
             var id_ex_pc = get_value(sim_p.states[STATES.ID_EX_PC]);
             var ex_mem_pc = get_value(sim_p.states[STATES.EX_MEM_PC]);
             var mem_wb_pc = get_value(sim_p.states[STATES.MEM_WB_PC]);
             show_pipeline_display(if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
+            // When all pipeline stage PCs are zero, the program has finished
+            if (if_pc === 0 && if_id_pc === 0 && id_ex_pc === 0 &&
+                ex_mem_pc === 0 && mem_wb_pc === 0) {
+                if (get_value(sim_p.states[STATES.REG_PC]) !== 0) {
+                    set_value(sim_p.states[STATES.REG_PC], 0);
+                }
+                if (!sim_p.internal_states.halt) {
+                    sim_p.internal_states.halt = 1;
+                }
+            }
             show_asmdbg_pc();
             set_value(sim_p.states[STATES.FLAG_N], sim_p.internal_states.alu_flags.flag_n);
             set_value(sim_p.states[STATES.FLAG_Z], sim_p.internal_states.alu_flags.flag_z);
@@ -1996,42 +2117,12 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         verbal: function (s_expr: string[]): string { return "Update pipeline display. "; }
     };
 
-    /* PIPE_HAZARD_CHECK: insert bubble when load-use hazard */
-    sim_p.behaviors[BEHAVIORS.PIPE_HAZARD_CHECK] = {
-        nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-            var stall = get_value(sim_p.states[STATES.PIPE_STALL]);
-            if (stall) {
-                set_value(sim_p.states[STATES.DECODE_RS1_ADDR], 0);
-                set_value(sim_p.states[STATES.DECODE_RS2_ADDR], 0);
-                set_value(sim_p.states[STATES.DECODE_RD_ADDR], 0);
-                set_value(sim_p.states[STATES.R_DATA1], 0);
-                set_value(sim_p.states[STATES.R_DATA2], 0);
-                set_value(sim_p.states[STATES.VAL_IMM], 0);
-                set_value(sim_p.states[STATES.DECODE_ALUOP], 0);
-                set_value(sim_p.states[STATES.DECODE_ALUSRC], 0);
-                set_value(sim_p.states[STATES.DECODE_WB], 0);
-                set_value(sim_p.states[STATES.DECODE_DMR], 0);
-                set_value(sim_p.states[STATES.DECODE_DMW], 0);
-                set_value(sim_p.states[STATES.DECODE_WBE], 0);
-                set_value(sim_p.states[STATES.DECODE_SE], 0);
-                // Insert bubble: decode values are zeroed → ID/EX captures bubble
-                // IF/ID continues normally (PC already fetched next instruction)
-                // Clear stall flag for next cycle
-                set_value(sim_p.states[STATES.PIPE_STALL], 0);
-                if (DEBUG) console.log("BUBBLE: decode zeroed, pipeline advances");
-            }
-        },
-        verbal: function (s_expr: string[]): string { return "Check pipeline stall condition."; }
-    };
-
     /* PIPE_WB_LOAD: overwrite MEM_WB_DATA with RDATAM for loads */
     sim_p.behaviors[BEHAVIORS.PIPE_WB_LOAD] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(s_expr);
-            var is_load = get_value(sim_p.states[STATES.EX_MEM_DMR]);
+            var is_load = get_value(sim_p.states[STATES.MEM_WB_LOAD]);
             if (is_load) {
                 var rd_data = get_value(sim_p.states[STATES.RDATAM]) << 0;
                 set_value(sim_p.states[STATES.MEM_WB_DATA], rd_data >>> 0);
@@ -2090,33 +2181,38 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var t0 = performance.now();
 
             // Update clock counter
-            var val = get_value(sim_p.states[STATES.CLK]);
-            set_value(sim_p.states[STATES.CLK], val + 1);
+            var clk = get_value(sim_p.states[STATES.CLK]);
+            set_value(sim_p.states[STATES.CLK], clk + 1);
             set_value(sim_p.states[STATES.TTCPU], 0);
 
-            if (DEBUG) console.log("--------------------BEGIN CLK", val, "--------------------");
+            if (DEBUG) console.log("--------------------BEGIN CLK", clk, "--------------------");
 
             if (sim_p.internal_states.halt) return;
 
-            // ====================================================================
-            // PHASE 1 - E phase: fire Edge signals (pipeline register capture)
-            // Capture old values before L phase overwrites them.
-            // Order: MEM_WB before EX_MEM before ID_EX before IF_ID
-            // ====================================================================
-            var next_pc = sim_p.internal_states.pipe_next_pc;
-            if (typeof next_pc === "undefined") {
-                next_pc = get_value(sim_p.states[STATES.REG_PC]);
+            // Sync IF_FETCH_PC with initial PC on first cycle (val == 0);
+            // prevent PCWRITE from advancing on cycle 0 so PIPE_IF
+            // reads the correct first instruction address.
+            // This must NOT fire after termination (val > 0) or it would
+            // re-load the last valid address and prevent pipeline drain.
+            var if_fetch_pc = get_value(sim_p.states[STATES.IF_FETCH_PC]);
+            if (if_fetch_pc === 0 && clk === 0) {
+                var reg_pc = get_value(sim_p.states[STATES.REG_PC]);
+                if (reg_pc !== 0) {
+                    set_value(sim_p.states[STATES.IF_FETCH_PC], reg_pc);
+                    set_value(sim_p.signals[SIGNALS.PCWRITE], 0);
+                }
             }
 
+            // ====================================================================
+            // PHASE 1 - E phase: fire Edge signals (pipeline register capture)
+            // PCWRITE + ADDER_PC handle IF_FETCH_PC advancement.
+            // IF_ID_RST captures old IF_FETCH_PC before PCWRITE modifies it.
+            // ====================================================================
             for (const key of jit_fire_order) {
                 if (sim_p.signals[key].type == 'E') {
                     fire(key);
                 }
             }
-
-            // PC always advances (bubble approach - no freeze)
-            show_asmdbg_pc();
-            set_value(sim_p.states[STATES.REG_PC], next_pc);
 
             // ====================================================================
             // PHASE 2 - Microcode update (sets signal values for L phase)
@@ -2152,7 +2248,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var val2 = get_value(sim_p.states[STATES.ACC_TIME]);
             val2 = val2 + (t1 - t0);
             set_value(sim_p.states[STATES.ACC_TIME], val2);
-            if (DEBUG) console.log("--------------------END CLK", val, "--------------------");
+            if (DEBUG) console.log("--------------------END CLK", clk, "--------------------");
 
 
             if (typeof wepsim_svg_is_drawing === 'function' && wepsim_svg_is_drawing()) {
