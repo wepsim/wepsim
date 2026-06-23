@@ -54,13 +54,14 @@
                 for (var sigorg in jit_fire_dep[sig])
                 {
 	             ndep++ ;
-                     if (jit_fire_dep[sig][sigorg] == simhw_sim_signal(sigorg).behavior.length) {
+                     if (jit_fire_dep[sig][sigorg].fire == simhw_sim_signal(sigorg).behavior.length) {
                          allfireto = true ;
                      }
                 }
 		jit_fire_ndep[sig] = ndep;
-                if (allfireto == false)
+                if (allfireto == false) {
                     jit_fire_order.push(sig) ;
+		}
             }
 
 	    // split Edge/Level signals
@@ -153,7 +154,6 @@
                  // compact version of "signal_fire(signal_name);"
 		 fire_array_updated[signal_name] = true ;
 		 signal_obj = simhw_sim_signal(signal_name) ;
-
 		 update_draw(signal_obj, signal_obj.value) ;
 		 signal_apply_behaviour(signal_name) ;
 	    }

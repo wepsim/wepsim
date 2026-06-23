@@ -130,11 +130,12 @@
 			    var s_expr = s_exprs[i].split(" ");
 
 			    // 2.3a.- ...to do the operation
-                            if (s_expr[0] != "NOP") // warning: optimizated just because nop.operation is empty right now...
+                            if (s_expr[0] != "NOP") { // warning: optimizated just because nop.operation is empty right now...
 			        jit_be += "simhw_syntax_behavior('" + s_expr[0] + "').operation(" + JSON.stringify(s_expr) + ");\t" ;
+			    }
 
                             // 2.3b.- ...build the fire graph
-                            if ("FIRE" == s_expr[0])
+                            if (s_expr[0].startsWith("FIRE"))
                             {
                                  sig_obj = simhw_sim_signal(sig) ;
                                 expr_obj = simhw_sim_signal(s_expr[1]) ;
@@ -145,13 +146,17 @@
                                 }
                                 else if (sig_obj.type == expr_obj.type)
                                 {
-                                    if (typeof jit_fire_dep[s_expr[1]] == "undefined")
+                                    if (typeof jit_fire_dep[s_expr[1]] == "undefined") {
                                         jit_fire_dep[s_expr[1]] = {};
+				    }
 
-                                    if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
-                                        jit_fire_dep[s_expr[1]][sig] = 0;
+                                    if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined") {
+                                        jit_fire_dep[s_expr[1]][sig] = { "fire": 0, "fire_ifset": 0 } ;
+				    }
 
-                                    jit_fire_dep[s_expr[1]][sig]++;
+                                    if (s_expr[0] == "FIRE")
+                                         jit_fire_dep[s_expr[1]][sig].fire++;
+				    else jit_fire_dep[s_expr[1]][sig].fire_ifset++;
                                 }
                             }
 		      }
