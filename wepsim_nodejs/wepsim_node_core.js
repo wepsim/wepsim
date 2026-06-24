@@ -280,11 +280,13 @@
     var  after_state = null ;
     var  header_printed = false ;
     const PADPIPE = 22;
+    const PADCLK = 4;
 
     function wepsim_nodejs_header2 ( )
     {
         if (wepsim_nodejs_is_rvpipe()) {
-            console.log('IF'.padEnd(PADPIPE)  + '| ' +
+            console.log('CLK'.padEnd(PADCLK) + '| ' +
+                        'IF'.padEnd(PADPIPE)  + '| ' +
                         'ID'.padEnd(PADPIPE)  + '| ' +
                         'EX'.padEnd(PADPIPE)  + '| ' +
                         'MEM'.padEnd(PADPIPE) + '| ' +
@@ -340,7 +342,9 @@
             after_state = simcore_simstate_current2state() ;
             var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
 
-            console.log(stage_ins[0].padEnd(PADPIPE) + '| ' +
+            var clk_val = get_value(simhw_sim_state('CLK')) - 1 ;
+            console.log(clk_val.toString().padEnd(PADCLK) + '| ' +
+                        stage_ins[0].padEnd(PADPIPE) + '| ' +
                         stage_ins[1].padEnd(PADPIPE) + '| ' +
                         stage_ins[2].padEnd(PADPIPE) + '| ' +
                         stage_ins[3].padEnd(PADPIPE) + '| ' +
