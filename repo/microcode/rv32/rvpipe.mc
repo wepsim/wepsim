@@ -5,7 +5,6 @@
 firmware {
    version  = 2,
    rel_mult = 2,
-   pc_rel_offset = -4,
    endian   = little
 }
 
@@ -448,7 +447,7 @@ beq rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 == rs2 then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10100, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10100, BRANCH=01)
     }
 }
 
@@ -461,7 +460,7 @@ bne rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 != rs2 then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10101, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10101, BRANCH=01)
     }
 }
 
@@ -474,7 +473,7 @@ blt rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 < rs2 (signed) then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10110, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10110, BRANCH=01)
     }
 }
 
@@ -487,7 +486,7 @@ bge rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 >= rs2 (signed) then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10111, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10111, BRANCH=01)
     }
 }
 
@@ -500,7 +499,7 @@ bltu rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 < rs2 (unsigned) then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11000, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11000, BRANCH=01)
     }
 }
 
@@ -513,7 +512,7 @@ bgeu rs1 rs2 offset {
     address-rel(11:8|30:25|7|31)=offset,
     help='if rs1 >= rs2 (unsigned) then PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11001, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11001, BRANCH=01)
     }
 }
 
@@ -524,7 +523,7 @@ addpc offset {
     address-rel(30:21|20|19:12|31)=offset,
     help='PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=10100, X2_IMM=1, M3=1, M4=11, AluOp=1010, BRANCH=11)
+        (SE_IMM=1, OFFSET=0, SIZE=10100, X2_IMM=1, M3=1, M4=11, AluOp=1010, BRANCH=10)
     }
 }
 
@@ -550,7 +549,7 @@ jumpto rs1 imm {
     imm(31:20)=imm,
     help='PC = rs1 + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=0, M4=11, AluOp=1010, BRANCH=11)
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=0, M4=11, AluOp=1010, BRANCH=10)
     }
 }
 
