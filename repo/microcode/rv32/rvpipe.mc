@@ -5,6 +5,7 @@
 firmware {
    version  = 2,
    rel_mult = 2,
+   pc_rel_offset = -4,
    endian   = little
 }
 
@@ -17,6 +18,7 @@ add rd rs1 rs2 {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
+      help='rd = rs1 + rs2',
       {
           (AluOp=1010, RW)
       }
@@ -29,8 +31,9 @@ addi rd rs1 imm {
       reg(11:7)=rd,
       reg(19:15)=rs1,
       imm(31:20)=imm,
+      help='rd = rs1 + imm',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, RW)
       }
 }
 
@@ -43,7 +46,7 @@ addu rd rs1 imm {
       imm(31:20)=imm,
       help='rd = rs1 + imm',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=10000, RW)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=10000, RW)
       }
 }
 
@@ -69,7 +72,7 @@ andi rd rs1 imm {
       imm(31:20)=imm,
       help='rd = rs1 & imm',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0001, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=0001, RW)
       }
 }
 
@@ -134,7 +137,7 @@ ori rd rs1 imm {
       imm(31:20)=imm,
       help='rd = rs1 | imm',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0010, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=0010, RW)
       }
 }
 
@@ -173,7 +176,7 @@ slli rd rs1 imm {
       imm(24:20)=imm,
       help='rd = (rs1 << imm)',
       {
-            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=111, RW)
+            (SE_IMM=1, OFFSET=0, SIZE=101, M4=11, AluOp=111, RW)
       }
 }
 
@@ -199,7 +202,7 @@ slti rd rs1 imm {
       imm(31:20)=imm,
       help='rd = (rs1 < imm) ? 1 : 0',
       {
-        (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=1011, RW)
+        (SE_IMM=1, OFFSET=0, SIZE=101, M4=11, AluOp=1011, RW)
       }
 }
 
@@ -239,7 +242,7 @@ srai rd rs1 imm {
       imm(24:20)=imm,
       help='rd = (rs1 >> imm)',
       {
-            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=110, RW)
+            (SE_IMM=1, OFFSET=0, SIZE=101, M4=11, AluOp=110, RW)
       }
 }
 
@@ -265,7 +268,7 @@ srli rd rs1 imm {
       imm(24:20)=imm,
       help='rd = (rs1 >>> imm)',
       {
-            (SE_IMM=1, OFFSET=0, SIZE=101, M3=11, AluOp=101, RW)
+            (SE_IMM=1, OFFSET=0, SIZE=101, M4=11, AluOp=101, RW)
       }
 }
 
@@ -291,7 +294,7 @@ subi rd rs1 imm {
       imm(31:20)=imm,
       help='rd = rs1 - SignEx(imm)',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1011, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1011, RW)
       }
 }
 
@@ -317,7 +320,7 @@ xori rd rs1 imm {
       imm(31:20)=imm,
       help='rd = rs1 ^ imm',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=0100, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=0100, RW)
       }
 }
 
@@ -326,8 +329,9 @@ lui rd imm {
       oc(6:0)=0010110,
       reg(11:7)=rd,
       imm(31:12)=imm,
+      help='rd = imm << 12',
       {
-          (SE_IMM=1, OFFSET=1100, SIZE=10100, M3=11, AluOp=11111, RW)
+          (SE_IMM=1, OFFSET=1100, SIZE=10100, M4=11, AluOp=11111, RW)
       }
  }
 
@@ -340,7 +344,7 @@ lw rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, RW)
       }
 }
 
@@ -353,7 +357,7 @@ sw rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW)
       }
 }
 
@@ -366,7 +370,7 @@ lb rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = s8[rs1 + offset]',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=1, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=1, RW)
       }
 }
 
@@ -379,7 +383,7 @@ lh rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = s16[rs1 + offset]',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=10, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=10, RW)
       }
 }
 
@@ -392,7 +396,7 @@ lbu rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = u8[rs1 + offset]',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=1, RW)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=1, RW)
       }
 }
 
@@ -405,7 +409,7 @@ lhu rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = u16[rs1 + offset]',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMR, WBE=10, RW)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=10, RW)
       }
 }
 
@@ -418,7 +422,7 @@ sb rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1 + offset] = rs2/8',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW, WBE=1)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=1)
       }
 }
 
@@ -431,12 +435,187 @@ sh rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M3=11, AluOp=1010, DMW, WBE=10)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=10)
       }
+}
+
+#  BEQ rs1,rs2,offset         Branch Equal                         if rs1 = rs2 then pc ← pc + sext(offset)
+beq rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=000,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 == rs2 then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10100, BRANCH=10)
+    }
+}
+
+#  BNE rs1,rs2,offset         Branch Not Equal                     if rs1 != rs2 then pc ← pc + sext(offset)
+bne rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=001,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 != rs2 then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10101, BRANCH=10)
+    }
+}
+
+#  BLT rs1,rs2,offset         Branch Less Than                     if rs1 < rs2 then pc ← pc + sext(offset)
+blt rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=100,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 < rs2 (signed) then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10110, BRANCH=10)
+    }
+}
+
+#  BGE rs1,rs2,offset         Branch Greater or Equal              if rs1 >= rs2 then pc ← pc + sext(offset)
+bge rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=101,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 >= rs2 (signed) then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=10111, BRANCH=10)
+    }
+}
+
+#  BLTU rs1,rs2,offset        Branch Less Than Unsigned            if rs1 < rs2 then pc ← pc + sext(offset)
+bltu rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=110,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 < rs2 (unsigned) then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11000, BRANCH=10)
+    }
+}
+
+#  BGEU rs1,rs2,offset        Branch Greater or Equal Unsigned     if rs1 >= rs2 then pc ← pc + sext(offset)
+bgeu rs1 rs2 offset {
+    oc(6:0)=1100011,
+    eoc(14:12)=111,
+    reg(19:15)=rs1,
+    reg(24:20)=rs2,
+    address-rel(11:8|30:25|7|31)=offset,
+    help='if rs1 >= rs2 (unsigned) then PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=1, M4=0, AluOp=11001, BRANCH=10)
+    }
+}
+
+#  JAL rd,offset              Jump and Link                       rd ← pc + 4
+#                                                               pc ← pc + sext(offset)
+addpc offset {
+    oc(6:0)=1101111,
+    address-rel(30:21|20|19:12|31)=offset,
+    help='PC = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=10100, X2_IMM=1, M3=1, M4=11, AluOp=1010, BRANCH=11)
+    }
+}
+
+#  JALR_SAVE rd               JALR Save (pseudo)                  rd ← pc + 4
+#                                                               (no jump, for splitting JALR into two steps)
+savepc rd imm {
+    oc(6:0)=0001011,
+    eoc(14:12|31:25)=0000000000,
+    reg(11:7)=rd,
+    imm(31:20)=imm,
+    help='rd = PC + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=0, M3=1, M4=11, AluOp=1010, RW)
+    }
+}
+
+#  JALR_JUMP rs1,imm         JALR Jump (pseudo)                  pc ← rs1 + sext(imm)
+#                                                               (no link, for splitting JALR into two steps)
+jumpto rs1 imm {
+    oc(6:0)=1100111,
+    eoc(14:12)=000,
+    reg(19:15)=rs1,
+    imm(31:20)=imm,
+    help='PC = rs1 + imm',
+    {
+        (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=0, M4=11, AluOp=1010, BRANCH=11)
+    }
 }
 
 pseudoinstructions
 {
+    # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
+    beqz rs=reg, offset=imm
+    {
+        beq rs, zero, offset
+    }
+
+    # bnez rs1, offset        bne rs, x0, offset        Branch if != zero
+    bnez rs=reg, offset=imm
+    {
+        bne rs, zero, offset
+    }
+
+    # blez rs1, offset        bge x0, rs, offset        Branch if <= zero
+    blez rs=reg, offset=imm
+    {
+        bge zero, rs, offset
+    }
+
+    # bgez rs1, offset        bge rs, x0, offset        Branch if >= zero
+    bgez rs=reg, offset=imm
+    {
+        bge rs, zero, offset
+    }
+
+    # bltz rs1, offset        blt rs, x0, offset        Branch if < zero
+    bltz rs=reg, offset=imm
+    {
+        blt rs, zero, offset
+    }
+
+    # bgtz rs1, offset        blt x0, rs, offset        Branch if > zero
+    bgtz rs=reg, offset=imm
+    {
+        blt zero, rs, offset
+    }
+
+    # bgt rs, rt, offset        blt rt, rs, offset        Branch if >
+    bgt rs=reg, rt=reg, offset=imm
+    {
+        blt rt, rs, offset
+    }
+
+    # ble rs, rt, offset        bge rt, rs, offset        Branch if <=
+    ble rs=reg, rt=reg, offset=imm
+    {
+        bge rt, rs, offset
+    }
+
+    # bgtu rs, rt, offset        bltu rt, rs, offset        Branch if >, unsigned
+    bgtu rs=reg, rt=reg, offset=imm
+    {
+        bltu rt, rs, offset
+    }
+
+    # bleu rs, rt, offset        bgeu rt, rs, offset        Branch if <=, unsigned
+    bleu rs=reg, rt=reg, offset=imm
+    {
+        bgeu rt, rs, offset
+    }
+
     # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
     {
@@ -474,11 +653,38 @@ pseudoinstructions
     {
         sub rd, zero, rs
     }
+
+    # ret                jalr x0, x1, 0        Return from subroutine
+    ret
+    {
+        jumpto ra, 0
+    }
     
+    # jal rd, offset              Jump and Link                rd ← pc + 4, pc ← pc + sext(offset)
+    jal rd=reg, offset=imm
+    {
+        savepc rd 8
+        addpc offset
+    }
+
+    # j offset          addpc x0, offset         Jump
+    j offset=imm
+    {
+        addpc offset
+    }
+
     # jr rs            jalr x0, rs, 0        Jump register
     jr rs=reg
     {
-        addi zero, zero, 0 # nop TODO
+        jumpto rs, 0
+    }
+
+    # jalr rd, offset(rs1)              Jump and Link Register      rd ← pc + 4
+    #                                                               pc ← rs1 + sext(imm)
+    jalr rd=reg, rs1=reg, offset=imm
+    {
+        savepc rd 8 # PC at next of jumpto
+        jumpto rs1, offset
     }
 }
 

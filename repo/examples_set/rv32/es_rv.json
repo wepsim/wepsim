@@ -90,7 +90,7 @@
   {
     "id": "RVP1E1_add",
     "title": "ALU forward",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
     "modes": "rvpipe",
     "hardware": "rvpipe",
     "microcode": "rvpipe",
@@ -99,14 +99,47 @@
     "testing": false
   },
   {
-    "id": "RVP1E1_add",
+    "id": "RVP1E2_mem",
     "title": "Memory forward",
-    "type": "<span data-langkey='Initial'>Initial</span>",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
     "modes": "rvpipe",
     "hardware": "rvpipe",
     "microcode": "rvpipe",
     "assembly": "rvpipe_s1e2_forward",
     "description": "Simple example to view forwarding in load memory.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E3_jump",
+    "title": "Jumps",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e3_jump",
+    "description": "Simple example to view jumps in pipeline.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E4_branch",
+    "title": "Branches",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e4_branch",
+    "description": "Simple example to view branches in pipeline.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E5_jalr",
+    "title": "Subrutine",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e5_jalr",
+    "description": "Simple example to view subrutines in pipeline.",
     "testing": false
   },
   {
