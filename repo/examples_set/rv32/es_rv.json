@@ -1,91 +1,91 @@
 [
   {
-    "id":		"R1E1",
-    "title":		"Instructions",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s1e1",
-    "description":	"<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing":          true
+    "id": "R1E1",
+    "title": "Instructions",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s1e1",
+    "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
+    "testing": true
   },
   {
-    "id":		"R1E2",
-    "title":		"Memory access",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s1e2",
-    "description":	"<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
-    "testing":          true
+    "id": "R1E2",
+    "title": "Memory access",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s1e2",
+    "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
-    "id":		"R1E3",
-    "title":		"Looping",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s1e3",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
-    "testing":          true
+    "id": "R1E3",
+    "title": "Looping",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s1e3",
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
-    "id":		"R1E5",
-    "title":		"If-Then, If-Then-Else",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s1e5",
-    "description":	"<span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
-    "testing":          true
+    "id": "R1E5",
+    "title": "If-Then, If-Then-Else",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s1e5",
+    "description": "<span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
+    "testing": true
   },
   {
-    "id":		"R1E4",
-    "title":		"Vector",
-    "type":		"<span data-langkey='Initial'>Initial</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s1e4",
-    "description":	"<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
-    "testing":          true
+    "id": "R1E4",
+    "title": "Vector",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s1e4",
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": true
   },
   {
-    "id":		"R2E4",
-    "title":		"Matrix",
-    "type":		"<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s2e4",
-    "description":	"<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
-    "testing":          true
+    "id": "R2E4",
+    "title": "Matrix",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s2e4",
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": true
   },
   {
-    "id":		"R2E2",
-    "title":		"Subrutine",
-    "type":             "<span data-langkey='Intermediate'>Intermediate</span>",
-    "modes":		"newbie,intro,rv",
-    "hardware":		"rv",
-    "microcode":	"rv_mix2_l5",
-    "assembly":		"s2e2",
-    "description":	"<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
-    "testing":          true
+    "id": "R2E2",
+    "title": "Subrutine",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_mix2_l5",
+    "assembly": "s2e2",
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": true
   },
   {
-    "id": 		"R5E1",
-    "title": 		"Dummy instruction",
-    "type": 		"<span data-langkey='Special'>Special</span>",
-    "modes": 		"newbie,intro,rv",
-    "hardware": 	"rv",
-    "microcode": 	"rv_sig2_l1",
-    "assembly": 	"s6e1",
-    "description": 	"<span data-langkey='example_06_01'>Test example.</span>",
-    "testing": 		true
+    "id": "R5E1",
+    "title": "Dummy instruction",
+    "type": "<span data-langkey='Special'>Special</span>",
+    "modes": "newbie,intro,rv",
+    "hardware": "rv",
+    "microcode": "rv_sig2_l1",
+    "assembly": "s6e1",
+    "description": "<span data-langkey='example_06_01'>Test example.</span>",
+    "testing": true
   },
   {
     "id": "RVP1E1_add",
@@ -143,7 +143,7 @@
     "testing": false
   },
   {
-    "id": "RVP1E1",
+    "id": "RVR1E1",
     "title": "Instructions",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "rvpipe",
@@ -151,10 +151,10 @@
     "microcode": "rvpipe",
     "assembly": "s1e1",
     "description": "<span data-langkey='example_01_01'>Simple example with fetch, arithmetic instructions, and basic .text segment.</span>",
-    "testing": true
+    "testing": false
   },
   {
-    "id": "RVP1E2",
+    "id": "RVR1E2",
     "title": "Memory access",
     "type": "<span data-langkey='Initial'>Initial</span>",
     "modes": "rvpipe",
@@ -162,6 +162,61 @@
     "microcode": "rvpipe",
     "assembly": "s1e2",
     "description": "<span data-langkey='example_01_02'>Simple example with fetch, memory access, and basic .text/.data segment.</span>",
-    "testing": true
+    "testing": false
+  },
+  {
+    "id": "RVR1E3",
+    "title": "Looping",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s1e3",
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR1E5",
+    "title": "If-Then, If-Then-Else",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s1e5",
+    "description": "<span data-langkey='example_01_05'>If-Then and If-Then-Else.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR1E4",
+    "title": "Vector",
+    "type": "<span data-langkey='Initial'>Initial</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s1e4",
+    "description": "<span data-langkey='example_01_04'>Simple example with fetch, branch, and basic .text/.data segment.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR2E4",
+    "title": "Matrix",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s2e4",
+    "description": "<span data-langkey='example_02_04'>Extended example with subrutine and matrix.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR2E2",
+    "title": "Subrutine",
+    "type": "<span data-langkey='Intermediate'>Intermediate</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s2e2",
+    "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
+    "testing": false
   }
 ]
