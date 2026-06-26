@@ -27,7 +27,7 @@ var rvpipe_def: Simulator = {
     sim_name: "RISC-V Processor with Pipeline",
     sim_short_name: "rvpipe",
     sim_img_processor: "repo/hardware/rvpipe/images/processor.svg",
-    sim_img_controlunit: "",
+    sim_img_controlunit: "repo/hardware/rvpipe/images/controlunit.svg",
     sim_img_cpu: "repo/hardware/rvpipe/images/cpu.svg",
 
     components: {},

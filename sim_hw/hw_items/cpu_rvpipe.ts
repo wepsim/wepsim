@@ -210,7 +210,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         EX_MEM_ALUOUT = "EX_MEM_ALUOUT",
         EX_MEM_WDATA = "EX_MEM_WDATA",
         EX_MEM_RD = "EX_MEM_RD",
-        EX_MEM_WB = "EX_MEM_WB",
+        EX_MEM_RW = "EX_MEM_RW",
         EX_MEM_PC = "EX_MEM_PC",
         EX_MEM_DMR = "EX_MEM_DMR",
         EX_MEM_DMW = "EX_MEM_DMW",
@@ -218,7 +218,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         EX_MEM_SE = "EX_MEM_SE",
         MEM_WB_DATA = "MEM_WB_DATA",
         MEM_WB_RD = "MEM_WB_RD",
-        MEM_WB_WB = "MEM_WB_WB",
+        MEM_WB_RW = "MEM_WB_RW",
         MEM_WB_PC = "MEM_WB_PC",
         MEM_WB_LOAD = "MEM_WB_LOAD",
         DECODE_DMR = "DECODE_DMR",
@@ -241,6 +241,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         RDATAM = "RDATAM",
         VAL_ZERO = "VAL_ZERO",
         VAL_ONE = "VAL_ONE",
+        VAL_TWO = "VAL_TWO",
         VAL_FOUR = "VAL_FOUR",
         VAL_IMM = "VAL_IMM",
         CLK = "CLK",
@@ -273,6 +274,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         LOAD_MEM_WB_DATA = "LOAD_MEM_WB_DATA",
         AUX_LOAD_ALUOP = "AUX_LOAD_ALUOP",
         MUX_ALUOUT = "MUX_ALUOUT",
+        AUX_LOAD_MUX_STALL = "AUX_LOAD_MUX_STALL",
+        MUX_STALL_IF_ID = "MUX_STALL_IF_ID",
+        MUX_STALL_ID_EX = "MUX_STALL_ID_EX",
         AUX_LOAD_MUX_ALUOUT = "AUX_LOAD_MUX_ALUOUT",
         AUX_LOAD_BRANCH = "AUX_LOAD_BRANCH",
         ALUOP = "ALUOP",
@@ -291,10 +295,15 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         EX_MEM_RST = "EX_MEM_RST",
         MEM_WB_RST = "MEM_WB_RST",
         BRANCH = "BRANCH",
+        BRANCH_IS_ONE = "BRANCH_IS_ONE",
+        BRANCH_IS_TWO = "BRANCH_IS_TWO",
+        BRANCH_OR = "BRANCH_OR",
+        BRANCH_AND = "BRANCH_AND",
+        BRANCH_STALL_NOT = "BRANCH_STALL_NOT",
         STALL = "STALL",
+        JUMP = "JUMP",
         PIPE_FORWARDING = "PIPE_FORWARDING",
         PIPE_HAZARD = "PIPE_HAZARD",
-        PIPE_STALL = "PIPE_STALL",
         AUX_FORWARDING_UNIT = "AUX_FORWARDING_UNIT",
     };
 
@@ -307,6 +316,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         OR = "OR",
         XOR = "XOR",
         NOT = "NOT",
+        LNOT = "LNOT",
         ADD = "ADD",
         SUB = "SUB",
         ADDU = "ADDU",
@@ -385,7 +395,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         STATES.EX_MEM_ALUOUT + ",real",
         STATES.EX_MEM_WDATA + ",real",
         STATES.EX_MEM_RD + ",real",
-        STATES.EX_MEM_WB + ",real",
+        STATES.EX_MEM_RW + ",real",
         STATES.EX_MEM_PC + ",real",
         STATES.EX_MEM_DMR + ",real",
         STATES.EX_MEM_DMW + ",real",
@@ -393,7 +403,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         STATES.EX_MEM_SE + ",real",
         STATES.MEM_WB_DATA + ",real",
         STATES.MEM_WB_RD + ",real",
-        STATES.MEM_WB_WB + ",real",
+        STATES.MEM_WB_RW + ",real",
         STATES.MEM_WB_PC + ",real",
         STATES.MEM_WB_LOAD + ",real",
         STATES.BRANCH_TARGET + ",real"];
@@ -609,7 +619,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: true, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
-    sim_p.states[STATES.EX_MEM_WB] = {
+    sim_p.states[STATES.EX_MEM_RW] = {
         name: "EX_MEM_WB", verbal: "EX/MEM WriteBack",
         visible: true, nbits: "1", value: 0, default_value: 0,
         draw_data: []
@@ -625,7 +635,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: true, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
-    sim_p.states[STATES.MEM_WB_WB] = {
+    sim_p.states[STATES.MEM_WB_RW] = {
         name: "MEM_WB_WB", verbal: "MEM/WB WriteBack",
         visible: true, nbits: "1", value: 0, default_value: 0,
         draw_data: []
@@ -755,6 +765,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.states[STATES.VAL_ONE] = {
         name: "VAL_ONE", verbal: "Wired One",
         visible: false, nbits: "32", value: 1, default_value: 1,
+        draw_data: []
+    };
+    sim_p.states[STATES.VAL_TWO] = {
+        name: "VAL_TWO", verbal: "Wired Two",
+        visible: false, nbits: "32", value: 2, default_value: 2,
         draw_data: []
     };
     sim_p.states[STATES.VAL_FOUR] = {
@@ -904,10 +919,20 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.STALL] = {
         name: "STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
-        depends_on: [SIGNALS.CLK],
-        fire_name: ['svg_p:text7229-7-2'],
-        draw_data: [[]],
+        depends_on: [SIGNALS.PIPE_HAZARD, SIGNALS.CLK],
+        // depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4', 'svg_cu:path6825-7-2-5-9-6-8-2', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1-9', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3']],
         draw_name: [[], ['svg_p:path7013-51']]
+    };
+
+    sim_p.signals[SIGNALS.JUMP] = {
+        name: "JUMP", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.NOP)],
+        depends_on: [SIGNALS.BRANCH_OR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-3-4-6-4-0-7-8-3', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-3'],
+        draw_data: [[]],
+        draw_name: [[], ['svg_cu:path6825-7-2-5-9-6-8-2-4-8', 'svg_cu:path6825-7-2-5-9-6-8-2-4-8-5']]
     };
 
     /* REGISTER FILE WRITE (WB stage) - fires before PIPE_DECODE for WB->ID forwarding */
@@ -949,12 +974,51 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
 
-    sim_p.signals[SIGNALS.PIPE_STALL] = {
-        name: "PIPE_STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.STALL_UNIT)],
-        depends_on: [SIGNALS.PIPE_HAZARD, SIGNALS.BRANCH, SIGNALS.MUX_ALUOUT],
-        fire_name: ['ID_EX_RST'],
+
+    sim_p.signals[SIGNALS.AUX_LOAD_MUX_STALL] = {
+        name: "AUX_LOAD_MUX_STALL_IF_ID", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_STALL_IF_ID, SIGNALS.STALL, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE) + // Left bit
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_STALL_IF_ID, SIGNALS.JUMP, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO) + // Right bit
+
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_STALL_ID_EX, SIGNALS.STALL, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE) + // Left bit
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_STALL_ID_EX, SIGNALS.JUMP, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO) // Right bit
+        ],
+        depends_on: [SIGNALS.STALL, SIGNALS.JUMP],
+        fire_name: [],
         draw_data: [[]],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.MUX_STALL_IF_ID] = {
+        name: "MUX_STALL_IF_ID", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+        behavior: [create_op(BEHAVIORS.MV, SIGNALS.IF_ID_RST, STATES.VAL_ZERO),
+        create_op(BEHAVIORS.MV, SIGNALS.IF_ID_RST, STATES.VAL_ONE),
+        create_op(BEHAVIORS.MV, SIGNALS.IF_ID_RST, STATES.VAL_TWO),
+        create_op(BEHAVIORS.MV, SIGNALS.IF_ID_RST, STATES.VAL_TWO),
+        ],
+        depends_on: [SIGNALS.AUX_LOAD_MUX_STALL, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11', 'svg_cu:path6777-6'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-0', 'svg_cu:path6777-6-6'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-9', 'svg_cu:path6777-6-3'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-06', 'svg_cu:path6777-6-61']],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.MUX_STALL_ID_EX] = {
+        name: "MUX_STALL_ID_EX", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+        behavior: [create_op(BEHAVIORS.MV, SIGNALS.ID_EX_RST, STATES.VAL_ZERO),
+        create_op(BEHAVIORS.MV, SIGNALS.ID_EX_RST, STATES.VAL_ONE),
+        create_op(BEHAVIORS.MV, SIGNALS.ID_EX_RST, STATES.VAL_ONE),
+        create_op(BEHAVIORS.MV, SIGNALS.ID_EX_RST, STATES.VAL_ONE),
+        ],
+        depends_on: [SIGNALS.AUX_LOAD_MUX_STALL, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2', 'svg_cu:path6777-6-8'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-0-0', 'svg_cu:path6777-6-6-9'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-9-7', 'svg_cu:path6777-6-3-2'],
+        ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-06-1', 'svg_cu:path6777-6-61-6']],
         draw_name: [[]]
     };
 
@@ -965,8 +1029,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.OUT_MUX_BRANCH), // Write new value
         create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.VAL_ZERO), // Reset
         create_op(BEHAVIORS.NOP),],  // Nothing
-        depends_on: [SIGNALS.PIPE_STALL, SIGNALS.BRANCH, SIGNALS.IF_ID_RST, SIGNALS.CLK],
-        fire_name: ['svg_p:text7237-3-4-6'],
+        depends_on: [SIGNALS.STALL, SIGNALS.BRANCH, SIGNALS.IF_ID_RST, SIGNALS.CLK],
+        fire_name: ['svg_p:text7237-3-4-6', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8'],
         draw_data: [[]],
         draw_name: [[], ['svg_p:path7039-1'], ['svg_p:path7039-1'], ['svg_p:path7039-1']]
     };
@@ -1133,7 +1197,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.NOP),
         ],
         depends_on: [SIGNALS.IMR, SIGNALS.ID_EX_RST, SIGNALS.STALL, SIGNALS.CLK],
-        fire_name: ['svg_p:textIF_ID_RST'],
+        fire_name: ['svg_p:textIF_ID_RST', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0'],
         draw_data: [[]],
         draw_name: [[], ['svg_p:path7199-9-6-1'], ['svg_p:path7199-9-6-1'], ['svg_p:path7199-9-6-1']]
     }
@@ -1180,7 +1244,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.NOP),
         ],
         depends_on: [SIGNALS.PIPE_DECODE, SIGNALS.EX_MEM_RST, SIGNALS.CLK],
-        fire_name: ['svg_p:textID_EX_RST'],
+        fire_name: ['svg_p:textID_EX_RST', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8'],
         draw_data: [[]],
         draw_name: [[], ['svg_p:path7199-9-6-14'], ['svg_p:path7199-9-6-14'], ['svg_p:path7199-9-6-14']]
     }
@@ -1193,7 +1257,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.MV, STATES.EX_MEM_WDATA, STATES.M2_ALU) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_PC, STATES.ID_EX_PC) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_RD, STATES.ID_EX_RD) +
-            create_op(BEHAVIORS.MV, STATES.EX_MEM_WB, STATES.ID_EX_RW) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_RW, STATES.ID_EX_RW) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_DMR, STATES.ID_EX_DMR) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_DMW, STATES.ID_EX_DMW) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_WBE, STATES.ID_EX_WBE) +
@@ -1203,7 +1267,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.MV, STATES.EX_MEM_WDATA, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_PC, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_RD, STATES.VAL_ZERO) +
-            create_op(BEHAVIORS.MV, STATES.EX_MEM_WB, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.EX_MEM_RW, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_DMR, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_DMW, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.EX_MEM_WBE, STATES.VAL_ZERO) +
@@ -1224,13 +1288,13 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             // 0 -> load values
             create_op(BEHAVIORS.MV, STATES.MEM_WB_DATA, STATES.EX_MEM_ALUOUT) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_RD, STATES.EX_MEM_RD) +
-            create_op(BEHAVIORS.MV, STATES.MEM_WB_WB, STATES.EX_MEM_WB) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_RW, STATES.EX_MEM_RW) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_PC, STATES.EX_MEM_PC) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_LOAD, STATES.EX_MEM_DMR),
             // 1 -> reset values
             create_op(BEHAVIORS.MV, STATES.MEM_WB_DATA, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_RD, STATES.VAL_ZERO) +
-            create_op(BEHAVIORS.MV, STATES.MEM_WB_WB, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, STATES.MEM_WB_RW, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_PC, STATES.VAL_ZERO) +
             create_op(BEHAVIORS.MV, STATES.MEM_WB_LOAD, STATES.VAL_ZERO),
             // 2 and 3 -> nop
@@ -1257,7 +1321,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
     sim_p.signals[SIGNALS.AUX_LOAD_MUX_ALUOUT] = {
         name: "AUX_LOAD_MUX_ALUOUT", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_ALUOUT, STATES.ALU_OUT, STATES.VAL_ZERO, STATES.VAL_ONE)],
+        behavior: [create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_ALUOUT, STATES.ALU_OUT, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO)],
         depends_on: [SIGNALS.ALUOP],
         fire_name: [],
         draw_data: [[]],
@@ -1326,6 +1390,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     /* BRANCH */
+    const BRANCH_CU = ['svg_cu:path7035-0-7-6-1-0-6-8-6', 'svg_cu:path6825-7-2-5-9-6-8', 'svg_cu:path7035-0-7-6-1-0', 'svg_cu:path7035-0-7-6-1-0-6'];
     sim_p.signals[SIGNALS.BRANCH] = {
         name: "BRANCH", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
         behavior: [
@@ -1335,9 +1400,63 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.NOP),
         ],
         depends_on: [SIGNALS.AUX_LOAD_BRANCH, SIGNALS.ALUOP, SIGNALS.MUX_ALUOUT, SIGNALS.CLK],
-        fire_name: ['svg_p:text7237-3-4-6-4-0'],
-        draw_data: [['svg_p:path6823-2-3-8', 'svg_p:path6825-7-2-5-9', 'svg_p:path7035-0-7-6'], ['svg_p:path6827-3-4-9-7', 'svg_p:path6825-7-8-8-3'], ['svg_p:path6827-3-4-9-0-8', 'svg_p:path6825-7-8-8-7-8'], []],
+        fire_name: ['svg_p:text7237-3-4-6-4-0', 'svg_cu:text7237-3-4-6-4-0-6-7'],
+        draw_data: [['svg_p:path6823-2-3-8', 'svg_p:path6825-7-2-5-9', 'svg_p:path7035-0-7-6'],
+        ['svg_p:path6827-3-4-9-7', 'svg_p:path6825-7-8-8-3', ...BRANCH_CU],
+        ['svg_p:path6827-3-4-9-0-8', 'svg_p:path6825-7-8-8-7-8', ...BRANCH_CU],
+        []],
         draw_name: [[], ['svg_p:path7197-7-4-9'], ['svg_p:path7197-7-4-9']]
+    };
+
+    sim_p.signals[SIGNALS.BRANCH_IS_ONE] = {
+        name: "BRANCH_IS_ONE", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.BRANCH_IS_ONE, SIGNALS.BRANCH, STATES.VAL_ONE),
+        ],
+        depends_on: [SIGNALS.BRANCH, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-1'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.BRANCH_IS_TWO] = {
+        name: "BRANCH_IS_TWO", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH, STATES.VAL_TWO),
+        ],
+        depends_on: [SIGNALS.BRANCH, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-0']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.BRANCH_AND] = {
+        name: "BRANCH_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.BRANCH_AND, SIGNALS.BRANCH_IS_ONE, STATES.ALU_OUT),
+        ],
+        depends_on: [SIGNALS.BRANCH_IS_ONE, SIGNALS.ALUOP, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7'],
+        draw_data: [[], ['svg_cu:path6825-7-2-5-9-6-8-7', 'svg_cu:path7035-0-7-6-1-0-6-8-4', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.BRANCH_OR] = {
+        name: "BRANCH_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.OR, SIGNALS.BRANCH_OR, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND) + create_op(BEHAVIORS.MV, SIGNALS.JUMP, SIGNALS.BRANCH_OR),
+        ],
+        depends_on: [SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND, SIGNALS.CLK],
+        fire_name: ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.BRANCH_STALL_NOT] = {
+        name: "BRANCH_STALL_NOT", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.LNOT, SIGNALS.BRANCH_STALL_NOT, SIGNALS.STALL) + create_op(BEHAVIORS.MV, SIGNALS.PCWRITE, SIGNALS.BRANCH_STALL_NOT),
+        ],
+        depends_on: [SIGNALS.STALL, SIGNALS.CLK],
+        fire_name: ['svg_cu:path12162-9'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-1']],
+        draw_name: [[]]
     };
 
     /* MEMORY STAGE control for load/store */
@@ -1405,14 +1524,14 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.NOP] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
         },
         verbal: function (s_expr: string[]): string { return ""; }
     };
     sim_p.behaviors[BEHAVIORS.NOP_ALU] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             sim_p.internal_states.alu_flags.flag_n = 0;
             sim_p.internal_states.alu_flags.flag_z = 0;
         },
@@ -1422,11 +1541,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 3,
         types: ["X", "X"],
         operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var sim_elto_org = get_reference(s_expr[2]);
             var sim_elto_dst = get_reference(s_expr[1]);
             var newval = get_value(sim_elto_org);
             set_value(sim_elto_dst, newval);
-            if (DEBUG) console.log(s_expr, "new value", newval);
         },
         verbal: function (s_expr: string[]): string {
             var sim_elto_org = get_reference(s_expr[2]);
@@ -1441,49 +1560,56 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                 show_verbal(s_expr[2]) + " (" + show_value(newval) + "). ";
         }
     };
+    // MV_BITS: copy `size` bits from src[src_offset +: size] into dst[dst_offset +: size]
+    // Parameters: dst, src, src_offset, size, dst_offset
     sim_p.behaviors[BEHAVIORS.MV_BITS] = {
-        nparameters: 5,
-        types: ["X", "X", "X", "X"],
+        nparameters: 6,
+        types: ["X", "X", "X", "X", "X"],
         operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var sim_elto_dst = get_reference(s_expr[1]);
             var sim_elto_org = get_reference(s_expr[2]);
-            var offset = get_value(get_reference(s_expr[3]));
+            var src_offset = get_value(get_reference(s_expr[3]));
             var size = get_value(get_reference(s_expr[4]));
+            var dst_offset = get_value(get_reference(s_expr[5]));
             var src_val = get_value(sim_elto_org);
+            var dst_val = get_value(sim_elto_dst);
             var mask = (1 << size) - 1;
-            var newval = (src_val >>> offset) & mask;
+            var bits = (src_val >>> src_offset) & mask;
+            var newval = (dst_val & ~(mask << dst_offset)) | (bits << dst_offset);
             set_value(sim_elto_dst, newval >>> 0);
-            if (DEBUG) console.log(s_expr, "new value", newval);
         },
         verbal: function (s_expr: string[]): string {
             var sim_elto_org = get_reference(s_expr[2]);
-            var offset = get_value(get_reference(s_expr[3]));
+            var src_offset = get_value(get_reference(s_expr[3]));
             var size = get_value(get_reference(s_expr[4]));
+            var dst_offset = get_value(get_reference(s_expr[5]));
             var src_val = get_value(sim_elto_org);
             var mask = (1 << size) - 1;
-            var newval = (src_val >>> offset) & mask;
+            var bits = (src_val >>> src_offset) & mask;
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math') {
-                return "Copy " + size + " bits from " + show_verbal(s_expr[2]) +
-                    "[" + offset + ":" + (offset + size - 1) + "] to " +
-                    show_verbal(s_expr[1]) + " value " + show_value(newval) + ". ";
+                return "Copy " + size + " bits from ("+show_value(src_val)+") " + show_verbal(s_expr[2]) +
+                    "[" + src_offset + ":" + (src_offset + size - 1) + "] to " +
+                    show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) +
+                    "] value " + show_value(bits) + ". ";
             }
-            return show_verbal(s_expr[1]) + " = " +
-                show_verbal(s_expr[2]) + "[" + offset + ":" + (offset + size - 1) + "] (" +
-                show_value(newval) + "). ";
+            return show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) + "] (val "+show_value(src_val)+") = " +
+                show_verbal(s_expr[2]) + "[" + src_offset + ":" + (src_offset + size - 1) + "] (" +
+                show_value(bits) + "). ";
         }
     };
     sim_p.behaviors[BEHAVIORS.AND] = {
-        nparameters: 4, types: ["E", "E", "E"],
+        nparameters: 4, types: ["X", "X", "X"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-            var result = get_value(sim_p.states[s_expr[2]]) & get_value(sim_p.states[s_expr[3]]);
-            set_value(sim_p.states[s_expr[1]], result >>> 0);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            var result = get_value(get_reference(s_expr[2])) & get_value(get_reference(s_expr[3]));
+            set_value(get_reference(s_expr[1]), result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
         verbal: function (s_expr: string[]): string {
-            var result = get_value(sim_p.states[s_expr[2]]) & get_value(sim_p.states[s_expr[3]]);
+            var result = get_value(get_reference(s_expr[2])) & get_value(get_reference(s_expr[3]));
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
                 return "ALU AND with result " + show_value(result) + ". ";
@@ -1491,16 +1617,16 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         }
     };
     sim_p.behaviors[BEHAVIORS.OR] = {
-        nparameters: 4, types: ["E", "E", "E"],
+        nparameters: 4, types: ["X", "X", "X"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-            var result = get_value(sim_p.states[s_expr[2]]) | get_value(sim_p.states[s_expr[3]]);
-            set_value(sim_p.states[s_expr[1]], result >>> 0);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            var result = get_value(get_reference(s_expr[2])) | get_value(get_reference(s_expr[3]));
+            set_value(get_reference(s_expr[1]), result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
         verbal: function (s_expr: string[]): string {
-            var result = get_value(sim_p.states[s_expr[2]]) | get_value(sim_p.states[s_expr[3]]);
+            var result = get_value(get_reference(s_expr[2])) | get_value(get_reference(s_expr[3]));
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
                 return "ALU OR with result " + show_value(result) + ". ";
@@ -1510,7 +1636,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.XOR] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var result = get_value(sim_p.states[s_expr[2]]) ^ get_value(sim_p.states[s_expr[3]]);
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
@@ -1527,7 +1653,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.NOT] = {
         nparameters: 3, types: ["E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var result = ~(get_value(sim_p.states[s_expr[2]]));
             set_value(sim_p.states[s_expr[1]], result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
@@ -1541,10 +1667,33 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             return "ALU output = " + show_value(result) + " (NOT). ";
         }
     };
+    // LNOT: dst = !src  (logical NOT, accepts references)
+    // Parameters: dst, src
+    sim_p.behaviors[BEHAVIORS.LNOT] = {
+        nparameters: 3, types: ["X", "X"],
+        operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(s_expr);
+            var src = get_value(get_reference(s_expr[2])) >>> 0;
+            var result = (src == 0) ? 1 : 0;
+            set_value(get_reference(s_expr[1]), result >>> 0);
+            sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
+            sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
+        },
+        verbal: function (s_expr: string[]): string {
+            var src = get_value(get_reference(s_expr[2])) >>> 0;
+            var result = (src == 0) ? 1 : 0;
+            var verbose = get_cfg('verbal_verbose');
+            if (verbose !== 'math')
+                return "Logical NOT of " + show_verbal(s_expr[2]) +
+                    " (" + show_value(src) + ") -> " + show_value(result) + ". ";
+            return show_verbal(s_expr[1]) + " = !(" + show_verbal(s_expr[2]) +
+                ") (" + show_value(result) + "). ";
+        }
+    };
     sim_p.behaviors[BEHAVIORS.ADD] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a + b;
@@ -1567,7 +1716,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SUB] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a - b;
@@ -1588,7 +1737,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.ADDU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a + b;
@@ -1609,7 +1758,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.LUI] = {
         nparameters: 3, types: ["E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var result = (get_value(sim_p.states[s_expr[2]])) << 16;
             set_value(sim_p.states[s_expr[1]], result);
             sim_p.internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0;
@@ -1626,7 +1775,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.MUL] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = a * b;
@@ -1647,7 +1796,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.DIV] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -1668,7 +1817,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.MOD] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (b != 0) ? a % b : 0;
@@ -1689,7 +1838,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SUBU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a - b;
@@ -1710,7 +1859,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.MULU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = a * b;
@@ -1731,7 +1880,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.DIVU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (b != 0) ? Math.floor(a / b) : 0;
@@ -1752,7 +1901,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SRL] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
@@ -1771,7 +1920,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SRA] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >> shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
@@ -1790,7 +1939,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SL] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             set_value(sim_p.states[s_expr[1]], result >>> 0);
@@ -1811,7 +1960,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.RR] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) >>> shifts;
             var carry = (get_value(sim_p.states[s_expr[2]])) >> (shifts - 1) & 1;
@@ -1834,7 +1983,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.RL] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var shifts = get_value(sim_p.states[s_expr[3]]);
             var result = (get_value(sim_p.states[s_expr[2]])) << shifts;
             var carry = (get_value(sim_p.states[s_expr[2]])) >>> (32 - shifts);
@@ -1855,19 +2004,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         }
     };
     sim_p.behaviors[BEHAVIORS.SEQ] = {
-        nparameters: 4, types: ["E", "E", "E"],
+        nparameters: 4, types: ["X", "X", "X"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-            var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
-            var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            var a = get_value(get_reference(s_expr[2])) >>> 0;
+            var b = get_value(get_reference(s_expr[3])) >>> 0;
             var result = (a == b) ? 1 : 0;
-            set_value(sim_p.states[s_expr[1]], result >>> 0);
+            set_value(get_reference(s_expr[1]), result >>> 0);
             sim_p.internal_states.alu_flags.flag_n = 0;
             sim_p.internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0;
         },
         verbal: function (s_expr: string[]): string {
-            var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
-            var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
+            var a = get_value(get_reference(s_expr[2])) >>> 0;
+            var b = get_value(get_reference(s_expr[3])) >>> 0;
             var result = (a == b) ? 1 : 0;
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math')
@@ -1878,7 +2027,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SNE] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (a != b) ? 1 : 0;
@@ -1899,7 +2048,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SLTS] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (a < b) ? 1 : 0;
@@ -1920,7 +2069,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SGES] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) << 0;
             var b = get_value(sim_p.states[s_expr[3]]) << 0;
             var result = (a >= b) ? 1 : 0;
@@ -1941,7 +2090,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SLTU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (a < b) ? 1 : 0;
@@ -1962,7 +2111,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.SGEU] = {
         nparameters: 4, types: ["E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var a = get_value(sim_p.states[s_expr[2]]) >>> 0;
             var b = get_value(sim_p.states[s_expr[3]]) >>> 0;
             var result = (a >= b) ? 1 : 0;
@@ -1983,7 +2132,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.READ_IM] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var address = get_value(sim_p.states[STATES.REG_PC]);
             var clk = get_value(sim_p.states[STATES.CLK]);
             var remain = get_value(sim_p.internal_states.MP_wc);
@@ -2030,7 +2179,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     function fire(key: string): void {
-        if (DEBUG) console.log("Start FIRE", key, "fire_once", sim_p.internal_states.fire_once[key]);
+        if (DEBUG) console.log("Start FIRE", key, "value", sim_p.signals[key]?.value, "fire_once", sim_p.internal_states.fire_once[key]);
         if (sim_p.internal_states.fire_once[key]) { if (DEBUG) console.log("return already fire"); return; }
         const signal = sim_p.signals[key];
         if (typeof signal == "undefined") { if (DEBUG) console.log("return not a signal"); return; }
@@ -2053,7 +2202,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.FIRE] = {
         nparameters: 2, types: ["S"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             fire(s_expr[1]);
         },
         verbal: function (s_expr: string[]): string { return ""; }
@@ -2062,7 +2211,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.FIRE_IFSET] = {
         nparameters: 3, types: ["S", "I"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             if (get_value(sim_p.signals[s_expr[1]]) != parseInt(s_expr[2])) return;
             fire(s_expr[1]);
         },
@@ -2128,7 +2277,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.UPDATE_NZ] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             set_value(simhw_sim_state("FLAG_N"), sim_p.internal_states.alu_flags.flag_n);
             set_value(simhw_sim_state("FLAG_Z"), sim_p.internal_states.alu_flags.flag_z);
             set_value(simhw_sim_signal("TEST_N"), sim_p.internal_states.alu_flags.flag_n);
@@ -2145,8 +2294,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     /* CPU_RESET */
     sim_p.behaviors[BEHAVIORS.CPU_RESET] = {
         nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+        operation: function (): void {
+            if (DEBUG) console.log("CPU_RESET");
             for (var key in sim_p.states) reset_value(sim_p.states[key]);
             for (var key in sim_p.signals) reset_value(sim_p.signals[key]);
             sim_p.internal_states.halt = 0;
@@ -2157,7 +2306,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             set_value(sim_p.signals[SIGNALS.EX_MEM_RST], 1);
             set_value(sim_p.signals[SIGNALS.MEM_WB_RST], 1);
         },
-        verbal: function (s_expr: string[]): string { return "Reset CPU. "; }
+        verbal: function (): string { return "Reset CPU. "; }
     };
 
     function inBounds(pc: number): boolean {
@@ -2181,7 +2330,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_IF] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var pc_val = get_value(sim_p.states[STATES.IF_FETCH_PC]);
             var next_pc = 0;
             var ins_val = 0;
@@ -2207,7 +2356,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_DECO] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             let ins = get_value(sim_p.states[STATES.IF_ID_IR]);
             const DECODE_STATES = [
                 STATES.DECODE_DMR,
@@ -2302,7 +2451,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.HAZARD_DETECTION_UNIT] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             let id_ex_rs1a = get_value(sim_p.states[STATES.ID_EX_RS1_ADDR]);
             let id_ex_rs2a = get_value(sim_p.states[STATES.ID_EX_RS2_ADDR]);
             let id_ex_dmr = get_value(sim_p.states[STATES.ID_EX_DMR]);
@@ -2333,25 +2482,25 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.FORWARDING_UNIT] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var id_ex_rs1a = get_value(sim_p.states[STATES.ID_EX_RS1_ADDR]);
             var id_ex_rs2a = get_value(sim_p.states[STATES.ID_EX_RS2_ADDR]);
             var ex_mem_rd = get_value(sim_p.states[STATES.EX_MEM_RD]);
-            var ex_mem_wb = get_value(sim_p.states[STATES.EX_MEM_WB]);
+            var ex_mem_rw = get_value(sim_p.states[STATES.EX_MEM_RW]);
             var mem_wb_rd = get_value(sim_p.states[STATES.MEM_WB_RD]);
-            var mem_wb_wb = get_value(sim_p.states[STATES.MEM_WB_WB]);
+            var mem_wb_rw = get_value(sim_p.states[STATES.MEM_WB_RW]);
             var m1 = 0;
             var m2 = 0;
-            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
+            if (mem_wb_rw && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
                 m1 = 1;
             }
-            if (mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2a) {
+            if (mem_wb_rw && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2a) {
                 m2 = 1;
             }
-            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs1a) {
+            if (ex_mem_rw && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs1a) {
                 m1 = 2;
             }
-            if (ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2a) {
+            if (ex_mem_rw && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2a) {
                 m2 = 2;
             }
             set_value(sim_p.signals[SIGNALS.M1], m1);
@@ -2366,9 +2515,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (DEBUG) console.log("id_ex_rs1a", id_ex_rs1a);
             if (DEBUG) console.log("id_ex_rs2a", id_ex_rs2a);
             if (DEBUG) console.log("ex_mem_rd", ex_mem_rd);
-            if (DEBUG) console.log("ex_mem_wb", ex_mem_wb);
+            if (DEBUG) console.log("ex_mem_wb", ex_mem_rw);
             if (DEBUG) console.log("mem_wb_rd", mem_wb_rd);
-            if (DEBUG) console.log("mem_wb_wb", mem_wb_wb);
+            if (DEBUG) console.log("mem_wb_wb", mem_wb_rw);
             if (DEBUG) console.log("forwarding", forwarding);
         },
         verbal: function (s_expr: string[]): string { return "Compute forwarding for M1 and M2."; }
@@ -2377,10 +2526,10 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_WB_WRITE] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-            var wb = get_value(sim_p.states[STATES.MEM_WB_WB]);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            var rw = get_value(sim_p.states[STATES.MEM_WB_RW]);
             var rd = get_value(sim_p.states[STATES.MEM_WB_RD]);
-            if (wb && rd != 0) {
+            if (rw && rd != 0) {
                 var data = get_value(sim_p.states[STATES.MEM_WB_DATA]) << 0;
                 set_value(sim_p.states.BR[rd], data >>> 0);
                 if (DEBUG) console.log("Save value", data, "in reg", rd);
@@ -2392,7 +2541,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_DISPLAY] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var if_pc = get_value(sim_p.states[STATES.IF_FETCH_PC]);
             var if_id_pc = get_value(sim_p.states[STATES.IF_ID_PC]);
             var id_ex_pc = get_value(sim_p.states[STATES.ID_EX_PC]);
@@ -2424,7 +2573,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_WB_LOAD] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var is_load = get_value(sim_p.states[STATES.MEM_WB_LOAD]);
             if (is_load) {
                 var rd_data = get_value(sim_p.states[STATES.RDATAM]) << 0;
@@ -2439,7 +2588,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.behaviors[BEHAVIORS.PIPE_MEM_STAGE_OP] = {
         nparameters: 1,
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
             var dmr = get_value(sim_p.states[STATES.EX_MEM_DMR]);
             var dmw = get_value(sim_p.states[STATES.EX_MEM_DMW]);
             var wbe = get_value(sim_p.states[STATES.EX_MEM_WBE]);
@@ -2476,44 +2625,10 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         verbal: function (s_expr: string[]): string { return "Execute MEM stage load/store operations."; }
     };
 
-    sim_p.behaviors[BEHAVIORS.STALL_UNIT] = {
-        nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
-
-            let branch = get_value(sim_p.signals[SIGNALS.BRANCH]);
-            let mux_aluout = get_value(sim_p.signals[SIGNALS.MUX_ALUOUT]);
-            let jump = false;
-            jump = jump || (branch == 2);
-            jump = jump || (branch == 1 && mux_aluout == 1);
-
-            let stall = get_value(sim_p.signals[SIGNALS.STALL]);
-
-            if (stall) {
-                // Not update PC (stall)
-                set_value(sim_p.signals[SIGNALS.PCWRITE], 0);
-                // IF_ID do nothing (stall)
-                set_value(sim_p.signals[SIGNALS.IF_ID_RST], 2);
-                // ID_EX reset values to make bubble
-                set_value(sim_p.signals[SIGNALS.ID_EX_RST], 1);
-                if (DEBUG) console.log("PIPE_BRANCH STALL");
-            } else if (jump) {
-                // IF_ID reset values to make bubble
-                set_value(sim_p.signals[SIGNALS.IF_ID_RST], 1);
-                // ID_EX reset values to make bubble
-                set_value(sim_p.signals[SIGNALS.ID_EX_RST], 1);
-                if (DEBUG) console.log("PIPE_BRANCH JUMP");
-            }
-        },
-        verbal: function (s_expr: string[]): string {
-            return "Evaluate stalls in the pipeline.";
-        }
-    };
-
     sim_p.behaviors[BEHAVIORS.CLOCK] = {
         nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(s_expr);
+        operation: function (): void {
+            if (DEBUG) console.log("CLOCK");
             var t0 = performance.now();
 
             // Update clock counter
