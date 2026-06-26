@@ -29,6 +29,9 @@ echo " ---------------"
 echo ""
 
 
+# defaults
+USE_MIN=0
+
 # arguments
 while getopts 'vdh' opt; do
   case "$opt" in
@@ -56,13 +59,18 @@ while getopts 'vdh' opt; do
       ;;
 
     ?|h)
-      echo "  Usage: $(basename $0) [-v] [-d]"
+      echo "  Usage: $(basename $0) [-v] [-d] [min]"
       echo ""
       exit 1
       ;;
   esac
 done
 shift "$(($OPTIND -1))"
+
+# check for "min" argument
+if [ "$1" = "min" ]; then
+  USE_MIN=1
+fi
 
 # skeleton
 echo "  Step for packing:"
@@ -110,6 +118,7 @@ PARALLEL_PIDS=""
       sim_hw/sim_hw_index.js \
       sim_hw/sim_hw_values.js \
       sim_hw/sim_hw_behavior.js \
+      sim_hw/sim_hw_signal.js \
       sim_hw/sim_hw_eltos.js \
       \
       sim_hw/hw_items/board_base.js \
@@ -158,8 +167,11 @@ PARALLEL_PIDS=""
       sim_sw/assembly/compiler3_obj2mem_wepsim.js \
       sim_sw/assembly/compiler_options.js \
       sim_sw/assembly.js > ws_dist/sim_all.js
-  # terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
-  cp ws_dist/sim_all.js ws_dist/min.sim_all.js
+  if [ "$USE_MIN" -eq 1 ]; then
+    terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
+  else
+    cp ws_dist/sim_all.js ws_dist/min.sim_all.js
+  fi
   rm -f ws_dist/sim_all.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
@@ -184,8 +196,11 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
     cp wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
     cp wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
   done
-  # terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
-  cp ws_dist/wepsim_i18n.js ws_dist/min.wepsim_i18n.js
+  if [ "$USE_MIN" -eq 1 ]; then
+    terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
+  else
+    cp ws_dist/wepsim_i18n.js ws_dist/min.wepsim_i18n.js
+  fi
   rm -f ws_dist/wepsim_i18n.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
@@ -219,8 +234,11 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       wepsim_core/wepsim_voice_commands.js \
       \
       wepsim_core/wepsim_dbg_breakpointicons.js > ws_dist/wepsim_core.js
-  # terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
-  cp ws_dist/wepsim_core.js ws_dist/min.wepsim_core.js
+  if [ "$USE_MIN" -eq 1 ]; then
+    terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
+  else
+    cp ws_dist/wepsim_core.js ws_dist/min.wepsim_core.js
+  fi
   rm -f ws_dist/wepsim_core.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
@@ -300,8 +318,11 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       wepsim_web/wepsim_web_api.js \
       wepsim_web/wepsim_web_editor.js \
       wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_webui.js
-  # terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
-  cp ws_dist/wepsim_webui.js ws_dist/min.wepsim_webui.js
+  if [ "$USE_MIN" -eq 1 ]; then
+    terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
+  else
+    cp ws_dist/wepsim_webui.js ws_dist/min.wepsim_webui.js
+  fi
   rm -f ws_dist/wepsim_webui.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
@@ -349,8 +370,11 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
       external/annyang.min.js \
       external/speechkitt/speechkitt.min.js \
       external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
-  # terser --comments -o ws_dist/min.external.js ws_dist/external.js
-  cp ws_dist/external.js ws_dist/min.external.js
+  if [ "$USE_MIN" -eq 1 ]; then
+    terser --comments -o ws_dist/min.external.js ws_dist/external.js
+  else
+    cp ws_dist/external.js ws_dist/min.external.js
+  fi
   rm -f ws_dist/external.js
 } &
 PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"

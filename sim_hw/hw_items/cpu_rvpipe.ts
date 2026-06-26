@@ -2444,7 +2444,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             }
         }
         if (DEBUG) console.log("FIRE", key, "value", get_value(sim_p.signals[key]));
-        update_state(key);
+        signal_apply_behaviour(key);
     }
 
     sim_p.behaviors[BEHAVIORS.FIRE] = {

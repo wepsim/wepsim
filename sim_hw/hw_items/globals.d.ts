@@ -43,7 +43,7 @@ declare function show_main_memory(memory: any, index: number, redraw: boolean, u
 declare function show_asmdbg_pc(): void;
 declare function show_dbg_ir(value: number): void;
 declare function update_draw(obj: any, value: number): void;
-declare function update_state(key: string): void;
+declare function signal_apply_behaviour(key: string): void;
 declare function fn_updateE_now(key: string): void;
 declare function fn_updateL_now(key: string): void;
 declare function compute_behavior(name: string): void;
