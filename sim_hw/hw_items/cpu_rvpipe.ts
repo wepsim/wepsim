@@ -242,6 +242,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         VAL_ZERO = "VAL_ZERO",
         VAL_ONE = "VAL_ONE",
         VAL_TWO = "VAL_TWO",
+        VAL_THREE = "VAL_THREE",
         VAL_FOUR = "VAL_FOUR",
         VAL_IMM = "VAL_IMM",
         CLK = "CLK",
@@ -304,8 +305,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
         STALL = "STALL",
         JUMP = "JUMP",
-        PIPE_FORWARDING = "PIPE_FORWARDING",
-        AUX_FORWARDING_UNIT = "AUX_FORWARDING_UNIT",
+        AUX_DRAW_FORWARDING_UNIT = "AUX_DRAW_FORWARDING_UNIT",
 
         HAZARD_NEQ_RD_0 = "HAZARD_NEQ_RD_0",
         HAZARD_AND = "HAZARD_AND",
@@ -313,6 +313,23 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         HAZARD_EQ_RD_RS1 = "HAZARD_EQ_RD_RS1",
         HAZARD_EQ_RD_RS2 = "HAZARD_EQ_RD_RS2",
         HAZARD_OR = "HAZARD_OR",
+
+        FORWARD_EQ_MEM_WB_RD_ID_EX_RS1 = "FORWARD_EQ_MEM_WB_RD_ID_EX_RS1",
+        FORWARD_NEQ_MEM_WB_RD_0 = "FORWARD_NEQ_MEM_WB_RD_0",
+        FORWARD_EQ_MEM_WB_RD_ID_EX_RS2 = "FORWARD_EQ_MEM_WB_RD_ID_EX_RS2",
+        FORWARD_AND_MEM_WB_RW = "FORWARD_AND_MEM_WB_RW",
+        FORWARD_AND_MEM_WB_1 = "FORWARD_AND_MEM_WB_1",
+        FORWARD_AND_MEM_WB_2 = "FORWARD_AND_MEM_WB_2",
+
+        FORWARD_EQ_EX_MEM_RD_ID_EX_RS1 = "FORWARD_EQ_EX_MEM_RD_ID_EX_RS1",
+        FORWARD_NEQ_EX_MEM_RD_0 = "FORWARD_NEQ_EX_MEM_RD_0",
+        FORWARD_EQ_EX_MEM_RD_ID_EX_RS2 = "FORWARD_EQ_EX_MEM_RD_ID_EX_RS2",
+        FORWARD_AND_EX_MEM_RW = "FORWARD_AND_EX_MEM_RW",
+        FORWARD_AND_EX_MEM_1 = "FORWARD_AND_EX_MEM_1",
+        FORWARD_AND_EX_MEM_2 = "FORWARD_AND_EX_MEM_2",
+
+        FORWARD_MUX_M1 = "FORWARD_MUX_M1",
+        FORWARD_MUX_M2 = "FORWARD_MUX_M2",
     };
 
     enum BEHAVIORS {
@@ -354,7 +371,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         CPU_RESET = "CPU_RESET",
         PIPE_IF = "PIPE_IF",
         PIPE_DECO = "PIPE_DECO",
-        FORWARDING_UNIT = "FORWARDING_UNIT",
         PIPE_WB_WRITE = "PIPE_WB_WRITE",
         PIPE_DISPLAY = "PIPE_DISPLAY",
         PIPE_WB_LOAD = "PIPE_WB_LOAD",
@@ -779,6 +795,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: false, nbits: "32", value: 2, default_value: 2,
         draw_data: []
     };
+    sim_p.states[STATES.VAL_THREE] = {
+        name: "VAL_THREE", verbal: "Wired Three",
+        visible: false, nbits: "32", value: 3, default_value: 3,
+        draw_data: []
+    };
     sim_p.states[STATES.VAL_FOUR] = {
         name: "VAL_FOUR", verbal: "Wired Four",
         visible: false, nbits: "32", value: 4, default_value: 4,
@@ -927,7 +948,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
         depends_on: [SIGNALS.HAZARD_STALL, SIGNALS.CLK],
-        fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1'],
+        fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7-2-2'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4', 'svg_cu:path6825-7-2-5-9-6-8-2', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1-9', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3']],
         draw_name: [[], ['svg_p:path7013-51']]
     };
@@ -957,15 +978,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "PIPE_DECODE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.PIPE_DECO)],
         depends_on: [],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
-
-    sim_p.signals[SIGNALS.PIPE_FORWARDING] = {
-        name: "PIPE_FORWARDING", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.FORWARDING_UNIT)],
-        depends_on: [SIGNALS.PIPE_DECODE],
         fire_name: [],
         draw_data: [[]],
         draw_name: [[]]
@@ -1076,10 +1088,10 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         create_op(BEHAVIORS.MV, STATES.M1_ALU, STATES.MEM_WB_DATA),
         create_op(BEHAVIORS.MV, STATES.M1_ALU, STATES.EX_MEM_ALUOUT),
         create_op(BEHAVIORS.MV, STATES.M1_ALU, STATES.ID_EX_PC)],
-        depends_on: [SIGNALS.PIPE_FORWARDING, SIGNALS.CLK],
-        fire_name: ['svg_p:text7229-7', 'svg_p:text7229'],
+        depends_on: [SIGNALS.FORWARD_MUX_M1, SIGNALS.CLK],
+        fire_name: ['svg_p:text7229-7', 'svg_p:text7229', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7'],
         draw_data: [['svg_p:path6775', 'svg_p:path6777'], [], [], []],
-        draw_name: [[], ['svg_p:path7199', 'svg_p:path7013'], ['svg_p:path7199', 'svg_p:path7013']]
+        draw_name: [[], ...Array.from({ length: 3 }, () => [...['svg_p:path7199', 'svg_p:path7013', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-1-6-1-3']])]
     };
 
     sim_p.signals[SIGNALS.M2] = {
@@ -1088,10 +1100,10 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         create_op(BEHAVIORS.MV, STATES.M2_ALU, STATES.MEM_WB_DATA),
         create_op(BEHAVIORS.MV, STATES.M2_ALU, STATES.EX_MEM_ALUOUT),
             ""],
-        depends_on: [SIGNALS.PIPE_FORWARDING, SIGNALS.CLK],
-        fire_name: ['svg_p:text7237', 'svg_p:text7237-0'],
+        depends_on: [SIGNALS.FORWARD_MUX_M2, SIGNALS.CLK],
+        fire_name: ['svg_p:text7237', 'svg_p:text7237-0', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7-2'],
         draw_data: [['svg_p:path6821', 'svg_p:path6823'], [], [], []],
-        draw_name: [[], ['svg_p:path7197', 'svg_p:path7013-0'], ['svg_p:path7197', 'svg_p:path7013-0']]
+        draw_name: [[], ...Array.from({ length: 3 }, () => [...['svg_p:path7197', 'svg_p:path7013-0', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-1-6-1-3-6']])]
     };
 
     sim_p.signals[SIGNALS.M3] = {
@@ -1123,7 +1135,12 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     const F1_DRAW_DATA = ['svg_p:path7001-6', 'svg_p:path7013-9', 'svg_p:path7001', 'svg_p:path7003', 'svg_p:path7003-8', 'svg_p:path7567-0-8-6-9', 'svg_p:path7013-0-2-9-3', 'svg_p:path7567-0-6-9'];
     const F2_DRAW_DATA = ['svg_p:path7013-9-0', 'svg_p:path6825-8', 'svg_p:path6827-7', 'svg_p:path6827', 'svg_p:path6825', 'svg_p:path7567-0-8-6', 'svg_p:path7013-5-6-4'];
     const F1_F2_DRAW_DATA = [...F1_DRAW_DATA, ...F2_DRAW_DATA];
-    sim_p.signals[SIGNALS.AUX_FORWARDING_UNIT] = {
+    // Format 4 bits
+    // 1º bit is M1 with value 2
+    // 2º bit is M1 with value 1
+    // 3º bit is M2 with value 2
+    // 4º bit is M2 with value 1
+    sim_p.signals[SIGNALS.AUX_DRAW_FORWARDING_UNIT] = {
         name: "AUX_FORWARDING_UNIT", visible: true, type: "L", value: 0, default_value: 0, nbits: "4",
         behavior: [create_op(BEHAVIORS.NOP)],
         depends_on: [SIGNALS.CLK],
@@ -1370,7 +1387,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         (create_op(BEHAVIORS.NOP_ALU)),
         (create_op(BEHAVIORS.MV, STATES.ALU_OUT, STATES.M3_ALU) + create_op(BEHAVIORS.UPDATE_NZ)),
         (create_op(BEHAVIORS.MV, STATES.ALU_OUT, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_NZ))],
-        depends_on: [SIGNALS.AUX_FORWARDING_UNIT, SIGNALS.AUX_LOAD_ALUOP, SIGNALS.M3, SIGNALS.M4],
+        depends_on: [SIGNALS.AUX_DRAW_FORWARDING_UNIT, SIGNALS.AUX_LOAD_ALUOP, SIGNALS.M3, SIGNALS.M4],
         fire_name: ['svg_p:text7269'],
         draw_data: [['svg_p:path6847', 'svg_p:path6843']],
         draw_name: [['svg_p:path7249']]
@@ -1514,6 +1531,179 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         depends_on: [SIGNALS.HAZARD_EQ_RD_RS1, SIGNALS.HAZARD_EQ_RD_RS2, SIGNALS.CLK],
         fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5-5'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1-0-0', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-4-7-3']],
+        draw_name: [[]]
+    };
+
+
+    sim_p.signals[SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS1] = {
+        name: "FORWARD_EQ_MEM_WB_RD_ID_EX_RS1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS1, STATES.MEM_WB_RD, STATES.ID_EX_RS1_ADDR),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_NEQ_MEM_WB_RD_0] = {
+        name: "FORWARD_NEQ_MEM_WB_RD_0", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_NEQ_MEM_WB_RD_0, STATES.MEM_WB_RD, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.LNOT, SIGNALS.FORWARD_NEQ_MEM_WB_RD_0, SIGNALS.FORWARD_NEQ_MEM_WB_RD_0),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-7']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS2] = {
+        name: "FORWARD_EQ_MEM_WB_RD_ID_EX_RS2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS2, STATES.MEM_WB_RD, STATES.ID_EX_RS2_ADDR),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-1'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-8']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_MEM_WB_RW] = {
+        name: "FORWARD_AND_MEM_WB_RW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_MEM_WB_RW, SIGNALS.FORWARD_NEQ_MEM_WB_RD_0, STATES.MEM_WB_RW),
+        ],
+        depends_on: [SIGNALS.FORWARD_NEQ_MEM_WB_RD_0, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-55'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-6', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-4-9', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-32']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_MEM_WB_1] = {
+        name: "FORWARD_AND_MEM_WB_1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_MEM_WB_1, SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS1, SIGNALS.FORWARD_AND_MEM_WB_RW) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.FORWARD_MUX_M1, SIGNALS.FORWARD_AND_MEM_WB_1, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO), // Right bit,
+        ],
+        depends_on: [SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS1, SIGNALS.FORWARD_AND_MEM_WB_RW, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-0-1-4-4', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-0-1-4-4-4', 'svg_cu:path6825-7-2-5-9-6-8-2-4-8-5-9']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_MEM_WB_2] = {
+        name: "FORWARD_AND_MEM_WB_2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_MEM_WB_2, SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS2, SIGNALS.FORWARD_AND_MEM_WB_RW) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.FORWARD_MUX_M2, SIGNALS.FORWARD_AND_MEM_WB_2, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO), // Right bit,
+        ],
+        depends_on: [SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS2, SIGNALS.FORWARD_AND_MEM_WB_RW, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4-8'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-0-1-4-4-42', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-5-3', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-0-1-4-4-4-7', 'svg_cu:path6825-7-2-5-9-6-8-2-4-8-5-9-8']],
+        draw_name: [[]]
+    };
+
+
+
+    sim_p.signals[SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS1] = {
+        name: "FORWARD_EQ_EX_MEM_RD_ID_EX_RS1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS1, STATES.EX_MEM_RD, STATES.ID_EX_RS1_ADDR),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-9'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-6']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_NEQ_EX_MEM_RD_0] = {
+        name: "FORWARD_NEQ_EX_MEM_RD_0", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_NEQ_EX_MEM_RD_0, STATES.EX_MEM_RD, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.LNOT, SIGNALS.FORWARD_NEQ_EX_MEM_RD_0, SIGNALS.FORWARD_NEQ_EX_MEM_RD_0),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-42']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS2] = {
+        name: "FORWARD_EQ_EX_MEM_RD_ID_EX_RS2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS2, STATES.EX_MEM_RD, STATES.ID_EX_RS2_ADDR),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-1-9'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-8-5']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_EX_MEM_RW] = {
+        name: "FORWARD_AND_EX_MEM_RW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_EX_MEM_RW, SIGNALS.FORWARD_NEQ_EX_MEM_RD_0, STATES.EX_MEM_RW),
+        ],
+        depends_on: [SIGNALS.FORWARD_NEQ_EX_MEM_RD_0, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-55-5'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-3', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-4-97', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-327']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_EX_MEM_1] = {
+        name: "FORWARD_AND_EX_MEM_1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_EX_MEM_1, SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS1, SIGNALS.FORWARD_AND_EX_MEM_RW) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.FORWARD_MUX_M1, SIGNALS.FORWARD_AND_EX_MEM_1, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE), // Left bit
+        ],
+        depends_on: [SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS1, SIGNALS.FORWARD_AND_EX_MEM_RW, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4-82'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-5-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_AND_EX_MEM_2] = {
+        name: "FORWARD_AND_EX_MEM_2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.FORWARD_AND_EX_MEM_2, SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS2, SIGNALS.FORWARD_AND_EX_MEM_RW) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.FORWARD_MUX_M2, SIGNALS.FORWARD_AND_EX_MEM_2, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE), // Left bit
+        ],
+        depends_on: [SIGNALS.FORWARD_EQ_EX_MEM_RD_ID_EX_RS2, SIGNALS.FORWARD_AND_EX_MEM_RW, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4-8-9'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-5', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-1']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_MUX_M1] = {
+        name: "FORWARD_MUX_M1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV, SIGNALS.M1, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ZERO, STATES.VAL_ZERO, STATES.VAL_TWO, STATES.VAL_TWO),
+            create_op(BEHAVIORS.MV, SIGNALS.M1, STATES.VAL_ONE) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_TWO),
+            create_op(BEHAVIORS.MV, SIGNALS.M1, STATES.VAL_TWO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_THREE),
+            create_op(BEHAVIORS.MV, SIGNALS.M1, STATES.VAL_TWO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_THREE),
+        ],
+        depends_on: [SIGNALS.FORWARD_AND_MEM_WB_1, SIGNALS.FORWARD_AND_EX_MEM_1, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3', 'svg_cu:path6777-6-8-8'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-0-0-0', 'svg_cu:path6777-6-6-9-1'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-9-7-0', 'svg_cu:path6777-6-3-2-9'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-06-1-8', 'svg_cu:path6777-6-61-6-3'],],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.FORWARD_MUX_M2] = {
+        name: "FORWARD_MUX_M2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV, SIGNALS.M2, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ZERO, STATES.VAL_ZERO, STATES.VAL_TWO, STATES.VAL_ZERO),
+            create_op(BEHAVIORS.MV, SIGNALS.M2, STATES.VAL_ONE) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO),
+            create_op(BEHAVIORS.MV, SIGNALS.M2, STATES.VAL_TWO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE),
+            create_op(BEHAVIORS.MV, SIGNALS.M2, STATES.VAL_TWO) +
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.AUX_DRAW_FORWARDING_UNIT, STATES.VAL_ONE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE),
+        ],
+        depends_on: [SIGNALS.FORWARD_AND_MEM_WB_2, SIGNALS.FORWARD_AND_EX_MEM_2, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-3', 'svg_cu:path6777-6-8-8-2'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-0-0-0-3', 'svg_cu:path6777-6-6-9-1-6'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-9-7-0-2', 'svg_cu:path6777-6-3-2-9-9'],
+            ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-06-1-8-4', 'svg_cu:path6777-6-61-6-3-0'],],
         draw_name: [[]]
     };
 
@@ -2504,50 +2694,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             show_dbg_ir(decins);
         },
         verbal: function (s_expr: string[]): string { return "Decode instruction using microcode. "; }
-    };
-
-    sim_p.behaviors[BEHAVIORS.FORWARDING_UNIT] = {
-        nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
-            var id_ex_rs1a = get_value(sim_p.states[STATES.ID_EX_RS1_ADDR]);
-            var id_ex_rs2a = get_value(sim_p.states[STATES.ID_EX_RS2_ADDR]);
-            var ex_mem_rd = get_value(sim_p.states[STATES.EX_MEM_RD]);
-            var ex_mem_rw = get_value(sim_p.states[STATES.EX_MEM_RW]);
-            var mem_wb_rd = get_value(sim_p.states[STATES.MEM_WB_RD]);
-            var mem_wb_rw = get_value(sim_p.states[STATES.MEM_WB_RW]);
-            var m1 = 0;
-            var m2 = 0;
-            if (mem_wb_rw && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1a) {
-                m1 = 1;
-            }
-            if (mem_wb_rw && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2a) {
-                m2 = 1;
-            }
-            if (ex_mem_rw && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs1a) {
-                m1 = 2;
-            }
-            if (ex_mem_rw && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2a) {
-                m2 = 2;
-            }
-            set_value(sim_p.signals[SIGNALS.M1], m1);
-            set_value(sim_p.signals[SIGNALS.M2], m2);
-            var forwarding = [
-                m1 == 2 ? '1' : '0',
-                m1 == 1 ? '1' : '0',
-                m2 == 2 ? '1' : '0',
-                m2 == 1 ? '1' : '0'
-            ];
-            set_value(sim_p.signals[SIGNALS.AUX_FORWARDING_UNIT], parseInt(forwarding.join(''), 2));
-            if (DEBUG) console.log("id_ex_rs1a", id_ex_rs1a);
-            if (DEBUG) console.log("id_ex_rs2a", id_ex_rs2a);
-            if (DEBUG) console.log("ex_mem_rd", ex_mem_rd);
-            if (DEBUG) console.log("ex_mem_wb", ex_mem_rw);
-            if (DEBUG) console.log("mem_wb_rd", mem_wb_rd);
-            if (DEBUG) console.log("mem_wb_wb", mem_wb_rw);
-            if (DEBUG) console.log("forwarding", forwarding);
-        },
-        verbal: function (s_expr: string[]): string { return "Compute forwarding for M1 and M2."; }
     };
 
     sim_p.behaviors[BEHAVIORS.PIPE_WB_WRITE] = {
