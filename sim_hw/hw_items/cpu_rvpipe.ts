@@ -274,9 +274,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         LOAD_MEM_WB_DATA = "LOAD_MEM_WB_DATA",
         AUX_LOAD_ALUOP = "AUX_LOAD_ALUOP",
         MUX_ALUOUT = "MUX_ALUOUT",
-        AUX_LOAD_MUX_STALL = "AUX_LOAD_MUX_STALL",
-        MUX_STALL_IF_ID = "MUX_STALL_IF_ID",
-        MUX_STALL_ID_EX = "MUX_STALL_ID_EX",
         AUX_LOAD_MUX_ALUOUT = "AUX_LOAD_MUX_ALUOUT",
         AUX_LOAD_BRANCH = "AUX_LOAD_BRANCH",
         ALUOP = "ALUOP",
@@ -294,17 +291,28 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         ID_EX_RST = "ID_EX_RST",
         EX_MEM_RST = "EX_MEM_RST",
         MEM_WB_RST = "MEM_WB_RST",
+
+        AUX_LOAD_MUX_STALL = "AUX_LOAD_MUX_STALL",
+        MUX_STALL_IF_ID = "MUX_STALL_IF_ID",
+        MUX_STALL_ID_EX = "MUX_STALL_ID_EX",
         BRANCH = "BRANCH",
         BRANCH_IS_ONE = "BRANCH_IS_ONE",
         BRANCH_IS_TWO = "BRANCH_IS_TWO",
         BRANCH_OR = "BRANCH_OR",
         BRANCH_AND = "BRANCH_AND",
         BRANCH_STALL_NOT = "BRANCH_STALL_NOT",
+
         STALL = "STALL",
         JUMP = "JUMP",
         PIPE_FORWARDING = "PIPE_FORWARDING",
-        PIPE_HAZARD = "PIPE_HAZARD",
         AUX_FORWARDING_UNIT = "AUX_FORWARDING_UNIT",
+
+        HAZARD_NEQ_RD_0 = "HAZARD_NEQ_RD_0",
+        HAZARD_AND = "HAZARD_AND",
+        HAZARD_STALL = "HAZARD_STALL",
+        HAZARD_EQ_RD_RS1 = "HAZARD_EQ_RD_RS1",
+        HAZARD_EQ_RD_RS2 = "HAZARD_EQ_RD_RS2",
+        HAZARD_OR = "HAZARD_OR",
     };
 
     enum BEHAVIORS {
@@ -346,7 +354,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         CPU_RESET = "CPU_RESET",
         PIPE_IF = "PIPE_IF",
         PIPE_DECO = "PIPE_DECO",
-        HAZARD_DETECTION_UNIT = "HAZARD_DETECTION_UNIT",
         FORWARDING_UNIT = "FORWARDING_UNIT",
         PIPE_WB_WRITE = "PIPE_WB_WRITE",
         PIPE_DISPLAY = "PIPE_DISPLAY",
@@ -919,8 +926,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.STALL] = {
         name: "STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
-        depends_on: [SIGNALS.PIPE_HAZARD, SIGNALS.CLK],
-        // depends_on: [SIGNALS.CLK],
+        depends_on: [SIGNALS.HAZARD_STALL, SIGNALS.CLK],
         fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4', 'svg_cu:path6825-7-2-5-9-6-8-2', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1-9', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3']],
         draw_name: [[], ['svg_p:path7013-51']]
@@ -964,16 +970,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: [[]],
         draw_name: [[]]
     };
-
-    sim_p.signals[SIGNALS.PIPE_HAZARD] = {
-        name: "PIPE_HAZARD", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.HAZARD_DETECTION_UNIT)],
-        depends_on: [SIGNALS.PIPE_DECODE],
-        fire_name: [],
-        draw_data: [[]],
-        draw_name: [[]]
-    };
-
 
     sim_p.signals[SIGNALS.AUX_LOAD_MUX_STALL] = {
         name: "AUX_LOAD_MUX_STALL_IF_ID", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
@@ -1444,7 +1440,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.OR, SIGNALS.BRANCH_OR, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND) + create_op(BEHAVIORS.MV, SIGNALS.JUMP, SIGNALS.BRANCH_OR),
         ],
         depends_on: [SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND, SIGNALS.CLK],
-        fire_name: ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1'],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1']],
         draw_name: [[]]
     };
@@ -1453,9 +1449,71 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         behavior: [
             create_op(BEHAVIORS.LNOT, SIGNALS.BRANCH_STALL_NOT, SIGNALS.STALL) + create_op(BEHAVIORS.MV, SIGNALS.PCWRITE, SIGNALS.BRANCH_STALL_NOT),
         ],
-        depends_on: [SIGNALS.STALL, SIGNALS.CLK],
+        depends_on: [SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND, SIGNALS.CLK],
         fire_name: ['svg_cu:path12162-9'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-1']],
+        draw_name: [[]]
+    };
+
+
+    sim_p.signals[SIGNALS.HAZARD_NEQ_RD_0] = {
+        name: "HAZARD_ID_EX_RD_NEQ_0", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_NEQ_RD_0, STATES.ID_EX_RD, STATES.VAL_ZERO) + create_op(BEHAVIORS.LNOT, SIGNALS.HAZARD_NEQ_RD_0, SIGNALS.HAZARD_NEQ_RD_0),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-0'],
+        draw_data: [[], ['svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-57', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_AND] = {
+        name: "HAZARD_ID_EX_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_AND, SIGNALS.HAZARD_NEQ_RD_0, STATES.ID_EX_DMR),
+        ],
+        depends_on: [SIGNALS.HAZARD_NEQ_RD_0, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-55-7'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-2-8', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-5-4']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_STALL] = {
+        name: "HAZARD_ID_EX_AND_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_STALL, SIGNALS.HAZARD_AND, SIGNALS.HAZARD_OR) + create_op(BEHAVIORS.MV, SIGNALS.STALL, SIGNALS.HAZARD_STALL),
+        ],
+        depends_on: [SIGNALS.HAZARD_AND, SIGNALS.HAZARD_OR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4-8-6'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-6-1']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_EQ_RD_RS1] = {
+        name: "HAZARD_ID_EX_RD_RS1_EQ", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_EQ_RD_RS1, STATES.ID_EX_RD, STATES.DECODE_RS1_ADDR),
+        ],
+        depends_on: [SIGNALS.PIPE_DECODE, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-6'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-5', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0-5', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-4-9']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_EQ_RD_RS2] = {
+        name: "HAZARD_ID_EX_RD_RS2_EQ", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_EQ_RD_RS2, STATES.ID_EX_RD, STATES.DECODE_RS2_ADDR),
+        ],
+        depends_on: [SIGNALS.PIPE_DECODE, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-1-5'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-8-3', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0-5-2', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-0']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_OR] = {
+        name: "HAZARD_ID_EX_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.OR, SIGNALS.HAZARD_OR, SIGNALS.HAZARD_EQ_RD_RS1, SIGNALS.HAZARD_EQ_RD_RS2),
+        ],
+        depends_on: [SIGNALS.HAZARD_EQ_RD_RS1, SIGNALS.HAZARD_EQ_RD_RS2, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5-5'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1-0-0', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-4-7-3']],
         draw_name: [[]]
     };
 
@@ -1589,12 +1647,12 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var bits = (src_val >>> src_offset) & mask;
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math') {
-                return "Copy " + size + " bits from ("+show_value(src_val)+") " + show_verbal(s_expr[2]) +
+                return "Copy " + size + " bits from (" + show_value(src_val) + ") " + show_verbal(s_expr[2]) +
                     "[" + src_offset + ":" + (src_offset + size - 1) + "] to " +
                     show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) +
                     "] value " + show_value(bits) + ". ";
             }
-            return show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) + "] (val "+show_value(src_val)+") = " +
+            return show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) + "] (val " + show_value(src_val) + ") = " +
                 show_verbal(s_expr[2]) + "[" + src_offset + ":" + (src_offset + size - 1) + "] (" +
                 show_value(bits) + "). ";
         }
@@ -2446,37 +2504,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             show_dbg_ir(decins);
         },
         verbal: function (s_expr: string[]): string { return "Decode instruction using microcode. "; }
-    };
-
-    sim_p.behaviors[BEHAVIORS.HAZARD_DETECTION_UNIT] = {
-        nparameters: 1,
-        operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
-            let id_ex_rs1a = get_value(sim_p.states[STATES.ID_EX_RS1_ADDR]);
-            let id_ex_rs2a = get_value(sim_p.states[STATES.ID_EX_RS2_ADDR]);
-            let id_ex_dmr = get_value(sim_p.states[STATES.ID_EX_DMR]);
-            let id_ex_rd = get_value(sim_p.states[STATES.ID_EX_RD]);
-            let ex_mem_dmr = get_value(sim_p.states[STATES.EX_MEM_DMR]);
-            let ex_mem_rd = get_value(sim_p.states[STATES.EX_MEM_RD]);
-            let decode_rs1 = get_value(sim_p.states[STATES.DECODE_RS1_ADDR]);
-            let decode_rs2 = get_value(sim_p.states[STATES.DECODE_RS2_ADDR]);
-            let stall = 0;
-            // Check 1: load in EX (ID_EX_DMR), dependent in ID (DECODE matches)
-            if (id_ex_dmr && id_ex_rd != 0) {
-                if (id_ex_rd == decode_rs1 || id_ex_rd == decode_rs2) {
-                    stall = 1;
-                }
-            }
-            // Check 2: load in MEM (EX_MEM_DMR), dependent in EX (ID_EX matches)
-            if (!stall && ex_mem_dmr && ex_mem_rd != 0) {
-                if (ex_mem_rd == id_ex_rs1a || ex_mem_rd == id_ex_rs2a) {
-                    stall = 1;
-                }
-            }
-            set_value(sim_p.signals[SIGNALS.STALL], stall);
-            if (DEBUG) console.log("HAZARD stall", stall);
-        },
-        verbal: function (s_expr: string[]): string { return "Detect load-use hazards."; }
     };
 
     sim_p.behaviors[BEHAVIORS.FORWARDING_UNIT] = {
