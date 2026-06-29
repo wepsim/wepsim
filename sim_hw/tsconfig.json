@@ -23,6 +23,8 @@
     "include": [
         "hw_items/cpu_rvpipe.ts",
         "hw_items/mem_rvpipe.ts",
+        "hw_items/io_screen_rvpipe.ts",
+        "hw_items/io_keyboard_rvpipe.ts",
         "hw_items/globals.d.ts",
         "hw_rvpipe.ts"
     ],

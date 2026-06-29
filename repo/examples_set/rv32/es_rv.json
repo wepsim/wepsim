@@ -143,6 +143,28 @@
     "testing": false
   },
   {
+    "id": "RVP1E6_display",
+    "title": "Display",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e6_display",
+    "description": "Simple example to print to display in pipeline.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E7_keyboard",
+    "title": "Keyboard",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e7_keyboard",
+    "description": "Simple example to use the keyboard in pipeline.",
+    "testing": false
+  },
+  {
     "id": "RVR1E1",
     "title": "Instructions",
     "type": "<span data-langkey='Initial'>Initial</span>",

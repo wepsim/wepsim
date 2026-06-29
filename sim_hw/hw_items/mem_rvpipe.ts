@@ -152,59 +152,21 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: []
     };
 
-
-    /*
-     *  Signals
-     */
-
-    /* DATA MEMORY SIGNALS */
-    sim_p.signals.DMR = {
-        name: "DMR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: ["NOP", "NOP"],
-        depends_on: [],
-        fire_name: ['svg_p:text7589', 'svg_p:text7507'],
-        draw_data: [[],
-        ['svg_p:path6837-6', 'svg_p:path7073',
-            'svg_p:path7619', 'svg_p:path7571', 'svg_p:path7573']],
-        draw_name: [['svg_p:path7525']]
-    };
-    sim_p.signals.DMW = {
-        name: "DMW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: ["NOP", "NOP"],
-        depends_on: [],
-        fire_name: ['svg_p:text7597', 'svg_p:text7515'],
-        draw_data: [[],
-        ['svg_p:path6837-6', 'svg_p:path7073', 'svg_p:path7619',
-            'svg_p:path7571', 'svg_p:path7573']],
-        draw_name: [['svg_p:path7527']]
-    };
-
-    /* INSTRUCTION MEMORY */
-    sim_p.signals["IMR"] = {
-        name: "IMR", visible: true, type: "E", value: 0, default_value: 0, nbits: "1",
-        behavior: ["NOP", "READ_IM"],
-        depends_on: [],
-        fire_name: ['svg_p:text7213'],
-        draw_data: [['svg_p:path6691', 'svg_p:path6693', 'svg_p:path6691-3-3',
-            'svg_p:path6711']],
-        draw_name: [['svg_p:path7205']]
-    };
-
-
     /*
      *  Syntax of behaviors
      */
 
     sim_p.behaviors.MEM_READ = {
-        nparameters: 5,
-        types: ["E", "E", "E", "E"],
+        nparameters: 6,
+        types: ["E", "E", "E", "E", "E"],
         operation: function (s_expr: string[]): void {
             var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
             var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
             var bw = get_value(sim_p.states[s_expr[3]]);
-            var clk = get_value(sim_p.states[s_expr[4]]);
-            if (DEBUG) console.log(s_expr, "address", address, "dbvalue", dbvalue, "bw", bw, "clk", clk);
+            var se = get_value(sim_p.states[s_expr[4]]);
+            var clk = get_value(sim_p.states[s_expr[5]]);
+            if (DEBUG) console.log(s_expr, "address", address, "dbvalue", dbvalue, "bw", bw, "se", se, "clk", clk);
 
             var remain = get_value(sim_p.internal_states.MP_wc.read);
             if (
@@ -219,29 +181,25 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
                 return;
             }
 
-            address = addr_val & 0xFFFFFFFC;
+            let align_address = addr_val & 0xFFFFFFFC;
+            if (DEBUG) console.log("MEM_READ: aligned address=0x" + address.toString(16));
             var value = main_memory_getvalue(sim_p.internal_states.MP,
-                address);
+                align_address);
             var full_redraw = false;
             if (typeof value === "undefined") {
                 value = 0;
                 full_redraw = true;
+                if (DEBUG) console.log("MEM_READ: address 0x" + address.toString(16) + " undefined, default 0");
             }
 
             // BW -> See Tables in Help
-            dbvalue = value;
+            // 0 -> byte
+            // 1 -> half
+            // 2 -> 3-bytes
+            // 3 -> word
+            dbvalue = main_memory_extractvalues(value, bw, (address & 0x00000003), se);
 
-            if (bw == 1) {
-                var byte_s = 0x0000;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            } else if (bw == 2) {
-                var byte_s = 0x0004;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            } else {
-                var byte_s = 0x000C;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            }
-
+            if (DEBUG) console.log("MEM_READ: result=0x" + (dbvalue >>> 0).toString(16) + " bw=" + bw);
             set_value(sim_p.states[s_expr[2]], dbvalue >>> 0);
             show_main_memory(sim_p.internal_states.MP, address, full_redraw, false);
 
@@ -249,6 +207,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             if (first_time) {
                 for (var i = 0; i < sim_p.internal_states.CM.length; i++) {
                     if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                        if (DEBUG) console.log("MEM_READ: cache[" + i + "] read addr=0x" + address.toString(16));
                         cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk);
                     }
                 }
@@ -287,14 +246,15 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     sim_p.behaviors.MEM_WRITE = {
-        nparameters: 5,
-        types: ["E", "E", "E", "E"],
+        nparameters: 6,
+        types: ["E", "E", "E", "E", "E"],
         operation: function (s_expr: string[]): void {
             var addr_val = get_value(sim_p.states[s_expr[1]]) >>> 0;
             var address: any = "0x" + addr_val.toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
             var bw = get_value(sim_p.states[s_expr[3]]);
-            var clk = get_value(sim_p.states[s_expr[4]]);
+            var se = get_value(sim_p.states[s_expr[4]]);
+            var clk = get_value(sim_p.states[s_expr[5]]);
             if (DEBUG) console.log(s_expr, "address", address, "dbvalue", dbvalue, "bw", bw, "clk", clk);
 
             var remain = get_value(sim_p.internal_states.MP_wc.write);
@@ -311,25 +271,22 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             }
 
             address = addr_val & 0xFFFFFFFC;
+            if (DEBUG) console.log("MEM_WRITE: aligned address=0x" + address.toString(16) + " dbvalue=0x" + (dbvalue >>> 0).toString(16) + " bw=" + bw);
             var value = main_memory_getvalue(sim_p.internal_states.MP,
-                address);
+                address) ?? 0;
             var full_redraw = false;
             if (typeof value === "undefined") {
                 value = 0;
                 full_redraw = true;
+                if (DEBUG) console.log("MEM_WRITE: address 0x" + address.toString(16) + " undefined, default 0");
             }
 
             // BW -> See Tables in Help
-            if (bw == 1) {
-                var byte_s = 0x0000;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            } else if (bw == 2) {
-                var byte_s = 0x0004;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            } else {
-                var byte_s = 0x000C;
-                value = main_memory_fusionvalues(value, dbvalue, byte_s);
-            }
+            // 0 -> byte
+            // 1 -> half
+            // 2 -> 3-bytes
+            // 3 -> word
+            value = main_memory_updatevalues(value, dbvalue, bw, (addr_val & 0x00000003));
 
             // PC
             var origin = '';
@@ -347,6 +304,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             var valref = main_memory_set(sim_p.internal_states.MP,
                 address,
                 melto);
+            if (DEBUG) console.log("MEM_WRITE: set addr=0x" + address.toString(16) + " value=0x" + (value >>> 0).toString(16) + " origin=" + origin);
 
             show_main_memory(sim_p.internal_states.MP, address, full_redraw, true);
 
@@ -354,6 +312,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             if (first_time) {
                 for (var i = 0; i < sim_p.internal_states.CM.length; i++) {
                     if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                        if (DEBUG) console.log("MEM_WRITE: cache[" + i + "] write addr=0x" + address.toString(16));
                         cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk);
                     }
                 }
@@ -368,10 +327,12 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
             var clk = get_value(sim_p.states[s_expr[4]]);
 
             var bw_type = "word";
-            if (bw == 1)
+            if (bw == 0)
                 bw_type = "byte";
-            else if (bw == 2)
+            else if (bw == 1)
                 bw_type = "half";
+            else if (bw == 2)
+                bw_type = "3-bytes";
 
             var value = main_memory_getvalue(sim_p.internal_states.MP,
                 address);

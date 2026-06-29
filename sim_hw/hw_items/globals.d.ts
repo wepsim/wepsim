@@ -57,7 +57,8 @@ declare function main_memory_getvalue(memory: any, elto: any): number | undefine
 declare function main_memory_set(memory: any, elto: any, melto: any): any;
 declare function main_memory_get_program_counter(): number | null;
 declare function main_memory_fusionvalues(dbvalue: number, value: number, filter: number): number;
-
+declare function main_memory_extractvalues(value: number, filter_size: number, filter_elto: number, sign_extension: number): number;
+declare function main_memory_updatevalues(value: number, dbvalue: number, filter_size: number, filter_elto: number): number;
 declare function decode_instruction(curr_firm: any, ep_ir: any, binstruction: number): { oinstruction: any };
 
 declare function cache_memory_access(memory: any, address: number, r_w: string, clock_timestamp: number): void;
@@ -69,6 +70,11 @@ declare function check_behavior(): void;
 declare function compile_behaviors(): void;
 declare function firedep_to_fireorder(jit_fire_dep: any): void;
 declare function compile_verbals(): void;
+declare function simcore_sound_playNote(note: string, duration: string): void;
+declare function get_screen_content(): string;
+declare function set_screen_content(new_value: string): void;
+declare function get_keyboard_content(): string;
+declare function set_keyboard_content(new_value: string): void;
 
 declare function simcore_hardware_import(data: string): void;
 declare function simcore_init(flag: boolean): void;
@@ -171,7 +177,7 @@ interface SimElement {
     description: string;
     type: string;
     belongs: string;
-    states: Record<string, { ref: string }>;
+    states: Record<string, { ref: string | number }>;
     signals: Record<string, { ref: string }>;
     states_inputs: string[];
     states_outputs: string[];
@@ -189,8 +195,8 @@ interface SimComponent {
     write_state?: (vec: any) => any;
     read_state?: (vec: any, check: any) => boolean;
     get_state?: (reg: string) => string | null;
-    get_value?: (elto: any) => number;
-    set_value?: (elto: any, value: number) => void;
+    get_value?: (elto: any) => any;
+    set_value?: (elto: any, value: any) => void;
 }
 
 interface Simulator {
@@ -223,7 +229,8 @@ declare function mem_poc_register(sim_p: Simulator): void;
 declare function cu_poc_register(sim_p: Simulator): void;
 declare function io_clk_base_register(sim_p: Simulator): void;
 declare function io_screen_base_register(sim_p: Simulator): void;
-declare function io_keyboard_base_register(sim_p: Simulator): void;
+declare function io_screen_rvpipe_register(sim_p: Simulator): void;
+declare function io_keyboard_rvpipe_register(sim_p: Simulator): void;
 declare function io_ldm_base_register(sim_p: Simulator): void;
 declare function io_l3d_base_register(sim_p: Simulator): void;
 declare function io_sound_base_register(sim_p: Simulator): void;

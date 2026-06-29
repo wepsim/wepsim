@@ -135,6 +135,8 @@ PARALLEL_PIDS=""
       sim_hw/hw_items/cu_poc.js \
       sim_hw/hw_items/io_clk_base.js \
       sim_hw/hw_items/io_screen_base.js \
+      sim_hw/ts_out/hw_items/io_screen_rvpipe.js \
+      sim_hw/ts_out/hw_items/io_keyboard_rvpipe.js \
       sim_hw/hw_items/io_keyboard_base.js \
       sim_hw/hw_items/io_ldm_base.js \
       sim_hw/hw_items/io_l3d_base.js \
