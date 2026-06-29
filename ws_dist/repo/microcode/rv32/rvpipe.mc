@@ -343,7 +343,7 @@ lw rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = (MEM[rs1+offset+3] .. MEM[rs1+offset])',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, M6, WBE=11, RW)
       }
 }
 
@@ -356,7 +356,7 @@ sw rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=11)
       }
 }
 
@@ -369,7 +369,7 @@ lb rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = s8[rs1 + offset]',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=1, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, M6, WBE=00, RW)
       }
 }
 
@@ -382,7 +382,7 @@ lh rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = s16[rs1 + offset]',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=10, RW)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, M6, WBE=01, RW)
       }
 }
 
@@ -395,7 +395,7 @@ lbu rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = u8[rs1 + offset]',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=1, RW)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, M6, WBE=00, RW)
       }
 }
 
@@ -408,7 +408,7 @@ lhu rd offset(rs1) {
       address-abs(31:20)=offset,
       help='rd = u16[rs1 + offset]',
       {
-          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, WBE=10, RW)
+          (SE_IMM=0, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMR, M6, WBE=01, RW)
       }
 }
 
@@ -421,7 +421,7 @@ sb rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1 + offset] = rs2/8',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=1)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=00)
       }
 }
 
@@ -434,7 +434,7 @@ sh rs2 offset(rs1) {
       address-rel(11:7|31:25)=offset,
       help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
       {
-          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=10)
+          (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=01)
       }
 }
 
@@ -520,10 +520,10 @@ bgeu rs1 rs2 offset {
 #                                                               pc ← pc + sext(offset)
 addpc offset {
     oc(6:0)=1101111,
-    address-rel(30:21|20|19:12|31)=offset,
+    address-rel(31:7)=offset,
     help='PC = PC + imm',
     {
-        (SE_IMM=1, OFFSET=0, SIZE=10100, X2_IMM=1, M3=1, M4=11, AluOp=1010, BRANCH=10)
+        (SE_IMM=1, OFFSET=0, SIZE=11001, X2_IMM=1, M3=1, M4=11, AluOp=1010, BRANCH=10)
     }
 }
 
@@ -551,6 +551,34 @@ jumpto rs1 imm {
     {
         (SE_IMM=1, OFFSET=0, SIZE=1100, X2_IMM=0, M4=11, AluOp=1010, BRANCH=10)
     }
+}
+
+#
+# IN/OUT
+#
+
+#  IN rd,imm                 Input Word                     rd ← device_registers[imm]
+in rd imm {
+      oc(6:0)=0111011,
+      nwords=1,
+      reg(11:7)=rd,
+      imm(31:12)=imm,
+      help='rd = device_registers[imm]',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=10100, M4=11, AluOp=11111, M6=1, RW, IOR)
+      }
+}
+
+#  OUT rs,imm                Output Word                    device_register[imm] ← rs
+out rs imm {
+      oc(6:0)=0110111,
+      nwords=1,
+      reg(24:20)=rs,
+      imm(31:25|19:7)=imm,
+      help='device_register[imm] = rs',
+      {
+          (SE_IMM=0, OFFSET=0, SIZE=10100, M4=11, AluOp=11111, M5=0, IOW)
+      }
 }
 
 pseudoinstructions
@@ -662,7 +690,7 @@ pseudoinstructions
     # jal rd, offset              Jump and Link                rd ← pc + 4, pc ← pc + sext(offset)
     jal rd=reg, offset=imm
     {
-        savepc rd 8
+        savepc rd 4
         addpc offset
     }
 
