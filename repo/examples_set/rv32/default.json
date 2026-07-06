@@ -1683,6 +1683,17 @@
     "testing": false
   },
   {
+    "id": "RVP1E8_timer",
+    "title": "Timer interuptions",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e8_timer",
+    "description": "Simple example to use the timer interruptions in pipeline.",
+    "testing": false
+  },
+  {
     "id": "RVR1E1",
     "title": "Instructions",
     "type": "<span data-langkey='Initial'>Initial</span>",

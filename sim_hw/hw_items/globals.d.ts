@@ -4,7 +4,7 @@ declare function get_value(obj: any): number;
 declare function set_value(obj: any, value: number): void;
 declare function reset_value(obj: any): void;
 declare function get_var(obj: any): number;
-declare function set_var(obj: any, value: number): void;
+declare function set_var(obj: any, value: number | boolean): void;
 declare function get_reference(sim_name: string): any;
 declare function show_verbal(key: string): string;
 declare function show_value(value: number): string;

@@ -182,12 +182,15 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         M5_DATA = "M5_DATA",
         M6_OUT = "M6_OUT",
         OUT_MUX_BRANCH = "OUT_MUX_BRANCH",
+        OUT_MUX_JUMP_INT = "OUT_MUX_JUMP_INT",
         OUT_MUX_ALUOUT = "OUT_MUX_ALUOUT",
         ALU_OUT = "ALU_OUT",
         FLAG_N = "FLAG_N",
         FLAG_Z = "FLAG_Z",
         R_DATA1 = "R_DATA1",
         R_DATA2 = "R_DATA2",
+        INT = "INT",
+        INTA = "INTA",
         INTV = "INTV",
         IORdy = "IORdy",
         BUS_DB = "BUS_DB",
@@ -276,6 +279,10 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         ACC_TIME = "ACC_TIME",
         TTCPU = "TTCPU",
         BRANCH_TARGET = "BRANCH_TARGET",
+        REG_EPC = "REG_EPC",
+        OUT_EPC_MUX_IF_PC_IF_ID_PC = "OUT_EPC_MUX_IF_PC_IF_ID_PC",
+        INT_MEM_READ = "INT_MEM_READ",
+        INTV_X_4 = "INTV_X_4",
     };
 
     enum SIGNALS {
@@ -284,6 +291,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         RW = "RW",
         PIPE_DECODE = "PIPE_DECODE",
         PCWRITE = "PCWRITE",
+        EPCWRITE = "EPCWRITE",
         SE_IMM = "SE_IMM",
         SIZE = "SIZE",
         OFFSET = "OFFSET",
@@ -326,6 +334,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         BRANCH = "BRANCH",
         BRANCH_IS_ONE = "BRANCH_IS_ONE",
         BRANCH_IS_TWO = "BRANCH_IS_TWO",
+        BRANCH_IS_THREE = "BRANCH_IS_THREE",
         BRANCH_OR = "BRANCH_OR",
         BRANCH_AND = "BRANCH_AND",
         BRANCH_STALL_NOT = "BRANCH_STALL_NOT",
@@ -358,6 +367,25 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
         FORWARD_MUX_M1 = "FORWARD_MUX_M1",
         FORWARD_MUX_M2 = "FORWARD_MUX_M2",
+
+        INT_EQ_0_JUMP_BR = "INT_EQ_0_JUMP_BR",
+        INT_EQ_0_STALL = "INT_EQ_0_STALL",
+        INT_EQ_0_EPC = "INT_EQ_0_EPC",
+        INT_AND = "INT_AND_INT_AND",
+        JUMP_INT = "JUMP_INT",
+        JUMP_BR = "JUMP_BR",
+        JUMP_OR_INT_BR = "JUMP_OR_INT_BR",
+
+        EPC_EQ_0_IF_ID_PC = "EPC_EQ_0_IF_ID_PC",
+        EPC_MUX_IF_PC_IF_ID_PC = "EPC_MUX_IF_PC_IF_ID_PC",
+
+        AUX_LOAD_MUX_EPCWRITE = "AUX_LOAD_MUX_EPCWRITE",
+        MUX_EPCWRITE = "MUX_EPCWRITE",
+
+        AUX_LOAD_MUX_JUMP_INT = "AUX_LOAD_MUX_JUMP_INT",
+        INTV_X_4 = "INTV_X_4",
+        MEM_JUMP_INT = "MEM_JUMP_INT",
+        MUX_JUMP_INT = "MUX_JUMP_INT",
     };
 
     enum BEHAVIORS {
@@ -408,6 +436,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         MEM_WRITE = "MEM_WRITE",
         STALL_UNIT = "STALL_UNIT",
         CLOCK = "CLOCK",
+        IO_CHK = "IO_CHK",
+        INTA = "INTA",
     };
 
     /*
@@ -424,9 +454,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.internal_states.fire_visible = { 'databus': false, 'internalbus': false };
     sim_p.internal_states.filter_states = ["REG_IR_DECO,virtual", "IF_ID_IR,real",
         "REG_PC,real",
+        STATES.REG_EPC + ",real",
         STATES.M1_ALU + ",real",
         STATES.M4_ALU + ",real",
         STATES.ALU_OUT + ",real",
+        STATES.IF_FETCH_PC + ",real",
         STATES.IF_ID_IR + ",real",
         STATES.IF_ID_PC + ",real",
         STATES.ID_EX_RS1 + ",real",
@@ -578,12 +610,32 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: []
     };
     sim_p.states[STATES.OUT_MUX_BRANCH] = {
-        name: "MUX_BRANCH", verbal: "Input PC via MUX Branch",
+        name: "OUT_MUX_BRANCH", verbal: "Input MUX via MUX Branch",
+        visible: false, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.OUT_MUX_JUMP_INT] = {
+        name: "OUT_MUX_JUMP_INT", verbal: "Input PC via MUX Jump INT",
         visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.OUT_MUX_ALUOUT] = {
-        name: "MUX_BRANCH", verbal: "Input MUX Branch via MUX ALUout",
+        name: "OUT_MUX_ALUOUT", verbal: "Input MUX Branch via MUX ALUout",
+        visible: false, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC] = {
+        name: "OUT_EPC_MUX_IF_PC_IF_ID_PC", verbal: "Output MUX IF PC-IF/ID PC",
+        visible: false, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.INT_MEM_READ] = {
+        name: "INT_MEM_READ", verbal: "Output MEM read INTV x 4",
+        visible: false, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.INTV_X_4] = {
+        name: "INTV_X_4", verbal: "Output INTV x 4",
         visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
@@ -620,6 +672,21 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.states[STATES.INTV] = {
         name: "INTV", verbal: "Interruption Vector",
         visible: false, nbits: "8", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.INT] = {
+        name: "INT", verbal: "Interrupt Pending",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.INTA] = {
+        name: "INTA", verbal: "Interrupt Addressed",
+        visible: false, nbits: "1", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.REG_EPC] = {
+        name: "REG_EPC", verbal: "Exception Program Counter",
+        visible: false, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.IORdy] = {
@@ -1082,7 +1149,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.PIPE_FETCH] = {
         name: "PIPE_FETCH", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.PIPE_IF)],
-        depends_on: [],
+        depends_on: [SIGNALS.STALL, SIGNALS.BRANCH],
         fire_name: [],
         draw_data: [[]],
         draw_name: [[]]
@@ -1093,7 +1160,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
         depends_on: [SIGNALS.HAZARD_STALL, SIGNALS.CLK],
-        fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7-2-2'],
+        fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7-2-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1-5-9'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4', 'svg_cu:path6825-7-2-5-9-6-8-2', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1-9', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3']],
         draw_name: [[], ['svg_p:path7013-51']]
     };
@@ -1101,8 +1168,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.JUMP] = {
         name: "JUMP", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
-        depends_on: [SIGNALS.BRANCH_OR, SIGNALS.CLK],
-        fire_name: ['svg_cu:text7237-3-4-6-4-0-7-8-3', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-3'],
+        depends_on: [SIGNALS.JUMP_OR_INT_BR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-3-4-6-4-0-6-7-1-5-9-3-7-6-4', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-3'],
         draw_data: [[]],
         draw_name: [[], ['svg_cu:path6825-7-2-5-9-6-8-2-4-8', 'svg_cu:path6825-7-2-5-9-6-8-2-4-8-5']]
     };
@@ -1179,13 +1246,24 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.PCWRITE] = {
         name: "PCWRITE", visible: true, type: "E", value: 1, default_value: 1, nbits: "2",
         behavior: [create_op(BEHAVIORS.NOP), // Nothing
-        create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.OUT_MUX_BRANCH), // Write new value
+        create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.OUT_MUX_JUMP_INT), // Write new value
         create_op(BEHAVIORS.MV, STATES.IF_FETCH_PC, STATES.VAL_ZERO), // Reset
         create_op(BEHAVIORS.NOP),],  // Nothing
-        depends_on: [SIGNALS.STALL, SIGNALS.BRANCH, SIGNALS.IF_ID_RST, SIGNALS.CLK],
+        depends_on: [SIGNALS.MUX_JUMP_INT, SIGNALS.EPCWRITE, SIGNALS.BRANCH_STALL_NOT, SIGNALS.STALL, SIGNALS.JUMP, SIGNALS.BRANCH, SIGNALS.IF_ID_RST, SIGNALS.CLK],
         fire_name: ['svg_p:text7237-3-4-6', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8'],
-        draw_data: [[]],
+        draw_data: [[], ['svg_p:path7037', 'svg_p:path6691-3-3-2', 'svg_p:path7039-7', 'svg_p:path6691-3-3-2-4', 'svg_p:path7039']],
         draw_name: [[], ['svg_p:path7039-1'], ['svg_p:path7039-1'], ['svg_p:path7039-1']]
+    };
+    sim_p.signals[SIGNALS.EPCWRITE] = {
+        name: "EPCWRITE", visible: true, type: "E", value: 0, default_value: 0, nbits: "2",
+        behavior: [create_op(BEHAVIORS.NOP), // Nothing
+        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC), // Write new value
+        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.VAL_ZERO), // Reset
+        create_op(BEHAVIORS.NOP),],  // Nothing
+        depends_on: [SIGNALS.MUX_EPCWRITE, SIGNALS.EPC_MUX_IF_PC_IF_ID_PC, SIGNALS.CLK],
+        fire_name: ['svg_p:text7237-3-4-6-8', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-83', 'svg_cu:text7237-3-4-6-8'],
+        draw_data: [[]],
+        draw_name: [[], ['svg_p:path7039-1-0'], ['svg_p:path7039-1-0'], ['svg_p:path7039-1-0']]
     };
 
     /* IMMEDIATE GENERATOR */
@@ -1596,22 +1674,27 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     /* BRANCH */
-    const BRANCH_CU = ['svg_cu:path7035-0-7-6-1-0-6-8-6', 'svg_cu:path6825-7-2-5-9-6-8', 'svg_cu:path7035-0-7-6-1-0', 'svg_cu:path7035-0-7-6-1-0-6'];
+    const BRANCH_CU = ['svg_cu:path7035-0-7-6-1-0-6-8-6', 'svg_cu:path6825-7-2-5-9-6-8', 'svg_cu:path7035-0-7-6-1-0-6', 'svg_cu:path7035-0-7-6-1-0-1'];
     sim_p.signals[SIGNALS.BRANCH] = {
         name: "BRANCH", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
         behavior: [
+            // 0 -> Add PC + 4
             create_op(BEHAVIORS.ADD, STATES.OUT_MUX_BRANCH, STATES.IF_FETCH_PC, STATES.VAL_FOUR),
+            // 1 -> Use OUT_MUX_ALUOUT
             create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.OUT_MUX_ALUOUT),
+            // 2 -> Use ALUout
             create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.ALU_OUT),
-            create_op(BEHAVIORS.NOP),
+            // 3 -> Use REG_EPC (sret)
+            create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.REG_EPC),
         ],
         depends_on: [SIGNALS.AUX_LOAD_BRANCH, SIGNALS.ALUOP, SIGNALS.MUX_ALUOUT, SIGNALS.CLK],
-        fire_name: ['svg_p:text7237-3-4-6-4-0', 'svg_cu:text7237-3-4-6-4-0-6-7'],
+        fire_name: ['svg_p:text7237-3-4-6-4-0', 'svg_cu:text7237-3-4-6-4-0-6-7', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-8-2'],
         draw_data: [['svg_p:path6823-2-3-8', 'svg_p:path6825-7-2-5-9', 'svg_p:path7035-0-7-6'],
         ['svg_p:path6827-3-4-9-7', 'svg_p:path6825-7-8-8-3', ...BRANCH_CU],
         ['svg_p:path6827-3-4-9-0-8', 'svg_p:path6825-7-8-8-7-8', ...BRANCH_CU],
-        []],
-        draw_name: [[], ['svg_p:path7197-7-4-9'], ['svg_p:path7197-7-4-9']]
+        ['svg_p:path6827-3-4-9-0-8-1', 'svg_p:path6825-7-8-8-7-8-0', ...BRANCH_CU],
+        ],
+        draw_name: [[], ['svg_p:path7197-7-4-9'], ['svg_p:path7197-7-4-9'], ['svg_p:path7197-7-4-9']]
     };
 
     sim_p.signals[SIGNALS.BRANCH_IS_ONE] = {
@@ -1634,6 +1717,16 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-0']],
         draw_name: [[]]
     };
+    sim_p.signals[SIGNALS.BRANCH_IS_THREE] = {
+        name: "BRANCH_IS_THREE", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.BRANCH_IS_THREE, SIGNALS.BRANCH, STATES.VAL_THREE),
+        ],
+        depends_on: [SIGNALS.BRANCH, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-15', 'svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-3-8-8'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-0-2', 'svg_cu:path6825-7-2-5-9-6-8-7-3', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-14']],
+        draw_name: [[]]
+    };
     sim_p.signals[SIGNALS.BRANCH_AND] = {
         name: "BRANCH_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
@@ -1647,11 +1740,21 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.BRANCH_OR] = {
         name: "BRANCH_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
-            create_op(BEHAVIORS.OR, SIGNALS.BRANCH_OR, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND) + create_op(BEHAVIORS.MV, SIGNALS.JUMP, SIGNALS.BRANCH_OR),
+            create_op(BEHAVIORS.OR, SIGNALS.BRANCH_OR, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND) +
+            create_op(BEHAVIORS.OR, SIGNALS.BRANCH_OR, SIGNALS.BRANCH_IS_THREE, SIGNALS.BRANCH_OR) +
+            create_op(BEHAVIORS.MV, SIGNALS.JUMP_BR, SIGNALS.BRANCH_OR),
         ],
-        depends_on: [SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND, SIGNALS.CLK],
+        depends_on: [SIGNALS.BRANCH_IS_THREE, SIGNALS.BRANCH_IS_TWO, SIGNALS.BRANCH_AND, SIGNALS.CLK],
         fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.JUMP_BR] = {
+        name: "JUMP_BR", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.NOP)],
+        depends_on: [SIGNALS.BRANCH_OR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-3-4-6-4-0-7-8-3', 'svg_cu:text7237-3-4-6-4-0-6-7-1-5-9-3-7-6', 'svg_cu:text7237-3-4-6-4-0-7-8-3-82-6-1-5'],
+        draw_data: [[], ['svg_cu:path6825-7-2-5-9-6-8-2-4-8', 'svg_cu:path6825-7-2-5-9-6-8-2-4-8-5', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-0-6-1']],
         draw_name: [[]]
     };
     sim_p.signals[SIGNALS.BRANCH_STALL_NOT] = {
@@ -1910,6 +2013,162 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
 
+    sim_p.signals[SIGNALS.INT_EQ_0_JUMP_BR] = {
+        name: "INT_EQ_0_JUMP_BR", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.SEQ, SIGNALS.INT_EQ_0_JUMP_BR, SIGNALS.JUMP_BR, STATES.VAL_ZERO)],
+        depends_on: [SIGNALS.JUMP_BR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-6'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-2-1-7', 'svg_cu:path6825-7-2-5-9-6-8-7-5-1-0-6-0-0-5', 'svg_cu:path7035-0-7-6-1-0-6-8-1-6-3-2']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.INT_EQ_0_STALL] = {
+        name: "INT_EQ_0_STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.SEQ, SIGNALS.INT_EQ_0_STALL, SIGNALS.STALL, STATES.VAL_ZERO)],
+        depends_on: [SIGNALS.STALL, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-3'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-2-1-0', 'svg_cu:path6825-7-2-5-9-6-8-7-5-1-0-6-0-0', 'svg_cu:path7035-0-7-6-1-0-6-8-1-6-3-9']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.INT_EQ_0_EPC] = {
+        name: "INT_EQ_0_EPC", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.SEQ, SIGNALS.INT_EQ_0_EPC, STATES.REG_EPC, STATES.VAL_ZERO)],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-2-1', 'svg_cu:path6825-7-2-5-9-6-8-7-5-1-0-6', 'svg_cu:path7035-0-7-6-1-0-6-8-1']],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.INT_AND] = {
+        name: "INT_AND", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.AND, SIGNALS.INT_AND, STATES.INT, SIGNALS.INT_EQ_0_STALL) +
+            create_op(BEHAVIORS.AND, SIGNALS.INT_AND, SIGNALS.INT_AND, SIGNALS.INT_EQ_0_JUMP_BR) +
+            create_op(BEHAVIORS.AND, SIGNALS.INT_AND, SIGNALS.INT_AND, SIGNALS.INT_EQ_0_EPC) +
+            create_op(BEHAVIORS.MV, SIGNALS.JUMP_INT, SIGNALS.INT_AND) +
+            create_op(BEHAVIORS.MV, STATES.INTA, SIGNALS.INT_AND) +
+            create_op(BEHAVIORS.INTA, STATES.INTA, STATES.INT, STATES.INTV, STATES.CLK)
+        ],
+        depends_on: [SIGNALS.INT_EQ_0_STALL, SIGNALS.INT_EQ_0_JUMP_BR, SIGNALS.INT_EQ_0_EPC, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-42'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-3-7', 'svg_cu:path6825-7-2-5-9-6-8-7-5-1-0-6-0-0-5-1', 'svg_cu:path7035-0-7-6-1-0-6-8-4-3-7-0', 'svg_cu:path7035-0-7-6-1-0-6-8-4-3-7-2']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.JUMP_INT] = {
+        name: "JUMP_INT", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.NOP)],
+        depends_on: [SIGNALS.INT_AND, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-3-4-6-4-0-6-7-1-5-9-3-7', 'svg_cu:text7237-3-4-6-4-0-6-7-1-5-9-3', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-8'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-4-9-3-3']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.JUMP_OR_INT_BR] = {
+        name: "JUMP_OR_INT_BR", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [create_op(BEHAVIORS.OR, SIGNALS.JUMP_OR_INT_BR, SIGNALS.JUMP_BR, SIGNALS.JUMP_INT) +
+            create_op(BEHAVIORS.MV, SIGNALS.JUMP, SIGNALS.JUMP_OR_INT_BR)
+        ],
+        depends_on: [SIGNALS.JUMP_BR, SIGNALS.JUMP_INT, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5-5-8-8'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1-0-0-7-5']],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.AUX_LOAD_MUX_EPCWRITE] = {
+        name: "AUX_LOAD_MUX_EPCWRITE", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_EPCWRITE, SIGNALS.BRANCH_IS_THREE, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ONE) + // Left bit
+            create_op(BEHAVIORS.MV_BITS, SIGNALS.MUX_EPCWRITE, SIGNALS.JUMP_INT, STATES.VAL_ZERO, STATES.VAL_ONE, STATES.VAL_ZERO) // Right bit
+        ],
+        depends_on: [SIGNALS.BRANCH_IS_THREE, SIGNALS.JUMP_INT],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.MUX_EPCWRITE] = {
+        name: "MUX_EPCWRITE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
+        behavior: [create_op(BEHAVIORS.MV, SIGNALS.EPCWRITE, STATES.VAL_ZERO),
+        create_op(BEHAVIORS.MV, SIGNALS.EPCWRITE, STATES.VAL_ONE),
+        create_op(BEHAVIORS.MV, SIGNALS.EPCWRITE, STATES.VAL_TWO),
+        create_op(BEHAVIORS.MV, SIGNALS.EPCWRITE, STATES.VAL_TWO),
+        ],
+        depends_on: [SIGNALS.AUX_LOAD_MUX_EPCWRITE, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [['svg_cu:path6777-6-1', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-07'],
+        ['svg_cu:path6777-6-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-0-2'],
+        ['svg_cu:path6777-6-3-7', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-9-3'],
+        ['svg_cu:path6777-6-61-0', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-06-8']],
+        draw_name: [[]]
+    };
+
+    sim_p.signals[SIGNALS.AUX_LOAD_MUX_JUMP_INT] = {
+        name: "AUX_LOAD_MUX_JUMP_INT", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV, SIGNALS.MUX_JUMP_INT, SIGNALS.JUMP_INT) +
+            create_op(BEHAVIORS.MV, SIGNALS.MEM_JUMP_INT, SIGNALS.JUMP_INT),
+        ],
+        depends_on: [SIGNALS.JUMP_INT, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.INTV_X_4] = {
+        name: "INTV_X_4", visible: false, type: "L", value: 0, default_value: 0, nbits: "32",
+        behavior: [
+            create_op(BEHAVIORS.MUL, SIGNALS.INTV_X_4, STATES.INTV, STATES.VAL_FOUR) +
+            create_op(BEHAVIORS.MV, STATES.INTV_X_4, SIGNALS.INTV_X_4)
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_p:text7213-6-9-0-3-5'],
+        draw_data: [[]],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.MEM_JUMP_INT] = {
+        name: "MEM_JUMP_INT", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.NOP),
+            create_op(BEHAVIORS.MEM_READ, STATES.INTV_X_4, STATES.INT_MEM_READ, STATES.VAL_THREE, STATES.VAL_ZERO, STATES.CLK),
+        ],
+        depends_on: [SIGNALS.AUX_LOAD_MUX_JUMP_INT, SIGNALS.INTV_X_4, SIGNALS.CLK],
+        fire_name: ['svg_p:text7237-3-4-6-8-5'],
+        draw_data: [[]],
+        draw_name: [[], ['svg_p:path7039-1-0-8']]
+    };
+    sim_p.signals[SIGNALS.MUX_JUMP_INT] = {
+        name: "MUX_JUMP_INT", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV, STATES.OUT_MUX_JUMP_INT, STATES.OUT_MUX_BRANCH),
+            create_op(BEHAVIORS.MV, STATES.OUT_MUX_JUMP_INT, STATES.INT_MEM_READ),
+        ],
+        depends_on: [SIGNALS.AUX_LOAD_MUX_JUMP_INT, SIGNALS.MEM_JUMP_INT, SIGNALS.CLK],
+        fire_name: ['svg_p:text7237-3-4-6-4-0-7-9'],
+        draw_data: [['svg_p:path6823-2-3-8-2-4', 'svg_p:path6825-7-2-5-9-6-1', 'svg_p:path7035-0-7-6-9-8', 'svg_p:path7039-1-0-8-8-1-5'],
+        ['svg_p:path6827-3-4-9-7-1-9', 'svg_p:path6825-7-8-8-3-0-2', 'svg_p:path7035-0-7-6-9-8-7', 'svg_p:path7039-1-0-8-8-1-4', 'svg_p:path7035-0-7-6-9-1']],
+        draw_name: [[], ['svg_p:path7197-7-4-9-0-1']]
+    };
+
+    sim_p.signals[SIGNALS.EPC_EQ_0_IF_ID_PC] = {
+        name: "EPC_EQ_0_IF_ID_PC", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.EPC_EQ_0_IF_ID_PC, STATES.IF_ID_PC, STATES.VAL_ZERO) +
+            create_op(BEHAVIORS.MV, SIGNALS.EPC_MUX_IF_PC_IF_ID_PC, SIGNALS.EPC_EQ_0_IF_ID_PC)
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-8-6-7'],
+        draw_data: [[], ['svg_cu:path4-9-7-7-0', 'svg_cu:path7039-1-0-2']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.EPC_MUX_IF_PC_IF_ID_PC] = {
+        name: "EPC_MUX_IF_PC_IF_ID_PC", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.MV, STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC, STATES.IF_ID_PC),
+            create_op(BEHAVIORS.MV, STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC, STATES.IF_FETCH_PC),
+        ],
+        depends_on: [SIGNALS.EPC_EQ_0_IF_ID_PC, SIGNALS.CLK],
+        fire_name: [],
+        draw_data: [['svg_cu:path7003-8-3-1-2-1-1', 'svg_cu:path7579-3-5-3-0'], ['svg_cu:path6777-6-1-1-1-1-3', 'svg_cu:path7579-3-5-3-0-0']],
+        draw_name: [[]]
+    };
+
+
     /* MEMORY STAGE control for load/store */
     sim_p.signals[SIGNALS.WBE] = {
         name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
@@ -1968,7 +2227,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     /* IOR: I/O Read - call device read behaviors */
     sim_p.signals[SIGNALS.IOR] = {
         name: "IOR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.SCR_IOR, STATES.BUS_AB, STATES.BUS_DB, STATES.DDR, STATES.DSR, STATES.CLK) + create_op(BEHAVIORS.KBD_IOR, STATES.BUS_AB, STATES.BUS_DB, STATES.KBDR, STATES.KBSR, STATES.CLK)],
+        behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.SCR_IOR, STATES.BUS_AB, STATES.BUS_DB, STATES.DDR, STATES.DSR, STATES.CLK) + create_op(BEHAVIORS.KBD_IOR, STATES.BUS_AB, STATES.BUS_DB, STATES.KBDR, STATES.KBSR, STATES.CLK) + "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK;"],
         depends_on: [SIGNALS.AUX_LOAD_MEM, SIGNALS.M5],
         fire_name: [],
         draw_data: [[], []],
@@ -1977,7 +2236,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     /* IOW: I/O Write - call device write behaviors */
     sim_p.signals[SIGNALS.IOW] = {
         name: "IOW", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.SCR_IOW, STATES.BUS_AB, STATES.BUS_DB, STATES.DDR, STATES.DSR, STATES.CLK)],
+        behavior: [create_op(BEHAVIORS.NOP), create_op(BEHAVIORS.SCR_IOW, STATES.BUS_AB, STATES.BUS_DB, STATES.DDR, STATES.DSR, STATES.CLK) + "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK;"],
         depends_on: [SIGNALS.AUX_LOAD_MEM, SIGNALS.M5],
         fire_name: [],
         draw_data: [[], []],
@@ -2082,6 +2341,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             set_value(sim_elto_dst, newval >>> 0);
         },
         verbal: function (s_expr: string[]): string {
+            var sim_elto_dst = get_reference(s_expr[1]);
             var sim_elto_org = get_reference(s_expr[2]);
             var src_offset = get_value(get_reference(s_expr[3]));
             var size = get_value(get_reference(s_expr[4]));
@@ -2089,12 +2349,14 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var src_val = get_value(sim_elto_org);
             var mask = (1 << size) - 1;
             var bits = (src_val >>> src_offset) & mask;
+            var dst_val = get_value(sim_elto_dst);
+            var newval = (dst_val & ~(mask << dst_offset)) | (bits << dst_offset);
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math') {
                 return "Copy " + size + " bits from (" + show_value(src_val) + ") " + show_verbal(s_expr[2]) +
                     "[" + src_offset + ":" + (src_offset + size - 1) + "] to " +
                     show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) +
-                    "] value " + show_value(bits) + ". ";
+                    "] value " + show_value(bits) + ". New value " + show_value(newval);
             }
             return show_verbal(s_expr[1]) + "[" + dst_offset + ":" + (dst_offset + size - 1) + "] (val " + show_value(src_val) + ") = " +
                 show_verbal(s_expr[2]) + "[" + src_offset + ":" + (src_offset + size - 1) + "] (" +
@@ -2770,7 +3032,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                 if (x2_imm === 1) imm_value = 2 * imm_value;
                 set_value(sim_p.states[dest_state], imm_value);
             }
-            if (DEBUG) console.log(JSON.stringify(s_expr), "bits", ins.toString(2), imm_bits, "Value:", get_value(sim_p.states[dest_state]));
+            if (DEBUG) console.log(JSON.stringify(s_expr), "Value:", get_value(sim_p.states[dest_state]));
         },
         verbal: function (s_expr: string[]): string { return "Generate immediate value"; }
     };
@@ -3048,6 +3310,13 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             }
 
             // ====================================================================
+            // IO Clock check (before L phase) - check timer interrupts
+            // ====================================================================
+            sim_p.behaviors[BEHAVIORS.IO_CHK].operation(
+                [BEHAVIORS.IO_CHK, STATES.INT, STATES.INTV, STATES.REG_EPC]
+            );
+
+            // ====================================================================
             // PHASE 3 - L phase: fire Level signals (combinational pipeline logic)
             // Computes values that will be captured by the next cycle's E phase
             // ====================================================================
@@ -3103,6 +3372,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             $("td.asm_stage", "#asmdbg0x" + pc.toString(16)).text(stage_names[i]);
         }
         // Update SVG text elements with decoded instruction at each pipeline stage
+        if (typeof wepsim_svg_is_drawing === 'function' && !wepsim_svg_is_drawing()) {
+            return;
+        }
         var svg_o = document.getElementById('svg_p') as HTMLIFrameElement | null;
         if (svg_o !== null) {
             var svg = svg_o.contentDocument;
