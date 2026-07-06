@@ -581,6 +581,16 @@ out rs imm {
       }
 }
 
+#  SRET        Return from trap
+sret {
+    oc(6:0)=1110011,
+    nwords=1,
+    help='return from interrupt',
+    {
+        (BRANCH=11)
+    }
+}
+
 pseudoinstructions
 {
     # beqz rs1, offset        beq rs, x0, offset        Branch if = zero
