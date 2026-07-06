@@ -3238,7 +3238,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var id_ex_pc = get_value(sim_p.states[STATES.ID_EX_PC]);
             var ex_mem_pc = get_value(sim_p.states[STATES.EX_MEM_PC]);
             var mem_wb_pc = get_value(sim_p.states[STATES.MEM_WB_PC]);
-            show_pipeline_display(if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
+            if (DBG_stop !== false) {
+                show_pipeline_display(if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
+            }
             // When all pipeline stage PCs are zero, the program has finished
             if (!inBounds(if_pc) && !inBounds(if_id_pc) && !inBounds(id_ex_pc) &&
                 !inBounds(ex_mem_pc) && !inBounds(mem_wb_pc)) {

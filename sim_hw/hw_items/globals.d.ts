@@ -234,3 +234,6 @@ declare function io_keyboard_rvpipe_register(sim_p: Simulator): void;
 declare function io_ldm_base_register(sim_p: Simulator): void;
 declare function io_l3d_base_register(sim_p: Simulator): void;
 declare function io_sound_base_register(sim_p: Simulator): void;
+
+
+declare var DBG_stop: boolean;
