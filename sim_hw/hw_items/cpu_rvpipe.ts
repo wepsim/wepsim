@@ -3329,6 +3329,13 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             // ====================================================================
             // PHASE 4 - Pipeline display and cleanup
             // ====================================================================
+
+            // Count executed instruction
+            if (inBounds(get_value(sim_p.states[STATES.MEM_WB_PC]))) {
+                const prev = get_value(sim_p.states[STATES.DECO_INS]);
+                set_value(sim_p.states[STATES.DECO_INS], prev + 1);
+            }
+
             compute_behavior("PIPE_DISPLAY");
             // compute_behavior("DECO");
 
