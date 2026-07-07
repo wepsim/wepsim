@@ -38,7 +38,7 @@ addi rd rs1 imm {
 
 #  ADDU rd,rs1,imm         Add Unsigned                         rd ← rs1 + sx(imm)
 addu rd rs1 imm {
-      oc(6:0)=0010011,
+      oc(6:0)=0010111,
       eoc(14:12)=101,
       reg(11:7)=rd,
       reg(19:15)=rs1,
@@ -584,10 +584,21 @@ out rs imm {
 #  SRET        Return from trap
 sret {
     oc(6:0)=1110011,
+    eoc(14:12|31:25)=0000001000,
     nwords=1,
     help='return from interrupt',
     {
         (BRANCH=11)
+    }
+}
+
+ecall {
+    oc(6:0)=1110011,
+    eoc(14:12|31:25)=0000000010,
+    nwords=1,
+    help='environment call',
+    {
+        (AluOp=11101)
     }
 }
 
@@ -656,14 +667,18 @@ pseudoinstructions
     # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
     {
-        lui  rd,     sel(31,12,expression)
-        addi rd, rd, sel(11,0,expression)
+        addi rd x0 expression
+    }
+    li rd=reg, expression=imm
+    {
+        lui  rd,     sel(31,12,expression) ;
+        addu rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
     la rd=reg, label=imm
     {
-        lui  rd,     sel(31,12,label)
+        lui  rd,     sel(31,12,label) ;
         addu rd, rd, sel(11,0,label)
     }
 
@@ -720,7 +735,7 @@ pseudoinstructions
     #                                                               pc ← rs1 + sext(imm)
     jalr rd=reg, rs1=reg, offset=imm
     {
-        savepc rd 8 # PC at next of jumpto
+        savepc rd 8 ; # PC at next of jumpto
         jumpto rs1, offset
     }
 }
