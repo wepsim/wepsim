@@ -667,14 +667,18 @@ pseudoinstructions
     # li rd, expression        (several expansions)        Load immediate
     li rd=reg, expression=imm
     {
-        lui  rd,     sel(31,12,expression)
-        addi rd, rd, sel(11,0,expression)
+        addi rd x0 expression
+    }
+    li rd=reg, expression=imm
+    {
+        lui  rd,     sel(31,12,expression) ;
+        addu rd, rd, sel(11,0,expression)
     }
 
     # la rd, label        (several expansions)        Load address
     la rd=reg, label=imm
     {
-        lui  rd,     sel(31,12,label)
+        lui  rd,     sel(31,12,label) ;
         addu rd, rd, sel(11,0,label)
     }
 
@@ -731,7 +735,7 @@ pseudoinstructions
     #                                                               pc ← rs1 + sext(imm)
     jalr rd=reg, rs1=reg, offset=imm
     {
-        savepc rd 8 # PC at next of jumpto
+        savepc rd 8 ; # PC at next of jumpto
         jumpto rs1, offset
     }
 }
