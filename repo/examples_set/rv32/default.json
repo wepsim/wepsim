@@ -1769,5 +1769,60 @@
     "assembly": "s2e2",
     "description": "<span data-langkey='example_01_03'>Simple example with fetch, branch, and basic .text segment.</span>",
     "testing": false
+  },
+  {
+    "id": "RVR3E1",
+    "title": "Interruptions",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s3e1",
+    "description": "<span data-langkey='example_03_02'>Example with interruptions support: fetch, RETI, and .ktext/.kdata.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR3E2",
+    "title": "System call",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s3e2",
+    "description": "<span data-langkey='example_03_03'>Example with system call support.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR3E3",
+    "title": "Exception",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s3e3",
+    "description": "<span data-langkey='example_03_01'>Example with floating point exception.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR4E1",
+    "title": "Int. + syscall + except.",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s4e1",
+    "description": "<span data-langkey='example_04_01'>Advanced example with interruption, system call, and exception.</span>",
+    "testing": false
+  },
+  {
+    "id": "RVR4E2",
+    "title": "SC 1, 4-5, 8, 11-12",
+    "type": "<span data-langkey='Advanced'>Advanced</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "s4e2",
+    "description": "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>",
+    "testing": false
   }
 ]

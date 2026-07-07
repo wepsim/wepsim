@@ -38,7 +38,7 @@ addi rd rs1 imm {
 
 #  ADDU rd,rs1,imm         Add Unsigned                         rd ← rs1 + sx(imm)
 addu rd rs1 imm {
-      oc(6:0)=0010011,
+      oc(6:0)=0010111,
       eoc(14:12)=101,
       reg(11:7)=rd,
       reg(19:15)=rs1,
@@ -584,10 +584,21 @@ out rs imm {
 #  SRET        Return from trap
 sret {
     oc(6:0)=1110011,
+    eoc(14:12|31:25)=0000001000,
     nwords=1,
     help='return from interrupt',
     {
         (BRANCH=11)
+    }
+}
+
+ecall {
+    oc(6:0)=1110011,
+    eoc(14:12|31:25)=0000000010,
+    nwords=1,
+    help='environment call',
+    {
+        (AluOp=11101)
     }
 }
 

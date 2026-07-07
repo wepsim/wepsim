@@ -218,7 +218,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
 
             var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
-            var bw = sim_p.signals[s_expr[3]].value;
+            var bw = get_value(sim_p.states[s_expr[3]]);
             var clk = get_value(sim_p.states[s_expr[4]]);
 
             var bw_type = "word";
@@ -323,7 +323,7 @@ function mem_rvpipe_register(sim_p: Simulator): Simulator {
 
             var address = "0x" + get_value(sim_p.states[s_expr[1]]).toString(16);
             var dbvalue = get_value(sim_p.states[s_expr[2]]);
-            var bw = sim_p.signals[s_expr[3]].value;
+            var bw = get_value(sim_p.states[s_expr[3]]);
             var clk = get_value(sim_p.states[s_expr[4]]);
 
             var bw_type = "word";
