@@ -176,6 +176,28 @@
     "testing": false
   },
   {
+    "id": "RVP1E9_csr",
+    "title": "CSR",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e9_csr",
+    "description": "Simple example to use csr in pipeline.",
+    "testing": false
+  },
+  {
+    "id": "RVP1E10_threads",
+    "title": "Threads",
+    "type": "<span data-langkey='Pipeline'>Pipeline</span>",
+    "modes": "rvpipe",
+    "hardware": "rvpipe",
+    "microcode": "rvpipe",
+    "assembly": "rvpipe_s1e10_threads",
+    "description": "Simple example to use threads in pipeline.",
+    "testing": false
+  },
+  {
     "id": "RVR1E1",
     "title": "Instructions",
     "type": "<span data-langkey='Initial'>Initial</span>",
