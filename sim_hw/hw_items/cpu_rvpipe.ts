@@ -34,10 +34,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         abilities: ["CPU"],
 
         details_name: ["REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS"],
-        details_fire: [['svg_p:text6639'],
-        ['svg_p:path7363', 'svg_p:path7365', 'svg_p:path7367', 'svg_p:path7369',
-            'svg_p:path7371', 'svg_p:path7373', 'svg_p:path7375', 'svg_p:path7377', 'svg_p:path7379'],
-        ['svg_p:text7327']],
+        details_fire: [['svg_p:text6639']],
 
         write_state: function (vec) {
             if (typeof vec.CPU == "undefined") {
@@ -1298,7 +1295,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.VAL_ZERO) + create_op(BEHAVIORS.SET, STATES.BR, CSR.sepc.toString(), STATES.REG_EPC), // Reset
         create_op(BEHAVIORS.NOP),],  // Nothing
         depends_on: [SIGNALS.MUX_EPCWRITE, SIGNALS.EPC_MUX_IF_PC_IF_ID_PC, SIGNALS.CLK],
-        fire_name: ['svg_p:text7237-3-4-6-8', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-83', 'svg_cu:text7237-3-4-6-8'],
+        fire_name: ['svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-83', 'svg_cu:text7237-3-4-6-8'],
         draw_data: [[]],
         draw_name: [[], ['svg_p:path7039-1-0'], ['svg_p:path7039-1-0'], ['svg_p:path7039-1-0']]
     };
@@ -1479,7 +1476,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "IMR", visible: true, type: "L", value: 1, default_value: 1, nbits: "1",
         behavior: [create_op(BEHAVIORS.READ_IM)],
         depends_on: [SIGNALS.CLK],
-        fire_name: ['svg_p:text7417'],
+        fire_name: ['svg_p:text7213'],
         draw_data: [[]],
         draw_name: [[]]
     };
@@ -2241,7 +2238,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "WBE", visible: false, type: "L", value: 0, default_value: 0, nbits: "2",
         behavior: [create_op(BEHAVIORS.NOP)],
         depends_on: [],
-        fire_name: ['svg_p:text7555', 'svg_p:text7433'],
+        fire_name: ['svg_p:text7555'],
         draw_data: [['svg_p:path7075-2', 'svg_p:path7043-6', 'svg_p:path7203',
             'svg_p:path7579', 'svg_p:path7581', 'svg_p:path7075',
             'svg_p:path6911-8-3', 'svg_p:path7567-0-5-0',
