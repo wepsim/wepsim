@@ -286,7 +286,8 @@
             for (var i=0; i<filter_states.length; i++)
             {
                  var s = filter_states[i].split(",")[0] ;
-		 update_value(sim_eltos[s]) ;
+                 console.log(s, simhw_sim_state_getref(s));
+		 update_value(simhw_sim_state_getref(s)) ;
             }
         }
 
@@ -519,9 +520,10 @@
 		     divclass   = "col-12" ;
                      spanbetw   = " <span class='w-100 d-sm-none'></span>" ;
 		}
-
-                var showkey = sim_eltos[ename].name ;
-                if (sim_eltos[ename].nbits > 1)
+            const state = simhw_sim_state_getref(ename);
+            ename = ename.replace(".", "_");
+                var showkey = state.name ;
+                if (state.nbits > 1)
 	        {
                     part1 = showkey.substring(0, 3) ;
                     part2 = showkey.substring(3, showkey.length) ;
@@ -559,18 +561,18 @@
 		               '</div>',
 		    content: function(obj) {
                         var index    = $(obj).attr('data-popover-content') ;
-                        var hexvalue = get_value(simhw_sim_states()[index]);
+                        var hexvalue = get_value(simhw_sim_state_getref(index));
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function(obj) {
                         var index     = $(obj).attr('data-popover-content') ;
                         var id_button = "&quot;#rp" + index + "&quot;" ;
 		        return '<span class="text-body col"><strong>' +
-                               simhw_sim_states()[index].name +
+                               simhw_sim_state_getref(index).name +
                                '</strong></span>' +
                                '<button type="button" id="close" ' +
                                '        class="btn-close border border-secondary ms-auto" ' +
-                               '        onclick="$(' + id_button + ').click();"></button>';
+                               '        onclick="$(' + id_button.replace(".", "_") + ').click();"></button>';
 		    },
 		    sanitizeFn: function (content) {
                         return content ; // DOMPurify.sanitize(content) ;
@@ -579,7 +581,7 @@
             wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg, null) ;
 
 	    // vue binding
-	    var f_computed_value = function(value)
+	    var f_computed_value = function(value, elto_id)
 		                   {
 				       var rf_format = '' ;
 				       var rf_value  = '' ;
@@ -594,16 +596,16 @@
 				           rf_format = 'text:char:nofill' ;
 				           rf_value  = value2string(rf_format, value) ;
 				       }
-
 				       return rf_value ;
 				   } ;
 
             for (var i=0; i<filter.length; i++)
             {
                  var s = filter[i].split(",")[0] ;
-		 var ref_obj = sim_eltos[s] ;
+		 var ref_obj = simhw_sim_state_getref(s) ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
+         s = s.replace(".", "_");
 		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }

@@ -207,7 +207,7 @@ interface Simulator {
     sim_img_cpu?: string;
 
     components: Record<string, SimComponent>;
-    states: { BR: SimState[];[key: string]: any };
+    states: { BR: Record<number, SimState> & { length?: number }; [key: string]: SimState | Record<number, SimState> };
     signals: Record<string, SimSignal>;
     behaviors: Record<string, SimSignalBehavior>;
     elements: Record<string, SimElement>;

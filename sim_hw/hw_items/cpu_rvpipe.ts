@@ -24,7 +24,7 @@
  */
 
 function cpu_rvpipe_register(sim_p: Simulator): Simulator {
-    function create_op(behavior: BEHAVIORS, ...signals_or_states: (SIGNALS | STATES)[]): string {
+    function create_op(behavior: BEHAVIORS, ...signals_or_states: (SIGNALS | STATES | string)[]): string {
         return behavior + " " + signals_or_states.join(" ") + ";";
     }
     const DEBUG = false;
@@ -47,20 +47,21 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var internal_reg = ["PC"];
 
             var value = 0;
-            for (var i = 0; i < sim_p.states.BR.length; i++) {
-                value = get_value(sim_p.states.BR[i]) >>> 0;
+            for (var idx in sim_p.states.BR) {
+                if (typeof sim_p.states.BR[idx] === "undefined") continue;
+                value = get_value(sim_p.states.BR[idx]) >>> 0;
                 if (value != 0) {
-                    vec.CPU["R" + i] = {
+                    vec.CPU["R" + idx] = {
                         "type": "register",
                         "default_value": 0x0,
-                        "id": "R" + i,
+                        "id": "R" + idx,
                         "op": "=",
                         "value": "0x" + value.toString(16)
                     };
                 }
             }
 
-            for (i = 0; i < internal_reg.length; i++) {
+            for (var i = 0; i < internal_reg.length; i++) {
                 value = get_value(sim_p.states['REG_' + internal_reg[i]]) >>> 0;
                 if (value != 0) {
                     vec.CPU[internal_reg[i]] = {
@@ -281,6 +282,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         OUT_EPC_MUX_IF_PC_IF_ID_PC = "OUT_EPC_MUX_IF_PC_IF_ID_PC",
         INT_MEM_READ = "INT_MEM_READ",
         INTV_X_4 = "INTV_X_4",
+        BR = "BR",
     };
 
     enum SIGNALS {
@@ -396,6 +398,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         NOP = "NOP",
         NOP_ALU = "NOP_ALU",
         ECALL_ALU = "ECALL_ALU",
+        GET = "GET",
+        SET = "SET",
         MV = "MV",
         MV_BITS = "MV_BITS",
         AND = "AND",
@@ -443,8 +447,20 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         CLOCK = "CLOCK",
         IO_CHK = "IO_CHK",
         INTA = "INTA",
+        AND_NOT = "AND_NOT",
     };
 
+    enum CSR {
+        sstatus = 0x100,
+        sie = 0x104,
+        stvec = 0x105,
+        scounteren = 0x106,
+        sscratch = 0x140,
+        sepc = 0x141,
+        scause = 0x142,
+        stval = 0x143,
+        sip = 0x144,
+    }
     /*
      *  Internal States
      */
@@ -459,13 +475,24 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.internal_states.fire_visible = { 'databus': false, 'internalbus': false };
     sim_p.internal_states.filter_states = ["REG_IR_DECO,virtual", "IF_ID_IR,real",
         "REG_PC,real",
-        STATES.REG_EPC + ",real",
+        STATES.IF_ID_IR + ",virtual",
+        "BR." + CSR.sstatus + ",real",
+        "BR." + CSR.sie + ",real",
+        "BR." + CSR.stvec + ",real",
+        "BR." + CSR.scounteren + ",real",
+        "BR." + CSR.sscratch + ",real",
+        "BR." + CSR.sepc + ",real",
+        "BR." + CSR.scause + ",real",
+        "BR." + CSR.stval + ",real",
+        "BR." + CSR.sip + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.M1_ALU + ",real",
         STATES.M4_ALU + ",real",
         STATES.ALU_OUT + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.IF_FETCH_PC + ",real",
-        STATES.IF_ID_IR + ",real",
         STATES.IF_ID_PC + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.ID_EX_RS1 + ",real",
         STATES.ID_EX_RS2 + ",real",
         STATES.ID_EX_RS1_ADDR + ",real",
@@ -485,6 +512,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         STATES.ID_EX_BRANCH + ",real",
         STATES.ID_EX_IOR + ",real",
         STATES.ID_EX_IOW + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.EX_MEM_M5 + ",real",
         STATES.EX_MEM_ALUOUT + ",real",
         STATES.EX_MEM_WDATA + ",real",
@@ -497,11 +525,13 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         STATES.EX_MEM_SE + ",real",
         STATES.EX_MEM_IOR + ",real",
         STATES.EX_MEM_IOW + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.MEM_WB_DATA + ",real",
         STATES.MEM_WB_RD + ",real",
         STATES.MEM_WB_RW + ",real",
         STATES.MEM_WB_PC + ",real",
         STATES.MEM_WB_LOAD + ",real",
+        STATES.IF_ID_IR + ",virtual",
         STATES.DECODE_DMR + ",real",
         STATES.DECODE_DMW + ",real",
         STATES.DECODE_WBE + ",real",
@@ -533,7 +563,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
      */
 
     /* REGISTER FILE STATES */
-    sim_p.states.BR = [];
+    sim_p.states.BR = {};
+    sim_p.states.BR.length = 32;
     sim_p.states.BR[0] = { name: "R0", verbal: "Register 0", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[1] = { name: "R1", verbal: "Register 1", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[2] = { name: "R2", verbal: "Register 2", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
@@ -567,8 +598,25 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.states.BR[30] = { name: "R30", verbal: "Register 30", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[31] = { name: "R31", verbal: "Register 31", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
+    // CSR registers
+    sim_p.states.BR[CSR.sstatus] = { name: "sstatus", verbal: "Supervisor status register", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sie] = { name: "sie", verbal: "Supervisor interrupt-enable register", visible: true, nbits: "32", value: 1, default_value: 1, draw_data: [] };
+    sim_p.states.BR[CSR.stvec] = { name: "stvec", verbal: "Supervisor trap handler base address", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.scounteren] = { name: "scounteren", verbal: "Supervisor counter enable", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+
+    sim_p.states.BR[CSR.sscratch] = { name: "sscratch", verbal: "Supervisor scratch register", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sepc] = { name: "sepc", verbal: "Supervisor exception program counter", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.scause] = { name: "scause", verbal: "Supervisor trap cause", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.stval] = { name: "stval", verbal: "Supervisor trap value", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sip] = { name: "sip", verbal: "Supervisor interrupt pending", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+
     sim_p.states[STATES.REG_PC] = {
         name: "PC", verbal: "Program Counter Register",
+        visible: true, nbits: "32", value: 0, default_value: 0,
+        draw_data: []
+    };
+    sim_p.states[STATES.REG_EPC] = {
+        name: "EPC", verbal: "sepc register",
         visible: true, nbits: "32", value: 0, default_value: 0,
         draw_data: []
     };
@@ -678,11 +726,6 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
-    sim_p.states[STATES.REG_EPC] = {
-        name: "REG_EPC", verbal: "Exception Program Counter",
-        visible: false, nbits: "32", value: 0, default_value: 0,
-        draw_data: []
-    };
     sim_p.states[STATES.IORdy] = {
         name: "IORdy", verbal: "From MUX-C/1 to JUMP",
         visible: false, nbits: "32", value: 0, default_value: 0,
@@ -729,17 +772,17 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
     sim_p.states[STATES.ID_EX_RS1_ADDR] = {
         name: "ID_EX_RS1_ADDR", verbal: "ID/EX RS1 Addr",
-        visible: true, nbits: "5", value: 0, default_value: 0,
+        visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.ID_EX_RS2_ADDR] = {
         name: "ID_EX_RS2_ADDR", verbal: "ID/EX RS2 Addr",
-        visible: true, nbits: "5", value: 0, default_value: 0,
+        visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.ID_EX_RD] = {
         name: "ID_EX_RD", verbal: "ID/EX Dest Register",
-        visible: true, nbits: "5", value: 0, default_value: 0,
+        visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.ID_EX_ALUOP] = {
@@ -795,7 +838,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
     sim_p.states[STATES.EX_MEM_RD] = {
         name: "EX_MEM_RD", verbal: "EX/MEM Dest Register",
-        visible: true, nbits: "5", value: 0, default_value: 0,
+        visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.EX_MEM_RW] = {
@@ -821,7 +864,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
     sim_p.states[STATES.MEM_WB_RD] = {
         name: "MEM_WB_RD", verbal: "MEM/WB Dest Register",
-        visible: true, nbits: "5", value: 0, default_value: 0,
+        visible: true, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.MEM_WB_RW] = {
@@ -980,17 +1023,17 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     /* DECODE STORAGE (survives microcode reset) */
     sim_p.states[STATES.DECODE_RS1_ADDR] = {
         name: "DECODE_RS1_ADDR", verbal: "Decoded RS1 address",
-        visible: false, nbits: "5", value: 0, default_value: 0,
+        visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_RS2_ADDR] = {
         name: "DECODE_RS2_ADDR", verbal: "Decoded RS2 address",
-        visible: false, nbits: "5", value: 0, default_value: 0,
+        visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_RD_ADDR] = {
         name: "DECODE_RD_ADDR", verbal: "Decoded RD address",
-        visible: false, nbits: "5", value: 0, default_value: 0,
+        visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_ALUOP] = {
@@ -1251,8 +1294,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.EPCWRITE] = {
         name: "EPCWRITE", visible: true, type: "E", value: 0, default_value: 0, nbits: "2",
         behavior: [create_op(BEHAVIORS.NOP), // Nothing
-        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC), // Write new value
-        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.VAL_ZERO), // Reset
+        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.OUT_EPC_MUX_IF_PC_IF_ID_PC) + create_op(BEHAVIORS.SET, STATES.BR, CSR.sepc.toString(), STATES.REG_EPC), // Write new value
+        create_op(BEHAVIORS.MV, STATES.REG_EPC, STATES.VAL_ZERO) + create_op(BEHAVIORS.SET, STATES.BR, CSR.sepc.toString(), STATES.REG_EPC), // Reset
         create_op(BEHAVIORS.NOP),],  // Nothing
         depends_on: [SIGNALS.MUX_EPCWRITE, SIGNALS.EPC_MUX_IF_PC_IF_ID_PC, SIGNALS.CLK],
         fire_name: ['svg_p:text7237-3-4-6-8', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-83', 'svg_cu:text7237-3-4-6-8'],
@@ -1647,9 +1690,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             /*10111*/(create_op(BEHAVIORS.SGES, STATES.ALU_OUT, STATES.M3_ALU, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
             /*11000*/(create_op(BEHAVIORS.SLTU, STATES.ALU_OUT, STATES.M3_ALU, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
             /*11001*/(create_op(BEHAVIORS.SGEU, STATES.ALU_OUT, STATES.M3_ALU, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
-            /*11010*/(create_op(BEHAVIORS.NOP_ALU)),
-            /*11011*/(create_op(BEHAVIORS.NOP_ALU)),
-            /*11100*/(create_op(BEHAVIORS.NOP_ALU)),
+            /*11010*/(create_op(BEHAVIORS.AND_NOT, STATES.ALU_OUT, STATES.M3_ALU, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
+            /*11011*/(create_op(BEHAVIORS.NOP_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
+            /*11100*/(create_op(BEHAVIORS.NOP_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
             /*11101*/(create_op(BEHAVIORS.ECALL_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
             /*11110*/(create_op(BEHAVIORS.MV, STATES.ALU_OUT, STATES.M3_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT)),
             /*11111*/(create_op(BEHAVIORS.MV, STATES.ALU_OUT, STATES.M4_ALU) + create_op(BEHAVIORS.UPDATE_ALU_INT))
@@ -1680,8 +1723,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.OUT_MUX_ALUOUT),
             // 2 -> Use ALUout
             create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.ALU_OUT),
-            // 3 -> Use REG_EPC (sret)
-            create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.REG_EPC),
+            // 3 -> Use sepc (sret)
+            create_op(BEHAVIORS.GET, STATES.REG_EPC, STATES.BR, CSR.sepc.toString()) + create_op(BEHAVIORS.MV, STATES.OUT_MUX_BRANCH, STATES.REG_EPC),
         ],
         depends_on: [SIGNALS.AUX_LOAD_BRANCH, SIGNALS.ALUOP, SIGNALS.MUX_ALUOUT, SIGNALS.CLK],
         fire_name: ['svg_p:text7237-3-4-6-4-0', 'svg_cu:text7237-3-4-6-4-0-6-7', 'svg_cu:text7237-3-4-6-4-0-7-8-3-7-8-2'],
@@ -2057,7 +2100,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
     sim_p.signals[SIGNALS.INT_EQ_0_EPC] = {
         name: "INT_EQ_0_EPC", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
-        behavior: [create_op(BEHAVIORS.SEQ, SIGNALS.INT_EQ_0_EPC, STATES.REG_EPC, STATES.VAL_ZERO)],
+        behavior: [create_op(BEHAVIORS.GET, STATES.REG_EPC, STATES.BR, CSR.sepc.toString()) + create_op(BEHAVIORS.SEQ, SIGNALS.INT_EQ_0_EPC, STATES.REG_EPC, STATES.VAL_ZERO)],
         depends_on: [SIGNALS.CLK],
         fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-6-2-1', 'svg_cu:path6825-7-2-5-9-6-8-7-5-1-0-6', 'svg_cu:path7035-0-7-6-1-0-6-8-1']],
@@ -2349,6 +2392,64 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         },
         verbal: function (s_expr: string[]): string { return "ALU interruption ECALL. "; }
     };
+
+    // GET ref BR num
+    sim_p.behaviors[BEHAVIORS.GET] = {
+        nparameters: 4,
+        types: ["X", "E", "I"],
+        operation: function (s_expr) {
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            const ref = get_reference(s_expr[1]);
+            const br = sim_p.states[s_expr[2]] as Record<number, SimState>;
+            const num = parseInt(s_expr[3]);
+            const value = get_value(br[num]);
+            set_value(ref, value);
+            if (DEBUG) console.log(s_expr, "Set value", value, "to", ref.name);
+        },
+        verbal: function (s_expr) {
+            const br = sim_p.states[s_expr[2]] as Record<number, SimState>;
+            const num = parseInt(s_expr[3]);
+            const value = get_value(br[num]);
+
+            var verbose = get_cfg('verbal_verbose');
+            if (verbose !== 'math') {
+                return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). ";
+            }
+
+            return show_verbal(s_expr[1]) + " = " + show_value(value) +
+                " (Register File " + s_expr[3] + "). ";
+        }
+    };
+    sim_p.behaviors[BEHAVIORS.SET] = {
+        nparameters: 4,
+        types: ["E", "I", "X"],
+        operation: function (s_expr) {
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            const br = sim_p.states[s_expr[1]] as Record<number, SimState>;
+            const num = parseInt(s_expr[2]);
+            const ref = get_reference(s_expr[3]);
+            const value = get_value(ref);
+            set_value(br[num], value);
+            if (DEBUG) console.log(s_expr, "Set value", value, "to BR", num);
+        },
+        verbal: function (s_expr) {
+            const br = sim_p.states[s_expr[1]] as Record<number, SimState>;
+            const num = parseInt(s_expr[2]);
+            var value = get_value(get_reference(s_expr[3]));
+            var o_ref = br[num];
+
+            var o_verbal = o_ref.name;
+            if (typeof o_ref.verbal != "undefined")
+                o_verbal = o_ref.verbal;
+
+            var verbose = get_cfg('verbal_verbose');
+            if (verbose !== 'math') {
+                return "Copy to " + o_verbal + " the value " + show_value(value) + ". ";
+            }
+
+            return o_verbal + " = " + show_value(value) + ". ";
+        }
+    };
     sim_p.behaviors[BEHAVIORS.MV] = {
         nparameters: 3,
         types: ["X", "X"],
@@ -2429,6 +2530,26 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (verbose !== 'math')
                 return "ALU AND with result " + show_value(result) + ". ";
             return "ALU output = " + show_value(result) + " (AND). ";
+        }
+    };
+    sim_p.behaviors[BEHAVIORS.AND_NOT] = {
+        nparameters: 4, types: ["X", "X", "X"],
+        operation: function (s_expr: string[]): void {
+            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? BEHAVIORS.NOP]?.verbal(s_expr));
+            const val1 = get_value(get_reference(s_expr[2]));
+            const val2 = get_value(get_reference(s_expr[3]));
+            var result = val1 & ~val2;
+            if (DEBUG) console.log("val1", val1.toString(2), "val2", val2.toString(2), (~val2).toString(2), "result", result.toString(2));
+            set_value(get_reference(s_expr[1]), result >>> 0);
+            sim_p.internal_states.alu_flags.int = 0;
+            sim_p.internal_states.alu_flags.intv = 0;
+        },
+        verbal: function (s_expr: string[]): string {
+            var result = get_value(get_reference(s_expr[2])) & ~(get_value(get_reference(s_expr[3])));
+            var verbose = get_cfg('verbal_verbose');
+            if (verbose !== 'math')
+                return "ALU AND NOT with result " + show_value(result) + ". ";
+            return "ALU output = " + show_value(result) + " (AND NOT). ";
         }
     };
     sim_p.behaviors[BEHAVIORS.OR] = {
@@ -3128,6 +3249,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         operation: function (): void {
             if (DEBUG) console.log("CPU_RESET");
             for (var key in sim_p.states) reset_value(sim_p.states[key]);
+            for (var key in sim_p.states.BR) reset_value(sim_p.states.BR[key]);
             for (var key in sim_p.signals) reset_value(sim_p.signals[key]);
             sim_p.internal_states.halt = 0;
             sim_p.internal_states.pipe_next_pc = undefined;
@@ -3225,7 +3347,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             let oi = decode_instruction(sim_p.internal_states.FIRMWARE,
                 sim_p.ctrl_states.ir, ins);
             if (null == oi.oinstruction) return;
-            // Extract register addresses from reg() fields
+            // Extract register addresses from reg() and CSR reg() fields
             for (let i = 0; i < oi.oinstruction.fields.length; i++) {
                 let field = oi.oinstruction.fields[i];
                 if (field.type == "reg") {
@@ -3236,8 +3358,22 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                     let size = startbit - stopbit + 1;
                     let reg_num = (ins >>> stopbit) & ((1 << size) - 1);
 
-                    if (stopbit == 15) {
+                    // CSR address: 12-bit field at bits 31:20
+                    if (stopbit == 20 && size > 5) {
                         set_value(sim_p.states[STATES.DECODE_RS1_ADDR], reg_num);
+                        // All the instructions in csr wite back to csr execept csrr
+                        if (oi.oinstruction.name != "csrr") {
+                            set_value(sim_p.states[STATES.DECODE_RD_ADDR], reg_num);
+                        }
+                        continue;
+                    }
+                    if (stopbit == 15) {
+                        // In csr instructions the csr reg goes to RS1 and rs goes to RS2
+                        if (oi.oinstruction.name.startsWith("csr")) {
+                            set_value(sim_p.states[STATES.DECODE_RS2_ADDR], reg_num);
+                        } else {
+                            set_value(sim_p.states[STATES.DECODE_RS1_ADDR], reg_num);
+                        }
                     } else if (stopbit == 20) {
                         set_value(sim_p.states[STATES.DECODE_RS2_ADDR], reg_num);
                     } else if (stopbit == 7) {
@@ -3292,7 +3428,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             if (rw && rd != 0) {
                 var data = get_value(sim_p.states[STATES.M6_OUT]) << 0;
                 set_value(sim_p.states.BR[rd], data >>> 0);
-                if (DEBUG) console.log("Save value", data, "in reg", rd);
+                if (DEBUG) console.log("Save value", data, "in reg", rd, sim_p.states.BR[rd].name);
             }
         },
         verbal: function (s_expr: string[]): string { return "Write back to register file. "; }
@@ -3377,6 +3513,9 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             // ====================================================================
             // IO Clock check (before L phase) - check timer interrupts
             // ====================================================================
+            sim_p.behaviors[BEHAVIORS.GET].operation(
+                [BEHAVIORS.GET, STATES.REG_EPC, STATES.BR, CSR.sepc.toString()]
+            );
             sim_p.behaviors[BEHAVIORS.IO_CHK].operation(
                 [BEHAVIORS.IO_CHK, STATES.T_INT, STATES.T_INTV, STATES.REG_EPC]
             );

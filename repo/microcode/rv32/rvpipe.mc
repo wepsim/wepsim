@@ -592,6 +592,83 @@ sret {
     }
 }
 
+csrr rd csrreg {
+    oc(6:0)=1110111,
+    eoc(14:12)=000,
+    reg(11:7)=rd,
+    reg(31:20)=csrreg,
+    help='rd = CSRs[csr];',
+    {
+        (AluOp=11110, RW)
+    }
+}
+
+csrw csrreg rs2 {
+    oc(6:0)=1110111,
+    eoc(14:12)=001,
+    reg(19:15)=rs2,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = rs2',
+    {
+        (M4=0, AluOp=11111, RW)
+    }
+}
+
+csror csrreg rs2 {
+    oc(6:0)=1110111,
+    eoc(14:12)=010,
+    reg(19:15)=rs2,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = CSRs[csr] | rs2',
+    {
+        (M4=0, AluOp=00010, RW)
+    }
+}
+
+csrandnot csrreg rs2 {
+    oc(6:0)=1110111,
+    eoc(14:12)=011,
+    reg(19:15)=rs2,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = CSRs[csr] & ~rs2',
+    {
+        (M4=0, AluOp=11010, RW)
+    }
+}
+
+csrwi csrreg imm {
+    oc(6:0)=1110111,
+    eoc(14:12)=100,
+    imm(19:15)=imm,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = imm',
+    {
+        (SIZE=0101, M4=11, AluOp=11111, RW)
+    }
+}
+
+csrori csrreg imm {
+    oc(6:0)=1110111,
+    eoc(14:12)=101,
+    imm(19:15)=imm,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = CSRs[csr] | imm',
+    {
+        (SIZE=0101, M4=11, AluOp=00010, RW)
+    }
+}
+
+csrandnoti csrreg imm {
+    oc(6:0)=1110111,
+    eoc(14:12)=110,
+    imm(19:15)=imm,
+    reg(31:20)=csrreg,
+    help='CSRs[csr] = CSRs[csr] & ~imm',
+    {
+        (SIZE=0101, M4=11, AluOp=11010, RW)
+    }
+}
+
 ecall {
     oc(6:0)=1110011,
     eoc(14:12|31:25)=0000000010,
@@ -738,6 +815,42 @@ pseudoinstructions
         savepc rd 8 ; # PC at next of jumpto
         jumpto rs1, offset
     }
+    
+    #  CSRRW rd, csr, rs1     Atomic Read/Write CSR         rd ← CSRs[csr]; CSRs[csr] ← rs1
+    csrrw rd=reg csrreg=reg rs1=reg {
+        csrr rd csrreg
+        csrw csrreg rs1
+    }
+
+    #  CSRRS rd, csr, rs1     Atomic Read and Set CSR         rd ← CSRs[csr]; CSRs[csr] ← CSRs[csr] | rs1
+    csrrs rd=reg csrreg=reg rs1=reg {
+        csrr rd csrreg
+        csror csrreg rs1
+    }
+
+    #  CSRRC rd, csr, rs1     Atomic Read and Clear CSR         rd ← CSRs[csr]; CSRs[csr] ← CSRs[csr] & ~rs1
+    csrrc rd=reg csrreg=reg rs1=reg {
+        csrr rd csrreg
+        csrandnot csrreg rs1
+    }
+
+    #  CSRRWI rd, csr, uimm    Atomic Read/Write CSR Immediate     rd ← CSRs[csr]; CSRs[csr] ← uimm
+    csrrwi rd=reg csrreg=reg imm=imm {
+        csrr rd csrreg
+        csrwi csrreg imm
+    }
+
+    #  CSRRSI rd, csr, uimm    Atomic Read and Set CSR Immediate   rd ← CSRs[csr]; CSRs[csr] ← CSRs[csr] | uimm
+    csrrsi rd=reg csrreg=reg imm=imm {
+        csrr rd csrreg
+        csrori csrreg imm
+    }
+
+    #  CSRRCI rd, csr, uimm    Atomic Read and Clear CSR Immediate rd ← CSRs[csr]; CSRs[csr] ← CSRs[csr] & ~uimm
+    csrrci rd=reg csrreg=reg imm=imm {
+        csrr rd csrreg
+        csrandnoti csrreg imm
+    }
 }
 
 registers
@@ -773,5 +886,15 @@ registers
     28=(t3,  x28),
     29=(t4,  x29),
     30=(t5,  x30),
-    31=(t6,  x31)
+    31=(t6,  x31),
+
+    0x100=(sstatus),
+    0x104=(sie),
+    0x105=(stvec),
+    0x106=(scounteren),
+    0x140=(sscratch),
+    0x141=(sepc),
+    0x142=(scause),
+    0x143=(stval),
+    0x144=(sip),
 }

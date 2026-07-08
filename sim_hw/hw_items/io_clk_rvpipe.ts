@@ -200,12 +200,13 @@ function io_clk_rvpipe_register(sim_p: Simulator): Simulator {
 
     sim_p.behaviors["IO_CHK"] = {
         nparameters: 4,
-        types: ["E", "E", "E"],
+        types: ["E", "E", "X"],
         operation: function (s_expr: string[]): void {
             if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? "NOP"]?.verbal(s_expr));
             const int = sim_p.states[s_expr[1]];
             const intv = sim_p.states[s_expr[2]];
-            var reg_epc = get_value(sim_p.states[s_expr[3]]);
+            const ref = get_reference(s_expr[3]);
+            var reg_epc = get_value(ref);
             if (reg_epc !== 0) return;
             for (var i = sim_p.internal_states.io_int_factory.length - 1; i >= 0; i--) {
                 if (get_var(sim_p.internal_states.io_int_factory[i].period) == 0)
