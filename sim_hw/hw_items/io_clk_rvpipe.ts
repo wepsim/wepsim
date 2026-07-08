@@ -211,7 +211,7 @@ function io_clk_rvpipe_register(sim_p: Simulator): Simulator {
             for (var i = sim_p.internal_states.io_int_factory.length - 1; i >= 0; i--) {
                 if (get_var(sim_p.internal_states.io_int_factory[i].period) == 0)
                     continue;
-                if (DEBUG) console.log("io_int", i, JSON.stringify(sim_p.internal_states.io_int_factory[i]));
+                if (DEBUG) console.log("io_int", i, get_var(sim_p.internal_states.io_int_factory[i].since_prev));
                 if (DEBUG) console.log("int", get_value(int), "intv", get_value(intv));
 
                 const since_prev = get_var(sim_p.internal_states.io_int_factory[i].since_prev);
@@ -242,12 +242,12 @@ function io_clk_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 5,
         types: ["E", "E", "E", "E"],
         operation: function (s_expr: string[]): void {
-            if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? "NOP"]?.verbal(s_expr));
             const inta = get_value(sim_p.states[s_expr[1]]);
             const int = sim_p.states[s_expr[2]];
             const intv = get_value(sim_p.states[s_expr[3]]);
             const clk = get_value(sim_p.states[s_expr[4]]);
-            if (inta == 1 && intv >= 0 && intv < sim_p.internal_states.io_int_factory.length) {
+            if (get_value(int) == 1 && inta == 1 && intv >= 0 && intv < sim_p.internal_states.io_int_factory.length) {
+                if (DEBUG) console.log(JSON.stringify(s_expr), sim_p.behaviors[s_expr[0] ?? "NOP"]?.verbal(s_expr));
                 set_var(sim_p.internal_states.io_int_factory[intv].active, false);
                 set_var(sim_p.internal_states.io_int_factory[intv].since_prev, 0);
                 const acc = get_var(sim_p.internal_states.io_int_factory[intv].accumulated);

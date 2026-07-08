@@ -353,7 +353,7 @@ sw rs2 offset(rs1) {
       eoc(14:12)=010,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address-rel(11:7|31:25)=offset,
+      address-abs(11:7|31:25)=offset,
       help='MEM[rs1+offset+3 .. rs1+offset] = rs2',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=11)
@@ -418,7 +418,7 @@ sb rs2 offset(rs1) {
       eoc(14:12)=000,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address-rel(11:7|31:25)=offset,
+      address-abs(11:7|31:25)=offset,
       help='MEM[rs1 + offset] = rs2/8',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=00)
@@ -431,7 +431,7 @@ sh rs2 offset(rs1) {
       eoc(14:12)=001,
       reg(19:15)=rs1,
       reg(24:20)=rs2,
-      address-rel(11:7|31:25)=offset,
+      address-abs(11:7|31:25)=offset,
       help='MEM[rs1+offset+1 .. rs1+offset] = rs2/16',
       {
           (SE_IMM=1, OFFSET=0, SIZE=1100, M4=11, AluOp=1010, DMW, WBE=01)
