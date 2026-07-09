@@ -435,6 +435,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         DECO_IMM = "DECO_IMM",
         UPDATE_ALU_INT = "UPDATE_ALU_INT",
         CPU_RESET = "CPU_RESET",
+        REFRESH = "REFRESH",
         PIPE_IF = "PIPE_IF",
         PIPE_DECO = "PIPE_DECO",
         PIPE_WB_WRITE = "PIPE_WB_WRITE",
@@ -3312,6 +3313,17 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         verbal: function (): string { return "Reset CPU. "; }
     };
 
+    sim_p.behaviors[BEHAVIORS.REFRESH] = {
+        nparameters: 1,
+        operation: function (): void {
+            if (DEBUG) console.log("REFRESH");
+            if (DBG_stop !== false) {
+                show_pipeline_display_svg();
+            }
+        },
+        verbal: function (): string { return "Refresh CPU svg. "; }
+    };
+
     function inBounds(pc: number): boolean {
         const segments = sim_p.internal_states.segments;
         if (typeof segments !== "undefined") {
@@ -3492,7 +3504,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             var ex_mem_pc = get_value(sim_p.states[STATES.EX_MEM_PC]);
             var mem_wb_pc = get_value(sim_p.states[STATES.MEM_WB_PC]);
             if (DBG_stop !== false) {
-                show_pipeline_display(if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
+                show_pipeline_display_table();
             }
             // When all pipeline stage PCs are zero, the program has finished
             if (!inBounds(if_pc) && !inBounds(if_id_pc) && !inBounds(id_ex_pc) &&
@@ -3609,15 +3621,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     };
 
     // Helper: highlight pipeline stages in the assembly debugger
-    function show_pipeline_display(if_pc: number, id_pc: number, ex_pc: number, mem_pc: number, wb_pc: number): void {
+    function show_pipeline_display_table(): void {
         if (typeof $ === "undefined") return;
         // Show the stage column (hidden by default for non-pipeline CPUs)
         $(".asm_stage").removeClass("d-none");
-        var stage_pcs = [if_pc, id_pc, ex_pc, mem_pc, wb_pc];
+        var if_pc = get_value(sim_p.states[STATES.IF_FETCH_PC]);
+        var if_id_pc = get_value(sim_p.states[STATES.IF_ID_PC]);
+        var id_ex_pc = get_value(sim_p.states[STATES.ID_EX_PC]);
+        var ex_mem_pc = get_value(sim_p.states[STATES.EX_MEM_PC]);
+        var mem_wb_pc = get_value(sim_p.states[STATES.MEM_WB_PC]);
+        var stage_pcs = [if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc];
         var stage_cls = ["bg-pipeline-if", "bg-pipeline-id", "bg-pipeline-ex",
             "bg-pipeline-mem", "bg-pipeline-wb"];
         var stage_names = ["IF", "ID", "EX", "MEM", "WB"];
-        var svg_ids = ["textIF", "textID", "textEX", "textMEM", "textWB"];
         // Remove all pipeline highlights first
         var clsList = stage_cls.join(' ');
         $("[id^='asmdbg'] td").removeClass(clsList);
@@ -3630,10 +3646,19 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             $("td", "#asmdbg0x" + pc.toString(16)).addClass(stage_cls[i]);
             $("td.asm_stage", "#asmdbg0x" + pc.toString(16)).text(stage_names[i]);
         }
+    }
+    function show_pipeline_display_svg(): void {
         // Update SVG text elements with decoded instruction at each pipeline stage
         if (typeof wepsim_svg_is_drawing === 'function' && !wepsim_svg_is_drawing()) {
             return;
         }
+        var if_pc = get_value(sim_p.states[STATES.IF_FETCH_PC]);
+        var if_id_pc = get_value(sim_p.states[STATES.IF_ID_PC]);
+        var id_ex_pc = get_value(sim_p.states[STATES.ID_EX_PC]);
+        var ex_mem_pc = get_value(sim_p.states[STATES.EX_MEM_PC]);
+        var mem_wb_pc = get_value(sim_p.states[STATES.MEM_WB_PC]);
+        var stage_pcs = [if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc];
+        var svg_ids = ["textIF", "textID", "textEX", "textMEM", "textWB"];
         var svg_o = document.getElementById('svg_p') as HTMLIFrameElement | null;
         if (svg_o !== null) {
             var svg = svg_o.contentDocument;
