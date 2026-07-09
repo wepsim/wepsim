@@ -37,18 +37,18 @@ main:
     csrr    s2, sie              # s2 = sie (should be 8)
 
 
-    # --- NUEVA SECCIÓN CON INMEDIATOS ---
+    # --- NEW SECTION WITH IMMEDIATES ---
 
-    # 6) CSR Read/Write Immediate: escribe 0x2 directamente en sie, guarda valor viejo (8) en s3
-    csrrwi  s3, sie, 0x2         # s3 = 8 (viejo), sie = 2
+    # 6) CSR Read/Write Immediate: write 0x2 directly to sie, save old value (8) to s3
+    csrrwi  s3, sie, 0x2         # s3 = 8 (old), sie = 2
     csrr    s4, sie              # s4 = sie (should be 2)
 
-    # 7) CSR Set Immediate: enciende el bit 4 (0x10) directamente usando un inmediato
-    csrrsi  s5, sie, 0x10        # s5 = 2 (viejo), sie = 2 | 16 = 18 (0x12)
+    # 7) CSR Set Immediate: set bit 4 (0x10) directly using an immediate
+    csrrsi  s5, sie, 0x10        # s5 = 2 (old), sie = 2 | 16 = 18 (0x12)
     csrr    s6, sie              # s6 = sie (should be 18)
 
-    # 8) CSR Clear Immediate: apaga el bit 1 (0x2) directamente usando un inmediato
-    csrrci  s7, sie, 0x2         # s7 = 18 (viejo), sie = 18 & ~2 = 16 (0x10)
+    # 8) CSR Clear Immediate: clear bit 1 (0x2) directly using an immediate
+    csrrci  s7, sie, 0x2         # s7 = 18 (old), sie = 18 & ~2 = 16 (0x10)
     csrr    s8, sie              # s8 = sie (should be 16)
 
     nop # finish

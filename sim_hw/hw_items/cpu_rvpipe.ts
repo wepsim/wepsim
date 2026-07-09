@@ -261,6 +261,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         VAL_THREE = "VAL_THREE",
         VAL_FOUR = "VAL_FOUR",
         VAL_IMM = "VAL_IMM",
+        VAL_SEPC = "VAL_SEPC",
         CLK = "CLK",
         DDR = "DDR",
         DSR = "DSR",
@@ -344,10 +345,14 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         HAZARD_NEQ_RD_0 = "HAZARD_NEQ_RD_0",
         HAZARD_OR_DMR_IOR = "HAZARD_OR_DMR_IOR",
         HAZARD_AND = "HAZARD_AND",
-        HAZARD_STALL = "HAZARD_STALL",
+        HAZARD_AND_AND_OR = "HAZARD_AND_AND_OR",
         HAZARD_EQ_RD_RS1 = "HAZARD_EQ_RD_RS1",
         HAZARD_EQ_RD_RS2 = "HAZARD_EQ_RD_RS2",
         HAZARD_OR_RS1_RS2 = "HAZARD_OR_RS1_RS2",
+        HAZARD_SEPC_EQ_BRANCH_3 = "HAZARD_SEPC_EQ_BRANCH_3",
+        HAZARD_SEPC_EQ_RD_SEPC = "HAZARD_SEPC_EQ_RD_SEPC",
+        HAZARD_SEPC_AND = "HAZARD_SEPC_AND",
+        HAZARD_OR_STALL = "HAZARD_OR_STALL",
 
         FORWARD_EQ_MEM_WB_RD_ID_EX_RS1 = "FORWARD_EQ_MEM_WB_RD_ID_EX_RS1",
         FORWARD_NEQ_MEM_WB_RD_0 = "FORWARD_NEQ_MEM_WB_RD_0",
@@ -1011,6 +1016,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         visible: false, nbits: "32", value: 4, default_value: 4,
         draw_data: []
     };
+    sim_p.states[STATES.VAL_SEPC] = {
+        name: "VAL_SEPC", verbal: "Wired 0x141 (sepc)",
+        visible: false, nbits: "32", value: CSR.sepc, default_value: CSR.sepc,
+        draw_data: []
+    };
     sim_p.states[STATES.VAL_IMM] = {
         name: "VAL_IMM", verbal: "Immediate Value",
         visible: false, nbits: "32", value: 0, default_value: 0,
@@ -1193,7 +1203,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.signals[SIGNALS.STALL] = {
         name: "STALL", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.NOP)],
-        depends_on: [SIGNALS.HAZARD_STALL, SIGNALS.CLK],
+        depends_on: [SIGNALS.HAZARD_OR_STALL, SIGNALS.CLK],
         fire_name: ['svg_p:text7229-7-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1', 'svg_cu:text7237-3-4-6-4-0-7-8-3-8-0-8-7-2-2', 'svg_cu:text7237-3-4-6-4-0-6-7-1-5-9'],
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4', 'svg_cu:path6825-7-2-5-9-6-8-2', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-1-9', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3']],
         draw_name: [[], ['svg_p:path7013-51']]
@@ -1804,7 +1814,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
 
     sim_p.signals[SIGNALS.HAZARD_NEQ_RD_0] = {
-        name: "HAZARD_ID_EX_RD_NEQ_0", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        name: "HAZARD_NEQ_RD_0", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
             create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_NEQ_RD_0, STATES.ID_EX_RD, STATES.VAL_ZERO) + create_op(BEHAVIORS.LNOT, SIGNALS.HAZARD_NEQ_RD_0, SIGNALS.HAZARD_NEQ_RD_0),
         ],
@@ -1824,7 +1834,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
     sim_p.signals[SIGNALS.HAZARD_AND] = {
-        name: "HAZARD_ID_EX_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        name: "HAZARD_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
             create_op(BEHAVIORS.AND, SIGNALS.HAZARD_AND, SIGNALS.HAZARD_NEQ_RD_0, SIGNALS.HAZARD_OR_DMR_IOR),
         ],
@@ -1833,18 +1843,18 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-2-8', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-5-4']],
         draw_name: [[]]
     };
-    sim_p.signals[SIGNALS.HAZARD_STALL] = {
-        name: "HAZARD_ID_EX_AND_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+    sim_p.signals[SIGNALS.HAZARD_AND_AND_OR] = {
+        name: "HAZARD_AND_AND_OR", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
-            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_STALL, SIGNALS.HAZARD_AND, SIGNALS.HAZARD_OR_RS1_RS2) + create_op(BEHAVIORS.MV, SIGNALS.STALL, SIGNALS.HAZARD_STALL),
+            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_AND_AND_OR, SIGNALS.HAZARD_AND, SIGNALS.HAZARD_OR_RS1_RS2),
         ],
         depends_on: [SIGNALS.HAZARD_AND, SIGNALS.HAZARD_OR_RS1_RS2, SIGNALS.CLK],
         fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-4-8-6'],
-        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-6-1']],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-6-1', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0-4', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-0-7-0']],
         draw_name: [[]]
     };
     sim_p.signals[SIGNALS.HAZARD_EQ_RD_RS1] = {
-        name: "HAZARD_ID_EX_RD_RS1_EQ", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        name: "HAZARD_EQ_RD_RS1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
             create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_EQ_RD_RS1, STATES.ID_EX_RD, STATES.DECODE_RS1_ADDR),
         ],
@@ -1854,7 +1864,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
     sim_p.signals[SIGNALS.HAZARD_EQ_RD_RS2] = {
-        name: "HAZARD_ID_EX_RD_RS2_EQ", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        name: "HAZARD_EQ_RD_RS2", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [
             create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_EQ_RD_RS2, STATES.ID_EX_RD, STATES.DECODE_RS2_ADDR),
         ],
@@ -1874,6 +1884,49 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         draw_name: [[]]
     };
 
+    /* sret/sepc hazard */
+    sim_p.signals[SIGNALS.HAZARD_SEPC_EQ_BRANCH_3] = {
+        name: "HAZARD_SEPC_EQ_BRANCH_3", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_SEPC_EQ_BRANCH_3, STATES.DECODE_BRANCH, STATES.VAL_THREE),
+        ],
+        depends_on: [SIGNALS.PIPE_DECODE, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-3-2-9'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-2-8', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-57-4-4', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-76-7']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_SEPC_EQ_RD_SEPC] = {
+        name: "HAZARD_SEPC_EQ_RD_SEPC", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.SEQ, SIGNALS.HAZARD_SEPC_EQ_RD_SEPC, STATES.ID_EX_RD, STATES.VAL_SEPC),
+        ],
+        depends_on: [SIGNALS.CLK],
+        fire_name: ['svg_cu:text7213-6-9-0-3-6-18-8-4-98-7-3-2-9-3'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-2', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-57-4', 'svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-76']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_SEPC_AND] = {
+        name: "HAZARD_SEPC_AND", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_SEPC_AND, SIGNALS.HAZARD_SEPC_EQ_BRANCH_3, STATES.ID_EX_RW) +
+            create_op(BEHAVIORS.AND, SIGNALS.HAZARD_SEPC_AND, SIGNALS.HAZARD_SEPC_AND, SIGNALS.HAZARD_SEPC_EQ_RD_SEPC),
+        ],
+        depends_on: [SIGNALS.HAZARD_SEPC_EQ_BRANCH_3, SIGNALS.HAZARD_SEPC_EQ_RD_SEPC, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-55-7-1'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-6-5-11-2-3-7-8-7-0-6-3-3', 'svg_cu:path6825-7-2-5-9-6-8-2-4-3-5-6-0-6-0-4-1', 'svg_cu:path7035-0-7-6-1-0-6-8-4-5-5-0-7']],
+        draw_name: [[]]
+    };
+    sim_p.signals[SIGNALS.HAZARD_OR_STALL] = {
+        name: "HAZARD_OR_STALL", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
+        behavior: [
+            create_op(BEHAVIORS.OR, SIGNALS.HAZARD_OR_STALL, SIGNALS.HAZARD_SEPC_AND, SIGNALS.HAZARD_AND_AND_OR) +
+            create_op(BEHAVIORS.MV, SIGNALS.STALL, SIGNALS.HAZARD_OR_STALL),
+        ],
+        depends_on: [SIGNALS.HAZARD_SEPC_AND, SIGNALS.HAZARD_AND_AND_OR, SIGNALS.CLK],
+        fire_name: ['svg_cu:text7237-9-46-5-6-4-6-7-7-5-5-3'],
+        draw_data: [[], ['svg_cu:path7035-0-7-6-1-0-6-8-4-5-1-0-0-7']],
+        draw_name: [[]]
+    };
 
     sim_p.signals[SIGNALS.FORWARD_EQ_MEM_WB_RD_ID_EX_RS1] = {
         name: "FORWARD_EQ_MEM_WB_RD_ID_EX_RS1", visible: true, type: "L", value: 0, default_value: 0, nbits: "1",
