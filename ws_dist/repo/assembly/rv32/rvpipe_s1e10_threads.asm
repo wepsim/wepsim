@@ -77,8 +77,6 @@ sys_thstart: # id -> PCB address
              # set sepc to thread's initial PC
              lw   x28 8(x29)
              csrw sepc x28
-             nop
-             nop
              sret
 
 sys_thexit:  # pA->free = true
@@ -105,8 +103,6 @@ sys_thexit:  # pA->free = true
              # cpu.pc = pA->pc
              lw  x28 8(x29)
              csrw sepc x28
-             nop
-             nop
              # return
              sret
        end2: # exit from both threads
@@ -166,8 +162,6 @@ sys_thexit:  # pA->free = true
              # cpu.pc = pA->pc
              lw   x28 8(x29)
              csrw sepc x28
-             nop
-             nop
              # return
        e_i0: sret
 
