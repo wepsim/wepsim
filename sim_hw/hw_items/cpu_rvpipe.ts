@@ -450,6 +450,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         IO_CHK = "IO_CHK",
         INTA = "INTA",
         AND_NOT = "AND_NOT",
+        HISTORY_SAVE = "HISTORY_SAVE",
+        HISTORY_RESTORE = "HISTORY_RESTORE",
     };
 
     enum CSR {
@@ -564,6 +566,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
     sim_p.internal_states.filter_signals = ["ALUOP,0", "IMR,0", "RW,0", "DMR,0", "DMW,0", "BRANCH,0", "IOCHK,0"];
     sim_p.internal_states.alu_flags = { 'int': 0, 'intv': 0 };
     sim_p.internal_states.halt = 0;
+    sim_p.internal_states.history = [];
 
 
     /*
@@ -2105,8 +2108,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         name: "AUX_LOAD_INT_MUX", visible: false, type: "L", value: 0, default_value: 0, nbits: "1",
         behavior: [create_op(BEHAVIORS.MV, SIGNALS.INT_MUX_INT, SIGNALS.ALU_INT) + create_op(BEHAVIORS.MV, SIGNALS.INT_MUX_INTV, SIGNALS.ALU_INT)],
         depends_on: [SIGNALS.ALUOP, SIGNALS.CLK],
-        fire_name: ['svg_cu:'],
-        draw_data: [[], ['svg_cu:',]],
+        fire_name: [],
+        draw_data: [[]],
         draw_name: [[]]
     };
     sim_p.signals[SIGNALS.INT_MUX_INT] = {
@@ -3304,6 +3307,7 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             sim_p.internal_states.pipe_next_pc = undefined;
             sim_p.internal_states.alu_flags.int = 0;
             sim_p.internal_states.alu_flags.intv = 0;
+            sim_p.internal_states.history = [];
             // Set resets to 1 so that on cycle 0 all are zeroed
             set_value(sim_p.signals[SIGNALS.IF_ID_RST], 1);
             set_value(sim_p.signals[SIGNALS.ID_EX_RST], 1);
@@ -3311,6 +3315,69 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
             set_value(sim_p.signals[SIGNALS.MEM_WB_RST], 1);
         },
         verbal: function (): string { return "Reset CPU. "; }
+    };
+
+    sim_p.behaviors[BEHAVIORS.HISTORY_SAVE] = {
+        nparameters: 1,
+        operation: function (): void {
+            if (DEBUG) console.log("HISTORY_SAVE");
+            var cp: Record<string, any> = {
+                states: {},
+                signals: {},
+                br: {},
+                alu_flags: { int: sim_p.internal_states.alu_flags.int, intv: sim_p.internal_states.alu_flags.intv },
+                halt: sim_p.internal_states.halt,
+                pipe_next_pc: sim_p.internal_states.pipe_next_pc,
+                screen_content: get_screen_content(),
+                keyboard_content: get_keyboard_content(),
+            };
+            for (var key in sim_p.states) {
+                if (key === "BR") continue;
+                cp.states[key] = get_value(sim_p.states[key]);
+            }
+            for (var key in sim_p.states.BR) {
+                cp.br[key] = get_value(sim_p.states.BR[key]);
+            }
+            for (var key in sim_p.signals) {
+                cp.signals[key] = get_value(sim_p.signals[key]);
+            }
+            sim_p.internal_states.history.push(cp);
+            var max_cp = parseInt(get_cfg('history_size') as string) || 100;
+            if (sim_p.internal_states.history.length > max_cp) {
+                sim_p.internal_states.history.shift();
+            }
+        },
+        verbal: function (): string { return "History saved. "; }
+    };
+
+    sim_p.behaviors[BEHAVIORS.HISTORY_RESTORE] = {
+        nparameters: 1,
+        operation: function (): void {
+            if (DEBUG) console.log("HISTORY_RESTORE");
+            if (sim_p.internal_states.history.length === 0) return;
+            var cp = sim_p.internal_states.history.pop();
+            if (typeof cp === "undefined") return;
+            for (var key in cp.states) {
+                if (key === "BR") continue;
+                set_value(sim_p.states[key], cp.states[key]);
+            }
+            for (var key in sim_p.states.BR) {
+                set_value(sim_p.states.BR[key], cp.br[key]);
+            }
+            for (var key in cp.signals) {
+                set_value(sim_p.signals[key], cp.signals[key]);
+            }
+            sim_p.internal_states.alu_flags.int = cp.alu_flags.int;
+            sim_p.internal_states.alu_flags.intv = cp.alu_flags.intv;
+            sim_p.internal_states.halt = cp.halt;
+            sim_p.internal_states.pipe_next_pc = cp.pipe_next_pc;
+            set_screen_content(cp.screen_content);
+            set_keyboard_content(cp.keyboard_content);
+
+            compute_behavior(BEHAVIORS.PIPE_DISPLAY);
+            refresh();
+        },
+        verbal: function (): string { return "History restored. "; }
     };
 
     sim_p.behaviors[BEHAVIORS.REFRESH] = {
@@ -3547,6 +3614,11 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
                     set_value(sim_p.states[STATES.IF_FETCH_PC], reg_pc);
                     set_value(sim_p.signals[SIGNALS.PCWRITE], 0);
                 }
+            }
+
+            // Save history before executing this cycle (if enabled)
+            if (get_cfg('history_enable') === true) {
+                sim_p.behaviors[BEHAVIORS.HISTORY_SAVE].operation([]);
             }
 
             // ====================================================================

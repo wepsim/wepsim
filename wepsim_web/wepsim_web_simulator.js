@@ -48,6 +48,9 @@
 	    // dark mode
 	    cfgValue = get_cfg('ws_skin_dark_mode') ;
             wepsim_set_darkmode(cfgValue) ;
+
+	    // history UI
+	    wepsim_toggle_history_ui();
     }
 
     function wepsim_uicfg_restore ( )
@@ -134,6 +137,18 @@
               //$(".multi-collapse-2").collapse("show") ;
 		inputfirm.setOption('readOnly', false) ;
 	    }
+    }
+
+    function wepsim_toggle_history_ui ()
+    {
+        if (typeof $ === "undefined") return;
+        try {
+            if (get_cfg('history_enable') === true) {
+                $('.wsx_history').removeClass('d-none');
+            } else {
+                $('.wsx_history').addClass('d-none');
+            }
+        } catch(e) {}
     }
 
     function wepsim_appy_darkmode ( is_darkmode )

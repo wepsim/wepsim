@@ -50,7 +50,7 @@ declare function compute_behavior(name: string): void;
 declare var jit_fire_order: string[];
 declare function refresh(): void;
 declare function ws_alert(msg: string): void;
-declare function get_cfg(field: string): string;
+declare function get_cfg(field: string): string | boolean;
 declare function get_deco_from_pc(pc: number): any;
 
 declare function main_memory_getvalue(memory: any, elto: any): number | undefined;
@@ -207,7 +207,7 @@ interface Simulator {
     sim_img_cpu?: string;
 
     components: Record<string, SimComponent>;
-    states: { BR: Record<number, SimState> & { length?: number }; [key: string]: SimState | Record<number, SimState> };
+    states: { BR: Record<number, SimState> & { length?: number };[key: string]: SimState | Record<number, SimState> };
     signals: Record<string, SimSignal>;
     behaviors: Record<string, SimSignalBehavior>;
     elements: Record<string, SimElement>;

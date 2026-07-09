@@ -223,6 +223,17 @@
             return true ;
     }
 
+    function wsweb_execution_previous_microinstruction ( )
+    {
+            if (simhw_active() !== null)
+            {
+                compute_general_behavior("HISTORY_RESTORE") ;
+                simcoreui_show_hw() ;
+            }
+
+            return true ;
+    }
+
     function wsweb_execution_microinstruction ( )
     {
             if (simhw_active() !== null)

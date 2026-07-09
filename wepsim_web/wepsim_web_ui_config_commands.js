@@ -801,3 +801,45 @@
                       description: "<span data-langkey='Flashing on ESP32 from WepSIM'>Flashing on ESP32 from WepSIM</span>&nbsp;"
                    });
 
+    ws_info.config_ui.push({
+                      id:          "radio14g",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    wepsim_config_button_html_onoff('14g', 'History',
+                                                     i18n_get_TagFor('cfg', 'Off'),
+                                                     "wepsim_config_button_toggle('history_enable',false,'14g'); wepsim_toggle_history_ui();",
+                                                     i18n_get_TagFor('cfg', 'On'),
+                                                     "wepsim_config_button_toggle('history_enable',true,'14g'); wepsim_toggle_history_ui();"),
+                      code_init:   function() {
+                                       wepsim_config_button_pretoggle('history_enable', '14g') ;
+                                       wepsim_toggle_history_ui();
+                                   },
+                      description: "<span data-langkey='History: save execution history to allow going back'>History: save execution history to allow going back</span>&nbsp;"
+                   });
+
+    ws_info.config_ui.push({
+                      id:          "select15",
+                      type:        "Extra Features",
+                      u_class:     "",
+                      code_cfg:    " <div class='form-group m-0'>" +
+                                   "    <select name='select15' id='select15' " +
+                                   "            class='form-control form-control-sm form-select border-secondary'" +
+                                   "            aria-label='history limit' " +
+                                   "            onchange=\"var opt = $(this).find('option:selected');" +
+                                   "                       var optValue = opt.val();" +
+                                   "                       update_cfg('history_size',optValue);\"" +
+                                   "            data-native-menu='false'>" +
+                                   "        <option value='10'>10</option>" +
+                                   "        <option value='50'>50</option>" +
+                                   "        <option value='100' selected>100</option>" +
+                                   "        <option value='200'>200</option>" +
+                                   "        <option value='500'>500</option>" +
+                                   "        <option value='1000'>1000</option>" +
+                                   "    </select>" +
+                                   " </div>",
+                      code_init:   function() {
+                                       $('#select15').val(get_cfg('history_size'));
+                                   },
+                      description: "<span data-langkey='History limit: number of states to keep in history'>History limit: number of states to keep in history</span>"
+                   });
+
