@@ -39,8 +39,10 @@ while getopts 'vdh' opt; do
       ;;
 
     d)
-      echo "  Please install first:"
-      echo "   sudo apt-get install jq"
+      echo "  Please install dependencies first by using:"
+      echo ""
+      echo "   sudo apt install jq"
+      echo "   sudo apt install node-typescript"
       echo ""
       echo "   npm i terser jshint eslint"
       echo "   npm i yargs clear inquirer@8.2.6 fuzzy commander async"
@@ -66,12 +68,27 @@ shift "$(($OPTIND -1))"
 
 
 # install npm dependencies
-echo "  Step for npm install/update:"
-echo "  * terser jshint"
-echo "  * yargs clear inquirer fuzzy commander async"
-echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
-echo "  * rollup @rollup/plugin-node-resolve"
+echo "  Step for npm dependencies to install/update:"
 npm install
+echo "  Done."
+echo ""
+
+
+# Build the initial directory tree
+echo "  Step for packing:"
+echo "  * ws_dist"
+                    mkdir -p ws_dist
+                    touch    ws_dist/index.html
+                    mkdir -p ws_dist/external
+                    touch    ws_dist/external/index.html
+cp external/jquery.min.js    ws_dist/external
+                    mkdir -p ws_dist/help
+                    touch    ws_dist/help/index.html
+
+
+# TypeScript files
+echo "  Step for TypeScript:"
+tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
 echo "  Done."
 echo ""
 
@@ -85,23 +102,6 @@ echo ""
 # echo "  Done."
 # echo ""
 
-
-# skeleton
-echo "  Step for packing:"
-echo "  * ws_dist"
-                    mkdir -p ws_dist
-                    touch    ws_dist/index.html
-                    mkdir -p ws_dist/external
-                    touch    ws_dist/external/index.html
-cp external/jquery.min.js    ws_dist/external
-                    mkdir -p ws_dist/help
-                    touch    ws_dist/help/index.html
-
-#  compile TypeScript files (cpu_rvpipe, mem_rvpipe, hw_rvpipe)
-echo "  * compile TypeScript (sim_hw/*.ts)"
-tsc -p sim_hw/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
-echo "  Done."
-echo ""
 
 #  hardware model + software model + core (simulation ctrl + UI)
 echo "  * ws_dist/min.sim_all.js"
