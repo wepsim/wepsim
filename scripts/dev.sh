@@ -29,7 +29,7 @@ nodemon \
     --watch wepsim_i18n \
     --watch wepsim_nodejs \
     --watch external \
-    --ignore sim_hw/ts_out \
+    --ignore ts_out \
     --ext js,ts,json,html,css \
     --exec "bash devel/mk_dist_parallel.sh" &
 NODEMON_PID=$!

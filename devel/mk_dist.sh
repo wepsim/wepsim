@@ -74,6 +74,13 @@ echo "  Done."
 echo ""
 
 
+# TypeScript files
+echo "  Step for TypeScript:"
+tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
+echo "  Done."
+echo ""
+
+
 # Build the initial directory tree
 echo "  Step for packing:"
 echo "  * ws_dist"
@@ -84,13 +91,6 @@ echo "  * ws_dist"
 cp external/jquery.min.js    ws_dist/external
                     mkdir -p ws_dist/help
                     touch    ws_dist/help/index.html
-
-
-# TypeScript files
-echo "  Step for TypeScript:"
-tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
-echo "  Done."
-echo ""
 
 
 # # pre-bundle
@@ -136,9 +136,7 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/cpu_ep2.js \
     sim_hw/hw_items/mem_ep2.js \
     sim_hw/hw_items/cpu_rv.js \
-    sim_hw/ts_out/hw_items/cpu_rvpipe.js \
     sim_hw/hw_items/mem_rv.js \
-    sim_hw/ts_out/hw_items/mem_rvpipe.js \
     sim_hw/hw_items/cpu_poc.js \
     sim_hw/hw_items/mem_poc.js \
     sim_hw/hw_items/cu_poc.js \
@@ -149,10 +147,16 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/io_l3d_base.js \
     sim_hw/hw_items/io_sound_base.js \
     \
+    ts_out/sim_hw/hw_items/cpu_rvpipe.js \
+    ts_out/sim_hw/hw_items/mem_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_clk_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_screen_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_keyboard_rvpipe.js \
+    \
     sim_hw/hw_ep.js \
     sim_hw/hw_ep2.js \
     sim_hw/hw_rv.js \
-    sim_hw/ts_out/hw_rvpipe.js \
+    ts_out/sim_hw/hw_rvpipe.js \
     sim_hw/hw_poc.js \
     \
     sim_sw/firmware/lexical.js \
