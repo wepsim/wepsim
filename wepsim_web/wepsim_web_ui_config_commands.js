@@ -762,13 +762,13 @@
 				   "	    <label id='label14-extra_share-false' for='radio14e-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: true' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('extra_share',false,'14');\">Off" +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_share', false, '14');\">Off" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio14e-false' aria-label='more-share-options: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-extra_share-true' for='radio14e-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface set of features for WepSIM: false' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('extra_share',true,'14');\">On" +
+				   "		  onclick=\"wepsim_config_button_toggle2('extra_share', true, '14');\">On" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -786,13 +786,13 @@
 				   "	    <label id='label14-flash_esp32-false' for='radio14f-true' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface for Flashing on ESP32 from WepSIM: true' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32',false,'14');\">Off" +
+				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32', false, '14');\">Off" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio14f-false' aria-label='flash-esp32: false' autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label14-flash_esp32-true' for='radio14f-false' " +
 				   "		  class='btn btn-sm w-50 btn-outline-secondary p-1 fw-bold' " +
                                    "              aria-label='User Interface for Flashing on ESP32 from WepSIM: false' " +
-				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32',true,'14');\">On" +
+				   "		  onclick=\"wepsim_config_button_toggle2('flash_esp32', true, '14');\">On" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -807,12 +807,12 @@
                       u_class:     "",
                       code_cfg:    wepsim_config_button_html_onoff('14g', 'History',
                                                      i18n_get_TagFor('cfg', 'Off'),
-                                                     "wepsim_config_button_toggle('history_enable',false,'14g'); wepsim_toggle_history_ui();",
+                                                     "wepsim_config_button_toggle('history_enable', false, '14g'); wepsim_config_button_toggle2('beta_history', false, '14');",
                                                      i18n_get_TagFor('cfg', 'On'),
-                                                     "wepsim_config_button_toggle('history_enable',true,'14g'); wepsim_toggle_history_ui();"),
+                                                     "wepsim_config_button_toggle('history_enable',  true, '14g'); wepsim_config_button_toggle2('beta_history',  true, '14');"),
                       code_init:   function() {
+                                       wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_history', '14') ;
                                        wepsim_config_button_pretoggle('history_enable', '14g') ;
-                                       wepsim_toggle_history_ui();
                                    },
                       description: "<span data-langkey='History: save execution history to allow going back'>History: save execution history to allow going back</span>&nbsp;"
                    });

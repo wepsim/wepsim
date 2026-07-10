@@ -1044,6 +1044,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				   };
+
         sim_p.behaviors["MV"]       = { nparameters: 3,
                                      types: ["X", "X"],
                                      operation: function(s_expr)
@@ -1217,6 +1218,7 @@ function cpu_ep_register ( sim_p )
                                                    return o_verbal + " = " + show_value(value) + ". " ;
                                                 }
 				   };
+
 	sim_p.behaviors["AND"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
@@ -2089,6 +2091,7 @@ function cpu_ep_register ( sim_p )
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
+
 	sim_p.behaviors["SET_TT"] = { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function(s_expr)
@@ -2133,6 +2136,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				   };
+
 	sim_p.behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr)
@@ -2392,6 +2396,7 @@ function cpu_ep_register ( sim_p )
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
+
 	sim_p.behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function (s_expr)
@@ -2420,6 +2425,7 @@ function cpu_ep_register ( sim_p )
                                                    return "Sign Extension with value " + show_value(n5) + ". " ;
                                                 }
 				   };
+
 	sim_p.behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
 				     operation: function (s_expr)
@@ -2473,6 +2479,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				  };
+
 	sim_p.behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
 						{
@@ -2535,7 +2542,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["FIRE_IFSET"] = { nparameters: 3,
 					     types: ["S", "I"],
 					     operation: function (s_expr)
@@ -2551,7 +2557,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["FIRE_IFCHANGED"] = { nparameters: 3,
 					     types: ["S", "X"],
 					     operation: function (s_expr)
@@ -2568,7 +2573,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["RESET_CHANGED"] = { nparameters: 2,
 					     types: ["X"],
 					     operation: function (s_expr)
@@ -2699,6 +2703,27 @@ function cpu_ep_register ( sim_p )
 								  sim_p.internal_states.alu_flags.flag_c + ". " ;
 */
                                                         }
+					   };
+
+	sim_p.behaviors["HISTORY_RESTORE"] = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
+					   };
+	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             return ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
 					   };
 
 

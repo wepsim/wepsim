@@ -341,7 +341,7 @@
             return simcore_action_ui("CPU", 1, "update_bus_visibility")(bus_name, value) ;
         }
 
-        function refresh()
+        function refresh ( )
         {
 	    var all_signals = simhw_sim_signals() ;
             var one_signals = {} ;
@@ -357,9 +357,8 @@
 
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
-        if (simhw_syntax_behavior('REFRESH') !== undefined) {
+	    // Callback for CPU refresh
             compute_behavior('REFRESH');
-        }
         }
 
 

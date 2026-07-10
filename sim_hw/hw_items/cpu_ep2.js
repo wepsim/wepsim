@@ -2700,6 +2700,28 @@ function cpu_ep2_register ( sim_p )
                                                         }
 					   };
 
+	sim_p.behaviors["HISTORY_RESTORE"] = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
+					   };
+	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             return ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
+					   };
+
+
 
         /*
          *  Model (see docs/WEPSIM-TEAM.md)

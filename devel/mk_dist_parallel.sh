@@ -444,7 +444,8 @@ PARALLEL_PIDS="${PARALLEL_PIDS}${PARALLEL_PIDS:+ }$!"
   DEFAULT_EXAMPLE_SET_P2="repo/examples_set/rv32/es_ep2.json repo/examples_set/rv32/es_ep2_native.json"
   DEFAULT_EXAMPLE_SET_P3="repo/examples_set/rv32/es_poc.json repo/examples_set/rv32/es_poc_native.json"
   DEFAULT_EXAMPLE_SET_P4="repo/examples_set/rv32/es_rv.json"
-  DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3 $DEFAULT_EXAMPLE_SET_P4"
+  DEFAULT_EXAMPLE_SET_P5="repo/examples_set/rv32/es_rvpipe.json"
+  DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3 $DEFAULT_EXAMPLE_SET_P4 $DEFAULT_EXAMPLE_SET_P5"
   jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default.json
 
   # RV32 instructive

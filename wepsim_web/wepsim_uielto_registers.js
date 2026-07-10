@@ -495,7 +495,8 @@
 	    }
         }
 
-function render_state_button(ename, vir_real, separator_class, btn_id_prefix, val_id_prefix, toggle_name) {
+function render_state_button ( ename, vir_real, separator_class, btn_id_prefix, val_id_prefix, toggle_name )
+{
     var dbs_toggle = "";
     var divclass = "";
     var spanbetw = "";
@@ -512,7 +513,8 @@ function render_state_button(ename, vir_real, separator_class, btn_id_prefix, va
     const state = simhw_sim_state_getref(ename);
     var disp_ename = ename.replace(".", "_");
     var showkey = state.name;
-    if (state.nbits > 1) {
+    if (state.nbits > 1)
+    {
         var part1 = showkey.substring(0, 3);
         var part2 = showkey.substring(3, showkey.length);
         if (showkey.length < 3)
@@ -523,17 +525,18 @@ function render_state_button(ename, vir_real, separator_class, btn_id_prefix, va
     }
 
     return "<button type='button' " +
-        "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
-        "        style='' data-role='none' " +
-        dbs_toggle +
-        "        id='" + btn_id_prefix + disp_ename + "'>" +
-        showkey +
-        spanbetw +
-        " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='" + val_id_prefix + disp_ename + "'>{{ computed_value }}</span>" +
-        "</button>";
+           "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
+           "        style='' data-role='none' " +
+           dbs_toggle +
+           "        id='" + btn_id_prefix + disp_ename + "'>" +
+           showkey +
+           spanbetw +
+           " <span class='badge badge-secondary bg-info-subtle text-body' style='' id='" + val_id_prefix + disp_ename + "'>{{ computed_value }}</span>" +
+           "</button>";
 }
 
-function popover_cfg_make(btn_prefix) {
+function popover_cfg_make ( btn_prefix )
+{
     return {
         html: true,
         placement: 'bottom',
@@ -564,7 +567,8 @@ function popover_cfg_make(btn_prefix) {
     };
 }
 
-function bind_state_vue(entry, val_prefix, f_computed) {
+function bind_state_vue ( entry, val_prefix, f_computed )
+{
     var s = entry.split(",")[0];
     var ref_obj = simhw_sim_state_getref(s);
     ref_obj.value = vue_observable_ifnotjetdone(ref_obj);
@@ -572,20 +576,21 @@ function bind_state_vue(entry, val_prefix, f_computed) {
     vue_appyBinding(ref_obj.value, '#' + val_prefix + s, f_computed);
 }
 
-function wepsim_init_states() {
-    var filter = simhw_internalState('filter_states');
+function wepsim_init_states ( )
+{
+    var filter        = simhw_internalState('filter_states');
     var filter_groups = simhw_internalState('filter_states_groups');
 
     var separator_class = "";
     if (get_cfg('RF_vertical_pack'))
-        separator_class = "row mp_tooltip collapse show";
+         separator_class = "row mp_tooltip collapse show";
     else separator_class = "row mp_tooltip collapse";
 
     // flat filter_states (above register file)
     var o1 = "";
     for (var i = 0; i < filter.length; i++) {
-        var filspl = filter[i].split(",");
-        o1 += render_state_button(filspl[0], filspl[1], separator_class, 'rp', 'rf_', 'popover-bottom');
+         var filspl = filter[i].split(",");
+         o1 += render_state_button(filspl[0], filspl[1], separator_class, 'rp', 'rf_', 'popover-bottom');
     }
     $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
     wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg_make('rp'), null);
@@ -603,36 +608,42 @@ function wepsim_init_states() {
         return rf_value;
     };
 
-    for (var i = 0; i < filter.length; i++)
+    for (var i = 0; i < filter.length; i++) {
         bind_state_vue(filter[i], 'rf_', f_computed_value);
+    }
 
     // filter_states_groups (below register file)
-    if (filter_groups) {
-        var o2 = "";
-        var last_group = null;
-        for (var group_name in filter_groups) {
+    if (typeof filter_groups == "undefined")
+    {
+        $("#states_GR").html("");
+        return ;
+    }
+
+    var o2 = "";
+    var last_group = null;
+    for (var group_name in filter_groups)
+    {
             var group = filter_groups[group_name];
-            for (var j = 0; j < group.length; j++) {
+            for (var j = 0; j < group.length; j++)
+	    {
                 if (group_name != last_group) {
                     o2 += "<div class='w-100 mt-1 mb-0 text-center border border-secondary bg-body-tertiary rounded py-0 px-1'><small><strong>" +
-                        group_name +
-                        "</strong></small></div>";
+                          group_name +
+                          "</strong></small></div>";
                     last_group = group_name;
                 }
                 var filspl = group[j].split(",");
                 o2 += render_state_button(filspl[0], filspl[1], separator_class, 'rpg', 'rfg_', 'popover-grp');
             }
-        }
-        $("#states_GR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o2 + "</div>");
-        wepsim_popovers_init("[data-bs-toggle=popover-grp]", popover_cfg_make('rpg'), null);
+    }
+    $("#states_GR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o2 + "</div>");
+    wepsim_popovers_init("[data-bs-toggle=popover-grp]", popover_cfg_make('rpg'), null);
 
-        for (var group_name in filter_groups) {
+    for (var group_name in filter_groups)
+    {
             var group = filter_groups[group_name];
             for (var j = 0; j < group.length; j++)
                 bind_state_vue(group[j], 'rfg_', f_computed_value);
-        }
-    } else {
-        $("#states_GR").html("");
     }
 }
 

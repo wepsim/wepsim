@@ -223,17 +223,6 @@
             return true ;
     }
 
-    function wsweb_execution_previous_microinstruction ( )
-    {
-            if (simhw_active() !== null)
-            {
-                compute_general_behavior("HISTORY_RESTORE") ;
-                simcoreui_show_hw() ;
-            }
-
-            return true ;
-    }
-
     function wsweb_execution_microinstruction ( )
     {
             if (simhw_active() !== null)
@@ -247,6 +236,21 @@
 		                      'wsweb_execution_microinstruction();\n') ;
 
             // return ok
+            return true ;
+    }
+
+    function wsweb_execution_previous_microinstruction ( )
+    {
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_microinstruction_backwards() ;
+                simcoreui_show_hw() ;
+            }
+
+            // add if recording
+            simcore_record_append_new('Execute previous instruction',
+		                      'wsweb_execution_previous_microinstruction();\n') ;
+
             return true ;
     }
 
