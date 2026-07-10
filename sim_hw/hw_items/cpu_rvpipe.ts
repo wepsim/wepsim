@@ -3321,6 +3321,8 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
         nparameters: 1,
         operation: function (): void {
             if (DEBUG) console.log("HISTORY_SAVE");
+            // The first cicle dose not need to be save
+            if (get_value(sim_p.states[STATES.CLK]) <= 1) return;
             var cp: Record<string, any> = {
                 states: {},
                 signals: {},

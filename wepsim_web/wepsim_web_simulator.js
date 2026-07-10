@@ -141,12 +141,24 @@
 
     function wepsim_toggle_history_ui ()
     {
-        if (typeof $ === "undefined") return;
         try {
-            if (get_cfg('history_enable') === true) {
-                $('.wsx_history').removeClass('d-none');
-            } else {
-                $('.wsx_history').addClass('d-none');
+            var history_enabled = (get_cfg('history_enable') === true);
+            var bars = document.querySelectorAll('ws-executionbar');
+            for (var i = 0; i < bars.length; i++) {
+                var comps = bars[i].getAttribute('components');
+                if (comps === null) continue;
+                var arr = comps.split(',');
+                var idx = arr.indexOf('btn_pm');
+                if (history_enabled) {
+                    if (idx === -1) {
+                        arr.splice(1, 0, 'btn_pm');
+                    }
+                } else {
+                    if (idx !== -1) {
+                        arr.splice(idx, 1);
+                    }
+                }
+                bars[i].setAttribute('components', arr.join(','));
             }
         } catch(e) {}
     }
