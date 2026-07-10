@@ -356,6 +356,10 @@
 	    }
 
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+
+        if (simhw_syntax_behavior('REFRESH') !== undefined) {
+            compute_behavior('REFRESH');
+        }
         }
 
 

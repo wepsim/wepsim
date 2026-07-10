@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "none",
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "outDir": "ts_out",
+        "rootDir": ".",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": false,
+        "sourceMap": false,
+        "allowJs": false,
+        "noEmit": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "ignoreDeprecations": "6.0"
+    },
+    "include": [
+        "hw_items/cpu_rvpipe.ts",
+        "hw_items/mem_rvpipe.ts",
+        "hw_items/io_screen_rvpipe.ts",
+        "hw_items/io_keyboard_rvpipe.ts",
+        "hw_items/io_clk_rvpipe.ts",
+        "hw_items/globals.d.ts",
+        "hw_rvpipe.ts"
+    ],
+    "exclude": []
+}

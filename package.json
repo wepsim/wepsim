@@ -13,9 +13,13 @@
     "eslint": "^8.29.0",
     "eslint-plugin-json-format": "^2.0.1",
     "jshint": "^0.5.9",
-    "terser": "^4.8.1"
+    "nodemon": "^3.1.14",
+    "terser": "^5.48.0",
+    "typescript": "^6.0.3"
   },
   "scripts": {
+    "dev": "./scripts/dev.sh",
+    "build": "./devel/mk_dist_parallel.sh min",
     "test-source1": "./devel/test_eslint.sh",
     "test-wepsim-node1": "./devel/test_wepsim.sh co",
     "test-wepsim-node2": "./devel/test_wepsim.sh rs"

@@ -48,6 +48,9 @@
 	    // dark mode
 	    cfgValue = get_cfg('ws_skin_dark_mode') ;
             wepsim_set_darkmode(cfgValue) ;
+
+	    // history UI
+	    wepsim_toggle_history_ui();
     }
 
     function wepsim_uicfg_restore ( )
@@ -134,6 +137,30 @@
               //$(".multi-collapse-2").collapse("show") ;
 		inputfirm.setOption('readOnly', false) ;
 	    }
+    }
+
+    function wepsim_toggle_history_ui ()
+    {
+        try {
+            var history_enabled = (get_cfg('history_enable') === true);
+            var bars = document.querySelectorAll('ws-executionbar');
+            for (var i = 0; i < bars.length; i++) {
+                var comps = bars[i].getAttribute('components');
+                if (comps === null) continue;
+                var arr = comps.split(',');
+                var idx = arr.indexOf('btn_pm');
+                if (history_enabled) {
+                    if (idx === -1) {
+                        arr.splice(1, 0, 'btn_pm');
+                    }
+                } else {
+                    if (idx !== -1) {
+                        arr.splice(idx, 1);
+                    }
+                }
+                bars[i].setAttribute('components', arr.join(','));
+            }
+        } catch(e) {}
     }
 
     function wepsim_appy_darkmode ( is_darkmode )
