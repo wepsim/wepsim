@@ -584,7 +584,7 @@ function cpu_ep2_register ( sim_p )
 	 sim_p.signals["TA"]   = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP", "MV BUS_AB REG_MAR"],
 			           fire_name: ['svg_p:text3091'],
-			           draw_data: [['svg_p:path3083','svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
+			           draw_data: [['svg_p:path3083','svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535','svg_p:path3539']],
 			           draw_name: [['svg_p:path3085']] };
 	 sim_p.signals["TD"]   = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; CHECK_RTD", "MV BUS_DB REG_MBR; FIRE_IFSET W 1; CHECK_RTD"],
@@ -600,7 +600,7 @@ function cpu_ep2_register ( sim_p )
 	 sim_p.signals["T2"]   = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 1"],
 			           fire_name: ['svg_p:text3449'],
-			           draw_data: [['svg_p:path3195','svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
+			           draw_data: [['svg_p:path3195','svg_p:path3201','svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
 			           draw_name: [['svg_p:path3329']] };
 	 sim_p.signals["T3"]   = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 2"],
@@ -620,7 +620,7 @@ function cpu_ep2_register ( sim_p )
 	 sim_p.signals["T6"]   = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 5", "MV BUS_IB ALU_C6; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 5"],
 			           fire_name: ['svg_p:text3457'],
-			           draw_data: [['svg_p:path3315','svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049','svg_p:path3321','svg_p:path3261-8','svg_p:path3317-9','svg_p:path3901-6-9']],
+			           draw_data: [['svg_p:path3315','svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049','svg_p:path3321','svg_p:path3261-8','svg_p:path3317-9','svg_p:path3901-6-9','svg_p:path3163-2-1']],
 			           draw_name: [['svg_p:path3319']] };
 	 sim_p.signals["T7"]   = { name: "T7",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 6", "MV BUS_IB REG_RT3; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 6"],
@@ -635,17 +635,17 @@ function cpu_ep2_register ( sim_p )
 	 sim_p.signals["T9"]   = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 8", "MV BUS_IB RA_T9; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 8"],
 			           fire_name: ['svg_p:text3147'],
-			           draw_data: [['svg_p:path3131','svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9']],
+			           draw_data: [['svg_p:path3131','svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9','svg_p:path3165']],
 			           draw_name: [['svg_p:path3133']] };
 	 sim_p.signals["T10"]  = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 9", "MV BUS_IB RB_T10; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 9"],
 			           fire_name: ['svg_p:text3149'],
-			           draw_data: [['svg_p:path3135','svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
+			           draw_data: [['svg_p:path3135','svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5','svg_p:path3169']],
 			           draw_name: [['svg_p:path3137']] };
 	 sim_p.signals["T11"]  = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 10", "MV BUS_IB EXCODE_SE; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 10"],
 			           fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
-			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3081-3-5']],
+			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3081-3-5']],
 			           draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 	 sim_p.signals["T12"]  = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 11", "MV BUS_IB HPC_T12; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 11"],
@@ -657,7 +657,7 @@ function cpu_ep2_register ( sim_p )
 			           behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BUS_DB; FIRE C1"],
                                    depends_on: ["C1"],
 			           fire_name: ['svg_p:text3469'],
-			           draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3419','svg_p:path3583', 'svg_p:path3491', 'svg_p:path3087-7']],
+			           draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3419','svg_p:path3583', 'svg_p:path3491', 'svg_p:path3087-7','svg_p:path3545']],
 			           draw_name: [[], ['svg_p:path3447']] };
 	 sim_p.signals["M2"]   = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
 			           behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
@@ -682,8 +682,10 @@ function cpu_ep2_register ( sim_p )
 			           behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU REG_RT2; FIRE COP", "MV MB_ALU VAL_FOUR; FIRE COP", "MV MB_ALU VAL_ONE; FIRE COP"],
                                    depends_on: ["SELA","SELB"],
 			           fire_name: ['svg_p:text3465'],
-			           draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
-				    	       ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
+			           draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169', 'svg_p:path3145-5'],
+					       ['svg_p:path3283'],
+				    	       ['svg_p:path3295', 'svg_p:path3293'],
+					       ['svg_p:path3297', 'svg_p:path3299']],
 			           draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 sim_p.signals["MH"]   = { name: "MH", visible: true, type: "L",  value: 0, default_value:0, nbits: "2",
 			           behavior: ["MV HPC_T12 CLK", "MV HPC_T12 ACC_TIME", "MV HPC_T12 DECO_INS", "NOP"],
@@ -2573,6 +2575,7 @@ function cpu_ep2_register ( sim_p )
                                                             signal_reset_and_apply(sim_p.signals, mcelto) ;
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
+							    signal_update_draw_allByEdge(mcelto) ;
                                                             signal_apply_behaviour_allByLevel(mcelto) ;
 
 						            // measure time (2/2)
@@ -2713,7 +2716,8 @@ function cpu_ep2_register ( sim_p )
 	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
 				               operation: function(s_expr)
 							  {
-                                                             return ;
+                                                             var reg_ir_deco = get_value(simhw_sim_state('REG_IR_DECO')) ;
+                                                             show_dbg_ir(reg_ir_deco) ;
                                                           },
                                                verbal:    function (s_expr)
                                                           {

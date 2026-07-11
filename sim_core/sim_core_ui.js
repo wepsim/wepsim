@@ -355,8 +355,6 @@
 		 update_draw(all_signals[key], all_signals[key].value) ;
 	    }
 
-	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
-
 	    // Callback for CPU refresh
             compute_behavior('REFRESH');
         }

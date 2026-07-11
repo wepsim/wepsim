@@ -2169,6 +2169,7 @@ function cpu_poc_register ( sim_p )
                                                             signal_reset_and_apply(sim_p.signals, mcelto) ;
 
 							    // 5.- Finally, 'fire' the (High) Level signals
+							    signal_update_draw_allByEdge(mcelto) ;
                                                             signal_apply_behaviour_allByLevel(mcelto) ;
 
 						            // measure time (2/2)
@@ -2265,7 +2266,8 @@ function cpu_poc_register ( sim_p )
 	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
 				               operation: function(s_expr)
 							  {
-                                                             return ;
+                                                             var reg_ir_deco = get_value(simhw_sim_state('REG_IR_DECO')) ;
+                                                             show_dbg_ir(reg_ir_deco) ;
                                                           },
                                                verbal:    function (s_expr)
                                                           {
