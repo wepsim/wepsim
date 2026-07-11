@@ -1044,6 +1044,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				   };
+
         sim_p.behaviors["MV"]       = { nparameters: 3,
                                      types: ["X", "X"],
                                      operation: function(s_expr)
@@ -1217,6 +1218,7 @@ function cpu_ep_register ( sim_p )
                                                    return o_verbal + " = " + show_value(value) + ". " ;
                                                 }
 				   };
+
 	sim_p.behaviors["AND"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr)
@@ -2089,6 +2091,7 @@ function cpu_ep_register ( sim_p )
                                                           " (" + show_value(result) + "). " ;
                                                 }
 				   };
+
 	sim_p.behaviors["SET_TT"] = { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function(s_expr)
@@ -2133,6 +2136,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				   };
+
 	sim_p.behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr)
@@ -2392,6 +2396,7 @@ function cpu_ep_register ( sim_p )
 						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
+
 	sim_p.behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
 				     operation: function (s_expr)
@@ -2420,6 +2425,7 @@ function cpu_ep_register ( sim_p )
                                                    return "Sign Extension with value " + show_value(n5) + ". " ;
                                                 }
 				   };
+
 	sim_p.behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
 				     operation: function (s_expr)
@@ -2435,9 +2441,9 @@ function cpu_ep_register ( sim_p )
 						   var n2 = sim_p.signals[s_expr[1]].value ;
 						   var m1 = (1 << (posd+len)) - 1 ; // mask: 000...000 11111 (last      posd+len  bits to '1')
 						       m1 = ~m1                   ; // mask: 111...111 00000 (first 32-(posd+len) bits to '1')
-						       m1 = m1 & n2 ;             ; // get first 32-(posd+len) bits of n2
+						       m1 = m1 & n2               ; // get first 32-(posd+len) bits of n2
 						   var m2 = (1 << posd) - 1       ; // mask: 000...000 11111 (last 'posd' bits to '1')
-						       m2 = m2 & n2 ;             ; // get last 'posd' bits of n2
+						       m2 = m2 & n2               ; // get last 'posd' bits of n2
 
 						   var n3 = m1 + (n1 << posd) + m2 ;
 						   set_value(sim_p.signals[s_expr[1]], n3) ;
@@ -2473,6 +2479,7 @@ function cpu_ep_register ( sim_p )
                                                    return "" ;
                                                 }
 				  };
+
 	sim_p.behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
 						{
@@ -2535,7 +2542,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["FIRE_IFSET"] = { nparameters: 3,
 					     types: ["S", "I"],
 					     operation: function (s_expr)
@@ -2551,7 +2557,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["FIRE_IFCHANGED"] = { nparameters: 3,
 					     types: ["S", "X"],
 					     operation: function (s_expr)
@@ -2568,7 +2573,6 @@ function cpu_ep_register ( sim_p )
                                                            return "" ;
                                                         }
 					   };
-
 		sim_p.behaviors["RESET_CHANGED"] = { nparameters: 2,
 					     types: ["X"],
 					     operation: function (s_expr)
@@ -2619,6 +2623,7 @@ function cpu_ep_register ( sim_p )
                                                             signal_reset_and_apply(sim_p.signals, mcelto) ;
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
+							    signal_update_draw_allByEdge(mcelto) ;
                                                             signal_apply_behaviour_allByLevel(mcelto) ;
 
 						            // measure time (2/2)
@@ -2699,6 +2704,28 @@ function cpu_ep_register ( sim_p )
 								  sim_p.internal_states.alu_flags.flag_c + ". " ;
 */
                                                         }
+					   };
+
+	sim_p.behaviors["HISTORY_RESTORE"] = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
+					   };
+	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
+				               operation: function(s_expr)
+							  {
+                                                             var reg_ir_deco = get_value(simhw_sim_state('REG_IR_DECO')) ;
+                                                             show_dbg_ir(reg_ir_deco) ;
+                                                          },
+                                               verbal:    function (s_expr)
+                                                          {
+                                                             return "" ;
+                                                          }
 					   };
 
 
