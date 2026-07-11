@@ -17,7 +17,8 @@
         "allowJs": false,
         "noEmit": false,
         "noUnusedLocals": false,
-        "noUnusedParameters": false
+	"noUnusedParameters": false,
+        "ignoreDeprecations": "6.0"
     },
     "include": [
         "../sim_hw/hw_items/cpu_rvpipe.ts",

@@ -43,7 +43,9 @@ while getopts 'vdh' opt; do
 
     d)
       echo "  Please install first:"
+      echo ""
       echo "   sudo apt-get install jq"
+      echo "   sudo npm install -g typescript@6"
       echo ""
       echo "   npm i terser jshint eslint"
       echo "   npm i yargs clear inquirer@8.2.6 fuzzy commander async"
