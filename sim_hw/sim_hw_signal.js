@@ -182,6 +182,7 @@
 	    }
 	}
 
+
         function signal_apply_behaviour_allByEdge ( mc_elto )
         {
 	    if ( (typeof mc_elto == "undefined") || (mc_elto.is_native) )
@@ -210,6 +211,20 @@
                 signal_fireL() ;
 	    }
 	}
+
+        function signal_update_draw_allByEdge ( mc_elto )
+        {
+	    if ( (typeof mc_elto == "undefined") || (mc_elto.is_native) )
+	    {     // skip signal activation if undefined OR is_native
+		  return ;
+	    }
+
+	    for (const signal_name of jit_fire_order_E) {
+		 signal_obj = simhw_sim_signal(signal_name) ;
+		 update_draw(signal_obj, signal_obj.value) ;
+	    }
+	}
+
 
         // function update edge/level now
         function fn_updateE_now ( signal_name )

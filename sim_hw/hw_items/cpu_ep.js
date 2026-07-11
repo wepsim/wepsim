@@ -2441,9 +2441,9 @@ function cpu_ep_register ( sim_p )
 						   var n2 = sim_p.signals[s_expr[1]].value ;
 						   var m1 = (1 << (posd+len)) - 1 ; // mask: 000...000 11111 (last      posd+len  bits to '1')
 						       m1 = ~m1                   ; // mask: 111...111 00000 (first 32-(posd+len) bits to '1')
-						       m1 = m1 & n2 ;             ; // get first 32-(posd+len) bits of n2
+						       m1 = m1 & n2               ; // get first 32-(posd+len) bits of n2
 						   var m2 = (1 << posd) - 1       ; // mask: 000...000 11111 (last 'posd' bits to '1')
-						       m2 = m2 & n2 ;             ; // get last 'posd' bits of n2
+						       m2 = m2 & n2               ; // get last 'posd' bits of n2
 
 						   var n3 = m1 + (n1 << posd) + m2 ;
 						   set_value(sim_p.signals[s_expr[1]], n3) ;
@@ -2623,6 +2623,7 @@ function cpu_ep_register ( sim_p )
                                                             signal_reset_and_apply(sim_p.signals, mcelto) ;
 
                                                             // 5.- Finally, 'fire' the (High) Level signals
+							    signal_update_draw_allByEdge(mcelto) ;
                                                             signal_apply_behaviour_allByLevel(mcelto) ;
 
 						            // measure time (2/2)
@@ -2718,7 +2719,8 @@ function cpu_ep_register ( sim_p )
 	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
 				               operation: function(s_expr)
 							  {
-                                                             return ;
+                                                             var reg_ir_deco = get_value(simhw_sim_state('REG_IR_DECO')) ;
+                                                             show_dbg_ir(reg_ir_deco) ;
                                                           },
                                                verbal:    function (s_expr)
                                                           {
