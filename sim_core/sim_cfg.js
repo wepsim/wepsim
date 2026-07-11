@@ -231,8 +231,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.4.1" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.4.1.20260510A" },
+                   "version":               { upgrade:false, type:"string",    value:"3.0.0" },
+                   "build":                 { upgrade:true,  type:"string",    value:"3.0.0.20260510A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -301,7 +301,9 @@
                    "max_json_size":         { upgrade:true,  type:"int",       value:1*1024*1024 },
                    "verbal_verbose":        { upgrade:false, type:"string",    value:'math' },
                    "extended_ui":           { upgrade:false, type:"boolean",   value:false },
-                   "use_ga":                { upgrade:false, type:"boolean",   value:true }
+                   "use_ga":                { upgrade:false, type:"boolean",   value:true },
+                   "history_enable":        { upgrade:false, type:"boolean",   value:false },
+                   "history_size":          { upgrade:false, type:"int",       value:100 }
              } ;
 
              // some mobile-tuning

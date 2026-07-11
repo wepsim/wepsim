@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.4.1 -> 3.0.0:
+* Main improvements:
+  * RVpipe processor added
+
 ## 2.4.0 -> 2.4.1:
 * Main improvements:
   * Improve default testing pack (./devel/test_wepsim.sh co)

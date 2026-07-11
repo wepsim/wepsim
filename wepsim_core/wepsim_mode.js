@@ -33,6 +33,7 @@
 	                         'ep2':          'Default-RISCV',
 	                         'poc':          'Default-MIPS',
 	                         'rv':           'Default-RISCV',
+	                         'rvpipe':       'Default-RISCV',
 
 	                         'asm_mips':     'ep:ep_mix1_l3:mips_s4e1',
 	                         'asm_rv32':     'ep:ep_js1_l10:rv32_s7e2',

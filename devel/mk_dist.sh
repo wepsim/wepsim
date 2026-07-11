@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -x
+set -e
 
 
 #*
@@ -39,8 +39,10 @@ while getopts 'vdh' opt; do
       ;;
 
     d)
-      echo "  Please install first:"
-      echo "   sudo apt-get install jq"
+      echo "  Please install dependencies first by using:"
+      echo ""
+      echo "   sudo apt install jq"
+      echo "   sudo npm install -g typescript@6"
       echo ""
       echo "   npm i terser jshint eslint"
       echo "   npm i yargs clear inquirer@8.2.6 fuzzy commander async"
@@ -66,14 +68,29 @@ shift "$(($OPTIND -1))"
 
 
 # install npm dependencies
-echo "  Step for npm install/update:"
-echo "  * terser jshint"
-echo "  * yargs clear inquirer fuzzy commander async"
-echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
-echo "  * rollup @rollup/plugin-node-resolve"
+echo "  Step for npm dependencies to install/update:"
 npm install
 echo "  Done."
 echo ""
+
+
+# TypeScript files
+echo "  Step for TypeScript:"
+tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
+echo "  Done."
+echo ""
+
+
+# Build the initial directory tree
+echo "  Step for packing:"
+echo "  * ws_dist"
+                    mkdir -p ws_dist
+                    touch    ws_dist/index.html
+                    mkdir -p ws_dist/external
+                    touch    ws_dist/external/index.html
+cp external/jquery.min.js    ws_dist/external
+                    mkdir -p ws_dist/help
+                    touch    ws_dist/help/index.html
 
 
 # # pre-bundle
@@ -85,17 +102,6 @@ echo ""
 # echo "  Done."
 # echo ""
 
-
-# skeleton
-echo "  Step for packing:"
-echo "  * ws_dist"
-                    mkdir -p ws_dist
-                    touch    ws_dist/index.html
-                    mkdir -p ws_dist/external
-                    touch    ws_dist/external/index.html
-cp external/jquery.min.js    ws_dist/external
-                    mkdir -p ws_dist/help
-                    touch    ws_dist/help/index.html
 
 #  hardware model + software model + core (simulation ctrl + UI)
 echo "  * ws_dist/min.sim_all.js"
@@ -141,9 +147,16 @@ cat sim_core/sim_cfg.js \
     sim_hw/hw_items/io_l3d_base.js \
     sim_hw/hw_items/io_sound_base.js \
     \
+    ts_out/sim_hw/hw_items/cpu_rvpipe.js \
+    ts_out/sim_hw/hw_items/mem_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_clk_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_screen_rvpipe.js \
+    ts_out/sim_hw/hw_items/io_keyboard_rvpipe.js \
+    \
     sim_hw/hw_ep.js \
     sim_hw/hw_ep2.js \
     sim_hw/hw_rv.js \
+    ts_out/sim_hw/hw_rvpipe.js \
     sim_hw/hw_poc.js \
     \
     sim_sw/firmware/lexical.js \
@@ -401,11 +414,12 @@ DEFAULT_EXAMPLE_SET="repo/examples_set/mips/es_ep_instructive.json repo/examples
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/mips/default_instructive.json
 
 # RV32
-DEFAULT_EXAMPLE_SET_P1="repo/examples_set/rv32/es_ep.json  repo/examples_set/rv32/es_ep_native.json"
-DEFAULT_EXAMPLE_SET_P2="repo/examples_set/rv32/es_ep2.json repo/examples_set/rv32/es_ep2_native.json"
-DEFAULT_EXAMPLE_SET_P3="repo/examples_set/rv32/es_poc.json repo/examples_set/rv32/es_poc_native.json"
+DEFAULT_EXAMPLE_SET_P1="repo/examples_set/rv32/es_ep.json   repo/examples_set/rv32/es_ep_native.json"
+DEFAULT_EXAMPLE_SET_P2="repo/examples_set/rv32/es_ep2.json  repo/examples_set/rv32/es_ep2_native.json"
+DEFAULT_EXAMPLE_SET_P3="repo/examples_set/rv32/es_poc.json  repo/examples_set/rv32/es_poc_native.json"
 DEFAULT_EXAMPLE_SET_P4="repo/examples_set/rv32/es_rv.json"
-DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3 $DEFAULT_EXAMPLE_SET_P4"
+DEFAULT_EXAMPLE_SET_P5="repo/examples_set/rv32/es_rvpipe.json"
+DEFAULT_EXAMPLE_SET="$DEFAULT_EXAMPLE_SET_P1 $DEFAULT_EXAMPLE_SET_P2 $DEFAULT_EXAMPLE_SET_P3 $DEFAULT_EXAMPLE_SET_P4 $DEFAULT_EXAMPLE_SET_P5"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32/default.json
 
 # RV32 instructive

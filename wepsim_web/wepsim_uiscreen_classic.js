@@ -152,7 +152,7 @@
 
 		   var o1 = '    <div class="row ps-2 pe-3">' +
 			    '	 <ws-executionbar name="exebar1" class="btn-toolbar btn-block"' +
-			    '			  components="btn_reset,btn_emins,btn_eins,btn_rnf"' +
+			    '			  components="btn_reset,btn_pm,btn_emins,btn_eins,btn_rnf"' +
 			    '			  icons="up" role="toolbar"></ws-executionbar>' +
 			    '	 </div>' +
 			    '' +

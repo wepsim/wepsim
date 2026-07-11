@@ -14,5 +14,9 @@
    { 
       "name": "poc",
       "url":  "repo/hardware/poc/hw_def.json"
+   },
+   { 
+      "name": "rvpipe",
+      "url":  "repo/hardware/rvpipe/hw_def.json"
    }
 ]

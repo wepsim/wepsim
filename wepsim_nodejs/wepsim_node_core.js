@@ -41,6 +41,13 @@
         return ret ;
     }
 
+    // helper to check if using rvpipe pipeline processor
+    function wepsim_nodejs_is_rvpipe ()
+    {
+        return (typeof simhw_short_name !== 'undefined' &&
+                simhw_short_name() === 'rvpipe');
+    }
+
     var hash_detail_ui = {
 
 	    "SCREEN":         {
@@ -271,12 +278,25 @@
     // show execution progress
     var before_state = null ;
     var  after_state = null ;
+    var  header_printed = false ;
+    const PADPIPE = 22;
+    const PADCLK = 4;
 
     function wepsim_nodejs_header2 ( )
     {
-        console.log('pc'          + ','.padEnd(3, '\t') +
-                    'instruction' + ','.padEnd(4, '\t') +
-                    'changes_from_zero_or_current_value') ;
+        if (wepsim_nodejs_is_rvpipe()) {
+            console.log('CLK'.padEnd(PADCLK) + '| ' +
+                        'IF'.padEnd(PADPIPE)  + '| ' +
+                        'ID'.padEnd(PADPIPE)  + '| ' +
+                        'EX'.padEnd(PADPIPE)  + '| ' +
+                        'MEM'.padEnd(PADPIPE) + '| ' +
+                        'WB'.padEnd(PADPIPE)  + '| ' +
+                        'changes_from_zero_or_current_value') ;
+        } else {
+            console.log('pc'          + ','.padEnd(3, '\t') +
+                        'instruction' + ','.padEnd(4, '\t') +
+                        'changes_from_zero_or_current_value') ;
+        }
     }
 
     function wepsim_nodejs_before_instruction2 ( SIMWARE, reg_pc )
@@ -292,6 +312,46 @@
         if (typeof curr_mp[reg_pc] === 'undefined') {
 	    return ;
 	}
+
+        // lazy header: print on first instruction so processor is initialized
+        if (!header_printed) {
+            wepsim_nodejs_header2() ;
+            header_printed = true ;
+        }
+
+        // for rvpipe show instructions at each pipeline stage
+        if (wepsim_nodejs_is_rvpipe()) {
+            var stage_names = ['IF_FETCH_PC', 'IF_ID_PC', 'ID_EX_PC',
+                               'EX_MEM_PC', 'MEM_WB_PC'] ;
+            var stage_ins = [] ;
+            for (var i = 0; i < stage_names.length; i++) {
+                var state = simhw_sim_state(stage_names[i]) ;
+                var pc = 0 ;
+                if (typeof state !== 'undefined') {
+                    pc = get_value(state) ;
+                }
+                var ins = '' ;
+                if (pc !== 0 && typeof curr_mp[pc] !== 'undefined') {
+                    ins = get_deco_from_pc(pc) ;
+                    ins = ins.replace(/,/g, "") ;
+                    ins = ins.replace(/&nbsp;/g, ' ') ;
+                }
+                stage_ins.push(ins) ;
+            }
+
+            after_state = simcore_simstate_current2state() ;
+            var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
+
+            var clk_val = get_value(simhw_sim_state('CLK')) - 1 ;
+            console.log(clk_val.toString().padEnd(PADCLK) + '| ' +
+                        stage_ins[0].padEnd(PADPIPE) + '| ' +
+                        stage_ins[1].padEnd(PADPIPE) + '| ' +
+                        stage_ins[2].padEnd(PADPIPE) + '| ' +
+                        stage_ins[3].padEnd(PADPIPE) + '| ' +
+                        stage_ins[4].padEnd(PADPIPE) + '| ' +
+                        diff_states) ;
+            return ;
+        }
 
         var curr_pc = '0x' + reg_pc.toString(16) ;
         var source_line = main_memory_getsrc(curr_mp, reg_pc) ;
@@ -413,6 +473,7 @@
 		        if (ret.ok == false)
                         {
 	                    wepsim_nodejs_header2() ;
+	                    header_printed = true ;
 		            reg_pc = parseInt(get_value(simhw_sim_state(pc_name))) ;
 		            wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
 
@@ -456,6 +517,7 @@
 		        }
 
 	            wepsim_nodejs_header2() ;
+	            header_printed = true ;
 		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
 		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
 
@@ -813,7 +875,7 @@
 
     function wepsim_nodejs_verbose_instructionlevel ( options )
     {
-    	wepsim_nodejs_header2() ;
+    	header_printed = false ;
 
     	//before_state = null ;
     	//after_state  = null ;
