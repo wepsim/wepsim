@@ -64,7 +64,9 @@ echo "checking sim_hw..."
             ./sim_hw/hw_items/mem_ep.js
 
      eslint ./sim_hw/hw_items/cpu_rv.js \
-            ./sim_hw/hw_items/mem_rv.js
+            ./sim_hw/hw_items/cpu_rvpipe.js \
+            ./sim_hw/hw_items/mem_rv.js \
+            ./sim_hw/hw_items/mem_rvpipe.js
 
      eslint ./sim_hw/hw_items/cpu_poc.js \
             ./sim_hw/hw_items/cu_poc.js \
@@ -78,7 +80,8 @@ echo "checking sim_hw..."
 
      eslint ./sim_hw/hw_ep.js \
             ./sim_hw/hw_poc.js \
-            ./sim_hw/hw_rv.js
+            ./sim_hw/hw_rv.js \
+            ./sim_hw/hw_rvpipe.js
 
 echo "checking wepsim_core..."
      eslint ./wepsim_core/wepsim_help_commands.js \

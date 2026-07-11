@@ -281,6 +281,9 @@ function wsasm_prepare_context_pseudoinstructions ( context, CU_data )
 		elto.signature_size_str = elto.signature_size_arr.join(' ') ;
                 elto.signature_user     = wsasm_make_signature_user(elto, '') ;
 
+                // pseudoinstructions occupy at least 1 word (overridden in find_candidates if expand to more)
+                elto.nwords = 1 ;
+
                 // add elto to firmware
                 context.firmware[initial.name].push(elto) ;
 	   }

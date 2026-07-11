@@ -239,6 +239,21 @@
             return true ;
     }
 
+    function wsweb_execution_previous_microinstruction ( )
+    {
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_microinstruction_backwards() ;
+                simcoreui_show_hw() ;
+            }
+
+            // add if recording
+            simcore_record_append_new('Execute previous instruction',
+		                      'wsweb_execution_previous_microinstruction();\n') ;
+
+            return true ;
+    }
+
     function wsweb_execution_instruction ( )
     {
             if (simhw_active() !== null) {
