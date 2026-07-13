@@ -87,7 +87,7 @@ cp external/jquery.min.js    ws_dist/external
 
 #  compile TypeScript files (cpu_rvpipe, mem_rvpipe, hw_rvpipe)
 echo "  * compile TypeScript (sim_hw/*.ts)"
-tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
+tsc -p ./tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
 echo "  Done."
 echo ""
 

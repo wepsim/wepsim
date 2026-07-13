@@ -76,7 +76,7 @@ echo ""
 
 # TypeScript files
 echo "  Step for TypeScript:"
-tsc -p devel/tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
+tsc -p ./tsconfig.json || { echo "ERROR: TypeScript compilation failed"; exit 1; }
 echo "  Done."
 echo ""
 
