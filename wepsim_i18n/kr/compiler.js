@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.compiler.ko = {
+    i18n.eltos.compiler.kr = {
 
 	        "PROBLEM AROUND LINE":          "라인 주변의 문제",
 		'NO TAG OR DIRECTIVE':		'태그 또는 지시 예상하지만,이 대신 토큰을 발견 : ',
