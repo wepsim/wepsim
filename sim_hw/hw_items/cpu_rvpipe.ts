@@ -23,12 +23,16 @@
  *  CPU - 5-stage pipeline (IF, ID, EX, MEM, WB)
  */
 
-function cpu_rvpipe_register(sim_p: Simulator): Simulator {
+function cpu_rvpipe_register(sim_p: Simulator): Simulator
+{
     function create_op(behavior: BEHAVIORS, ...signals_or_states: (SIGNALS | STATES | string)[]): string {
         return behavior + " " + signals_or_states.join(" ") + ";";
     }
+
     const DEBUG = false;
-    sim_p.components["CPU"] = {
+
+    sim_p.components["CPU"] =
+    {
         name: "CPU",
         version: "1",
         abilities: ["CPU"],
@@ -3824,3 +3828,4 @@ function cpu_rvpipe_register(sim_p: Simulator): Simulator {
 
     return sim_p;
 }
+

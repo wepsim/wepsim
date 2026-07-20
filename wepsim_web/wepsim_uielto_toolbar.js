@@ -376,23 +376,30 @@
 			'     <h6 class="text-white bg-secondary my-1 wsx_morecfg ms-auto border border-secondary"><span data-langkey="Micro & Assembly">Micro & Assembly</span>:</h6>' ;
 
                    var item = '' ;
-                   var wip_class = '' ;
+                   var wip_class  = '' ;
+                   var wip_badged = '' ;
                    for (var i=0; i<sim.systems.length; i++)
                    {
+		        // get cpu name
                         item = sim.systems[i].sim_short_name ;
 
-                        wip_class = '' ;
-                             if (item == "poc") wip_class = "wsx_poc" ;
-                        else if (item == "ep2") wip_class = "wsx_ep2" ;
-                        else if (item == "rv")  wip_class = "wsx_rv" ;
+		        // get cpu properties
+                        wip_class  = '' ;
+		        wip_badged = '' ;
+                        if (sim.systems[i].sim_properties.includes("beta"))
+			{
+                            wip_badged = '<sup><span class="badge text-bg-secondary p-1">beta</span></sup>' ;
+                            wip_class  = 'wsx_' + item ;
+			}
 
+		        // building dropdown entry...
                    o += '     <a class="dropdown-item py-2 ' + wip_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="wsweb_select_main(\'' + item + '\');' +
                         '                 inputfirm.is_compiled = false; ' +
                         '                 inputasm.is_compiled  = false; ' +
 			'		  return false;"' +
-                        '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '</a>' ;
+                        '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '&nbsp;' + wip_badged + '</a>' ;
                    }
 
                    o += '\n' +

@@ -23,6 +23,7 @@ declare function simhw_sim_components(): Record<string, any>;
 declare function simhw_sim_component(id: string): any;
 declare function simhw_active(): any;
 declare function simhw_short_name(): string;
+declare function simhw_properties(): string[];
 declare function simhw_add(newElto: any): void;
 declare function simhw_getActive(): number;
 declare function simhw_setActive(newActive: number): void;
@@ -199,41 +200,43 @@ interface SimComponent {
     set_value?: (elto: any, value: any) => void;
 }
 
-interface Simulator {
-    sim_name?: string;
-    sim_short_name?: string;
-    sim_img_processor?: string;
-    sim_img_controlunit?: string;
-    sim_img_cpu?: string;
+interface Simulator
+{
+    sim_name?:            string ;
+    sim_short_name?:      string ;
+    sim_img_processor?:   string ;
+    sim_img_controlunit?: string ;
+    sim_img_cpu?:         string ;
+    sim_properties?:      string[] ;
 
-    components: Record<string, SimComponent>;
-    states: { BR: Record<number, SimState> & { length?: number };[key: string]: SimState | Record<number, SimState> };
-    signals: Record<string, SimSignal>;
-    behaviors: Record<string, SimSignalBehavior>;
-    elements: Record<string, SimElement>;
-    ctrl_states: Record<string, SimCtrlState>;
-    internal_states: Record<string, any>;
-    events: Record<string, any>;
+    components:      Record<string, SimComponent> ;
+    states:    { BR: Record<number, SimState> & { length?: number };[key: string]: SimState | Record<number, SimState> } ;
+    signals:         Record<string, SimSignal> ;
+    behaviors:       Record<string, SimSignalBehavior> ;
+    elements:        Record<string, SimElement> ;
+    ctrl_states:     Record<string, SimCtrlState> ;
+    internal_states: Record<string, any> ;
+    events:          Record<string, any> ;
 }
 
 // Register functions (defined in other hw_items JS files)
-declare function board_base_register(sim_p: Simulator): void;
-declare function cpu_ep_register(sim_p: Simulator): void;
-declare function mem_ep_register(sim_p: Simulator): void;
-declare function cpu_ep2_register(sim_p: Simulator): void;
-declare function mem_ep2_register(sim_p: Simulator): void;
-declare function cpu_rv_register(sim_p: Simulator): void;
-declare function mem_rv_register(sim_p: Simulator): void;
-declare function cpu_poc_register(sim_p: Simulator): void;
-declare function mem_poc_register(sim_p: Simulator): void;
-declare function cu_poc_register(sim_p: Simulator): void;
-declare function io_clk_base_register(sim_p: Simulator): void;
-declare function io_screen_base_register(sim_p: Simulator): void;
-declare function io_screen_rvpipe_register(sim_p: Simulator): void;
-declare function io_keyboard_rvpipe_register(sim_p: Simulator): void;
-declare function io_ldm_base_register(sim_p: Simulator): void;
-declare function io_l3d_base_register(sim_p: Simulator): void;
-declare function io_sound_base_register(sim_p: Simulator): void;
-
+declare function board_base_register         ( sim_p: Simulator ): void ;
+declare function cpu_ep_register             ( sim_p: Simulator ): void ;
+declare function mem_ep_register             ( sim_p: Simulator ): void ;
+declare function cpu_ep2_register            ( sim_p: Simulator ): void ;
+declare function mem_ep2_register            ( sim_p: Simulator ): void ;
+declare function cpu_rv_register             ( sim_p: Simulator ): void ;
+declare function mem_rv_register             ( sim_p: Simulator ): void ;
+declare function cpu_poc_register            ( sim_p: Simulator ): void ;
+declare function mem_poc_register            ( sim_p: Simulator ): void ;
+declare function cu_poc_register             ( sim_p: Simulator ): void ;
+declare function io_clk_base_register        ( sim_p: Simulator ): void ;
+declare function io_screen_base_register     ( sim_p: Simulator ): void ;
+declare function io_screen_rvpipe_register   ( sim_p: Simulator ): void ;
+declare function io_keyboard_rvpipe_register ( sim_p: Simulator ): void ;
+declare function io_ldm_base_register        ( sim_p: Simulator ): void ;
+declare function io_l3d_base_register        ( sim_p: Simulator ): void ;
+declare function io_sound_base_register      ( sim_p: Simulator ): void ;
 
 declare var DBG_stop: boolean;
+

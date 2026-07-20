@@ -26,7 +26,8 @@
 const IO_KBD_KBDR_ID = 0x0100;
 const IO_KBD_KBSR_ID = 0x0104;
 
-function io_keyboard_rvpipe_register(sim_p: Simulator): Simulator {
+function io_keyboard_rvpipe_register (sim_p: Simulator): Simulator
+{
     const DEBUG = false;
     sim_p.components["KBD"] = {
         name: "KBD",
@@ -178,3 +179,4 @@ function io_keyboard_rvpipe_register(sim_p: Simulator): Simulator {
 
     return sim_p;
 }
+
