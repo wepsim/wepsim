@@ -131,7 +131,10 @@ function firm_registers_read ( context )
        {
            //   *1=*ra,
            //   *1=*(ra, x1),
-	   var nombre_reg = frm_getToken(context) ;
+ 	   var nombre_reg = frm_getToken(context) ;
+	   if (nombre_reg.startsWith("0x")) {
+	       nombre_reg = parseInt(nombre_reg, 16);
+	   }
 
 	   frm_nextToken(context) ;
 	   if (! frm_isToken(context, "=")) {
