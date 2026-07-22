@@ -1,9 +1,14 @@
 
 # Changelog
 
-## 2.4.1 -> 3.0.0:
+## 2.4.2 -> 3.0.0:
 * Main improvements:
-  * RVpipe processor added
+  * New rvpipe processor: RISC-V with 5-stage pipeline
+
+## 2.4.1 -> 2.4.2:
+* Main improvements:
+  * Firmware syntax for immediate formats updated
+  * Minor bugfixes
 
 ## 2.4.0 -> 2.4.1:
 * Main improvements:
