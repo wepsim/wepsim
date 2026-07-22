@@ -57,16 +57,16 @@ function firm_metadata_write ( context )
         // **immediate = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }**
         if (typeof context.metadata.immediates != "undefined")
 	{
-            m.immediates = '{' ;
+            m.immediates = '{\n' ;
             for (var i=0; i<context.metadata.immediates.length; i++)
             {
                  // { **ranges(31:31|19:12|20:20|30:21)**+se(1)+padding(1)=j_type, ... }
-                 m.immediates += 'ranges(' ;
+                 m.immediates += '\t\t ranges(' ;
                  for (var j=0; j<context.metadata.immediates[i].ranges.length; j++)
                  {
                       m.immediates += context.metadata.immediates[i].ranges[j][0] + ':' + context.metadata.immediates[i].ranges[j][1] ;
 
-                      if (context.metadata.immediates[i].ranges.length >= j+1) {
+                      if (context.metadata.immediates[i].ranges.length > j+1) {
                           m.immediates += '|' ;
 		      }
                  }
@@ -86,12 +86,12 @@ function firm_metadata_write ( context )
                  m.immediates += '=' + context.metadata.immediates[i].name ;
 
                  // { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type**,** ... }
-                 if (context.metadata.immediates[i].length >= i+1) {
-                     m.immediates = m.immediates + ',' ;
-		 }
+                 if (context.metadata.immediates.length > i+1)
+                      m.immediates = m.immediates + ',\n' ;
+		 else m.immediates = m.immediates +  '\n' ;
             }
 
-            m.immediates = m.immediates + '}' ;
+            m.immediates = m.immediates + '\t\t}' ;
         }
 
         // return metadata as string...
