@@ -34,7 +34,7 @@ function firm_metadata_write ( context )
                    rel_mult:   2,
                    pc_rel_offset: 0,
                    endian:     "little",
-                   immediates: ''
+                   immediates: '{}'
                 } ;
 
         // update metadata with actual values
@@ -54,22 +54,54 @@ function firm_metadata_write ( context )
             m.endian = context.metadata.endian ;
         }
 
+        // **immediate = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }**
         if (typeof context.metadata.immediates != "undefined")
 	{
-	    m.immediates = JSON.stringify(context.metadata.immediates) ;
-            m.immediates = m.immediates.replace("'", "\"")
-                                       .replace("[", "'")
-                                       .replace("]", "'") ;
+            m.immediates = '{\n' ;
+            for (var i=0; i<context.metadata.immediates.length; i++)
+            {
+                 // { **ranges(31:31|19:12|20:20|30:21)**+se(1)+padding(1)=j_type, ... }
+                 m.immediates += '\t\t ranges(' ;
+                 for (var j=0; j<context.metadata.immediates[i].ranges.length; j++)
+                 {
+                      m.immediates += context.metadata.immediates[i].ranges[j][0] + ':' + context.metadata.immediates[i].ranges[j][1] ;
+
+                      if (context.metadata.immediates[i].ranges.length > j+1) {
+                          m.immediates += '|' ;
+		      }
+                 }
+                 m.immediates += ')' ;
+
+                 // { ranges(31:31|19:12|20:20|30:21)**+se(1)**+padding(1)=j_type, ... }
+                 if (context.metadata.immediates[i].sign_extend) {
+                     m.immediates += '+se(1)' ;
+                 }
+
+                 // { ranges(31:31|19:12|20:20|30:21)+se(1)**+padding(1)**=j_type, ... }
+                 if (context.metadata.immediates[i].padding != 0) {
+                     m.immediates += '+padding(' + context.metadata.immediates[i].padding + ')' ;
+                 }
+
+                 // { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)**=j_type**, ... }
+                 m.immediates += '=' + context.metadata.immediates[i].name ;
+
+                 // { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type**,** ... }
+                 if (context.metadata.immediates.length > i+1)
+                      m.immediates = m.immediates + ',\n' ;
+		 else m.immediates = m.immediates +  '\n' ;
+            }
+
+            m.immediates = m.immediates + '\t\t}' ;
         }
 
         // return metadata as string...
         o += "\n" +
              "firmware {\n" +
-             "   version    = " + m.version    + ",\n" +
-             "   rel_mult   = " + m.rel_mult   + ",\n" +
+             "   version       = " + m.version       + ",\n" +
+             "   rel_mult      = " + m.rel_mult      + ",\n" +
              "   pc_rel_offset = " + m.pc_rel_offset + ",\n" +
-             "   endian     = " + m.endian     + ",\n" +
-             "   immediates = " + m.immediates +  "\n" +
+             "   endian        = " + m.endian        + ",\n" +
+             "   immediates    = " + m.immediates    +  "\n" +
              "}\n" +
              "\n" ;
 
@@ -81,30 +113,30 @@ function firm_metadata_read ( context )
 {
         // optional:
         //   *firmware {
-        //       version    = 2,
-        //       rel_mult   = 2,
+        //       version       = 2,
+        //       rel_mult      = 2,
         //       pc_rel_offset = 0,
-        //       endian     = little,
-        //       immediates = '...'
+        //       endian        = little,
+        //       immediates    = '...'
         //    }*
 
 	frm_nextToken(context);
 	// match mandatory {
-	if (! frm_isToken(context,"{")) {
+	if (! frm_isToken(context, "{")) {
 	      return frm_langError(context,
 				   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
 	}
 
 	frm_nextToken(context) ;
         // match "version, rel_mult, endian, ... }"
-        while ( (context.t < context.text.length) && (! frm_isToken(context,"}")) )
+        while ( (context.t < context.text.length) && (! frm_isToken(context, "}")) )
         {
 		// optional: *version* = 2,
 		if (frm_isToken(context, "version"))
 		{
 		    frm_nextToken(context);
 		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
+		    if (! frm_isToken(context, "=")) {
 			  return frm_langError(context,
 					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 		    }
@@ -115,7 +147,7 @@ function firm_metadata_read ( context )
 
 		    frm_nextToken(context);
 		    // match optional ,
-		    if (frm_isToken(context,","))
+		    if (frm_isToken(context, ","))
 			frm_nextToken(context);
 		}
 
@@ -124,7 +156,7 @@ function firm_metadata_read ( context )
 		{
 		    frm_nextToken(context);
 		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
+		    if (! frm_isToken(context, "=")) {
 			  return frm_langError(context,
 					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 		    }
@@ -135,7 +167,7 @@ function firm_metadata_read ( context )
 
 		    frm_nextToken(context);
 		    // match optional ,
-		    if (frm_isToken(context,","))
+		    if (frm_isToken(context, ","))
 			frm_nextToken(context);
 		}
 
@@ -144,7 +176,7 @@ function firm_metadata_read ( context )
 		{
 		    frm_nextToken(context);
 		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
+		    if (! frm_isToken(context, "=")) {
 			  return frm_langError(context,
 					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 		    }
@@ -155,7 +187,7 @@ function firm_metadata_read ( context )
 
 		    frm_nextToken(context);
 		    // match optional ,
-		    if (frm_isToken(context,","))
+		    if (frm_isToken(context, ","))
 			frm_nextToken(context);
 		}
 
@@ -164,7 +196,7 @@ function firm_metadata_read ( context )
 		{
 		    frm_nextToken(context);
 		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
+		    if (! frm_isToken(context, "=")) {
 			  return frm_langError(context,
 					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 		    }
@@ -175,46 +207,159 @@ function firm_metadata_read ( context )
 
 		    frm_nextToken(context);
 		    // match optional ,
-		    if (frm_isToken(context,","))
+		    if (frm_isToken(context, ","))
 			frm_nextToken(context);
 		}
 
-		// optional: *immediates* = '...',
+                // optional: *immediate* = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
 		if (frm_isToken(context, "immediates"))
 		{
-		    frm_nextToken(context);
-		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
+		    context.metadata.immediates = [] ;
+
+		    frm_nextToken(context) ;
+		    // match mandatory '=' -> mandatory: *=* { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+		    if (! frm_isToken(context, "=")) {
 			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
 		    }
 
-		    frm_nextToken(context);
-		    // match mandatory FIRMWARE_IMMEDIATES (string to JSON)
-		    var ifmt = frm_getToken(context) ;
-		    if (ifmt[0] == "'") {
-		        // '{ "key": value, ... }' -> [ {"key": value, ... ]
-                        ifmt = ifmt.replaceAll(/^\'/g, "[")
-                                   .replaceAll(/\'$/g, "]") ;
+		    frm_nextToken(context) ;
+		    // match mandatory '{' -> = *{* ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+		    if (! frm_isToken(context, "{")) {
+			  return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
 		    }
-		    else
-		    if (ifmt[0] == '"') {
-		        // "{ 'key': value, ... }" -> [ {"key": value, ... ]
-                        ifmt = ifmt.replaceAll(/'/g, '"')
-				   .replaceAll(/^\"/g, "[")
-                                   .replaceAll(/\"$/g, "]") ;
+
+                    frm_nextToken(context);
+                    // match optional 'ranges' -> { *ranges*(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+		    while (frm_isToken(context, "ranges"))
+		    {
+                        var range_val = '' ;
+			var elto = { "name": "", "sign_extend": false, "padding": 0, "ranges": [] } ;
+
+			frm_nextToken(context);
+                        // match mandatory '('
+                        if (! frm_isToken(context, "(")) {
+                                return frm_langError(context,
+                                                    i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                        }
+
+			frm_nextToken(context);
+		        while (frm_isToken(context, ")") == false)
+                        {
+                            var range_elto = [ 0, 0 ] ;
+
+		            // already matchs mandatory **<start-bit>**:<stop-bit>
+                            range_val = frm_getToken(context) ;
+                            range_elto[0] = parseInt(range_val, 10) ;
+
+		            frm_nextToken(context) ;
+		            // match mandatory : -> <start-bit>**:**<stop-bit>
+		            if (! frm_isToken(context, ":")) {
+                                  return frm_langError(context,
+                                                       i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
+		            }
+
+		            frm_nextToken(context) ;
+		            // match mandatory <start-bit>:**<stop-bit>**
+                            range_val = frm_getToken(context) ;
+                            range_elto[1] = parseInt(range_val, 10) ;
+
+			    elto.ranges.push(range_elto) ;
+
+		            frm_nextToken(context) ;
+		            // match optional '|' -> <start-bit>:<stop-bit>**|** ...
+		            if (frm_isToken(context, "|"))
+                                frm_nextToken(context);
+                        }
+
+			frm_nextToken(context);
+		        // match optional 'se' -> { ranges(31:31|19:12|20:20|30:21)*+se(1)*+padding(1)=j_type, ... }
+		        if (frm_isToken(context, "+se"))
+			{
+			    frm_nextToken(context) ;
+                            // match mandatory '('
+                            if (! frm_isToken(context, "(")) {
+                                    return frm_langError(context,
+                                                         i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                            }
+
+			    frm_nextToken(context) ;
+                            // match mandatory 0|1
+                            range_val = frm_getToken(context) ;
+                            if (parseInt(range_val, 10) != 0)
+                                 elto.sign_extend = true ;
+			    else elto.sign_extend = false ;
+
+		            frm_nextToken(context) ;
+		            // match mandatory )
+		            if (! frm_isToken(context, ")")) {
+			          return frm_langError(context,
+                                                       i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+		            }
+
+		            frm_nextToken(context) ;
+			}
+
+                        // match optional 'padding' -> { ranges(31:31|19:12|20:20|30:21)+se(1)*+padding(1)*=j_type, ... }
+		        if (frm_isToken(context, "+padding"))
+			{
+			    frm_nextToken(context) ;
+                            // match mandatory '('
+                            if (! frm_isToken(context, "(")) {
+                                    return frm_langError(context,
+                                                         i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                            }
+
+			    frm_nextToken(context) ;
+                            // match mandatory 0|1
+                            range_val = frm_getToken(context) ;
+                            elto.padding = parseInt(range_val, 10) ;
+
+		            frm_nextToken(context) ;
+		            // match mandatory )
+		            if (! frm_isToken(context, ")")) {
+			          return frm_langError(context,
+                                                       i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+		            }
+
+		            frm_nextToken(context) ;
+			}
+
+		        // match mandatory = -> { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)*=*j_type, ... }
+		        if (! frm_isToken(context, "=")) {
+                              return frm_langError(context,
+                                                   i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+		        }
+
+			frm_nextToken(context) ;
+                        // match mandatory <name>
+                        elto.name = frm_getToken(context) ;
+
+		        frm_nextToken(context);
+		        // match optional ,
+                        if (frm_isToken(context, ","))
+		    	    frm_nextToken(context);
+
+			// Add the new immediate element to the array
+		        context.metadata.immediates.push(elto) ;
 		    }
-		    context.metadata.immediates = JSON.parse(ifmt) ;
+
+		    // match mandatory }
+		    if (! frm_isToken(context, "}")) {
+			  return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
+		    }
 
 		    frm_nextToken(context);
 		    // match optional ,
-		    if (frm_isToken(context,","))
-			frm_nextToken(context);
+		    if (frm_isToken(context, ","))
+                        frm_nextToken(context);
 		}
         }
 
 	// match mandatory }
-	if (! frm_isToken(context,"}")) {
+	if (! frm_isToken(context, "}")) {
 	      return frm_langError(context,
 				   i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
 	}
