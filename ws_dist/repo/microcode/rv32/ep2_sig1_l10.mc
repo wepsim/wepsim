@@ -4,15 +4,17 @@
 #
 
 firmware {
-   version  = 2,
-   rel_mult = 2,
-   endian   = little,
-   immediates = '{ "sign_extend": false, "padding": 32, "ranges": [] },
-                 { "sign_extend":  true, "padding":  0, "ranges": [[31, 20]] },
-                 { "sign_extend":  true, "padding":  0, "ranges": [[31, 25], [11, 7]] },
-                 { "sign_extend":  true, "padding":  1, "ranges": [[31, 31], [7, 7], [30, 25], [11, 8]] },
-                 { "sign_extend":  true, "padding": 12, "ranges": [[31, 12]] },
-                 { "sign_extend":  true, "padding":  1, "ranges": [[31, 31], [19, 12], [20, 20], [30, 21]] }'
+   version    = 2,
+   rel_mult   = 2,
+   endian     = little,
+   immediates = {
+                   ranges()+padding(32)                             = default,
+                   ranges(31:20)+se(1)                              = i_type,
+                   ranges(31:25|11:7)+se(1)                         = s_type,
+                   ranges(31:31|7:7|30:25|11:8)+se(1)+padding(1)    = b_type,
+                   ranges(31:12)+se(1)+padding(12)                  = u_type,
+                   ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1) = j_type
+                }
 }
 
 begin
