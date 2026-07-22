@@ -29,6 +29,7 @@
                        sim_img_processor:   "repo/hardware/rv/images/processor.svg",
                        sim_img_controlunit: "",
                        sim_img_cpu:         "repo/hardware/rv/images/cpu.svg",
+                       sim_properties:      [],
 
                        components:          {},
                        states:              {},

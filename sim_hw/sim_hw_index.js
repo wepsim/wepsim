@@ -124,6 +124,13 @@
             return sim.active.sim_short_name ;
         }
 
+        // properties
+
+        function simhw_properties ( )
+        {
+            return sim.active.sim_properties ;
+        }
+
         // sim_signals
 
         function simhw_sim_signals ( )

@@ -26,7 +26,8 @@
 const IO_SCR_DDR_ID = 0x1000;
 const IO_SCR_DSR_ID = 0x1004;
 
-function io_screen_rvpipe_register(sim_p: Simulator): Simulator {
+function io_screen_rvpipe_register(sim_p: Simulator): Simulator
+{
     const DEBUG = false;
     sim_p.components["SCREEN"] = {
         name: "SCREEN",
@@ -214,3 +215,4 @@ function io_screen_rvpipe_register(sim_p: Simulator): Simulator {
 
     return sim_p;
 }
+

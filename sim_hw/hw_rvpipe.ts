@@ -19,37 +19,39 @@
  */
 
 
-/*
- *  RISC-V Processor with Pipeline
- */
+        /*
+         *  RISC-V Processor with Pipeline
+         */
 
-var rvpipe_def: Simulator = {
-    sim_name: "RISC-V Processor with Pipeline",
-    sim_short_name: "rvpipe",
-    sim_img_processor: "repo/hardware/rvpipe/images/processor.svg",
-    sim_img_controlunit: "repo/hardware/rvpipe/images/controlunit.svg",
-    sim_img_cpu: "repo/hardware/rvpipe/images/cpu.svg",
+        var rvpipe_def: Simulator = {
+                       sim_name:            "RISC-V Processor with Pipeline",
+                       sim_short_name:      "rvpipe",
+                       sim_img_processor:   "repo/hardware/rvpipe/images/processor.svg",
+                       sim_img_controlunit: "repo/hardware/rvpipe/images/controlunit.svg",
+                       sim_img_cpu:         "repo/hardware/rvpipe/images/cpu.svg",
+                       sim_properties:      ["beta", "pipeline"],
 
-    components: {},
-    states: { BR: [] as SimState[] },
-    signals: {},
-    behaviors: {},
-    elements: {},
+                       components: {},
+                       states:     { BR: [] as SimState[] },
+                       signals:    {},
+                       behaviors:  {},
+                       elements:   {},
 
-    internal_states: {},
-    ctrl_states: {},
-    events: {}
-};
+                       internal_states: {},
+                       ctrl_states:     {},
+                       events:          {}
+                   } ;
 
-// registering elements
-board_base_register(rvpipe_def);
-cpu_rvpipe_register(rvpipe_def);
-mem_rvpipe_register(rvpipe_def);
-io_screen_rvpipe_register(rvpipe_def);
-io_keyboard_rvpipe_register(rvpipe_def);
-io_clk_rvpipe_register(rvpipe_def);
-// io_l3d_base_register(rvpipe_def);
-// io_ldm_base_register(rvpipe_def);
-// io_sound_base_register(rvpipe_def);
+            // registering elements
+                    board_base_register ( rvpipe_def ) ;
+                    cpu_rvpipe_register ( rvpipe_def ) ;
+                    mem_rvpipe_register ( rvpipe_def ) ;
+              io_screen_rvpipe_register ( rvpipe_def ) ;
+            io_keyboard_rvpipe_register ( rvpipe_def ) ;
+                 io_clk_rvpipe_register ( rvpipe_def ) ;
+                // io_l3d_base_register ( rvpipe_def ) ;
+                // io_ldm_base_register ( rvpipe_def ) ;
+              // io_sound_base_register ( rvpipe_def ) ;
 
-simhw_add(rvpipe_def);
+            simhw_add(rvpipe_def) ;
+

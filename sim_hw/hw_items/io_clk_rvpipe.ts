@@ -28,7 +28,8 @@ const IO_CLK_IOSR_ID = 0x1100;
 const IO_CLK_IOCR_ID = 0x1104;
 const IO_CLK_IODR_ID = 0x1108;
 
-function io_clk_rvpipe_register(sim_p: Simulator): Simulator {
+function io_clk_rvpipe_register(sim_p: Simulator): Simulator
+{
     const DEBUG = false;
     sim_p.components["IO"] = {
         name: "IO",
@@ -314,3 +315,4 @@ function io_clk_rvpipe_register(sim_p: Simulator): Simulator {
 
     return sim_p;
 }
+

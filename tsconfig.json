@@ -6,8 +6,8 @@
             "es2017",
             "dom"
         ],
-        "outDir": "../ts_out",
-        "rootDir": "../",
+        "outDir": "./ts_out",
+        "rootDir": "./",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
@@ -21,13 +21,13 @@
         "ignoreDeprecations": "6.0"
     },
     "include": [
-        "../sim_hw/hw_items/cpu_rvpipe.ts",
-        "../sim_hw/hw_items/mem_rvpipe.ts",
-        "../sim_hw/hw_items/io_screen_rvpipe.ts",
-        "../sim_hw/hw_items/io_keyboard_rvpipe.ts",
-        "../sim_hw/hw_items/io_clk_rvpipe.ts",
-        "../sim_hw/hw_items/globals.d.ts",
-        "../sim_hw/hw_rvpipe.ts"
+        "./sim_hw/hw_items/cpu_rvpipe.ts",
+        "./sim_hw/hw_items/mem_rvpipe.ts",
+        "./sim_hw/hw_items/io_screen_rvpipe.ts",
+        "./sim_hw/hw_items/io_keyboard_rvpipe.ts",
+        "./sim_hw/hw_items/io_clk_rvpipe.ts",
+        "./sim_hw/hw_items/globals.d.ts",
+        "./sim_hw/hw_rvpipe.ts"
     ],
     "exclude": []
 }
