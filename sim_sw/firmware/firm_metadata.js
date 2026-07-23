@@ -109,6 +109,10 @@ function firm_metadata_write ( context )
 }
 
 
+function firm_metadata_read_immediate ( context )
+{
+}
+
 function firm_metadata_read ( context )
 {
         // optional:
