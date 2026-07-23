@@ -21,10 +21,10 @@
 
 function firm_metadata_write ( context )
 {
-	var o = "" ;
+        var o = "" ;
 
         // no metadata -> return empty metadata section
-	if (typeof context.metadata == "undefined") {
+        if (typeof context.metadata == "undefined") {
             return o ;
         }
 
@@ -56,7 +56,7 @@ function firm_metadata_write ( context )
 
         // **immediate = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }**
         if (typeof context.metadata.immediates != "undefined")
-	{
+        {
             m.immediates = '{\n' ;
             for (var i=0; i<context.metadata.immediates.length; i++)
             {
@@ -68,7 +68,7 @@ function firm_metadata_write ( context )
 
                       if (context.metadata.immediates[i].ranges.length > j+1) {
                           m.immediates += '|' ;
-		      }
+                      }
                  }
                  m.immediates += ')' ;
 
@@ -88,7 +88,7 @@ function firm_metadata_write ( context )
                  // { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type**,** ... }
                  if (context.metadata.immediates.length > i+1)
                       m.immediates = m.immediates + ',\n' ;
-		 else m.immediates = m.immediates +  '\n' ;
+                 else m.immediates = m.immediates +  '\n' ;
             }
 
             m.immediates = m.immediates + '\t\t}' ;
@@ -105,269 +105,305 @@ function firm_metadata_write ( context )
              "}\n" +
              "\n" ;
 
-	return o ;
+        return o ;
 }
 
 
 function firm_metadata_read_immediate ( context )
 {
+        // optional:
+        //    firmware {
+        //       version       = 2,
+        //       rel_mult      = 2,
+        //       pc_rel_offset = 0,
+        //       endian        = little,
+        //       immediates   *= { ... }*
+        //    }
+
+        frm_nextToken(context) ;
+        // match mandatory '=' -> mandatory: *=* { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+        if (! frm_isToken(context, "=")) {
+              return frm_langError(context,
+                                   i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+        }
+
+        frm_nextToken(context) ;
+        // match mandatory '{' -> = *{* ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+        if (! frm_isToken(context, "{")) {
+              return frm_langError(context,
+                                   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+        }
+
+        frm_nextToken(context);
+        // match optional 'ranges' -> { *ranges*(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+        while (frm_isToken(context, "ranges"))
+        {
+            var range_val = '' ;
+            var elto = { "name": "", "sign_extend": false, "padding": 0, "ranges": [] } ;
+
+            frm_nextToken(context);
+            // match mandatory '('
+            if (! frm_isToken(context, "(")) {
+                    return frm_langError(context,
+                                        i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+            }
+
+            frm_nextToken(context);
+            while (frm_isToken(context, ")") == false)
+            {
+                var range_elto = [ 0, 0 ] ;
+
+                // already matchs mandatory **<start-bit>**:<stop-bit>
+                range_val = frm_getToken(context) ;
+                range_elto[0] = parseInt(range_val, 10) ;
+
+	        // semantic check: range
+                if ( (range_elto[0] > 32) || (range_elto[0] < 0) ){
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'OUT OF RANGE')) ;
+                }
+
+                frm_nextToken(context) ;
+                // match mandatory : -> <start-bit>**:**<stop-bit>
+                if (! frm_isToken(context, ":")) {
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
+                }
+
+                frm_nextToken(context) ;
+                // match mandatory <start-bit>:**<stop-bit>**
+                range_val = frm_getToken(context) ;
+                range_elto[1] = parseInt(range_val, 10) ;
+
+	        // semantic check: range
+                if ( (range_elto[1] > 32) || (range_elto[1] < 0) ){
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'OUT OF RANGE')) ;
+                }
+
+                elto.ranges.push(range_elto) ;
+
+                frm_nextToken(context) ;
+                // match optional '|' -> <start-bit>:<stop-bit>**|** ...
+                if (frm_isToken(context, "|"))
+                    frm_nextToken(context);
+            }
+
+            frm_nextToken(context);
+            // match optional 'se' -> { ranges(31:31|19:12|20:20|30:21)*+se(1)*+padding(1)=j_type, ... }
+            if (frm_isToken(context, "+se"))
+            {
+                frm_nextToken(context) ;
+                // match mandatory '('
+                if (! frm_isToken(context, "(")) {
+                        return frm_langError(context,
+                                             i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                }
+
+                frm_nextToken(context) ;
+                // match mandatory 0|1
+                range_val = frm_getToken(context) ;
+                if (parseInt(range_val, 10) != 0)
+                     elto.sign_extend = true ;
+                else elto.sign_extend = false ;
+
+                frm_nextToken(context) ;
+                // match mandatory )
+                if (! frm_isToken(context, ")")) {
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+                }
+
+                frm_nextToken(context) ;
+            }
+
+            // match optional 'padding' -> { ranges(31:31|19:12|20:20|30:21)+se(1)*+padding(1)*=j_type, ... }
+            if (frm_isToken(context, "+padding"))
+            {
+                frm_nextToken(context) ;
+                // match mandatory '('
+                if (! frm_isToken(context, "(")) {
+                        return frm_langError(context,
+                                             i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
+                }
+
+                frm_nextToken(context) ;
+                // match mandatory 0|1
+                range_val = frm_getToken(context) ;
+                elto.padding = parseInt(range_val, 10) ;
+
+	        // semantic check: range
+                if ( (elto.padding > 32) || (elto.padding < 0) ){
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'OUT OF RANGE')) ;
+                }
+
+                frm_nextToken(context) ;
+                // match mandatory )
+                if (! frm_isToken(context, ")")) {
+                      return frm_langError(context,
+                                           i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
+                }
+
+                frm_nextToken(context) ;
+            }
+
+            // match mandatory = -> { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)*=*j_type, ... }
+            if (! frm_isToken(context, "=")) {
+                  return frm_langError(context,
+                                       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+            }
+
+            frm_nextToken(context) ;
+            // match mandatory <name>
+            elto.name = frm_getToken(context) ;
+
+            frm_nextToken(context);
+            // match optional ,
+            if (frm_isToken(context,","))
+                frm_nextToken(context);
+
+            // Add the new immediate element to the array
+            context.metadata.immediates.push(elto) ;
+        }
+
+        // match mandatory }
+        if (! frm_isToken(context, "}")) {
+              return frm_langError(context,
+                                   i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
+        }
+
+        frm_nextToken(context);
+        // match optional ,
+        if (frm_isToken(context,","))
+            frm_nextToken(context);
+
+        // return context
+        return context ;
 }
 
 function firm_metadata_read ( context )
 {
+        var ret = {};
+
         // optional:
         //   *firmware {
         //       version       = 2,
         //       rel_mult      = 2,
         //       pc_rel_offset = 0,
         //       endian        = little,
-        //       immediates    = '...'
+        //       immediates    = { ... }
         //    }*
 
-	frm_nextToken(context);
-	// match mandatory {
-	if (! frm_isToken(context,"{")) {
-	      return frm_langError(context,
-				   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
-	}
+        frm_nextToken(context);
+        // match mandatory {
+        if (! frm_isToken(context,"{")) {
+              return frm_langError(context,
+                                   i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
+        }
 
-	frm_nextToken(context) ;
+        frm_nextToken(context) ;
         // match "version, rel_mult, endian, ... }"
         while ( (context.t < context.text.length) && (! frm_isToken(context,"}")) )
         {
-		// optional: *version* = 2,
-		if (frm_isToken(context, "version"))
-		{
-		    frm_nextToken(context);
-		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context);
-		    // match mandatory FIRMWARE_VERSION
-		    context.metadata.version = frm_getToken(context) ;
-
-		    frm_nextToken(context);
-		    // match optional ,
-		    if (frm_isToken(context,","))
-			frm_nextToken(context);
-		}
-
-		// optional: *rel_mult* = 2,
-		if (frm_isToken(context, "rel_mult"))
-		{
-		    frm_nextToken(context);
-		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context);
-		    // match mandatory relative_offset_multiplier (1, 2, 4, ...)
-		    context.metadata.rel_mult = frm_getToken(context) ;
-
-		    frm_nextToken(context);
-		    // match optional ,
-		    if (frm_isToken(context,","))
-			frm_nextToken(context);
-		}
-
-		// optional: *pc_rel_offset* = 0,
-		if (frm_isToken(context, "pc_rel_offset"))
-		{
-		    frm_nextToken(context);
-		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context);
-		    // match mandatory pc_relative_offset (0, 4, -4, ...)
-		    context.metadata.pc_rel_offset = frm_getToken(context) ;
-
-		    frm_nextToken(context);
-		    // match optional ,
-		    if (frm_isToken(context,","))
-			frm_nextToken(context);
-		}
-
-                // optional: *endian* = little
-		if (frm_isToken(context, "endian"))
-		{
-		    frm_nextToken(context);
-		    // match mandatory =
-		    if (! frm_isToken(context,"=")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context);
-		    // match mandatory endian (big or little)
-		    context.metadata.endian = frm_getToken(context) ;
-
-		    frm_nextToken(context);
-		    // match optional ,
-		    if (frm_isToken(context, ","))
-			frm_nextToken(context);
-		}
-
-                // optional: *immediate* = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
-		if (frm_isToken(context, "immediates"))
-		{
-		    context.metadata.immediates = [] ;
-
-		    frm_nextToken(context) ;
-		    // match mandatory '=' -> mandatory: *=* { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
-		    if (! frm_isToken(context, "=")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context) ;
-		    // match mandatory '{' -> = *{* ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
-		    if (! frm_isToken(context, "{")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'OPEN BRACE NOT FOUND')) ;
-		    }
+                // optional: *version* = 2,
+                if (frm_isToken(context, "version"))
+                {
+                    frm_nextToken(context);
+                    // match mandatory =
+                    if (! frm_isToken(context,"=")) {
+                          return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                    }
 
                     frm_nextToken(context);
-                    // match optional 'ranges' -> { *ranges*(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
-		    while (frm_isToken(context, "ranges"))
-		    {
-                        var range_val = '' ;
-			var elto = { "name": "", "sign_extend": false, "padding": 0, "ranges": [] } ;
+                    // match mandatory FIRMWARE_VERSION
+                    context.metadata.version = frm_getToken(context) ;
 
-			frm_nextToken(context);
-                        // match mandatory '('
-                        if (! frm_isToken(context, "(")) {
-                                return frm_langError(context,
-                                                    i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-                        }
+                    frm_nextToken(context);
+                    // match optional ,
+                    if (frm_isToken(context,","))
+                        frm_nextToken(context);
+                }
 
-			frm_nextToken(context);
-		        while (frm_isToken(context, ")") == false)
-                        {
-                            var range_elto = [ 0, 0 ] ;
+                // optional: *rel_mult* = 2,
+                if (frm_isToken(context, "rel_mult"))
+                {
+                    frm_nextToken(context);
+                    // match mandatory =
+                    if (! frm_isToken(context,"=")) {
+                          return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                    }
 
-		            // already matchs mandatory **<start-bit>**:<stop-bit>
-                            range_val = frm_getToken(context) ;
-                            range_elto[0] = parseInt(range_val, 10) ;
+                    frm_nextToken(context);
+                    // match mandatory relative_offset_multiplier (1, 2, 4, ...)
+                    context.metadata.rel_mult = frm_getToken(context) ;
 
-		            frm_nextToken(context) ;
-		            // match mandatory : -> <start-bit>**:**<stop-bit>
-		            if (! frm_isToken(context, ":")) {
-			          return frm_langError(context,
-			     	                       i18n_get_TagFor('compiler', 'COLON NOT FOUND')) ;
-		            }
+                    frm_nextToken(context);
+                    // match optional ,
+                    if (frm_isToken(context,","))
+                        frm_nextToken(context);
+                }
 
-		            frm_nextToken(context) ;
-		            // match mandatory <start-bit>:**<stop-bit>**
-                            range_val = frm_getToken(context) ;
-                            range_elto[1] = parseInt(range_val, 10) ;
+                // optional: *pc_rel_offset* = 0,
+                if (frm_isToken(context, "pc_rel_offset"))
+                {
+                    frm_nextToken(context);
+                    // match mandatory =
+                    if (! frm_isToken(context,"=")) {
+                          return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                    }
 
-			    elto.ranges.push(range_elto) ;
+                    frm_nextToken(context);
+                    // match mandatory pc_relative_offset (0, 4, -4, ...)
+                    context.metadata.pc_rel_offset = frm_getToken(context) ;
 
-		            frm_nextToken(context) ;
-		            // match optional '|' -> <start-bit>:<stop-bit>**|** ...
-		            if (frm_isToken(context, "|"))
-			        frm_nextToken(context);
-                        }
+                    frm_nextToken(context);
+                    // match optional ,
+                    if (frm_isToken(context,","))
+                        frm_nextToken(context);
+                }
 
-			frm_nextToken(context);
-		        // match optional 'se' -> { ranges(31:31|19:12|20:20|30:21)*+se(1)*+padding(1)=j_type, ... }
-		        if (frm_isToken(context, "+se"))
-			{
-			    frm_nextToken(context) ;
-                            // match mandatory '('
-                            if (! frm_isToken(context, "(")) {
-                                    return frm_langError(context,
-                                                         i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-                            }
+                // optional: *endian* = little
+                if (frm_isToken(context, "endian"))
+                {
+                    frm_nextToken(context);
+                    // match mandatory =
+                    if (! frm_isToken(context,"=")) {
+                          return frm_langError(context,
+                                               i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
+                    }
 
-			    frm_nextToken(context) ;
-                            // match mandatory 0|1
-                            range_val = frm_getToken(context) ;
-                            if (parseInt(range_val, 10) != 0)
-                                 elto.sign_extend = true ;
-			    else elto.sign_extend = false ;
+                    frm_nextToken(context);
+                    // match mandatory endian (big or little)
+                    context.metadata.endian = frm_getToken(context) ;
 
-		            frm_nextToken(context) ;
-		            // match mandatory )
-		            if (! frm_isToken(context, ")")) {
-			          return frm_langError(context,
-				        	       i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-		            }
+                    frm_nextToken(context);
+                    // match optional ,
+                    if (frm_isToken(context, ","))
+                        frm_nextToken(context);
+                }
 
-		            frm_nextToken(context) ;
-			}
+                // optional: *immediate* = { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)=j_type, ... }
+                if (frm_isToken(context, "immediates"))
+                {
+                    context.metadata.immediates = [] ;
 
-                        // match optional 'padding' -> { ranges(31:31|19:12|20:20|30:21)+se(1)*+padding(1)*=j_type, ... }
-		        if (frm_isToken(context, "+padding"))
-			{
-			    frm_nextToken(context) ;
-                            // match mandatory '('
-                            if (! frm_isToken(context, "(")) {
-                                    return frm_langError(context,
-                                                         i18n_get_TagFor('compiler', 'OPEN PAREN. NOT FOUND')) ;
-                            }
-
-			    frm_nextToken(context) ;
-                            // match mandatory 0|1
-                            range_val = frm_getToken(context) ;
-                            elto.padding = parseInt(range_val, 10) ;
-
-		            frm_nextToken(context) ;
-		            // match mandatory )
-		            if (! frm_isToken(context, ")")) {
-			          return frm_langError(context,
-				        	       i18n_get_TagFor('compiler', 'CLOSE PAREN. NOT FOUND')) ;
-		            }
-
-		            frm_nextToken(context) ;
-			}
-
-		        // match mandatory = -> { ranges(31:31|19:12|20:20|30:21)+se(1)+padding(1)*=*j_type, ... }
-		        if (! frm_isToken(context, "=")) {
-		    	      return frm_langError(context,
-					           i18n_get_TagFor('compiler', 'EQUAL NOT FOUND')) ;
-		        }
-
-			frm_nextToken(context) ;
-                        // match mandatory <name>
-                        elto.name = frm_getToken(context) ;
-
-		        frm_nextToken(context);
-		        // match optional ,
-		        if (frm_isToken(context,","))
-		    	    frm_nextToken(context);
-
-			// Add the new immediate element to the array
-		        context.metadata.immediates.push(elto) ;
+                    ret = firm_metadata_read_immediate(context) ;
+		    if (typeof ret.error != "undefined") {
+		        return ret ;
 		    }
-
-		    // match mandatory }
-		    if (! frm_isToken(context, "}")) {
-			  return frm_langError(context,
-					       i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
-		    }
-
-		    frm_nextToken(context);
-		    // match optional ,
-		    if (frm_isToken(context,","))
-			frm_nextToken(context);
-		}
+                }
         }
 
-	// match mandatory }
-	if (! frm_isToken(context,"}")) {
-	      return frm_langError(context,
-				   i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
-	}
-	frm_nextToken(context);
+        // match mandatory }
+        if (! frm_isToken(context,"}")) {
+              return frm_langError(context,
+                                   i18n_get_TagFor('compiler', 'CLOSE BRACE NOT FOUND')) ;
+        }
+        frm_nextToken(context);
 
         // return context
         context.error = null ;
