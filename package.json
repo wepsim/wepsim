@@ -10,7 +10,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.29.0",
+    "eslint": "^10.8.0",
     "eslint-plugin-json-format": "^2.0.1",
     "jshint": "^0.5.9",
     "terser": "^4.8.1"
@@ -43,6 +43,9 @@
     "vuex": "^4.1.0",
     "winston": "^2.4.7",
     "yargs": "^15.4.1"
+  },
+  "overrides": {
+    "tmp": "0.2.7"
   },
   "allowScripts": {
     "spawn-sync@1.0.15": true
