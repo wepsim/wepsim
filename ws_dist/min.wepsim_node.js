@@ -555,7 +555,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
                     break ;
 
                case 'step':
-                    onsole.log('step answer begins.') ;
+                    console.log('step answer begins.') ;
 
                     // execute microinstruction
                     wepsim_nodejs_verbose_microinstructionlevel(options) ;
