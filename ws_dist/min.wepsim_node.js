@@ -434,7 +434,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 		        console.log('bYe!') ;
 
 		        console.log('exit answer ends.') ;
-                on_exit = true ;
+                        on_exit = true ;
 		        break ;
 
 	       case 'cont':
@@ -480,7 +480,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 		        break ;
 
 	       case 'step':
-		        onsole.log('step answer begins.') ;
+		        console.log('step answer begins.') ;
 
 		        // execute microinstruction
 		        wepsim_nodejs_verbose_microinstructionlevel(options) ;
@@ -492,7 +492,7 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 			        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
 		        }
 
-	            wepsim_nodejs_header2() ;
+	                wepsim_nodejs_header2() ;
 		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
 		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
 
@@ -504,8 +504,8 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 
 		        // reset
 		        wepsim_nodejs_verbose_none(options) ;
-	            before_state = null ;
-	            after_state  = null ;
+	                before_state = null ;
+	                after_state  = null ;
 
 		        ret = simcore_reset() ;
 		        if (false === ret.ok) {
@@ -1446,8 +1446,8 @@ var WSCFG={};function get_cfg(field){return WSCFG[field].value}function set_cfg(
 
     function wepsim_nodejs_loadCheckpoint ( data_checkpoint )
     {
-	    var obj_checkpoint  = JSON.parse(data_checkpoint) ;
-            obj_checkpoint  = wepsim_checkpoint_NB2Obj(obj_checkpoint) ;
+	var obj_checkpoint = JSON.parse(data_checkpoint) ;
+            obj_checkpoint = wepsim_checkpoint_NB2Obj(obj_checkpoint) ;
 
         return obj_checkpoint ;
     }

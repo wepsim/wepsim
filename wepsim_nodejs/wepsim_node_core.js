@@ -397,7 +397,7 @@
 		        console.log('bYe!') ;
 
 		        console.log('exit answer ends.') ;
-                on_exit = true ;
+                        on_exit = true ;
 		        break ;
 
 	       case 'cont':
@@ -443,7 +443,7 @@
 		        break ;
 
 	       case 'step':
-		        onsole.log('step answer begins.') ;
+		        console.log('step answer begins.') ;
 
 		        // execute microinstruction
 		        wepsim_nodejs_verbose_microinstructionlevel(options) ;
@@ -455,7 +455,7 @@
 			        console.log("ERROR: Execution: " + ret.msg + ".\n") ;
 		        }
 
-	            wepsim_nodejs_header2() ;
+	                wepsim_nodejs_header2() ;
 		        reg_pc = parseInt(get_value(simhw_sim_state(pc_name)));
 		        wepsim_nodejs_after_instruction2(SIMWARE, reg_pc) ;
 
@@ -467,8 +467,8 @@
 
 		        // reset
 		        wepsim_nodejs_verbose_none(options) ;
-	            before_state = null ;
-	            after_state  = null ;
+	                before_state = null ;
+	                after_state  = null ;
 
 		        ret = simcore_reset() ;
 		        if (false === ret.ok) {
