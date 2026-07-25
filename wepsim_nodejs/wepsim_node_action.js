@@ -447,8 +447,8 @@
 
     function wepsim_nodejs_loadCheckpoint ( data_checkpoint )
     {
-	    var obj_checkpoint  = JSON.parse(data_checkpoint) ;
-            obj_checkpoint  = wepsim_checkpoint_NB2Obj(obj_checkpoint) ;
+	var obj_checkpoint = JSON.parse(data_checkpoint) ;
+            obj_checkpoint = wepsim_checkpoint_NB2Obj(obj_checkpoint) ;
 
         return obj_checkpoint ;
     }
