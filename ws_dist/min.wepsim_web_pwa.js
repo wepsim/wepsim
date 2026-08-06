@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v231a_static';
+var cacheName = 'v242a_static';
 
 
 /*
@@ -39,8 +39,9 @@ self.addEventListener('install',
                                         './min.external.css',
                                         './min.external.js',
                                         './min.sim_all.js',
-                                        './min.wepsim_web.js',
                                         './min.wepsim_i18n.js',
+                                        './min.wepsim_core.js',
+                                        './min.wepsim_webui.js',
                                         './min.wepsim_web_pwa.js',
                                         './wepsim-classic.html',
                                         './wepsim-compact.html',

@@ -101,7 +101,7 @@ test_wepsimnode_ckoutput_single ()
 test_wepsimnode_ckoutput ()
 {
 	N=${#TEST_ARR[*]}
-	NC=$(nproc)
+        NC=$1
 
 	# (1/2) run in parallel
         echo -n "  -> Running tests... "
@@ -122,15 +122,15 @@ test_wepsimnode_ckoutput ()
 	echo ""
         echo "Id: Status: Description"
 	for (( I=0; I<=$(( N -1 )); I++ )); do
-	    cat    ./devel/test_output/result-$I.txt
-	    rm -fr ./devel/test_output/result-$I.txt
+	       cat    ./devel/test_output/result-$I.txt
+	       rm -fr ./devel/test_output/result-$I.txt
 	done
 }
 
 test_wepsimnode_load ()
 {
 	I=0
-	NC=$(nproc)
+        NC=$1
 
 	echo -n "  -> Loading tests... "
         while IFS=$'\t' read -r T P D; do
@@ -144,6 +144,25 @@ test_wepsimnode_load ()
 	     fi
         done < <(jq -r '.[] | [.test, .pack, .description] | @tsv' ./devel/test_pack/test_wepsim_pack*.json)
 	echo " Done"
+}
+
+test_wepsimnode_detect_ncores ()
+{
+        # By default...
+	NC=1
+
+        # Detecting the number of CPU cores...
+        if command -v nproc >/dev/null 2>&1;
+        then
+             # Linux
+             NC=$(nproc)
+        elif command -v sysctl >/dev/null 2>&1;
+        then
+             # MacOS
+             NC=$(sysctl -n hw.ncpu)
+        fi
+
+        echo $NC
 }
 
 
@@ -172,7 +191,12 @@ fi
 # Load Test Pack
 TEST_ARR=()
 DESC_ARR=()
-test_wepsimnode_load
+
+echo -n "  -> Detecting CPU cores ... "
+NC=$(test_wepsimnode_detect_ncores)
+echo -e " ($NC) Done\n"
+
+test_wepsimnode_load $NC
 
 # Do requests
 for arg_i in "$@"
@@ -190,7 +214,7 @@ do
 		test_wepsimnode_mkoutput
 	     ;;
 	     co)
-		test_wepsimnode_ckoutput
+		test_wepsimnode_ckoutput $NC
 	     ;;
 	     *)
 		echo "  -> ERROR: unknow command '$arg_i'"
