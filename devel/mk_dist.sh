@@ -57,11 +57,7 @@ shift "$(($OPTIND -1))"
 
 
 # install npm dependencies
-echo "  Step for npm install/update:"
-echo "  * terser jshint"
-echo "  * yargs clear inquirer fuzzy commander async"
-echo "  * inquirer-command-prompt inquirer-autocomplete-prompt"
-echo "  * rollup @rollup/plugin-node-resolve"
+echo "  Step for npm dependencies to install/update:"
 npm install
 echo "  Done."
 echo ""
