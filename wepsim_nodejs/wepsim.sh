@@ -19,15 +19,14 @@
    /// import ws from "./wepsim-wrapper.mjs" ;
 
    // yargs
-   var yargs = require('yargs') ;
-
+   var yargs = require('yargs/yargs')(process.argv.slice(2));
 
 
    //
    // Help
    //
 
-   var ws_cl_ver = 'WepSIM-cl v2.0.2' ;
+   var ws_cl_ver = 'WepSIM-cl v2.0.5' ;
 
    function ws_header ()
    {
