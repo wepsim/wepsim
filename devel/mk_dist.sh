@@ -57,7 +57,7 @@ shift "$(($OPTIND -1))"
 
 
 ### Install npm dependencies
-echo "  Step for npm dependencies:"
+echo "  Step for npm dependencies to install/update:"
 echo "  npm install"
 npm install
 echo "  Done."

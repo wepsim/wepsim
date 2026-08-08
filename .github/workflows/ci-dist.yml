@@ -36,7 +36,7 @@ jobs:
 
     # 5. Save ws_dist/ for next Task
     - name: Upload ws_dist/ artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ws-dist-files
         path: ws_dist/
@@ -58,7 +58,7 @@ jobs:
 
     # 2. Download ws_dist artifact
     - name: Download ws_dist/
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: ws-dist-files
         path: ws_dist/
