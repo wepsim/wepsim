@@ -58,7 +58,7 @@ jobs:
 
     # 2. Download ws_dist artifact
     - name: Download ws_dist/
-      uses: actions/upload-artifact/download-artifact@v4
+      uses: actions/download-artifact@v4
       with:
         name: ws-dist-files
         path: ws_dist/
