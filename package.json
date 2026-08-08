@@ -16,6 +16,7 @@
     "terser": "^4.8.1"
   },
   "scripts": {
+    "build": "./devel/mk_dist.sh",
     "test-source1": "./devel/test_eslint.sh",
     "test-wepsim-node1": "./devel/test_wepsim.sh co",
     "test-wepsim-node2": "./devel/test_wepsim.sh rs"
