@@ -1,0 +1,48 @@
+name: CI Test and Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Download
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    # 2. Setup nodeJS
+    - name: Setup nodeJS
+      uses: actions/setup-node@v7
+      with:
+        node-version: '24.x'
+        cache: 'npm'
+
+    # 3. Build ws_dist/
+    - name: Build WepSIM distribution
+      run: |
+        npm ci
+        rm -fr ws_dist/
+        npm install
+        npm run build
+
+    # 4. Testing ws_dist/
+    - name: Run WepSIM Tests
+      run: npm run test-wepsim-node1
+
+    # 5. Upload the ws_dist/ directory to GitHub
+    - name: Commit and push ws_dist/
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name  "github-actions[bot]"
+        git add ws_dist/
+        # 'or true' avoid workflow fails if no new updates at ws_dist/
+        git commit -m "chore: auto-generate ws_dist [skip ci]" || echo "No changes to commit"
+        git push origin master
+
