@@ -22,14 +22,14 @@
 #*
 
 
-# welcome
+### Welcome
 echo ""
 echo "  WepSIM packer"
 echo " ---------------"
 echo ""
 
 
-# arguments
+### Arguments
 while getopts 'vdh' opt; do
   case "$opt" in
     v)
@@ -56,240 +56,109 @@ done
 shift "$(($OPTIND -1))"
 
 
-# install npm dependencies
+### Install npm dependencies
 echo "  Step for npm dependencies to install/update:"
+echo "  npm install"
 npm install
 echo "  Done."
 echo ""
 
 
-# # pre-bundle
-# echo "  Step for rollup:"
-# echo "  * codemirror6"
-# node_modules/.bin/rollup -c external/codemirror6/rollup.config.mjs
-# terser -o external/codemirror6/min.codemirror.js external/codemirror6/codemirror.bundle.js
-# rm -fr external/codemirror6/codemirror.bundle.js
-# echo "  Done."
-# echo ""
+### Make skeleton
+echo "  Step for inital directory tree:"
+echo "  * ws_dist/..."
+     mkdir -p ws_dist
+     touch    ws_dist/index.html
+     mkdir -p ws_dist/help
+     touch    ws_dist/help/index.html
 
+echo "  * ws_dist/external/..."
+     mkdir -p ws_dist/external
+                                       touch ws_dist/external/index.html
+     cp    -a external/fontawesome           ws_dist/external
+                                       touch ws_dist/external/fontawesome/index.html
+     cp    -a external/dropify               ws_dist/external/
+                                       touch ws_dist/external/dropify/index.html
+     cp    -a external/speechkitt            ws_dist/external/
+                                       touch ws_dist/external/speechkitt/index.html
+     cp    -a external/cordova.js            ws_dist/external/cordova.js
+     cp    -a external/jquery.min.js         ws_dist/external/jquery.min.js
 
-# skeleton
-echo "  Step for packing:"
-echo "  * ws_dist"
-                    mkdir -p ws_dist
-                    touch    ws_dist/index.html
-                    mkdir -p ws_dist/external
-                    touch    ws_dist/external/index.html
-cp external/jquery.min.js    ws_dist/external
-                    mkdir -p ws_dist/help
-                    touch    ws_dist/help/index.html
+echo "  * ws_dist/docs/..."
+     cp -a docs    ws_dist/
 
-#  hardware model + software model + core (simulation ctrl + UI)
-echo "  * ws_dist/min.sim_all.js"
-cat sim_core/sim_cfg.js \
-    sim_core/sim_core_ga.js \
-    sim_core/sim_adt_core.js \
-    sim_core/sim_core_record.js \
-    sim_core/sim_core_ctrl.js \
-    sim_core/sim_core_ui.js \
-    sim_core/sim_api_core.js \
-    sim_core/sim_api_native.js \
-    sim_core/sim_api_stateshots.js \
-    sim_core/sim_core_voice.js \
-    sim_core/sim_core_sound.js \
-    sim_core/sim_core_rest.js \
-    sim_core/sim_core_notify.js \
-    sim_core/sim_core_values.js \
-    sim_core/sim_core_decode.js \
-    sim_core/sim_adt_ctrlmemory.js \
-    sim_core/sim_adt_mainmemory.js \
-    sim_core/sim_adt_cachememory.js \
-    \
-    sim_hw/sim_hw_index.js \
-    sim_hw/sim_hw_values.js \
-    sim_hw/sim_hw_behavior.js \
-    sim_hw/sim_hw_signal.js \
-    sim_hw/sim_hw_eltos.js \
-    \
-    sim_hw/hw_items/board_base.js \
-    sim_hw/hw_items/cpu_ep.js \
-    sim_hw/hw_items/mem_ep.js \
-    sim_hw/hw_items/cpu_ep2.js \
-    sim_hw/hw_items/mem_ep2.js \
-    sim_hw/hw_items/cpu_rv.js \
-    sim_hw/hw_items/mem_rv.js \
-    sim_hw/hw_items/cpu_poc.js \
-    sim_hw/hw_items/mem_poc.js \
-    sim_hw/hw_items/cu_poc.js \
-    sim_hw/hw_items/io_clk_base.js \
-    sim_hw/hw_items/io_screen_base.js \
-    sim_hw/hw_items/io_keyboard_base.js \
-    sim_hw/hw_items/io_ldm_base.js \
-    sim_hw/hw_items/io_l3d_base.js \
-    sim_hw/hw_items/io_sound_base.js \
-    \
-    sim_hw/hw_ep.js \
-    sim_hw/hw_ep2.js \
-    sim_hw/hw_rv.js \
-    sim_hw/hw_poc.js \
-    \
-    sim_sw/firmware/lexical.js \
-    sim_sw/firmware/firm_mcode.js \
-    sim_sw/firmware/firm_metadata.js \
-    sim_sw/firmware/firm_begin.js \
-    sim_sw/firmware/firm_pseudoinstructions.js \
-    sim_sw/firmware/firm_registers.js \
-    sim_sw/firmware/firm_fields_v1.js \
-    sim_sw/firmware/firm_fields_v2.js \
-    sim_sw/firmware/firm_oc_eoc_v1.js \
-    sim_sw/firmware/firm_oc_eoc_v2.js \
-    sim_sw/firmware/firm_instruction.js \
-    sim_sw/firmware.js \
-    sim_sw/assembly/lexical.js \
-    sim_sw/assembly/memory_segments.js \
-    sim_sw/assembly/directives.js \
-    sim_sw/assembly/datatypes.js \
-    sim_sw/assembly/compiler1_prepare_wepsim.js \
-    sim_sw/assembly/compiler2_asm_obj.js \
-    sim_sw/assembly/compiler3_obj2mem_wepsim.js \
-    sim_sw/assembly/compiler_options.js \
-    sim_sw/assembly.js > ws_dist/sim_all.js
-terser -o ws_dist/min.sim_all.js ws_dist/sim_all.js
-rm -fr ws_dist/sim_all.js
+echo "  * ws_dist/images/..."
+     cp -a images  ws_dist/
 
-#  WepSIM internalization (i18n)
+echo "  * ws_dist/*.sh"
+     cp  docs/manifest.webapp      ws_dist/
+     cp  wepsim_nodejs/wepsim.sh   ws_dist/
+     chmod a+x                    ws_dist/*.sh
+
+echo "  * ws_dist/*.html"
+     cp   wepsim_web/wepsim_web_classic.html   ws_dist/index.html
+     cp   wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+     cp   wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+     cp   wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
+     cp   wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
+
 echo "  * ws_dist/help/..."
-cat wepsim_i18n/i18n.js > ws_dist/wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
-cat wepsim_i18n/$LANG/gui.js \
-    wepsim_i18n/$LANG/tutorial-welcome.js \
-    wepsim_i18n/$LANG/tutorial-simpleusage.js \
-    wepsim_i18n/$LANG/tour-intro.js \
-    wepsim_i18n/$LANG/cfg.js \
-    wepsim_i18n/$LANG/help.js \
-    wepsim_i18n/$LANG/states.js \
-    wepsim_i18n/$LANG/examples.js \
-    wepsim_i18n/$LANG/compiler.js \
-    wepsim_i18n/$LANG/hw.js \
-    wepsim_i18n/$LANG/dialogs.js  >> ws_dist/wepsim_i18n.js
-cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
-cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
+     cp  wepsim_i18n/$LANG/simulator.html      ws_dist/help/simulator-"$LANG".html
+     cp  wepsim_i18n/$LANG/about.html          ws_dist/help/about-"$LANG".html
 done
-terser -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
-rm -fr ws_dist/wepsim_i18n.js
 
-#  WepSIM web
-echo "  * ws_dist/min.wepsim_core.js"
-cat wepsim_core/wepsim_url.js \
-    wepsim_core/wepsim_clipboard.js \
-    wepsim_core/wepsim_preload_commands.js \
-    wepsim_core/wepsim_preload.js \
-    wepsim_core/wepsim_checkpoint.js \
-    wepsim_core/wepsim_signal.js \
-    wepsim_core/wepsim_state.js \
-    wepsim_core/wepsim_execute.js \
-    wepsim_core/wepsim_notify.js \
-    \
-    wepsim_core/wepsim_mode.js \
-    wepsim_core/wepsim_share.js \
-    wepsim_core/wepsim_dialog.js \
-    wepsim_core/wepsim_example.js \
-    wepsim_core/wepsim_help.js \
-    wepsim_core/wepsim_help_commands.js \
-    wepsim_core/wepsim_tutorial.js \
-    wepsim_core/wepsim_tutorial_welcome.js \
-    wepsim_core/wepsim_tutorial_simpleusage.js \
-    wepsim_core/wepsim_tour.js \
-    wepsim_core/wepsim_tour_commands.js \
-    wepsim_core/wepsim_voice.js \
-    wepsim_core/wepsim_voice_commands.js \
-    \
-    wepsim_core/wepsim_dbg_breakpointicons.js > ws_dist/wepsim_core.js
-terser -o ws_dist/min.wepsim_core.js ws_dist/wepsim_core.js
-rm -fr ws_dist/wepsim_core.js
+echo "  Done."
+echo ""
 
-#  WepSIM web engine
-cat wepsim_web/wepsim_uielto.js \
-    wepsim_web/wepsim_uielto_cpu.js \
-    wepsim_web/wepsim_uielto_mem.js \
-    wepsim_web/wepsim_uielto_mem_config.js \
-    wepsim_web/wepsim_uielto_cache.js \
-    wepsim_web/wepsim_uielto_cache_config.js \
-    wepsim_web/wepsim_uielto_registers.js \
-    wepsim_web/wepsim_uielto_hw.js \
-    wepsim_web/wepsim_uielto_editmc.js \
-    wepsim_web/wepsim_uielto_editas.js \
-    wepsim_web/wepsim_uielto_dbg_mc.js \
-    wepsim_web/wepsim_uielto_bin_mc.js \
-    wepsim_web/wepsim_uielto_dbg_asm.js \
-    wepsim_web/wepsim_uielto_bin_asm.js \
-    wepsim_web/wepsim_uielto_flash_asm.js \
-    wepsim_web/wepsim_uielto_flash_fpga.js \
-    wepsim_web/wepsim_uielto_cpusvg.js \
-    wepsim_web/wepsim_uielto_about.js \
-    wepsim_web/wepsim_uielto_segments.js \
-    wepsim_web/wepsim_uielto_topbar.js \
-    wepsim_web/wepsim_uielto_notifications.js \
-    wepsim_web/wepsim_uielto_states.js \
-    wepsim_web/wepsim_uielto_help_hweltos.js \
-    wepsim_web/wepsim_uielto_help_swset.js \
-    wepsim_web/wepsim_uielto_slider_cpucu.js \
-    wepsim_web/wepsim_uielto_slider_details.js \
-    \
-    wepsim_web/wepsim_uielto_console.js \
-    wepsim_web/wepsim_uielto_timer_info.js \
-    wepsim_web/wepsim_uielto_timer_config.js \
-    wepsim_web/wepsim_uielto_l3d.js \
-    wepsim_web/wepsim_uielto_ldm.js \
-    wepsim_web/wepsim_uielto_sound.js \
-    \
-    wepsim_web/wepsim_uipacker_ddown_sel.js \
-    wepsim_web/wepsim_uipacker_ddown_info.js \
-    wepsim_web/wepsim_uipacker_cpu_cu.js \
-    wepsim_web/wepsim_uipacker_cto_asm.js \
-    wepsim_web/wepsim_uipacker_sim_mic_asm.js \
-    \
-    wepsim_web/wepsim_web_ui_config.js \
-    wepsim_web/wepsim_web_ui_config_commands.js \
-    wepsim_web/wepsim_web_ui_popover.js \
-    wepsim_web/wepsim_web_ui_tooltip.js \
-    wepsim_web/wepsim_web_ui_dialogs.js \
-    wepsim_web/wepsim_web_ui_quickcfg.js \
-    \
-    wepsim_web/wepsim_uielto_loadfile.js \
-    wepsim_web/wepsim_uielto_savefile.js \
-    wepsim_web/wepsim_uielto_savefiles.js \
-    wepsim_web/wepsim_uielto_sharelink.js \
-    wepsim_web/wepsim_uielto_loadlink.js \
-    wepsim_web/wepsim_uielto_listcfg.js \
-    wepsim_web/wepsim_uielto_listexample.js \
-    wepsim_web/wepsim_uielto_listprocessor.js \
-    wepsim_web/wepsim_uielto_index_help.js \
-    wepsim_web/wepsim_uielto_index_examples.js \
-    wepsim_web/wepsim_uielto_index_config.js \
-    \
-    wepsim_web/wepsim_uielto_recordbar.js \
-    wepsim_web/wepsim_uielto_executionbar.js \
-    wepsim_web/wepsim_uielto_compilationbar.js \
-    wepsim_web/wepsim_uielto_toolbar.js \
-    \
-    wepsim_web/wepsim_uiscreen_classic.js \
-    wepsim_web/wepsim_uiscreen_compact.js \
-    wepsim_web/wepsim_uiscreen_main.js \
-    \
-    wepsim_web/wepsim_web_api.js \
-    wepsim_web/wepsim_web_editor.js \
-    wepsim_web/wepsim_web_simulator.js > ws_dist/wepsim_webui.js
-terser -o ws_dist/min.wepsim_webui.js ws_dist/wepsim_webui.js
-rm -fr ws_dist/wepsim_webui.js
 
+### Packing
+echo "  Step for packing min.*:"
+BASE_DIR=$(dirname $0)/cat_indexes/
+
+# building cat_indexes/min.wepsim_i18n.js
+    echo wepsim_i18n/i18n.js                         > ${BASE_DIR}/min.wepsim_i18n.js
+for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
+    echo wepsim_i18n/$LANG/gui.js                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/tutorial-welcome.js      >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/tutorial-simpleusage.js  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/tour-intro.js            >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/cfg.js                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/help.js                  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/states.js                >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/examples.js              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/compiler.js              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/hw.js                    >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo wepsim_i18n/$LANG/dialogs.js               >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo ""                                         >> ${BASE_DIR}/min.wepsim_i18n.js
+done
+
+# for each cat_indexes/* file...
+INDEXES=$(ls -1 ${BASE_DIR})
+for INDEX in $INDEXES; do
+    echo "  * ws_dist/${INDEX}.js"
+
+    # build bundle associated to ${INDEX}
+    LIST=$(grep -v ^$ ${BASE_DIR}/${INDEX})
+    cat $LIST | grep -v sourceMappingURL > /tmp/unmin.js
+
+    # try to minimize bundle, otherwise copy bundle unminimized
+    terser -o ws_dist/$INDEX  /tmp/unmin.js > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+         cp /tmp/unmin.js  ws_dist/$INDEX
+    fi
+
+    rm -fr /tmp/unmin.js
+done
+
+#  (1/2) WepSIM web engine
+echo "  * ws_dist/min.wepsim_web.js"
 cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_core.js \
     ws_dist/min.wepsim_webui.js > ws_dist/min.wepsim_web.js
-rm -fr ws_dist/min.wepsim_webui.js
 
-#  WepSIM nodejs engine
+#  (2/2) WepSIM nodejs engine
 echo "  * ws_dist/min.wepsim_node.js"
 cat wepsim_nodejs/wepsim_node_adapt.js \
     ws_dist/min.sim_all.js \
@@ -299,83 +168,13 @@ cat wepsim_nodejs/wepsim_node_adapt.js \
     wepsim_nodejs/wepsim_node_core.js \
     wepsim_nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
 
-#  external
-echo "  * ws_dist/min.external.js"
-cat external/vue/vue.min.js \
-    external/vue/vuex.min.js \
-    external/popper.min.js \
-    external/bootstrap/bootstrap.min.js \
-    external/bootbox/bootbox.all.min.js \
-    external/tone.min.js \
-    external/codemirror/codemirror.js \
-    external/codemirror/mode/javascript/javascript.js \
-    external/codemirror/mode/gas/gas.js \
-    external/codemirror/keymap/sublime.js \
-    external/codemirror/keymap/emacs.js \
-    external/codemirror/keymap/vim.js \
-    external/codemirror/addon/edit/matchbrackets.js \
-    external/codemirror/addon/fold/foldcode.js \
-    external/codemirror/addon/fold/foldgutter.js \
-    external/codemirror/addon/fold/brace-fold.js \
-    external/codemirror/addon/fold/xml-fold.js \
-    external/codemirror/addon/fold/comment-fold.js \
-    external/codemirror/addon/fold/indent-fold.js \
-    external/codemirror/addon/fold/markdown-fold.js \
-    external/codemirror/addon/hint/show-hint.js \
-    external/codemirror/addon/runmode/colorize.js \
-    external/codemirror/addon/comment/comment.js \
-    external/codemirror/addon/comment/continuecomment.js \
-    external/codemirror/addon/search/jump-to-line.js \
-    external/codemirror/addon/search/searchcursor.js \
-    external/codemirror/addon/search/search.js \
-    external/codemirror/addon/dialog/dialog.js \
-    external/jquery.knob.min.js \
-    external/vis/vis-network.min.js \
-    external/async.min.js \
-    external/compress/lz-string.min.js \
-    external/qrcode/qrcode.min.js \
-    external/bootstrap-tokenfield.js \
-    external/introjs/introjs.min.js \
-    external/speech-input.js \
-    external/annyang.min.js \
-    external/speechkitt/speechkitt.min.js \
-    external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
-terser --comments -o ws_dist/min.external.js ws_dist/external.js
-rm -fr ws_dist/external.js
+echo "  Done."
+echo ""
 
-echo "  * ws_dist/min.external.css"
-cat external/bootstrap/bootstrap.min.css \
-    external/codemirror/codemirror.css \
-    external/codemirror/theme/blackboard.css \
-    external/codemirror/theme/eclipse.css \
-    external/codemirror/theme/cobalt.css \
-    external/codemirror/theme/idea.css \
-    external/codemirror/theme/the-matrix.css \
-    external/codemirror/theme/neat.css \
-    external/codemirror/theme/abbott.css \
-    external/codemirror/theme/mdn-like.css \
-    external/codemirror/theme/duotone-light.css \
-    external/codemirror/theme/erlang-dark.css \
-    external/codemirror/addon/fold/foldgutter.css \
-    external/codemirror/addon/hint/show-hint.css \
-    external/codemirror/addon/dialog/dialog.css \
-    external/vis/vis-network.min.css \
-    external/bootstrap-tokenfield.css \
-    external/introjs/introjs.min.css \
-    external/speech-input.css \
-    external/dropify/dropify.min.css \
-    external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
-echo "  * ws_dist/external/..."
-cp    -a external/fontawesome           ws_dist/external
-                                  touch ws_dist/external/fontawesome/index.html
-cp    -a external/dropify               ws_dist/external/
-                                  touch ws_dist/external/dropify/index.html
-cp    -a external/speechkitt            ws_dist/external/
-                                  touch ws_dist/external/speechkitt/index.html
-cp    -a external/cordova.js            ws_dist/external/cordova.js
+### Default available examples
+echo "  Step for packing repo/:"
 
-### default available examples
 # MIPS
 DEFAULT_EXAMPLE_SET_P1="repo/examples_set/mips/es_ep.json  repo/examples_set/mips/es_ep_native.json"
 DEFAULT_EXAMPLE_SET_P2="repo/examples_set/mips/es_ep2.json repo/examples_set/mips/es_ep2_native.json"
@@ -415,31 +214,11 @@ jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/m
 DEFAULT_EXAMPLE_SET="repo/examples_set/rv32_ag/es_ep.json repo/examples_set/rv32_ag/es_poc.json       repo/examples_set/rv32_ag/es_ep2.json"
 jq 'reduce inputs as $i (.; . += $i)' $DEFAULT_EXAMPLE_SET > repo/examples_set/rv32_ag/default.json
 
-
-#  examples
 echo "  * ws_dist/repo/..."
 cp -a repo    ws_dist/
 
-#  docs
-echo "  * ws_dist/docs/..."
-cp -a docs    ws_dist/
-
-#  images
-echo "  * ws_dist/images/..."
-cp -a images  ws_dist/
-
-#  user interface
-echo "  * ws_dist/*.html"
-cp   wepsim_web/wepsim_web_classic.html   ws_dist/index.html
-cp   wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
-cp   wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-cp   wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
-cp   wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
-
-echo "  * ws_dist/*.sh"
-cp   docs/manifest.webapp         ws_dist/
-cp wepsim_nodejs/wepsim.sh        ws_dist/
-chmod a+x ws_dist/*.sh
+echo "  Done."
+echo ""
 
 #  json: update processors
 ./ws_dist/wepsim.sh -a export-hardware -m ep  > ws_dist/repo/hardware/ep/hw_def.json
@@ -448,6 +227,6 @@ chmod a+x ws_dist/*.sh
 ./ws_dist/wepsim.sh -a export-hardware -m rv  > ws_dist/repo/hardware/rv/hw_def.json
 
 # the end
-echo ""
 echo "  WepSIM packed in ws_dist (if no error was shown)."
+echo ""
 
