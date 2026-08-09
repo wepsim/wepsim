@@ -91,21 +91,21 @@ echo "  * ws_dist/images/..."
      cp -a images  ws_dist/
 
 echo "  * ws_dist/*.sh"
-     cp  docs/manifest.webapp      ws_dist/
-     cp  wepsim_nodejs/wepsim.sh   ws_dist/
-     chmod a+x                    ws_dist/*.sh
+     cp  docs/manifest.webapp          ws_dist/
+     cp  src/wepsim_nodejs/wepsim.sh   ws_dist/
+     chmod a+x                         ws_dist/*.sh
 
 echo "  * ws_dist/*.html"
-     cp   wepsim_web/wepsim_web_classic.html   ws_dist/index.html
-     cp   wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
-     cp   wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-     cp   wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
-     cp   wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
+     cp   src/wepsim_web/wepsim_web_classic.html   ws_dist/index.html
+     cp   src/wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+     cp   src/wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+     cp   src/wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
+     cp   src/wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 echo "  * ws_dist/help/..."
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
-     cp  wepsim_i18n/$LANG/simulator.html      ws_dist/help/simulator-"$LANG".html
-     cp  wepsim_i18n/$LANG/about.html          ws_dist/help/about-"$LANG".html
+     cp  src/wepsim_i18n/$LANG/simulator.html      ws_dist/help/simulator-"$LANG".html
+     cp  src/wepsim_i18n/$LANG/about.html          ws_dist/help/about-"$LANG".html
 done
 
 echo "  Done."
@@ -114,59 +114,79 @@ echo ""
 
 ### Packing
 echo "  Step for packing min.*:"
-BASE_DIR=$(dirname $0)/cat_indexes/
+
+BASE_DIR=$(dirname $0)/webpack_indexes/
 
 # building cat_indexes/min.wepsim_i18n.js
-    echo wepsim_i18n/i18n.js                         > ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/i18n.js';"                         > ${BASE_DIR}/min.wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
-    echo wepsim_i18n/$LANG/gui.js                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/tutorial-welcome.js      >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/tutorial-simpleusage.js  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/tour-intro.js            >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/cfg.js                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/help.js                  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/states.js                >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/examples.js              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/compiler.js              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/hw.js                    >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo wepsim_i18n/$LANG/dialogs.js               >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo ""                                         >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/gui.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/tutorial-simpleusage.js';"  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/tour-intro.js';"            >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/cfg.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/help.js';"                  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/states.js';"                >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/examples.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/compiler.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/hw.js';"                    >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "import '../../src/wepsim_i18n/$LANG/dialogs.js';"               >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
 done
 
-# for each cat_indexes/* file...
-INDEXES=$(ls -1 ${BASE_DIR})
-for INDEX in $INDEXES; do
-    echo "  * ws_dist/${INDEX}.js"
+# building cat_indexes/min.wepsim_web.js
+echo ""                                                            > ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.sim_all.js                                    >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_i18n.js                                >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_core.js                                >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_webui.js                               >> ${BASE_DIR}/min.wepsim_web.js
 
-    # build bundle associated to ${INDEX}
-    LIST=$(grep -v ^$ ${BASE_DIR}/${INDEX})
-    cat $LIST | grep -v sourceMappingURL > /tmp/unmin.js
+# building cat_indexes/min.wepsim_node.js
+echo ""                                                            > ${BASE_DIR}/min.wepsim_node.js
+echo "import '../../src/wepsim_nodejs/wepsim_node_adapt.js';"     >> ${BASE_DIR}/min.wepsim_node.js
+echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.sim_all.js                                    >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_i18n.js                                >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_core.js                                >> ${BASE_DIR}/min.wepsim_node.js
+echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
+echo "import '../../src/wepsim_nodejs/wepsim_node_core.js';"      >> ${BASE_DIR}/min.wepsim_node.js
+echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
+echo "import { wepsim_nodejs_doActionError,"                      >> ${BASE_DIR}/min.wepsim_node.js
+echo "         wepsim_nodejs_doAction,"                           >> ${BASE_DIR}/min.wepsim_node.js
+echo "         wepsim_nodejs_loadCheckpoint"                      >> ${BASE_DIR}/min.wepsim_node.js
+echo "} from '../../src/wepsim_nodejs/wepsim_node_action.js';"    >> ${BASE_DIR}/min.wepsim_node.js
+echo "export {"                                                   >> ${BASE_DIR}/min.wepsim_node.js
+echo "    wepsim_nodejs_doActionError,"                           >> ${BASE_DIR}/min.wepsim_node.js
+echo "    wepsim_nodejs_doAction,"                                >> ${BASE_DIR}/min.wepsim_node.js
+echo "    wepsim_nodejs_loadCheckpoint"                           >> ${BASE_DIR}/min.wepsim_node.js
+echo "};"                                                         >> ${BASE_DIR}/min.wepsim_node.js
 
-    # try to minimize bundle, otherwise copy bundle unminimized
-    terser -o ws_dist/$INDEX  /tmp/unmin.js >& /dev/null
-    if [ $? -ne 0 ]; then
-         cp /tmp/unmin.js  ws_dist/$INDEX
-    fi
+# building ws_dist/min.*.js
+npx webpack
 
-    rm -fr /tmp/unmin.js
-done
-
-#  (1/2) WepSIM web engine
-echo "  * ws_dist/min.wepsim_web.js"
-cat ws_dist/min.sim_all.js \
-    ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_core.js \
-    ws_dist/min.wepsim_webui.js > ws_dist/min.wepsim_web.js
-
-#  (2/2) WepSIM nodejs engine
-echo "  * ws_dist/min.wepsim_node.js"
-cat wepsim_nodejs/wepsim_node_adapt.js \
-    ws_dist/min.sim_all.js \
-    ws_dist/min.wepsim_i18n.js \
-    ws_dist/min.wepsim_core.js \
-    \
-    wepsim_nodejs/wepsim_node_core.js \
-    wepsim_nodejs/wepsim_node_action.js > ws_dist/min.wepsim_node.js
+# building ws_dist/min.external.css
+echo "  * ws_dist/min.external.css"
+cat external/bootstrap/bootstrap.min.css \
+    external/codemirror/codemirror.css \
+    external/codemirror/theme/blackboard.css \
+    external/codemirror/theme/eclipse.css \
+    external/codemirror/theme/cobalt.css \
+    external/codemirror/theme/idea.css \
+    external/codemirror/theme/the-matrix.css \
+    external/codemirror/theme/neat.css \
+    external/codemirror/theme/abbott.css \
+    external/codemirror/theme/mdn-like.css \
+    external/codemirror/theme/duotone-light.css \
+    external/codemirror/theme/erlang-dark.css \
+    external/codemirror/addon/fold/foldgutter.css \
+    external/codemirror/addon/hint/show-hint.css \
+    external/codemirror/addon/dialog/dialog.css \
+    external/vis/vis-network.min.css \
+    external/bootstrap-tokenfield.css \
+    external/introjs/introjs.min.css \
+    external/speech-input.css \
+    external/dropify/dropify.min.css \
+    external/css-tricks.css | grep -v sourceMappingURL > ws_dist/min.external.css
 
 echo "  Done."
 echo ""
