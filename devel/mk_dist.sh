@@ -143,7 +143,7 @@ for INDEX in $INDEXES; do
     cat $LIST | grep -v sourceMappingURL > /tmp/unmin.js
 
     # try to minimize bundle, otherwise copy bundle unminimized
-    terser -o ws_dist/$INDEX  /tmp/unmin.js >& /dev/null
+    terser -o ws_dist/$INDEX  /tmp/unmin.js > /dev/null 2>&1
     if [ $? -ne 0 ]; then
          cp /tmp/unmin.js  ws_dist/$INDEX
     fi
