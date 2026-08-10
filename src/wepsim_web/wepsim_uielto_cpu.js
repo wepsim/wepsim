@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }         from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }         from "./wepsim_uielto.js";
         import { simhw_active,
                  simhw_sim_state }   from "../sim_hw/sim_hw_index.js";
         import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
@@ -156,7 +157,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-cpu', ws_cpu) ;
-        }
+        register_uielto('ws-cpu', ws_cpu) ;
 

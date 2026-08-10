@@ -19,32 +19,90 @@
  */
 
 
-    import { get_cfg, update_cfg, is_darkmode, cfgset_init, is_mobile } from "../sim_core/sim_cfg.js";
-    import { wsweb_change_workspace_simulator, wsweb_change_show_processor, wsweb_set_details, wsweb_set_cpucu_size, wsweb_set_c1c2_size, wsweb_select_main } from "./wepsim_web_api.js";
-    import { show_cpuview_view, cpucu_show_graph, cpucu_show_table } from "./wepsim_uipacker_cpu_cu.js";
-    import { wepsim_config_button_pretoggle_val2, wepsim_config_select_toggle } from "./wepsim_web_ui_config.js";
-    import { wepsim_svg_refresh, is_dark_mode, wepsim_svg_update_draw, wepsim_svg_update_bus_visibility } from "./wepsim_uielto_cpusvg.js";
-    import { sim_cfg_editor_theme, sim_cm_get_firmcfg, sim_init_editor, sim_cm_get_asmcfg } from "./wepsim_web_editor.js";
-    import { simhw_hwset_load, simhw_internalState, simhw_setActive, simhw_active, simhw_hwset_init } from "../sim_hw/sim_hw_index.js";
-    import { wepsim_init_states, wepsim_init_rf, wepsim_show_rf_names } from "./wepsim_uielto_registers.js";
-    import { show_rf_names, show_control_memory, update_draw, update_bus_visibility, show_main_memory, show_asmdbg_pc, show_cache_memory, show_dbg_mpc, show_dbg_ir, get_screen_content, set_screen_content, get_sound_content, set_sound_content, get_keyboard_content, set_keyboard_content } from "../sim_core/sim_core_ui.js";
-    import { wepsim_show_main_memory } from "./wepsim_uielto_mem.js";
-    import { wepsim_show_asmdbg_pc, wepsim_show_dbg_ir, asmdbg_update_assembly, showhideAsmElements } from "./wepsim_uielto_dbg_asm.js";
-    import { wepsim_show_control_memory, wepsim_show_dbg_mpc } from "./wepsim_uielto_dbg_mc.js";
-    import { wepsim_show_cache_memory } from "./wepsim_uielto_cache.js";
-    import { wepsim_set_screen_content, wepsim_get_screen_content, wepsim_get_keyboard_content, wepsim_set_keyboard_content } from "./wepsim_uielto_console.js";
-    import { wepsim_set_sound_content, wepsim_get_sound_content } from "./wepsim_uielto_sound.js";
-    import { simcore_init_ui, simcore_reset, simcore_init_hw } from "../sim_core/sim_api_core.js";
-    import { wepsim_notify_warning, wepsim_notify_success, wepsim_notify_close, wepsim_notify_do_notify, wepsim_notify_error } from "../wepsim_core/wepsim_notify.js";
-    import { get_simware } from "../sim_core/sim_adt_core.js";
-    import { update_memories } from "../sim_core/sim_core_ctrl.js";
+    import { get_cfg,
+             update_cfg,
+             is_darkmode,
+             cfgset_init,
+             is_mobile }                       from "../sim_core/sim_cfg.js";
+    import { show_rf_names,
+             show_control_memory,
+             update_draw,
+             update_bus_visibility,
+             show_main_memory,
+             show_asmdbg_pc,
+             show_cache_memory,
+             show_dbg_mpc,
+             show_dbg_ir,
+             get_screen_content,
+             set_screen_content,
+             get_sound_content,
+             set_sound_content,
+             get_keyboard_content,
+             set_keyboard_content }             from "../sim_core/sim_core_ui.js";
+    import { simcore_init_ui,
+             simcore_reset,
+             simcore_init_hw }                  from "../sim_core/sim_api_core.js";
+    import { simhw_hwset_load,
+             simhw_internalState,
+             simhw_setActive,
+             simhw_active,
+             simhw_hwset_init }                 from "../sim_hw/sim_hw_index.js";
+    import { simcore_record_init,
+             simcore_record_captureInit }       from "../sim_core/sim_core_record.js";
+
+    import { wepsim_notify_warning,
+             wepsim_notify_success,
+             wepsim_notify_close,
+             wepsim_notify_do_notify,
+             wepsim_notify_error }                 from "../wepsim_core/wepsim_notify.js";
     import { wepsim_checkpoint_addCurrentToCache } from "../wepsim_core/wepsim_checkpoint.js";
-    import { wepsim_popovers_init } from "./wepsim_web_ui_popover.js";
-    import { wepsim_quickcfg_init } from "./wepsim_web_ui_quickcfg.js";
-    import { wepsim_voice_init, wepsim_voice_stop } from "../wepsim_core/wepsim_voice.js";
-    import { wepsim_preload_fromHash, wepsim_preload_get2hash } from "../wepsim_core/wepsim_preload.js";
-    import { wepsim_example_loadSet } from "../wepsim_core/wepsim_example.js";
-    import { simcore_record_init, simcore_record_captureInit } from "../sim_core/sim_core_record.js";
+
+    import { wsweb_change_workspace_simulator,
+             wsweb_change_show_processor,
+             wsweb_set_details,
+             wsweb_set_cpucu_size,
+             wsweb_set_c1c2_size,
+             wsweb_select_main }                   from "./wepsim_web_api.js";
+    import { show_cpuview_view,
+             cpucu_show_graph,
+             cpucu_show_table }                    from "./wepsim_uipacker_cpu_cu.js";
+    import { wepsim_config_button_pretoggle_val2,
+             wepsim_config_select_toggle }         from "./wepsim_web_ui_config.js";
+    import { wepsim_svg_refresh,
+             is_dark_mode,
+             wepsim_svg_update_draw,
+             wepsim_svg_update_bus_visibility }    from "./wepsim_uielto_cpusvg.js";
+    import { sim_cfg_editor_theme,
+             sim_cm_get_firmcfg,
+             sim_init_editor,
+             sim_cm_get_asmcfg }                   from "./wepsim_web_editor.js";
+    import { wepsim_init_states,
+             wepsim_init_rf,
+             wepsim_show_rf_names }                from "./wepsim_uielto_registers.js";
+    import { wepsim_show_main_memory }             from "./wepsim_uielto_mem.js";
+    import { wepsim_show_asmdbg_pc,
+             wepsim_show_dbg_ir,
+             asmdbg_update_assembly,
+             showhideAsmElements }                 from "./wepsim_uielto_dbg_asm.js";
+    import { wepsim_show_control_memory,
+             wepsim_show_dbg_mpc }                 from "./wepsim_uielto_dbg_mc.js";
+    import { wepsim_show_cache_memory }            from "./wepsim_uielto_cache.js";
+    import { wepsim_set_screen_content,
+             wepsim_get_screen_content,
+             wepsim_get_keyboard_content,
+             wepsim_set_keyboard_content }         from "./wepsim_uielto_console.js";
+    import { wepsim_set_sound_content,
+             wepsim_get_sound_content }            from "./wepsim_uielto_sound.js";
+
+    import { get_simware }                         from "../sim_core/sim_adt_core.js";
+    import { update_memories }                     from "../sim_core/sim_core_ctrl.js";
+    import { wepsim_popovers_init }                from "./wepsim_web_ui_popover.js";
+    import { wepsim_quickcfg_init }                from "./wepsim_web_ui_quickcfg.js";
+    import { wepsim_voice_init,
+             wepsim_voice_stop }                   from "../wepsim_core/wepsim_voice.js";
+    import { wepsim_preload_fromHash,
+             wepsim_preload_get2hash }             from "../wepsim_core/wepsim_preload.js";
+    import { wepsim_example_loadSet }              from "../wepsim_core/wepsim_example.js";
 
 
     // workspaces
@@ -544,6 +602,7 @@
 	/* eslint-disable no-extend-native */
 	/* eslint-disable no-param-reassign */
 	/* eslint-disable no-bitwise */
+
 	if (!String.prototype.padStart)
         {
 	  String.prototype.padStart = function padStart(targetLength, padString) {
@@ -561,6 +620,12 @@
 	  };
 	}
     }
+
+
+    var inputfirm_cfg = null ;
+    var inputfirm     = null ;
+    var inputasm_cfg  = null ;
+    var inputasm      = null ;
 
     export function wepsim_init_ui ( )
     {

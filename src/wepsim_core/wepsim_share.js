@@ -19,15 +19,18 @@
  */
 
 
+     import { wsweb_dlg_alert } from "./wepsim_dialog.js";
+     import { get_cfg } from "../sim_core/sim_cfg.js";
+     import { simhw_internalState,
+              simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
+     import { cache_memory_init_cm } from "../sim_core/sim_adt_cachememory.js";
+     import { wepsim_show_cache_memory_config } from "../wepsim_web/wepsim_uielto_cache_config.js";
+     import { simcore_ga } from "../sim_core/sim_core_ga.js";
+
+
     /*
      * Share
      */
-import { wsweb_dlg_alert } from "./wepsim_dialog.js";
-import { get_cfg } from "../sim_core/sim_cfg.js";
-import { simhw_internalState, simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
-import { cache_memory_init_cm } from "../sim_core/sim_adt_cachememory.js";
-import { wepsim_show_cache_memory_config } from "../wepsim_web/wepsim_uielto_cache_config.js";
-import { simcore_ga } from "../sim_core/sim_core_ga.js";
 
     export function share_information ( info_shared, share_title, share_text, share_url )
     {

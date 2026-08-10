@@ -19,16 +19,24 @@
  */
 
 
+     import { ws_info } from "../sim_core/sim_adt_core.js";
+     import { simcore_voice_speak,
+              simcore_voice_stopSpeak } from "../sim_core/sim_core_voice.js";
+     import { wsweb_dialog_open,
+              wsweb_dialog_close } from "../wepsim_web/wepsim_web_api.js";
+     import { load_from_example_firmware } from "./wepsim_example.js";
+     import { wepsim_execute_reset,
+              wepsim_execute_instruction,
+              wepsim_execute_microinstruction,
+              wepsim_execute_play,
+              wepsim_execute_stop } from "./wepsim_execute.js";
+     import { get_verbal_from_current_mpc } from "../sim_core/sim_adt_ctrlmemory.js";
+     import { get_verbal_from_current_pc } from "../sim_core/sim_adt_mainmemory.js";
+
+
     /*
      * Voice control
      */
-import { ws_info } from "../sim_core/sim_adt_core.js";
-import { simcore_voice_speak, simcore_voice_stopSpeak } from "../sim_core/sim_core_voice.js";
-import { wsweb_dialog_open, wsweb_dialog_close } from "../wepsim_web/wepsim_web_api.js";
-import { load_from_example_firmware } from "./wepsim_example.js";
-import { wepsim_execute_reset, wepsim_execute_instruction, wepsim_execute_microinstruction, wepsim_execute_play, wepsim_execute_stop } from "./wepsim_execute.js";
-import { get_verbal_from_current_mpc } from "../sim_core/sim_adt_ctrlmemory.js";
-import { get_verbal_from_current_pc } from "../sim_core/sim_adt_mainmemory.js";
 
     ws_info.voice_commands = {} ;
     export var wepsim_voice_dialog = null ;

@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { simhw_active, simhw_internalState, simhw_internalState_set } from "../sim_hw/sim_hw_index.js";
         import { simcore_rest_add } from "../sim_core/sim_core_rest.js";
         import { vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
@@ -152,9 +153,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-ledm', ws_ledm) ;
-        }
+        register_uielto('ws-ledm', ws_ledm) ;
 
 
 	export function webui_ledm_set ( )

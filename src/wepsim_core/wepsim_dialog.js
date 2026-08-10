@@ -17,10 +17,13 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { get_cfg } from "../sim_core/sim_cfg.js";
-import { i18n_update_tags } from "../wepsim_i18n/i18n.js";
-import { wepsim_tooltips_closeAll } from "../wepsim_web/wepsim_web_ui_tooltip.js";
-import { wsweb_dialog_close } from "../wepsim_web/wepsim_web_api.js";
+
+
+     import { get_cfg }                  from "../sim_core/sim_cfg.js";
+     import { i18n_update_tags }         from "../wepsim_i18n/i18n.js";
+     import { wepsim_tooltips_closeAll } from "../wepsim_web/wepsim_web_ui_tooltip.js";
+     import { wsweb_dialog_close }       from "../wepsim_web/wepsim_web_api.js";
+
 
     //
     // dialogs

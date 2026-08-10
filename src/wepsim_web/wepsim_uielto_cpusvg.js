@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }             from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }             from "./wepsim_uielto.js";
         import { get_cfg, is_darkmode }  from "../sim_core/sim_cfg.js";
         import { simhw_sim_state }       from "../sim_hw/sim_hw_index.js";
         import { wait_if_uievents }      from "../sim_core/sim_core_ctrl.js";
@@ -71,9 +72,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-cpusvg', ws_cpusvg) ;
-        }
+        register_uielto('ws-cpusvg', ws_cpusvg) ;
 
 
         /*

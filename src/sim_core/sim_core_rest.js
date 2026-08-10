@@ -19,7 +19,6 @@
  */
 
 
-     import { Vuex }    from "../wepsim_nodejs/wepsim_node_adapt.js";
      import { get_var } from "./sim_core_values.js";
 
 
@@ -70,8 +69,11 @@
 
 	    // check endpoint
 	    var api_endpoint = rest_info.endpoint ;
-            if (api_endpoint instanceof Vuex.Store) {
-	        api_endpoint = get_var(api_endpoint) ;
+            if (typeof Vuex != "undefined")
+            {
+                if (api_endpoint instanceof Vuex.Store) {
+	            api_endpoint = get_var(api_endpoint) ;
+                }
             }
 
 	    if (api_endpoint.trim() === "") {

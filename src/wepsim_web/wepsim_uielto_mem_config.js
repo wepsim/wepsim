@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { simhw_active, simhw_internalState_get, simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
         import { get_value, vue_observable, vue_appyBinding } from "../sim_core/sim_core_values.js";
 
@@ -147,7 +148,5 @@
               }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-mem-config', ws_mem_config) ;
-        }
+        register_uielto('ws-mem-config', ws_mem_config) ;
 

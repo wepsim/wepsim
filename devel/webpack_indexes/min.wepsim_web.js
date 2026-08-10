@@ -1,15 +1,18 @@
 
-import '../../src/sim_core/sim_cfg.js';
+       import '../../src/sim_core/sim_cfg.js';
+export * from '../../src/sim_core/sim_cfg.js';
+       import '../../src/sim_core/sim_core_sound.js';
+export * from '../../src/sim_core/sim_core_sound.js';
 import '../../src/sim_core/sim_core_ga.js';
 import '../../src/sim_core/sim_adt_core.js';
 import '../../src/sim_core/sim_core_record.js';
 import '../../src/sim_core/sim_core_ctrl.js';
 import '../../src/sim_core/sim_core_ui.js';
-import '../../src/sim_core/sim_api_core.js';
+       import '../../src/sim_core/sim_api_core.js';
+export * from '../../src/sim_core/sim_api_core.js';
 import '../../src/sim_core/sim_api_native.js';
 import '../../src/sim_core/sim_api_stateshots.js';
 import '../../src/sim_core/sim_core_voice.js';
-import '../../src/sim_core/sim_core_sound.js';
 import '../../src/sim_core/sim_core_rest.js';
 import '../../src/sim_core/sim_core_notify.js';
 import '../../src/sim_core/sim_core_values.js';
@@ -64,6 +67,7 @@ import '../../src/sim_sw/assembly/compiler3_obj2mem_wepsim.js';
 import '../../src/sim_sw/assembly/compiler_options.js';
 import '../../src/sim_sw/assembly.js'
 import '../../src/wepsim_i18n/i18n.js';
+
 import '../../src/wepsim_i18n/es/gui.js';
 import '../../src/wepsim_i18n/es/tutorial-welcome.js';
 import '../../src/wepsim_i18n/es/tutorial-simpleusage.js';
@@ -294,4 +298,5 @@ import '../../src/wepsim_web/wepsim_uiscreen_compact.js';
 import '../../src/wepsim_web/wepsim_uiscreen_main.js';
  import '../../src/wepsim_web/wepsim_web_api.js';
 import '../../src/wepsim_web/wepsim_web_editor.js';
-import '../../src/wepsim_web/wepsim_web_simulator.js';
+       import '../../src/wepsim_web/wepsim_web_simulator.js';
+export * from '../../src/wepsim_web/wepsim_web_simulator.js';

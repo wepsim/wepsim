@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { wepsim_quickcfg_init, quickcfg_html_btn, quickcfg_html_btnreg, quickcfg_html_onoff, quickcfg_html_header, quickcfg_html_br, quickcfg_html_close } from "./wepsim_web_ui_quickcfg.js";
         import { simhw_sim_states, simhw_internalState } from "../sim_hw/sim_hw_index.js";
         import { set_value, update_value, get_value, vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
@@ -73,9 +74,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-registers', ws_registers) ;
-        }
+        register_uielto('ws-registers', ws_registers) ;
 
 
         /*

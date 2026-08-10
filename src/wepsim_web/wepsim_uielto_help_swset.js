@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }   from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }   from "./wepsim_uielto.js";
         import { get_simware } from "../sim_core/sim_adt_core.js";
 
 
@@ -148,7 +149,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-help-swset', ws_help_swset) ;
-        }
+        register_uielto('ws-help-swset', ws_help_swset) ;
 

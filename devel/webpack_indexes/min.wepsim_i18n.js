@@ -1,4 +1,5 @@
 import '../../src/wepsim_i18n/i18n.js';
+
 import '../../src/wepsim_i18n/es/gui.js';
 import '../../src/wepsim_i18n/es/tutorial-welcome.js';
 import '../../src/wepsim_i18n/es/tutorial-simpleusage.js';

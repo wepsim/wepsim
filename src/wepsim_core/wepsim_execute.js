@@ -19,23 +19,45 @@
  */
 
 
+     import { get_cfg }                           from "../sim_core/sim_cfg.js";
+     import { get_simware }                       from "../sim_core/sim_adt_core.js";
+     import { get_value }                         from "../sim_core/sim_core_values.js";
+     import { simcore_ga }                        from "../sim_core/sim_core_ga.js";
+     import { update_memories,
+              wait_uievents_and_settimeout }      from "../sim_core/sim_core_ctrl.js";
+     import { simcore_reset,
+              simcore_check_if_can_execute,
+              simcore_execute_microprogram,
+              simcore_execute_microinstruction,
+              simcore_check_if_can_continue,
+              simcore_execute_microinstruction2 } from "../sim_core/sim_api_core.js";
+     import { simcore_record_glowing }            from "../sim_core/sim_core_record.js";
+     import { simhw_internalState,
+              simhw_sim_state,
+              simhw_sim_ctrlStates_get,
+              simhw_internalState_get }           from "../sim_hw/sim_hw_index.js";
+
+     import { wepsim_state_history_reset,
+              wepsim_state_history_add }          from "./wepsim_state.js";
+     import { wsweb_dlg_alert,
+              wsweb_dlg_close,
+              wsweb_dlg_open }                    from "./wepsim_dialog.js";
+
+     import { webui_button_set_stop,
+              webui_button_set_start }            from "../wepsim_web/wepsim_uielto_executionbar.js";
+     import { wsweb_dialog_open,
+              wsweb_execution_run,
+              wsweb_change_show_asmdbg,
+              wsweb_change_show_processor,
+              wsweb_set_details }                 from "../wepsim_web/wepsim_web_api.js";
+     import { wepsim_offcanvas_set_content,
+              wepsim_offcanvas_show }             from "../wepsim_web/wepsim_uiscreen_classic.js";
+     import { wepsim_state_history_list }         from "../wepsim_web/wepsim_uielto_states.js";
+
+
     /*
      * Run/Stop
      */
-import { wepsim_state_history_reset, wepsim_state_history_add } from "./wepsim_state.js";
-import { get_simware } from "../sim_core/sim_adt_core.js";
-import { update_memories, wait_uievents_and_settimeout } from "../sim_core/sim_core_ctrl.js";
-import { simcore_reset, simcore_check_if_can_execute, simcore_execute_microprogram, simcore_execute_microinstruction, simcore_check_if_can_continue, simcore_execute_microinstruction2 } from "../sim_core/sim_api_core.js";
-import { wsweb_dlg_alert, wsweb_dlg_close, wsweb_dlg_open } from "./wepsim_dialog.js";
-import { get_cfg } from "../sim_core/sim_cfg.js";
-import { simhw_internalState, simhw_sim_state, simhw_sim_ctrlStates_get, simhw_internalState_get } from "../sim_hw/sim_hw_index.js";
-import { webui_button_set_stop, webui_button_set_start } from "../wepsim_web/wepsim_uielto_executionbar.js";
-import { get_value } from "../sim_core/sim_core_values.js";
-import { simcore_ga } from "../sim_core/sim_core_ga.js";
-import { wsweb_dialog_open, wsweb_execution_run, wsweb_change_show_asmdbg, wsweb_change_show_processor, wsweb_set_details } from "../wepsim_web/wepsim_web_api.js";
-import { wepsim_offcanvas_set_content, wepsim_offcanvas_show } from "../wepsim_web/wepsim_uiscreen_classic.js";
-import { simcore_record_glowing } from "../sim_core/sim_core_record.js";
-import { wepsim_state_history_list } from "../wepsim_web/wepsim_uielto_states.js";
 
     export function wepsim_execute_reset ( reset_cpu, reset_memory )
     {

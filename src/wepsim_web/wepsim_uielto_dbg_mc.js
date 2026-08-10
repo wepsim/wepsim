@@ -26,7 +26,8 @@
         /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_control_memory_delay }         from "../sim_core/sim_cfg.js";
-        import { ws_uielto }                             from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }                             from "./wepsim_uielto.js";
         import { wepsim_execute_toggle_microbreakpoint } from "../wepsim_core/wepsim_execute.js";
         import { wepsim_notify_do_notify }               from "../wepsim_core/wepsim_notify.js";
         import { simcore_record_append_new }             from "../sim_core/sim_core_record.js";
@@ -62,9 +63,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-dbg-mc', ws_dbg_mc) ;
-        }
+        register_uielto('ws-dbg-mc', ws_dbg_mc) ;
 
 
         //

@@ -19,11 +19,13 @@
  */
 
 
+     import { ws_info }             from "../sim_core/sim_adt_core.js";
+     import { wepsim_notify_error } from "./wepsim_notify.js";
+
+
     /*
      * Voice control
      */
-import { ws_info } from "../sim_core/sim_adt_core.js";
-import { wepsim_notify_error } from "./wepsim_notify.js";
 
     export function wepsim_voice_init ( )
     {

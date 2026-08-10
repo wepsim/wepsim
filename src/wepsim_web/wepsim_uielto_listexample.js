@@ -26,7 +26,6 @@
         /* jshint esversion: 6 */
         import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
         import { wepsim_example_getSet } from "../wepsim_core/wepsim_example.js";
-        import { Vue } from "../wepsim_nodejs/wepsim_node_adapt.js";
 
 
         export class ws_list_example extends ws_uielto

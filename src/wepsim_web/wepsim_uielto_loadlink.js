@@ -19,15 +19,17 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { wsHTMLElement }   from "../wepsim_nodejs/wepsim_node_adapt.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
+
+
         /*
          *  Load link
          */
 
-        /* jshint esversion: 6 */
-        import { HTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
-
-
-        export class ws_load_link extends HTMLElement
+        export class ws_load_link extends wsHTMLElement
         {
               static get observedAttributes()
 	      {
@@ -111,7 +113,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-load-link', ws_load_link) ;
-        }
+        register_uielto('ws-load-link', ws_load_link) ;
 

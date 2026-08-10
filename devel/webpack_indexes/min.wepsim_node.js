@@ -1,17 +1,21 @@
 
+
 import '../../src/wepsim_nodejs/wepsim_node_adapt.js';
 
-import '../../src/sim_core/sim_cfg.js';
+       import '../../src/sim_core/sim_cfg.js';
+export * from '../../src/sim_core/sim_cfg.js';
+       import '../../src/sim_core/sim_core_sound.js';
+export * from '../../src/sim_core/sim_core_sound.js';
 import '../../src/sim_core/sim_core_ga.js';
 import '../../src/sim_core/sim_adt_core.js';
 import '../../src/sim_core/sim_core_record.js';
 import '../../src/sim_core/sim_core_ctrl.js';
 import '../../src/sim_core/sim_core_ui.js';
-import '../../src/sim_core/sim_api_core.js';
+       import '../../src/sim_core/sim_api_core.js';
+export * from '../../src/sim_core/sim_api_core.js';
 import '../../src/sim_core/sim_api_native.js';
 import '../../src/sim_core/sim_api_stateshots.js';
 import '../../src/sim_core/sim_core_voice.js';
-import '../../src/sim_core/sim_core_sound.js';
 import '../../src/sim_core/sim_core_rest.js';
 import '../../src/sim_core/sim_core_notify.js';
 import '../../src/sim_core/sim_core_values.js';
@@ -66,6 +70,7 @@ import '../../src/sim_sw/assembly/compiler3_obj2mem_wepsim.js';
 import '../../src/sim_sw/assembly/compiler_options.js';
 import '../../src/sim_sw/assembly.js'
 import '../../src/wepsim_i18n/i18n.js';
+
 import '../../src/wepsim_i18n/es/gui.js';
 import '../../src/wepsim_i18n/es/tutorial-welcome.js';
 import '../../src/wepsim_i18n/es/tutorial-simpleusage.js';
@@ -234,12 +239,14 @@ import '../../src/wepsim_core/wepsim_voice.js';
 import '../../src/wepsim_core/wepsim_voice_commands.js';
 import '../../src/wepsim_core/wepsim_dbg_breakpointicons.js';
 
-import '../../src/wepsim_nodejs/wepsim_node_core.js';
+       import '../../src/wepsim_nodejs/wepsim_node_core.js';
+export * from '../../src/wepsim_nodejs/wepsim_node_core.js';
 
 import { wepsim_nodejs_doActionError,
          wepsim_nodejs_doAction,
          wepsim_nodejs_loadCheckpoint
 } from '../../src/wepsim_nodejs/wepsim_node_action.js';
+
 export {
     wepsim_nodejs_doActionError,
     wepsim_nodejs_doAction,

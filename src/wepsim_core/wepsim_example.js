@@ -19,22 +19,34 @@
  */
 
 
+     import { ws_info,
+              get_simware }                      from "../sim_core/sim_adt_core.js";
+     import { set_cfg }                          from "../sim_core/sim_cfg.js";
+     import { ws_alert,
+              refresh,
+              show_memories_values }             from "../sim_core/sim_core_ui.js";
+     import { simcore_record_append_new }        from "../sim_core/sim_core_record.js";
+     import { simcore_ga }                       from "../sim_core/sim_core_ga.js";
+
+     import { wepsim_url_getJSON,
+              wepsim_load_from_url }             from "./wepsim_url.js";
+     import { wepsim_notify_success }            from "./wepsim_notify.js";
+     import { share_information }                from "./wepsim_share.js";
+
+     import { webui_toolbar_updateExampleSet }   from "../wepsim_web/wepsim_uielto_toolbar.js";
+     import { wepsim_compile_assembly,
+              wepsim_compile_firmware }          from "../wepsim_web/wepsim_web_editor.js";
+     import { wsweb_change_workspace_assembly,
+              wsweb_change_workspace_simulator,
+              wsweb_change_workspace_microcode } from "../wepsim_web/wepsim_web_api.js";
+
+     import { wepsim_show_rf_names }             from "../wepsim_web/wepsim_uielto_registers.js";
+     import { asmdbg_update_assembly }           from "../wepsim_web/wepsim_uielto_dbg_asm.js";
+
+
     /*
      * Example set management
      */
-import { ws_info, get_simware } from "../sim_core/sim_adt_core.js";
-import { webui_toolbar_updateExampleSet } from "../wepsim_web/wepsim_uielto_toolbar.js";
-import { wepsim_url_getJSON, wepsim_load_from_url } from "./wepsim_url.js";
-import { set_cfg } from "../sim_core/sim_cfg.js";
-import { ws_alert, refresh, show_memories_values } from "../sim_core/sim_core_ui.js";
-import { wepsim_compile_assembly, wepsim_compile_firmware } from "../wepsim_web/wepsim_web_editor.js";
-import { wsweb_change_workspace_assembly, wsweb_change_workspace_simulator, wsweb_change_workspace_microcode } from "../wepsim_web/wepsim_web_api.js";
-import { wepsim_notify_success } from "./wepsim_notify.js";
-import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
-import { simcore_ga } from "../sim_core/sim_core_ga.js";
-import { wepsim_show_rf_names } from "../wepsim_web/wepsim_uielto_registers.js";
-import { asmdbg_update_assembly } from "../wepsim_web/wepsim_uielto_dbg_asm.js";
-import { share_information } from "./wepsim_share.js";
 
     ws_info.examples = [] ;
     ws_info.example_set    = [{ "name": "Empty", "url": "", "url_base_asm": "", "url_base_mc": "" }] ;

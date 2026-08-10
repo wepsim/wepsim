@@ -19,13 +19,15 @@
  */
 
 
+     import { simcore_voice_speak } from "../sim_core/sim_core_voice.js";
+     import { simcore_notifications_add } from "../sim_core/sim_core_notify.js";
+     import { get_cfg } from "../sim_core/sim_cfg.js";
+     import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
+
+
     /*
      * API - one notification
      */
-import { simcore_voice_speak } from "../sim_core/sim_core_voice.js";
-import { simcore_notifications_add } from "../sim_core/sim_core_notify.js";
-import { get_cfg } from "../sim_core/sim_cfg.js";
-import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
 
     export function wepsim_notify_show_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
     {

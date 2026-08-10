@@ -22,16 +22,8 @@
     /* jshint esversion: 8 */
 
     // Web Components
-    export class HTMLElement {
-    }
+    const HTMLElementBase = (typeof window !== "undefined") ? HTMLElement : class {};
 
-    // Vue + Vuex
-    export class Vue {
+    export class wsHTMLElement extends HTMLElementBase {
     }
-
-    export class Vuex {
-    }
-
-    Vuex.Store = class {
-    } ;
 

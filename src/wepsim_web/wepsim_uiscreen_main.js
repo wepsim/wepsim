@@ -19,17 +19,21 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }                  from "./wepsim_uielto.js";
+        import { upgrade_cfg }                      from "../sim_core/sim_cfg.js";
+        import { simcore_init,
+                 simcore_welcome }                  from "../sim_core/sim_api_core.js";
+        import { wepsim_init_ui,
+                 wepsim_init_default,
+                 wepsim_general_exception_handler } from "./wepsim_web_simulator.js";
+        import { wepsim_example_reset }             from "../wepsim_core/wepsim_example.js";
+
+
         /*
          *  Simulation main
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-        import { simcore_init, simcore_welcome } from "../sim_core/sim_api_core.js";
-        import { upgrade_cfg } from "../sim_core/sim_cfg.js";
-        import { wepsim_init_ui, wepsim_init_default, wepsim_general_exception_handler } from "./wepsim_web_simulator.js";
-        import { wepsim_example_reset } from "../wepsim_core/wepsim_example.js";
-
 
         export class ws_web_main extends ws_uielto
         {

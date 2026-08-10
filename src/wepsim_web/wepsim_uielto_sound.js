@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { simcore_native_set_value } from "../sim_core/sim_api_native.js";
 
 
@@ -53,9 +54,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-sound', ws_sound) ;
-        }
+        register_uielto('ws-sound', ws_sound) ;
 
 
         //

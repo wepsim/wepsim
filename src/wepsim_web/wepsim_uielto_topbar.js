@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { wepsim_popover_action } from "./wepsim_web_ui_popover.js";
         import { wepsim_uicfg_apply } from "./wepsim_web_simulator.js";
 
@@ -72,9 +73,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-topbar', ws_topbar) ;
-        }
+        register_uielto('ws-topbar', ws_topbar) ;
 
 
         // quick menu

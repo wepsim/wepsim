@@ -19,15 +19,17 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { wsHTMLElement }   from "../wepsim_nodejs/wepsim_node_adapt.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
+
+
         /*
          *  Save file
          */
 
-        /* jshint esversion: 6 */
-        import { HTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
-
-
-        export class ws_save_file extends HTMLElement
+        export class ws_save_file extends wsHTMLElement
         {
               static get observedAttributes()
 	      {
@@ -128,7 +130,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-save-file', ws_save_file) ;
-        }
+        register_uielto('ws-save-file', ws_save_file) ;
 

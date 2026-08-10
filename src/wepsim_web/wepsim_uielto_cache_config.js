@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }                        from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }                        from "./wepsim_uielto.js";
         import { simhw_active,
                  simhw_internalState,
                  simhw_internalState_reset }        from "../sim_hw/sim_hw_index.js";
@@ -88,9 +89,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-cache-config', ws_cache_config) ;
-        }
+        register_uielto('ws-cache-config', ws_cache_config) ;
 
 
         /*

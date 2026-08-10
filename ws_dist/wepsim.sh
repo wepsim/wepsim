@@ -16,7 +16,6 @@
 
    // wepsim
    var ws = require('./min.wepsim_node.js') ;
-   /// import ws from "./wepsim-wrapper.mjs" ;
 
    // yargs
    var yargs = require('yargs/yargs')(process.argv.slice(2));

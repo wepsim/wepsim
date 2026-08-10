@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { is_cfg_empty, get_cfg } from "../sim_core/sim_cfg.js";
         import { sim } from "../sim_hw/sim_hw_index.js";
         import { ws_info } from "../sim_core/sim_adt_core.js";
@@ -474,9 +475,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-toolbar', ws_toolbar) ;
-        }
+        register_uielto('ws-toolbar', ws_toolbar) ;
 
 
         export function webui_toolbar_updateMode ( opt )

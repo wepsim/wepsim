@@ -19,17 +19,19 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { wsHTMLElement }    from "../wepsim_nodejs/wepsim_node_adapt.js";
+        import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
+        import { share_as_uri }     from "../wepsim_core/wepsim_share.js";
+        import { ws_uielto,
+                 register_uielto }  from "./wepsim_uielto.js";
+
+
         /*
          *  Share link
          */
 
-        /* jshint esversion: 6 */
-        import { HTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
-        import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
-        import { share_as_uri } from "../wepsim_core/wepsim_share.js";
-
-
-        export class ws_share_link extends HTMLElement
+        export class ws_share_link extends wsHTMLElement
         {
               static get observedAttributes()
 	      {
@@ -142,7 +144,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-share-link', ws_share_link) ;
-        }
+        register_uielto('ws-share-link', ws_share_link) ;
 

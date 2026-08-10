@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
         import { wepsim_quickcfg_init } from "./wepsim_web_ui_quickcfg.js";
         import { get_cfg } from "../sim_core/sim_cfg.js";
         import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
@@ -102,9 +103,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-cpucu_got', ws_cpucu_got) ;
-        }
+        register_uielto('ws-cpucu_got', ws_cpucu_got) ;
 
 
         /*

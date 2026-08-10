@@ -19,12 +19,16 @@
  */
 
 
+     import { is_mobile,
+              get_cfg }    from "../sim_core/sim_cfg.js";
+     import { simcore_ga } from "../sim_core/sim_core_ga.js";
+
+     import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
+
+
     /*
      * Help
      */
-import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
-import { is_mobile, get_cfg } from "../sim_core/sim_cfg.js";
-import { simcore_ga } from "../sim_core/sim_core_ga.js";
 
     export function wepsim_help_set ( type, ref )
     {

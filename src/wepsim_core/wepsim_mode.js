@@ -19,17 +19,21 @@
  */
 
 
+     import { ws_info } from "../sim_core/sim_adt_core.js";
+     import { simhw_getIdByName } from "../sim_hw/sim_hw_index.js";
+     import { wepsim_activehw,
+              wepsim_activeview } from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_cfg } from "../sim_core/sim_cfg.js";
+     import { wepsim_example_load,
+              load_from_example_firmware } from "./wepsim_example.js";
+     import { wsweb_recordbar_show } from "../wepsim_web/wepsim_web_api.js";
+     import { wepsim_checkpoint_loadExample } from "./wepsim_checkpoint.js";
+     import { wepsim_newbie_tour } from "./wepsim_tour.js";
+
+
     /*
      * Execution Modes
      */
-import { ws_info } from "../sim_core/sim_adt_core.js";
-import { simhw_getIdByName } from "../sim_hw/sim_hw_index.js";
-import { wepsim_activehw, wepsim_activeview } from "../wepsim_web/wepsim_web_simulator.js";
-import { get_cfg } from "../sim_core/sim_cfg.js";
-import { wepsim_example_load, load_from_example_firmware } from "./wepsim_example.js";
-import { wsweb_recordbar_show } from "../wepsim_web/wepsim_web_api.js";
-import { wepsim_checkpoint_loadExample } from "./wepsim_checkpoint.js";
-import { wepsim_newbie_tour } from "./wepsim_tour.js";
 
     ws_info.modes = [ 'ep', 'ep2', 'rv', 'poc',
 	              'newbie', 'intro',

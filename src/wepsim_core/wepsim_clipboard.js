@@ -19,11 +19,13 @@
  */
 
 
+     import { ws_info }               from "../sim_core/sim_adt_core.js";
+     import { wepsim_notify_success } from "./wepsim_notify.js";
+
+
     /*
      * Copy to clipboard
      */
-import { ws_info } from "../sim_core/sim_adt_core.js";
-import { wepsim_notify_success } from "./wepsim_notify.js";
 
     ws_info.clipboard_copy = '' ;
 

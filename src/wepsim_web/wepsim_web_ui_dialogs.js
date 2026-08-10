@@ -19,26 +19,33 @@
  */
 
 
-    import { wepsim_config_dialog_title } from "./wepsim_web_ui_config.js";
-    import { wsweb_dialog_close, wsweb_scroll_record, wsweb_dialog_open, wsweb_record_reset } from "./wepsim_web_api.js";
-    import { wepsim_tooltips_hide } from "./wepsim_web_ui_tooltip.js";
-    import { wepsim_uicfg_apply } from "./wepsim_web_simulator.js";
-    import { simcore_record_captureInit, simcore_record_append_pending } from "../sim_core/sim_core_record.js";
-    import { wepsim_get_binary_code, wepsim_get_binary_microcode } from "./wepsim_web_editor.js";
-    import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
-    import { get_cfg, cfgset_getSet } from "../sim_core/sim_cfg.js";
-    import { i18n_update_tags, i18n_get } from "../wepsim_i18n/i18n.js";
-    import { table_examplesets_html } from "./wepsim_uielto_index_examples.js";
-    import { ws_info } from "../sim_core/sim_adt_core.js";
-    import { wepsim_help_set } from "../wepsim_core/wepsim_help.js";
-    import { wepsim_checkpoint_listCache } from "../wepsim_core/wepsim_checkpoint.js";
+    import { i18n_update_tags,
+             i18n_get }                      from "../wepsim_i18n/i18n.js";
+    import { get_cfg,
+             cfgset_getSet }                 from "../sim_core/sim_cfg.js";
+    import { ws_info }                       from "../sim_core/sim_adt_core.js";
+    import { wepsim_config_dialog_title }    from "./wepsim_web_ui_config.js";
+    import { wsweb_dialog_close,
+             wsweb_scroll_record,
+             wsweb_dialog_open,
+             wsweb_record_reset }            from "./wepsim_web_api.js";
+    import { wepsim_tooltips_hide }          from "./wepsim_web_ui_tooltip.js";
+    import { wepsim_uicfg_apply }            from "./wepsim_web_simulator.js";
+    import { simcore_record_captureInit,
+             simcore_record_append_pending } from "../sim_core/sim_core_record.js";
+    import { wepsim_get_binary_code,
+             wepsim_get_binary_microcode }   from "./wepsim_web_editor.js";
+    import { wait_if_uievents }              from "../sim_core/sim_core_ctrl.js";
+    import { table_examplesets_html }        from "./wepsim_uielto_index_examples.js";
+    import { wepsim_help_set }               from "../wepsim_core/wepsim_help.js";
+    import { wepsim_checkpoint_listCache }   from "../wepsim_core/wepsim_checkpoint.js";
 
 
     //
     // WepSIM Dialog
     //
 
-    wsweb_dialogs = {
+    export var wsweb_dialogs = {
 
          load_save_assembly: {
             id:        "lssvasm",

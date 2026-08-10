@@ -26,7 +26,6 @@
         /* jshint esversion: 6 */
         import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
         import { ws_info }                    from "../sim_core/sim_adt_core.js";
-        import { Vue }                        from "../wepsim_nodejs/wepsim_node_adapt.js";
 
 
         export class ws_about extends ws_uielto

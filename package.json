@@ -2,7 +2,7 @@
   "name": "wepsim-travisci",
   "description": "Check WepSIM",
   "author": "acaldero@inf.uc3m.es",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/wepsim/wepsim.git"
@@ -35,8 +35,10 @@
   },
   "scripts": {
     "build": "./devel/mk_dist.sh",
-    "webpack": "npx webpack",
-    "test-source1": "./devel/test_eslint.sh",
+    "pack":   "webpack",
+    "dev":    "npx webpack --watch",
+    "server": "npx webpack serve",
+    "test-source1":      "./devel/test_eslint.sh",
     "test-wepsim-node1": "./devel/test_wepsim.sh co",
     "test-wepsim-node2": "./devel/test_wepsim.sh rs"
   },

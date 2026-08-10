@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
 
 
         export class ws_slider_details extends ws_uielto
@@ -60,7 +61,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-slider-details', ws_slider_details) ;
-        }
+        register_uielto('ws-slider-details', ws_slider_details) ;
 

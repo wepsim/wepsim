@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }              from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }              from "./wepsim_uielto.js";
         import { simhwelto_describe_component_enum_aux,
                  simhwelto_prepare_hash } from "../sim_hw/sim_hw_eltos.js";
         import { simhw_active }           from "../sim_hw/sim_hw_index.js";
@@ -154,7 +155,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-help-hweltos', ws_help_hweltos) ;
-        }
+        register_uielto('ws-help-hweltos', ws_help_hweltos) ;
 

@@ -19,17 +19,27 @@
  */
 
 
-     import { Vuex, Vue } from "../wepsim_nodejs/wepsim_node_adapt.js";
-
-
         /*
          *  Get/Set value
          */
 
+        export function is_instanceof_vuex_store ( obj_val )
+        {
+           if (typeof Vuex != "undefined")
+           {
+               if (obj_val instanceof Vuex.Store)
+               {
+	           return true ;
+               }
+           }
+
+           return false ;
+        }
+
         export function get_value ( sim_obj )
         {
            // get value with vue
-           if (sim_obj.value instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_obj.value))
            {
 	       return sim_obj.value.state.value ;
            }
@@ -41,7 +51,7 @@
         export function set_value ( sim_obj, value )
         {
            // set value with vue
-           if (sim_obj.value instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_obj.value))
            {
 	       sim_obj.value.commit('set_value', value) ;
                return ;
@@ -58,7 +68,7 @@
         export function reset_value ( sim_obj )
         {
            // reset value with vue
-           if (sim_obj.value instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_obj.value))
            {
 	        set_value(sim_obj, sim_obj.default_value) ;
                 return ;
@@ -93,7 +103,7 @@
         export function update_value ( sim_obj )
         {
            // forceUpdate value with vue
-           if (sim_obj.value instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_obj.value))
            {
 	       sim_obj.value.commit('inc_updates') ;
                return ;
@@ -111,7 +121,7 @@
         export function get_var ( sim_var )
         {
            // get value with vue
-           if (sim_var instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_var))
 	   {
 	       return sim_var.state.value ;
 	   }
@@ -123,7 +133,7 @@
         export function set_var ( sim_var, value )
         {
            // set value with vue
-           if (sim_var instanceof Vuex.Store)
+           if (is_instanceof_vuex_store(sim_var))
 	   {
 	       sim_var.commit('set_value', value) ;
                return ;
@@ -144,7 +154,7 @@
                   return '-' ;
               }
 
-              if (elto_v instanceof Vuex.Store) {
+              if (is_instanceof_vuex_store(elto_v)) {
                   elto_v = elto_v.state.value ;
               }
 
@@ -196,7 +206,7 @@
 	    }
 
             // vue_observable if not done before
-            if (false == (element instanceof Vuex.Store)) {
+            if (is_instanceof_vuex_store(element) == false) {
                 element = vue_observable(element.value) ;
             }
 
@@ -253,7 +263,7 @@
             }
 
 	    // with Vue
-	    if (false == (ref_obj.value instanceof Vuex.Store)) {
+            if (is_instanceof_vuex_store(ref_obj.value) == false) {
 		ref_obj.value = vue_observable(ref_obj.value) ;
 	    }
 

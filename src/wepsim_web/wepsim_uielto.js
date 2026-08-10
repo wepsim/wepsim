@@ -24,10 +24,10 @@
          */
 
         /* jshint esversion: 6 */
-        import { HTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
+        import { wsHTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
 
 
-        export class ws_uielto extends HTMLElement
+        export class ws_uielto extends wsHTMLElement
         {
               // constructor
 	      constructor ()
@@ -134,8 +134,18 @@
 
         export function register_uielto ( tag_name, obj_ref )
         {
-              if (typeof window !== "undefined") {
-                  window.customElements.define(tag_name, obj_ref) ;
+              // if not in a web browser (e.g.: nodejs) -> return
+              if ( (typeof window                === "undefined") ||
+                   (typeof window.customElements === "undefined") )
+              {
+                    return ;
               }
+
+              // if already registered -> return
+              if (window.customElements.get(tag_name)) {
+                  return;
+              }
+
+              window.customElements.define(tag_name, obj_ref);
         }
 

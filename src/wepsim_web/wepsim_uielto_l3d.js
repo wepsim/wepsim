@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto }               from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }               from "./wepsim_uielto.js";
         import { simhw_active,
                  simhw_internalState }     from "../sim_hw/sim_hw_index.js";
         import { simcore_rest_add }        from "../sim_core/sim_core_rest.js";
@@ -156,9 +157,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-l3d', ws_l3d) ;
-        }
+        register_uielto('ws-l3d', ws_l3d) ;
 
 
 	export function webui_l3d_set ( )

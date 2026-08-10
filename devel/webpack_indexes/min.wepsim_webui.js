@@ -61,4 +61,5 @@ import '../../src/wepsim_web/wepsim_uiscreen_compact.js';
 import '../../src/wepsim_web/wepsim_uiscreen_main.js';
  import '../../src/wepsim_web/wepsim_web_api.js';
 import '../../src/wepsim_web/wepsim_web_editor.js';
-import '../../src/wepsim_web/wepsim_web_simulator.js';
+       import '../../src/wepsim_web/wepsim_web_simulator.js';
+export * from '../../src/wepsim_web/wepsim_web_simulator.js';

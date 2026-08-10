@@ -119,6 +119,7 @@ BASE_DIR=$(dirname $0)/webpack_indexes/
 
 # building cat_indexes/min.wepsim_i18n.js
     echo "import '../../src/wepsim_i18n/i18n.js';"                         > ${BASE_DIR}/min.wepsim_i18n.js
+    echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
     echo "import '../../src/wepsim_i18n/$LANG/gui.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
     echo "import '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> ${BASE_DIR}/min.wepsim_i18n.js
@@ -135,34 +136,66 @@ for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
 done
 
 # building cat_indexes/min.wepsim_web.js
-echo ""                                                            > ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.sim_all.js                                    >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_i18n.js                                >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_core.js                                >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_webui.js                               >> ${BASE_DIR}/min.wepsim_web.js
+echo ""                                        > ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.sim_all.js                >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_i18n.js            >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_core.js            >> ${BASE_DIR}/min.wepsim_web.js
+cat ${BASE_DIR}/min.wepsim_webui.js           >> ${BASE_DIR}/min.wepsim_web.js
 
 # building cat_indexes/min.wepsim_node.js
-echo ""                                                            > ${BASE_DIR}/min.wepsim_node.js
-echo "import '../../src/wepsim_nodejs/wepsim_node_adapt.js';"     >> ${BASE_DIR}/min.wepsim_node.js
-echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.sim_all.js                                    >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_i18n.js                                >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_core.js                                >> ${BASE_DIR}/min.wepsim_node.js
-echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
-echo "import '../../src/wepsim_nodejs/wepsim_node_core.js';"      >> ${BASE_DIR}/min.wepsim_node.js
-echo ""                                                           >> ${BASE_DIR}/min.wepsim_node.js
-echo "import { wepsim_nodejs_doActionError,"                      >> ${BASE_DIR}/min.wepsim_node.js
-echo "         wepsim_nodejs_doAction,"                           >> ${BASE_DIR}/min.wepsim_node.js
-echo "         wepsim_nodejs_loadCheckpoint"                      >> ${BASE_DIR}/min.wepsim_node.js
-echo "} from '../../src/wepsim_nodejs/wepsim_node_action.js';"    >> ${BASE_DIR}/min.wepsim_node.js
-echo "export {"                                                   >> ${BASE_DIR}/min.wepsim_node.js
-echo "    wepsim_nodejs_doActionError,"                           >> ${BASE_DIR}/min.wepsim_node.js
-echo "    wepsim_nodejs_doAction,"                                >> ${BASE_DIR}/min.wepsim_node.js
-echo "    wepsim_nodejs_loadCheckpoint"                           >> ${BASE_DIR}/min.wepsim_node.js
-echo "};"                                                         >> ${BASE_DIR}/min.wepsim_node.js
+echo ""                                        > ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_node-begin.js      >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.sim_all.js                >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_i18n.js            >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_core.js            >> ${BASE_DIR}/min.wepsim_node.js
+cat ${BASE_DIR}/min.wepsim_node-end.js        >> ${BASE_DIR}/min.wepsim_node.js
 
 # building ws_dist/min.*.js
-npx webpack
+npm run pack
+
+#  external
+echo "  * ws_dist/min.external.js"
+cat external/vue/vue.min.js \
+    external/vue/vuex.min.js \
+    external/popper.min.js \
+    external/bootstrap/bootstrap.min.js \
+    external/bootbox/bootbox.all.min.js \
+    external/tone.min.js \
+    external/codemirror/codemirror.js \
+    external/codemirror/mode/javascript/javascript.js \
+    external/codemirror/mode/gas/gas.js \
+    external/codemirror/keymap/sublime.js \
+    external/codemirror/keymap/emacs.js \
+    external/codemirror/keymap/vim.js \
+    external/codemirror/addon/edit/matchbrackets.js \
+    external/codemirror/addon/fold/foldcode.js \
+    external/codemirror/addon/fold/foldgutter.js \
+    external/codemirror/addon/fold/brace-fold.js \
+    external/codemirror/addon/fold/xml-fold.js \
+    external/codemirror/addon/fold/comment-fold.js \
+    external/codemirror/addon/fold/indent-fold.js \
+    external/codemirror/addon/fold/markdown-fold.js \
+    external/codemirror/addon/hint/show-hint.js \
+    external/codemirror/addon/runmode/colorize.js \
+    external/codemirror/addon/comment/comment.js \
+    external/codemirror/addon/comment/continuecomment.js \
+    external/codemirror/addon/search/jump-to-line.js \
+    external/codemirror/addon/search/searchcursor.js \
+    external/codemirror/addon/search/search.js \
+    external/codemirror/addon/dialog/dialog.js \
+    external/jquery.knob.min.js \
+    external/vis/vis-network.min.js \
+    external/async.min.js \
+    external/compress/lz-string.min.js \
+    external/qrcode/qrcode.min.js \
+    external/bootstrap-tokenfield.js \
+    external/introjs/introjs.min.js \
+    external/speech-input.js \
+    external/annyang.min.js \
+    external/speechkitt/speechkitt.min.js \
+    external/dropify/dropify.min.js | grep -v sourceMappingURL > ws_dist/external.js
+terser --comments -o ws_dist/min.external.js ws_dist/external.js
+rm -fr ws_dist/external.js
 
 # building ws_dist/min.external.css
 echo "  * ws_dist/min.external.css"

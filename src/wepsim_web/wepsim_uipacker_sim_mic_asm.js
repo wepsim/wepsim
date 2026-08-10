@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
 
 
         export class ws_simmicasm extends ws_uielto
@@ -99,7 +100,5 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-simmicasm', ws_simmicasm) ;
-        }
+        register_uielto('ws-simmicasm', ws_simmicasm) ;
 

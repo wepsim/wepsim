@@ -17,9 +17,12 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { ws_info } from "../sim_core/sim_adt_core.js";
-import { wepsim_url_json } from "./wepsim_url.js";
-import { ws_alert } from "../sim_core/sim_core_ui.js";
+
+
+     import { ws_info }         from "../sim_core/sim_adt_core.js";
+     import { ws_alert }        from "../sim_core/sim_core_ui.js";
+     import { wepsim_url_json } from "./wepsim_url.js";
+
 
     //
     // Preload work
@@ -59,7 +62,7 @@ import { ws_alert } from "../sim_core/sim_core_ui.js";
 
 	    // 2.- get parameters
             var parameters = new URL(window_location).searchParams ;
-            for (i=0; i<ws_info.preload_tasks.length; i++)
+            for (var i=0; i<ws_info.preload_tasks.length; i++)
             {
                  hash_field = ws_info.preload_tasks[i].name ;
                  hash[hash_field] = parameters.get(hash_field) ;

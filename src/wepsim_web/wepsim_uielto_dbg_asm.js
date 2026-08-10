@@ -26,7 +26,8 @@
         /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_dbg_ir_delay }  from "../sim_core/sim_cfg.js";
-        import { ws_uielto }              from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }              from "./wepsim_uielto.js";
         import { get_value }              from "../sim_core/sim_core_values.js";
         import { get_simware }            from "../sim_core/sim_adt_core.js";
         import { wepsim_quickcfg_init,
@@ -98,9 +99,7 @@
 	      }
         }
 
-        if (typeof window !== "undefined") {
-            window.customElements.define('ws-dbg-mp', ws_dbg_mp) ;
-        }
+        register_uielto('ws-dbg-mp', ws_dbg_mp) ;
 
 
         //

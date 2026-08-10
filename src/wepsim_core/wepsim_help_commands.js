@@ -17,7 +17,10 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { ws_info } from "../sim_core/sim_adt_core.js";
+
+
+    import { ws_info } from "../sim_core/sim_adt_core.js";
+
 
     ws_info.help = [
                        {

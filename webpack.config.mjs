@@ -15,7 +15,7 @@ const webConfig = {
     mode: 'development',
 
     // 2. Target Web
-    target: 'web',
+    target: ['web', 'es2022'],
 
     // 3. Bundles section
     entry: {
@@ -26,26 +26,50 @@ const webConfig = {
        filename: 'min.[name].js',
        path: path.resolve(__dirname, 'ws_dist'),
        clean: false,
-       library: { type: 'window' }
+
+       library: {
+          name: 'ws',
+          type: 'umd',
+          export: 'default'
+       },
+
+       globalObject: 'typeof self !== "undefined" ? self : this'
+    },
+
+    optimization: {
+       usedExports: false,
+       providedExports: true,
+       sideEffects: false
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/, 
+                parser: { javascript: { strictMode: false } }
+            }
+        ]
     },
 
     resolve: {
        extensions: ['.js', '.json'],
        fallback: {
-         "fs":     false, "path":   false, "os": false, "util": false,
-         "stream": false, "tty":    false, "child_process": false,
-         "assert": false, "crypto": false, "buffer": false
+         "fs":     false, "path":   false,
+         "os":     false, "util":   false,
+         "stream": false, "tty":    false,
+         "assert": false, "buffer": false,
+         "child_process": false,
+         "crypto": false
        }
-    },
-
-    optimization: { usedExports: false }
+    }
 };
 
 
 // 40. Configuration (2/2)
 const nodeConfig = {
     // 1. Compilation mode: development | production
-    mode: 'development',
+    mode: 'production',
 
     // 2. Target node
     target: 'node',
@@ -60,6 +84,7 @@ const nodeConfig = {
        path: path.resolve(__dirname, 'ws_dist'),
        clean: false,
        strictModuleExceptionHandling: true,
+
        library: {
           type: 'commonjs'
        }
