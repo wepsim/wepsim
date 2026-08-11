@@ -22,7 +22,7 @@ import { i18n } from "../i18n.js";
     i18n.eltos.tutorial_welcome.zh_cn = {
 
 		'title_0':		'欢迎来到WepSIM模拟器！',
-		'message_0':		'<center> <img alt =\'wepsim screenshot\'src =\'images/simulator/simulator012.jpg\'style =\'max-width：100％; max-height：40vh;\'> </center> <p> <h5>这个简短的教程将向您展示如何：<ol> <li> <a href =\'＃\'onclick =\'sim_tutorial_goframe（“welcome” ，0,1）;\'>加载示例。</a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,2);\'>执行示例。 </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,3);\'>配置模拟。</a> </li> <li> <a href =\'＃\'onclick =\'sim_tutorial_goframe（“welcome”，0,4）;\'>获取帮助。</a> </li> </ol> </h5>',
+		'message_0':		'<center> <img alt =\'wepsim screenshot\'src =\'images/simulator/simulator012.jpg\'style =\'max-width：100％; max-height：40vh;\'> </center> <p> <h5>这个简短的教程将向您展示如何：<ol> <li> <a href =\'＃\'onclick =\'ws.sim_tutorial_goframe（“welcome” ，0,1）;\'>加载示例。</a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("welcome",0,2);\'>执行示例。 </a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("welcome",0,3);\'>配置模拟。</a> </li> <li> <a href =\'＃\'onclick =\'ws.sim_tutorial_goframe（“welcome”，0,4）;\'>获取帮助。</a> </li> </ol> </h5>',
 		'title_1':		'如何加载一些例子。',
 		'message_1':		'<center> <img alt =\'wepsim screenshot\'src =\'images/welcome/example_usage.gif\'style =\'max-width：100％; max-height：60vh\'> </center> <p> <h5>单击“示例”按钮，然后单击示例“标题”名称。<br>然后加载微代码和汇编的示例并进行微编译编译。搜索结果</H5>',
 		'title_2':		'如何执行一个例子。',

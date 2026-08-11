@@ -19,23 +19,26 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { get_cfg }                    from "../sim_core/sim_cfg.js";
+        import { wait_if_uievents }           from "../sim_core/sim_core_ctrl.js";
+        import { simcore_init_eventlistener } from "../sim_core/sim_api_core.js";
+        import { refresh }                    from "../sim_core/sim_core_ui.js";
+        import { simhw_active }               from "../sim_hw/sim_hw_index.js";
+
+        import { i18n_update_tags }           from "../wepsim_i18n/i18n.js";
+
+        import { ws_uielto,
+                 register_uielto }            from "./wepsim_uielto.js";
+        import { wepsim_quickcfg_init }       from "./wepsim_web_ui_quickcfg.js";
+        import { hash_detail2action,
+                 hash_signal2action }         from "./wepsim_web_api.js";
+        import { wepsim_svg_reload }          from "./wepsim_uielto_cpusvg.js";
+
+
         /*
          *  Navbar: navtab circuits as graph/table
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { wepsim_quickcfg_init } from "./wepsim_web_ui_quickcfg.js";
-        import { get_cfg } from "../sim_core/sim_cfg.js";
-        import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
-        import { simcore_init_eventlistener } from "../sim_core/sim_api_core.js";
-        import { hash_detail2action, hash_signal2action } from "./wepsim_web_api.js";
-        import { refresh } from "../sim_core/sim_core_ui.js";
-        import { simhw_active } from "../sim_hw/sim_hw_index.js";
-        import { wepsim_svg_reload } from "./wepsim_uielto_cpusvg.js";
-        import { i18n_update_tags } from "../wepsim_i18n/i18n.js";
-
 
         export class ws_cpucu_got extends ws_uielto
         {

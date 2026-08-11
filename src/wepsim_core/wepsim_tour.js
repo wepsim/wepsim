@@ -72,12 +72,12 @@
 
 	     ws_tour.onexit(function () {
 			                $("#help1").modal('hide');
-				        wsweb_dialog_close('examples');
-				        wsweb_dialog_close('config');
+				        ws.wsweb_dialog_close('examples');
+				        ws.wsweb_dialog_close('config');
 
 					// ws_mode: intro, tutorial, ep, poc, ...
-					if (get_cfg('ws_mode') != 'ep') {
-					    wsweb_select_main('ep') ;
+					if (ws.get_cfg('ws_mode') != 'ep') {
+					    ws.wsweb_select_main('ep') ;
 					}
 
 			                return true ;

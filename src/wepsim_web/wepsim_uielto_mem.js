@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Main Memory
-         */
-
         /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_main_memory_delay }  from "../sim_core/sim_cfg.js";
@@ -47,6 +43,10 @@
                  main_memory_getword,
                  main_memory_getsrc }          from "../sim_core/sim_adt_mainmemory.js";
 
+
+        /*
+         *  Main Memory
+         */
 
         export class ws_mainmemory extends ws_uielto
         {
@@ -103,8 +103,9 @@
          *  Main Memory UI
          */
 
-        export var show_main_memory_deferred = null;
+	export var show_main_memory_updates  = false;
         export var show_main_memory_redraw   = false;
+        export var show_main_memory_deferred = null;
 
         export function wepsim_show_main_memory ( memory, index, redraw, updates )
         {
@@ -319,7 +320,7 @@
         export function main_memory_showseglst ( seg_id, seg_name )
         {
             return '<a class="list-group-item list-group-item-action py-0 border-secondary" ' +
-                   '   onclick="scroll_memory_to_segment(\'' + seg_id + '\');">' +
+                   '   onclick="ws.scroll_memory_to_segment(\'' + seg_id + '\');">' +
                    seg_name +
                    '</a>' ;
         }

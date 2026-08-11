@@ -19,9 +19,9 @@
  */
 
 
-     import { simcore_voice_speak } from "../sim_core/sim_core_voice.js";
+     import { simcore_voice_speak }       from "../sim_core/sim_core_voice.js";
      import { simcore_notifications_add } from "../sim_core/sim_core_notify.js";
-     import { get_cfg } from "../sim_core/sim_cfg.js";
+     import { get_cfg }                   from "../sim_core/sim_cfg.js";
      import { simcore_record_append_new } from "../sim_core/sim_core_record.js";
 
 
@@ -46,7 +46,7 @@
             var ale1_div_class   = "alert alert-" + ntf_type + " shadow border border-tertiary" ;
 
 	    // create the alert div
-            var btn1   = $('<button type="button" class="' + btn1_close_class + '" onclick="wepsim_notify_close(); return false;">') ;
+            var btn1   = $('<button type="button" class="' + btn1_close_class + '" onclick="ws.wepsim_notify_close(); return false;">') ;
 	    var alert1 = $('<div class="' + ale1_div_class + '">') ;
 	    ac.prepend(alert1.append(btn1.append("")).append(ntf_message)) ;
 

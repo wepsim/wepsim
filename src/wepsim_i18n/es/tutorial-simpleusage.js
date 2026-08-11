@@ -27,9 +27,9 @@ import { i18n } from "../i18n.js";
                                 "<h5>" +
                                 "Este breve tutorial le mostrar&aacute;:" +
                                 "<ol>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>La edici&oacute;n de microc&oacute;digo.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>La edici&oacute;n de c&oacute;digo ensamblador.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Ejecución del anterior ensamblador definido anteriormente.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,1);'>La edici&oacute;n de microc&oacute;digo.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,3);'>La edici&oacute;n de c&oacute;digo ensamblador.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,5);'>Ejecución del anterior ensamblador definido anteriormente.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
 

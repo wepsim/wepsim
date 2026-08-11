@@ -28,10 +28,10 @@
                           title:       "Execute example",
                           u_type:      "tutorial",
                           u_class:     "",
-                          reference:   "wsweb_dialog_close('help'); " +
-     				       "wsweb_recordbar_show(); " +
-     			               "wepsim_checkpoint_loadExample('tutorial_2.txt') ; " +
-     			               "setTimeout(wsweb_record_play, 1000);",
+                          reference:   "ws.wsweb_dialog_close('help'); " +
+     				       "ws.wsweb_recordbar_show(); " +
+     			               "ws.wepsim_checkpoint_loadExample('tutorial_2.txt') ; " +
+     			               "setTimeout(ws.wsweb_record_play, 1000);",
                           description: "<span data-langkey='help_01_03'>Play the execute example tutorial</span>.<br>"
                        },
                        {
@@ -39,8 +39,8 @@
                           title:       "Welcome tutorial",
                           u_type:      "tutorial",
                           u_class:     "",
-                          reference:   "wsweb_dialog_close('help'); " +
-                                       "sim_tutorial_showframe('welcome', 0);",
+                          reference:   "ws.wsweb_dialog_close('help'); " +
+                                       "ws.sim_tutorial_showframe('welcome', 0);",
                           description: "<span data-langkey='help_01_01'>Open the welcome tutorial</span>.<br>"
                        },
                        {
@@ -48,8 +48,8 @@
                           title:       "Simple usage tutorial",
                           u_type:      "tutorial",
                           u_class:     "",
-                          reference:   "wsweb_dialog_close('help'); " +
-                                       "sim_tutorial_showframe('simpleusage', 0);",
+                          reference:   "ws.wsweb_dialog_close('help'); " +
+                                       "ws.sim_tutorial_showframe('simpleusage', 0);",
                           description: "<span data-langkey='help_01_02'>Open the simple usage tutorial, for microprogramming and assembly programming</span>.<br>"
                        },
                        {
@@ -57,7 +57,7 @@
                           title:       "Simulator: firmware",
                           u_type:      "simulator",
                           u_class:     "wsx_microcode",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_firmware');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_simulator_firmware');",
                           description: "<span data-langkey='help_02_01'>How to work with the firmware to be loaded into the control memory</span>.<br>"
                        },
                        {
@@ -65,7 +65,7 @@
                           title:       "Microcode format",
                           u_type:      "simulator",
                           u_class:     "wsx_microcode",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_firmware_format');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_firmware_format');",
                           description: "<span data-langkey='help_02_02'>Syntax of the microcode used</span>.<br>"
                        },
                        {
@@ -73,7 +73,7 @@
                           title:       "Simulator: assembly",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_assembly');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_simulator_assembly');",
                           description: "<span data-langkey='help_02_03'>How to work with the assembly that use the aforementioned firmware</span>.<br>"
                        },
                        {
@@ -81,7 +81,7 @@
                           title:       "Assembly format",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_assembly_format');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_assembly_format');",
                           description: "<span data-langkey='help_02_04'>Syntax of the assembly elements</span>.<br>"
                        },
                        {
@@ -89,7 +89,7 @@
                           title:       "Simulator: execution",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_simulator_execution');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_simulator_execution');",
                           description: "<span data-langkey='help_02_05'>How the simulator can execute the assembly and firmware</span>.<br>"
                        },
                        {
@@ -97,7 +97,7 @@
                           title:       "Simulator: states",
                           u_type:      "simulator",
                           u_class:     "",
-                          reference:   "wepsim_help_set('relative', 'simulator#help_dumper');",
+                          reference:   "ws.wepsim_help_set('relative', 'simulator#help_dumper');",
                           description: "<span data-langkey='help_02_06'>How the simulator can show the current state, and the difference between two states</span>.<br>"
                        },
                        {
@@ -105,7 +105,7 @@
                           title:       "Simulated architecture",
                           u_type:      "simulated processor",
                           u_class:     "",
-                          reference:   "wepsim_help_set('absolute', 'hardware');",
+                          reference:   "ws.wepsim_help_set('absolute', 'hardware');",
                           description: "<span data-langkey='help_03_01'>Description of the simulated processor architecture</span>.<br>"
                        },
                        {
@@ -113,7 +113,7 @@
                           title:       "Simulated signals",
                           u_type:      "simulated processor",
                           u_class:     "wsx_microcode",
-                          reference:   "wepsim_help_set('absolute', 'signals');",
+                          reference:   "ws.wepsim_help_set('absolute', 'signals');",
                           description: "<span data-langkey='help_03_02'>Main signals summary of the simulated elemental processor</span>.<br>"
                        },
                        {
@@ -121,7 +121,7 @@
                           title:       "Hardware summary",
                           u_type:      "simulated processor",
                           u_class:     "wsx_microcode",
-                          reference:   "wepsim_help_set('code', 'hardware_summary');",
+                          reference:   "ws.wepsim_help_set('code', 'hardware_summary');",
                           description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                        },
                        {
@@ -129,7 +129,7 @@
                           title:       "Assembly summary",
                           u_type:      "simulated processor",
                           u_class:     "",
-                          reference:   "wepsim_help_set('code', 'assembly_summary');",
+                          reference:   "ws.wepsim_help_set('code', 'assembly_summary');",
                           description: "<span data-langkey='help_03_04'>Reference card for the simulated elemental processor instruction set</span>.<br>"
                        },
                        {
@@ -137,7 +137,7 @@
                           title:       "License, platforms, etc.",
                           u_type:      "info",
                           u_class:     "",
-                          reference:   "wepsim_help_set('relative', 'about#help_about');",
+                          reference:   "ws.wepsim_help_set('relative', 'about#help_about');",
                           description: "<span data-langkey='help_04_01'>WepSIM license, supported platforms, technologies used</span>.<br>"
                        },
                        {
@@ -145,8 +145,8 @@
                           title:       "WepSIM Team",
                           u_type:      "info",
                           u_class:     "",
-                          reference:   "wsweb_dialog_close('help'); " +
-     	                               "wsweb_dialog_open('about');",
+                          reference:   "ws.wsweb_dialog_close('help'); " +
+     	                               "ws.wsweb_dialog_open('about');",
                           description: "<span data-langkey='help_04_02'>WepSIM Team</span>.<br>"
                        }
                    ] ;

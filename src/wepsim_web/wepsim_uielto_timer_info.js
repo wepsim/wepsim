@@ -19,16 +19,18 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }     from "./wepsim_uielto.js";
+        import { simhw_active,
+                 simhw_internalState } from "../sim_hw/sim_hw_index.js";
+        import { vue_observable_ifnotjetdone,
+                 vue_applyBinding }    from "../sim_core/sim_core_values.js";
+
+
         /*
          *  I/O device (information)
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { simhw_active, simhw_internalState } from "../sim_hw/sim_hw_index.js";
-        import { vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
-
 
         export class ws_io_info extends ws_uielto
         {
@@ -119,12 +121,12 @@
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
 			 curr_iointfactory[i].accumulated = vue_observable_ifnotjetdone(curr_iointfactory[i].accumulated) ;
-                         vue_appyBinding(curr_iointfactory[i].accumulated,
+                         vue_applyBinding(curr_iointfactory[i].accumulated,
                                          '#int'+i+'_acc',
                                          function(value){ return value; }) ;
 
 			 curr_iointfactory[i].active      = vue_observable_ifnotjetdone(curr_iointfactory[i].active) ;
-                         vue_appyBinding(curr_iointfactory[i].active,
+                         vue_applyBinding(curr_iointfactory[i].active,
                                          '#int'+i+'_act',
                                          function(value){ return value; }) ;
 		    }

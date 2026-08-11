@@ -19,18 +19,22 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { simcore_rest_add } from "../sim_core/sim_core_rest.js";
+        import { simhw_active,
+                 simhw_internalState,
+                 simhw_internalState_set } from "../sim_hw/sim_hw_index.js";
+        import { vue_observable_ifnotjetdone,
+                 vue_applyBinding } from "../sim_core/sim_core_values.js";
+
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
+        import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
+
+
         /*
          *  LEDM device
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { simhw_active, simhw_internalState, simhw_internalState_set } from "../sim_hw/sim_hw_index.js";
-        import { simcore_rest_add } from "../sim_core/sim_core_rest.js";
-        import { vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
-        import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
-
 
         export var ledm_apirest_name     = "LEDM" ;
         export var ledm_apirest_endpoint = { value: "" } ;
@@ -121,7 +125,7 @@
 				    {
 			o1 += "<td align='center' class='m-0' " +
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
-                              "    v-bind:style='{ \"background-color\": webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
+                              "    v-bind:style='{ \"background-color\": ws.webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
                               "    v-on:click='value = (value + 1) % 256'>" +
                               "<span class='visually-hidden'>background-color {{value}}</span>" +
                               "</td>" ;
@@ -145,11 +149,11 @@
 		    for (i=0; i<ledm_states.length; i++)
 		    {
 			 ledm_states[i].color = vue_observable_ifnotjetdone(ledm_states[i].color) ;
-                         vue_appyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
+                         vue_applyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
 		    }
 
 		    ledm_apirest_endpoint = vue_observable_ifnotjetdone(ledm_apirest_endpoint) ;
-		    vue_appyBinding(ledm_apirest_endpoint, '#ledm_apirest_endpoint', f_computed_value) ;
+		    vue_applyBinding(ledm_apirest_endpoint, '#ledm_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

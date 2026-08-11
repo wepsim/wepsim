@@ -24,11 +24,12 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }             from "./wepsim_uielto.js";
         import { get_cfg, is_darkmode }  from "../sim_core/sim_cfg.js";
-        import { simhw_sim_state }       from "../sim_hw/sim_hw_index.js";
         import { wait_if_uievents }      from "../sim_core/sim_core_ctrl.js";
+        import { simhw_sim_state }       from "../sim_hw/sim_hw_index.js";
+
+        import { ws_uielto,
+                 register_uielto }       from "./wepsim_uielto.js";
         import { wsweb_set_cpucu_size }  from "./wepsim_web_api.js";
         import { set_ab_size }           from "./wepsim_web_simulator.js";
 

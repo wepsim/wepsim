@@ -19,20 +19,20 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }          from "./wepsim_uielto.js";
+        import { simhw_active,
+                 simhw_internalState }      from "../sim_hw/sim_hw_index.js";
+        import { simcore_rest_add }         from "../sim_core/sim_core_rest.js";
+        import { vue_observable_ifnotjetdone,
+                 vue_applyBinding }         from "../sim_core/sim_core_values.js";
+        import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
+
+
         /*
          *  L3D device
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }               from "./wepsim_uielto.js";
-        import { simhw_active,
-                 simhw_internalState }     from "../sim_hw/sim_hw_index.js";
-        import { simcore_rest_add }        from "../sim_core/sim_core_rest.js";
-        import { vue_observable_ifnotjetdone,
-                 vue_appyBinding }          from "../sim_core/sim_core_values.js";
-        import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
-
 
         export var l3d_apirest_name     = "L3D" ;
         export var l3d_apirest_endpoint = { value: "" } ;
@@ -149,11 +149,11 @@
 		    for (i=0; i<l3d_states.length; i++)
 		    {
 			 l3d_states[i].active = vue_observable_ifnotjetdone(l3d_states[i].active) ;
-                         vue_appyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
+                         vue_applyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
 		    }
 
 		    l3d_apirest_endpoint = vue_observable_ifnotjetdone(l3d_apirest_endpoint) ;
-		    vue_appyBinding(l3d_apirest_endpoint, '#l3d_apirest_endpoint', f_computed_value) ;
+		    vue_applyBinding(l3d_apirest_endpoint, '#l3d_apirest_endpoint', f_computed_value) ;
 	      }
         }
 
@@ -176,16 +176,16 @@
         {
             var id_str = "l3d" + offset + "_svg" ;
 
-	    icon = "<span v-show='value'>" +
-                   "<i id='" + id_str + "' " +
-		   "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
-		   "   class='fas fa-lightbulb'></i>" +
-                   "</span>" +
-                   "<span v-show='!value'>" +
-                   "<i id='" + id_str + "' " +
-		   "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
-		   "   class='far fa-lightbulb'></i>" +
-                   "</span>" ;
+	    var icon = "<span v-show='value'>" +
+                       "<i id='" + id_str + "' " +
+		       "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+		       "   class='fas fa-lightbulb'></i>" +
+                       "</span>" +
+                       "<span v-show='!value'>" +
+                       "<i id='" + id_str + "' " +
+		       "   style='transform:skew(" + (15-10*k) + "deg) translateY(-5px) scale(1.2)'" +
+		       "   class='far fa-lightbulb'></i>" +
+                       "</span>" ;
 
             return icon ;
         }

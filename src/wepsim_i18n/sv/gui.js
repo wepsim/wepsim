@@ -17,7 +17,9 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { i18n } from "../i18n.js";
+
+    import { i18n } from "../i18n.js";
+
 
     i18n.eltos.gui.sv = {
 
@@ -77,10 +79,10 @@ import { i18n } from "../i18n.js";
                                         "Du kan använda <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">lägesväljaren</span> för att ändra maskinvaran som används.",
 
                 "simulator intro 2":    "Då måste du ladda mikrokoden (definierar instruktionsuppsättningen) och monteringskoden. <br>" +
-                                        "Du kan använda <span class='text-primary bg-body-tertiary' onclick='wsweb_dialog_open(\"examples\");'>ett exempel</span>," +
-                                        "<span class='text-primary bg-body-tertiary' onclick='wsweb_select_action(\"checkpoint\");'>ladda den från en fil</span>," +
-                                        "eller så kan du redigera <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_microcode();'>en ny mikrokod</span>" +
-                                        "och <span class='text-primary bg-body-tertiary' onclick='wsweb_change_workspace_assemble();'>en ny monteringskod</span>.",
+                                        "Du kan använda <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_dialog_open(\"examples\");'>ett exempel</span>," +
+                                        "<span class='text-primary bg-body-tertiary' onclick='ws.wsweb_select_action(\"checkpoint\");'>ladda den från en fil</span>," +
+                                        "eller så kan du redigera <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_change_workspace_microcode();'>en ny mikrokod</span>" +
+                                        "och <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_change_workspace_assemble();'>en ny monteringskod</span>.",
 
                 "simulator intro 3":    "Slutligen, i simulatorn kan du köra den mikrokod plus enhet som laddats tidigare. <br>" +
                                         "Du kan köra det båda, på mikroinstruktionsnivå eller monteringsinstruktionsnivå.",

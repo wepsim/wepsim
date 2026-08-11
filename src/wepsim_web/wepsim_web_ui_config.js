@@ -19,12 +19,16 @@
  */
 
 
-    import { ws_info } from "../sim_core/sim_adt_core.js";
-    import { i18n_get_select } from "../wepsim_i18n/i18n.js";
-    import { get_cfg, update_cfg } from "../sim_core/sim_cfg.js";
-    import { wepsim_activeview } from "./wepsim_web_simulator.js";
-    import { wepsim_svg_stop_drawing, wepsim_svg_start_drawing } from "./wepsim_uielto_cpusvg.js";
-    import { refresh } from "../sim_core/sim_core_ui.js";
+    import { ws_info }                  from "../sim_core/sim_adt_core.js";
+    import { get_cfg,
+             update_cfg }               from "../sim_core/sim_cfg.js";
+    import { refresh }                  from "../sim_core/sim_core_ui.js";
+
+    import { i18n_get_select }          from "../wepsim_i18n/i18n.js";
+
+    import { wepsim_activeview }        from "./wepsim_web_simulator.js";
+    import { wepsim_svg_stop_drawing,
+             wepsim_svg_start_drawing } from "./wepsim_uielto_cpusvg.js";
 
 
     /*
@@ -53,11 +57,11 @@
 		        "     class='img-thumbnail col-3 mx-2 d-block " + ws_info.breakpoint_icon_list[elto].addclass + "'" +
 		        "     style='height:6vh; min-height:30px;'" +
 		        "     onclick=\"$('#img_select1').attr('src',        'images/stop/stop_" + elto + ".gif');" +
-		        "               $('#img_select1').attr('class',      '" + ws_info.breakpoint_icon_list[elto].addclass + "');" +
+		        "               $('#img_select1').attr('class',      '" + ws.ws_info.breakpoint_icon_list[elto].addclass + "');" +
 		        "               $('#img_select1').attr('data-bs-theme', '');" +
-		        "	        set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
-                        "               wepsim_popover_hide('breakpointicon1');" +
-                        "               wepsim_uicfg_apply();\">" ;
+		        "	        ws.set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
+                        "               ws.wepsim_popover_hide('breakpointicon1');" +
+                        "               ws.wepsim_uicfg_apply();\">" ;
 	}
 
         o = o + '</div>' +

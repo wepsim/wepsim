@@ -19,19 +19,20 @@
  */
 
 
-     import { wepsim_config_dialog_dropdown } from "../wepsim_web/wepsim_web_ui_config.js";
-     import { compute_signal_verbals } from "../sim_hw/sim_hw_behavior.js";
+     import { compute_signal_verbals }        from "../sim_hw/sim_hw_behavior.js";
      import { simhw_short_name,
               simhw_sim_signal,
-              simhw_sim_signals } from "../sim_hw/sim_hw_index.js";
-     import { wsweb_dialogbox_close_updatesignal,
-              wsweb_scroll_record } from "../wepsim_web/wepsim_web_api.js";
+              simhw_sim_signals }             from "../sim_hw/sim_hw_index.js";
      import { simcore_record_captureInit,
-              simcore_record_append_new } from "../sim_core/sim_core_record.js";
-     import { wsweb_dlg_open } from "./wepsim_dialog.js";
-     import { propage_signal_update } from "../sim_core/sim_core_ctrl.js";
+              simcore_record_append_new }     from "../sim_core/sim_core_record.js";
+     import { propage_signal_update }         from "../sim_core/sim_core_ctrl.js";
      import { jit_fire_dep,
-              jit_fire_order } from "../sim_hw/sim_hw_signal.js";
+              jit_fire_order }                from "../sim_hw/sim_hw_signal.js";
+
+     import { wepsim_config_dialog_dropdown } from "../wepsim_web/wepsim_web_ui_config.js";
+     import { wsweb_dlg_open }                from "./wepsim_dialog.js";
+     import { wsweb_dialogbox_close_updatesignal,
+              wsweb_scroll_record }           from "../wepsim_web/wepsim_web_api.js";
 
 
         export function wepsim_update_signal_dialog_title ( key )

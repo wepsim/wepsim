@@ -24,7 +24,8 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
+        import { ws_uielto,
+                 register_uielto }       from "./wepsim_uielto.js";
         import { wepsim_example_getSet } from "../wepsim_core/wepsim_example.js";
 
 
@@ -84,10 +85,10 @@
 			  '        v-for="ex in examples" ' +
 			  '        v-bind:data-name="ex.name" ' +
 			  '        class="text-danger btn border-secondary m-1 btn-block" ' +
-			  '        onclick="wepsim_example_reset() ;' +
+			  '        onclick="ws.wepsim_example_reset() ;' +
                           '                 var ex_name = this.getAttribute(\'data-name\') ;' +
-			  '	            wepsim_example_load(ex_name) ;' +
-			  '	            wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			  '	            ws.wepsim_example_load(ex_name) ;' +
+			  '	            ws.wepsim_notify_success(\'<strong>INFO</strong>\',' +
 			  '		    	                  \'Examples list loaded!.\') ;' +
 			  '	            return false;">' +
 			  '<span :data-langkey="ex.name">{{ ex.name }}</span>' +

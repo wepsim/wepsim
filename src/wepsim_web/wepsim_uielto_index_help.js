@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Help
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }  from "./wepsim_uielto.js";
@@ -33,6 +29,10 @@
         import { ws_info }          from "../sim_core/sim_adt_core.js";
         import { array_includes }   from "../sim_core/sim_core_ctrl.js";
 
+
+        /*
+         *  Help
+         */
 
         export class ws_help extends ws_uielto
         {
@@ -203,9 +203,9 @@
     		e_description = helps[m].description ;
     		e_id          = helps[m].id ;
 
-    		var onclick_code = "simcore_record_append_pending();" +
+    		var onclick_code = "ws.simcore_record_append_pending();" +
     		                   e_reference + ";" +
-                                   "simcore_ga('help', 'help.index', 'help.index." + m + "');" ;
+                                   "ws.simcore_ga('help', 'help.index', 'help.index." + m + "');" ;
 
     	        if (fmt_toggle === "")
     	            fmt_toggle = "bg-body-tertiary" ;

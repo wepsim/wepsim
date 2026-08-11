@@ -18,22 +18,27 @@
  *
  */
 
+
+    import { get_cfg }                   from "../sim_core/sim_cfg.js";
+    import { get_simware,
+             set_simware }               from "../sim_core/sim_adt_core.js";
+    import { refresh }                   from "../sim_core/sim_core_ui.js";
+    import { wepsim_notify_error,
+             wepsim_notify_success }     from "../wepsim_core/wepsim_notify.js";
+    import { i18n_get }                  from "../wepsim_i18n/i18n.js";
+    import { wait_if_uievents,
+             update_memories }           from "../sim_core/sim_core_ctrl.js";
+    import { wsweb_dlg_alert }           from "../wepsim_core/wepsim_dialog.js";
+    import { sim_change_workspace }      from "./wepsim_web_simulator.js";
+    import { wsasm_src2mem }             from "../sim_sw/assembly.js";
+    import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
+    import { simcore_reset,
+             simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
+
+
     //
     // WepSIM API
     //
-
-    import { get_cfg } from "../sim_core/sim_cfg.js";
-    import { get_simware, set_simware } from "../sim_core/sim_adt_core.js";
-    import { refresh } from "../sim_core/sim_core_ui.js";
-    import { wepsim_notify_error, wepsim_notify_success } from "../wepsim_core/wepsim_notify.js";
-    import { i18n_get } from "../wepsim_i18n/i18n.js";
-    import { wait_if_uievents, update_memories } from "../sim_core/sim_core_ctrl.js";
-    import { wsweb_dlg_alert } from "../wepsim_core/wepsim_dialog.js";
-    import { sim_change_workspace } from "./wepsim_web_simulator.js";
-    import { wsasm_src2mem } from "../sim_sw/assembly.js";
-    import { asmdbg_update_assembly } from "./wepsim_uielto_dbg_asm.js";
-    import { simcore_reset, simcore_compile_firmware } from "../sim_core/sim_api_core.js";
-
 
     /*
      *  Editor
@@ -188,7 +193,7 @@
             if (null !== pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
-                           '        onclick="wepsim_notify_close(); ' +
+                           '        onclick="ws.wepsim_notify_close(); ' +
                            '                 goError(' + editor + ', ' + pos + ');">' +
                            ' Go line ' + pos +
                            '</button>&nbsp;' ;
@@ -202,7 +207,7 @@
 		                '<center>' +
 		                lineMsg +
                                 '<button type="button" class="btn btn-danger" ' +
-                                '        onclick="wepsim_notify_close();"><span data-langkey="Close">Close</span></button>' +
+                                '        onclick="ws.wepsim_notify_close();"><span data-langkey="Close">Close</span></button>' +
                                 '</center>') ;
     }
 

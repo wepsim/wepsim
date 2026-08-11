@@ -19,11 +19,15 @@
  */
 
 
-    import { i18n_update_tags,
-             i18n_get }                      from "../wepsim_i18n/i18n.js";
+    import { ws_info }                       from "../sim_core/sim_adt_core.js";
     import { get_cfg,
              cfgset_getSet }                 from "../sim_core/sim_cfg.js";
-    import { ws_info }                       from "../sim_core/sim_adt_core.js";
+    import { i18n_update_tags,
+             i18n_get }                      from "../wepsim_i18n/i18n.js";
+    import { simcore_record_captureInit,
+             simcore_record_append_pending } from "../sim_core/sim_core_record.js";
+    import { wait_if_uievents }              from "../sim_core/sim_core_ctrl.js";
+
     import { wepsim_config_dialog_title }    from "./wepsim_web_ui_config.js";
     import { wsweb_dialog_close,
              wsweb_scroll_record,
@@ -31,12 +35,10 @@
              wsweb_record_reset }            from "./wepsim_web_api.js";
     import { wepsim_tooltips_hide }          from "./wepsim_web_ui_tooltip.js";
     import { wepsim_uicfg_apply }            from "./wepsim_web_simulator.js";
-    import { simcore_record_captureInit,
-             simcore_record_append_pending } from "../sim_core/sim_core_record.js";
     import { wepsim_get_binary_code,
              wepsim_get_binary_microcode }   from "./wepsim_web_editor.js";
-    import { wait_if_uievents }              from "../sim_core/sim_core_ctrl.js";
     import { table_examplesets_html }        from "./wepsim_uielto_index_examples.js";
+
     import { wepsim_help_set }               from "../wepsim_core/wepsim_help.js";
     import { wepsim_checkpoint_listCache }   from "../wepsim_core/wepsim_checkpoint.js";
 
@@ -52,8 +54,8 @@
 	    title:     function() {
                           return wepsim_config_dialog_title("Load/Save Assembly",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
 		         return "<div id='scroller-lssvasm' class='container-fluid p-0' " +
@@ -66,18 +68,18 @@
                                 "     label='Save editor content' " +
                                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
-				"	     var textToWrite      = inputasm.getValue();" +
-				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "            inputasm.is_modified = false;" +
+				"	     var textToWrite      = ws.inputasm.getValue();" +
+				"	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "            ws.inputasm.is_modified = false;" +
                                 "            return false;'></ws-save-files-option>" +
                                 "<ws-save-files-option " +
                                 "     label='Save as binary section' " +
                                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
-                                "            var simware = get_simware();" +
+                                "            var simware = ws.get_simware();" +
                                 "            if (simware == null) return false;" +
-                                "            var textToWrite = mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
-				"	     wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+                                "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
+				"	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                                 "            return false;'></ws-save-files-option>" +
                                 "></ws-save-files>" +
                                 //
@@ -86,11 +88,11 @@
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
-                                "           wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt) { " +
-                                "		       inputasm.setValue(txt);" +
-    				"                      wsweb_dialog_close(\"load_save_assembly\");" +
-			        "		       wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "                     ws.wepsim_file_loadFrom(ftl, " +
+                                "		                           function(txt) { " +
+                                "		       ws.inputasm.setValue(txt);" +
+    				"                      ws.wsweb_dialog_close(\"load_save_assembly\");" +
+			        "		       ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
@@ -103,18 +105,18 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('load_save_assembly') ;
+    					       ws.wsweb_dialog_close('load_save_assembly') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvasm') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-lssvasm') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
@@ -123,7 +125,7 @@
 	    title:     function() {
                           return wepsim_config_dialog_title("Load/Save Assembly",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
@@ -140,9 +142,9 @@
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    load_from_uri(elto.value);" +
-    				"           wsweb_dialog_close(\"load_save_assembly\");" +
-			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+				"	    ws.load_from_uri(elto.value);" +
+    				"           ws.wsweb_dialog_close(\"load_save_assembly\");" +
+			        "	    ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
@@ -154,28 +156,28 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('load_save_assembly') ;
+    					       ws.wsweb_dialog_close('load_save_assembly') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvasm-link') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-lssvasm-link') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
          load_save_firmware: {
 	    id:       "lssvfir",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Load/Save Firmware",
+                          return ws.wepsim_config_dialog_title("Load/Save Firmware",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:     function() {
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
@@ -187,17 +189,17 @@
                                 "<ws-save-files-option " +
                                 "    label='Save editor content' " +
                                 "     jsrc='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "           var textToWrite       = inputfirm.getValue();" +
-		                "           wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "           inputfirm.is_modified = false;" +
+		                "           var textToWrite       = ws.inputfirm.getValue();" +
+		                "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           ws.inputfirm.is_modified = false;" +
 				"	    return false;'></ws-save-files-option>" +
                                 "<ws-save-files-option " +
                                 "    label='Save control memory (firmware v2)' " +
-                                "     jsrc='wsweb_save_controlmemory_to_file(2);" +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
                                 "           return false;'></ws-save-files-option>" +
                                 "<ws-save-files-option " +
                                 "    label='Save control memory (firmware v1)' " +
-                                "     jsrc='wsweb_save_controlmemory_to_file(1);" +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
                                 "           return false;'></ws-save-files-option>" +
                                 "></ws-save-files>" +
                                 //
@@ -206,12 +208,12 @@
                                 "<ws-load-file " +
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
-                                "           wepsim_file_loadFrom(ftl, " +
+                                "           ws.wepsim_file_loadFrom(ftl, " +
                                 "		                 function(txt) { " +
-                                "		      inputfirm.setValue(\"Please wait...\");" +
-    				"                     wsweb_dialog_close(\"load_save_firmware\");" +
-                                "		      inputfirm.setValue(txt);" +
-			        "		      wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		      ws.inputfirm.setValue(\"Please wait...\");" +
+    				"                     ws.wsweb_dialog_close(\"load_save_firmware\");" +
+                                "		      ws.inputfirm.setValue(txt);" +
+			        "		      ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "		                 });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
@@ -224,7 +226,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('load_save_firmware') ;
+    					       ws.wsweb_dialog_close('load_save_firmware') ;
 					   }
 			 }
 	              },
@@ -234,11 +236,11 @@
 			 $('.dropify').dropify() ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvfir') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-lssvfir') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
@@ -247,8 +249,8 @@
 	    title:    function() {
                           return wepsim_config_dialog_title("Load/Save Firmware",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:     function() {
 		         return "<div id='scroller-lssvfir-link' class='container-fluid p-0' " +
@@ -264,9 +266,9 @@
                                 "<ws-load-link " +
                                 "    fid='inputToShareAs3' " +
                                 "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
-				"	    load_from_uri(elto.value);" +
-    				"           wsweb_dialog_close(\"load_save_firmware\");" +
-			        "	    wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+				"	    ws.load_from_uri(elto.value);" +
+    				"           ws.wsweb_dialog_close(\"load_save_firmware\");" +
+			        "	    ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
                                 "           return false;'></ws-load-link>" +
                                "</div>" +
                                "</div>" +
@@ -278,7 +280,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('load_save_firmware') ;
+    					       ws.wsweb_dialog_close('load_save_firmware') ;
 					   }
 			 }
 	              },
@@ -288,11 +290,11 @@
 			 $('.dropify').dropify() ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-lssvfir-link') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-lssvfir-link') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
@@ -301,8 +303,8 @@
 	    title:     function() {
                           return wepsim_config_dialog_title("Flash Assembly",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
 		         return "<div id='scroller-flashasm' class='container-fluid p-0' " +
@@ -321,18 +323,18 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('flash_assembly') ;
+    					       ws.wsweb_dialog_close('flash_assembly') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-flashasm') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-flashasm') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
@@ -341,8 +343,8 @@
 	    title:     function() {
                           return wepsim_config_dialog_title("Flash FPGA",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
 		         return "<div id='scroller-flashfpga' class='container-fluid p-0' " +
@@ -361,18 +363,18 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       wsweb_dialog_close('flash_fpga') ;
+    					       ws.wsweb_dialog_close('flash_fpga') ;
 					   }
 			 }
 	              },
             size:     'large',
             onshow:   function() {
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-flashfpga') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-flashfpga') ;
+			 ws.simcore_record_captureInit() ;
 		      }
          },
 
@@ -380,10 +382,10 @@
          binary_asm: {
             id:      "bin_asm",
 	    title:   function() {
-                          return wepsim_config_dialog_title("Binary",
+                          return ws.wepsim_config_dialog_title("Binary",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1'>" +
@@ -396,30 +398,30 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('binary_asm') ;
+    					      ws.wsweb_dialog_close('binary_asm') ;
 				           }
 			     }
 	             },
             size:    'large',
             onshow:  function() {
                          // get binary
-			 var simware = wepsim_get_binary_code() ;
+			 var simware = ws.wepsim_get_binary_code() ;
 			 if (null == simware) {
-                             wait_if_uievents(function() {
-                                wsweb_dialog_close('binary_asm') ;
+                             ws.wait_if_uievents(function() {
+                                ws.wsweb_dialog_close('binary_asm') ;
                              }, 50) ;
 			     return ;
 			 }
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
                          // show binary
-                         wait_if_uievents(function() {
+                         ws.wait_if_uievents(function() {
                             $('#bin_asm').modal('handleUpdate') ;
-			    wsweb_scroll_record('#scroller-bin2a') ;
-			    simcore_record_captureInit() ;
+			    ws.wsweb_scroll_record('#scroller-bin2a') ;
+			    ws.simcore_record_captureInit() ;
                          }, 10);
 		     }
          },
@@ -428,10 +430,10 @@
          binary_fir: {
             id:      "bin_fir",
 	    title:   function() {
-                          return wepsim_config_dialog_title("Binary",
+                          return ws.wepsim_config_dialog_title("Binary",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1'>" +
@@ -444,31 +446,31 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('binary_fir') ;
+    					      ws.wsweb_dialog_close('binary_fir') ;
 				           }
 			     }
 	             },
             size:    'extra-large',
             onshow:  function() {
                          // get binary
-			 var simware = wepsim_get_binary_microcode() ;
+			 var simware = ws.wepsim_get_binary_microcode() ;
 			 if (null == simware) {
-                             wait_if_uievents(function() {
-                                           wsweb_dialog_close('binary_fir');
+                             ws.wait_if_uievents(function() {
+                                           ws.wsweb_dialog_close('binary_fir');
                              }, 50) ;
 			     return ;
 			 }
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
                          // show binary
                          wait_if_uievents(function() {
-                                       // binmc_load_mc2html(simware) ;
+                                       // ws.binmc_load_mc2html(simware) ;
                                        $('#bin_fir').modal('handleUpdate') ;
-			               wsweb_scroll_record('#scroller-bin2b') ;
-			               simcore_record_captureInit() ;
+			               ws.wsweb_scroll_record('#scroller-bin2b') ;
+			               ws.simcore_record_captureInit() ;
                          }, 50) ;
 		     }
          },
@@ -477,10 +479,10 @@
          about: {
             id:      "about1",
 	    title:    function() {
-                          return wepsim_config_dialog_title("About WepSIM",
+                          return ws.wepsim_config_dialog_title("About WepSIM",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        return "<div id='scroller-about1' " +
@@ -494,7 +496,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('about') ;
+    					      ws.wsweb_dialog_close('about') ;
 				           }
 			     }
 	             },
@@ -503,11 +505,11 @@
 			 $('div.wsversion').replaceWith(get_cfg('version')) ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-about1') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-about1') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          },
 
@@ -515,10 +517,10 @@
          notifications: {
             id:       "notifications3",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Notifications",
+                          return ws.wepsim_config_dialog_title("Notifications",
                                                             "secondary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('cfg');") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('cfg');") ;
 		      },
             body:     function() {
 		         return "<ws-notifications></ws-notifications>" ;
@@ -529,7 +531,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					       wsweb_dialog_close('notifications') ;
+    					       ws.wsweb_dialog_close('notifications') ;
 				           }
 			       }
 	             },
@@ -538,15 +540,15 @@
 			 $("#scroller-notifications3").scrollTop(0) ;
 
 		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-			 i18n_update_tags('cfg') ;
+                         var ws_idiom = ws.get_cfg('ws_idiom') ;
+			 ws.i18n_update_tags('cfg') ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-notifications3') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-notifications3') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          },
 
@@ -554,10 +556,10 @@
          examples: {
             id:      "example1",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Examples",
+                          return ws.wepsim_config_dialog_title("Examples",
                                                             "primary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('examples', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-examples id='examples1'></ws-examples>" ;
@@ -569,11 +571,11 @@
 			   className: 'btn btn-info text-white btn-sm col col-sm-4 float-end shadow-none',
 			   callback:  function() {
 				         // ui elements
-                                         table_examplesets_html('#examples1-scroller', ws_info.example_set) ;
+                                         ws.table_examplesets_html('#examples1-scroller', ws_info.example_set) ;
 
 			 		 // uicfg and events
-                                         wepsim_uicfg_apply() ;
-	    	 	                 simcore_record_captureInit() ;
+                                         ws.wepsim_uicfg_apply() ;
+	    	 	                 ws.simcore_record_captureInit() ;
 
 					 return false ;
 				      }
@@ -583,22 +585,22 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('examples') ;
+    					      ws.wsweb_dialog_close('examples') ;
 				           }
 			     }
 	             },
             size:    'extra-large',
             onshow:  function() {
 		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('examples', ws_idiom) ;
+                         var ws_idiom = ws.get_cfg('ws_idiom') ;
+                         ws.i18n_update_tags('examples', ws_idiom) ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-example1') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-example1') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          },
 
@@ -606,10 +608,10 @@
          config: {
             id:      "config2",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Configuration",
+                          return ws.wepsim_config_dialog_title("Configuration",
                                                             "primary",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('cfg', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
                           return "<ws-config id='config2'></ws-config>" ;
@@ -620,8 +622,8 @@
 			   className: "btn btn-outline-info btn-sm col col-sm-3 float-start shadow-none me-auto",
 			   callback:  function() {
 		         		 // confirm reset
-    					 wsweb_dialog_close('config') ;
-    					 wsweb_dialog_open('cfg_confirm_reset') ;
+    					 ws.wsweb_dialog_close('config') ;
+    					 ws.wsweb_dialog_open('cfg_confirm_reset') ;
 
 					 return false ;
 				      }
@@ -631,41 +633,41 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('config') ;
+    					      ws.wsweb_dialog_close('config') ;
 				           }
 			     }
 	             },
             size:    'large',
             onshow:  function() {
-                         wait_if_uievents(function() {
+                         ws.wait_if_uievents(function() {
                                        $("#config2-scroller").scrollTop(0);
                          }, 50);
 
 		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('cfg', ws_idiom) ;
+                         var ws_idiom = ws.get_cfg('ws_idiom') ;
+                         ws.i18n_update_tags('cfg', ws_idiom) ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#config2-scroller') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#config2-scroller') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          },
 
 	 cfg_confirm_reset: {
 		id:      'config_confirm_reset',
 		title:   function() {
-			     var wsi = get_cfg('ws_idiom') ;
+			     var wsi = ws.get_cfg('ws_idiom') ;
 
-			     return i18n_get('dialogs', wsi, 'Confirm reset configuration...') ;
+			     return ws.i18n_get('dialogs', wsi, 'Confirm reset configuration...') ;
 			 },
 		body:    function() {
-			     var wsi = get_cfg('ws_idiom') ;
+			     var wsi = ws.get_cfg('ws_idiom') ;
 
                              var o1 = '&lt;Empty preset configurations&gt;' ;
-                             var e_cfgs = cfgset_getSet() ;
+                             var e_cfgs = ws.cfgset_getSet() ;
                              if (typeof e_cfgs !== "undefined")
                              {
                                  o1 = '<div class="list-group overflow-y-auto h-100">' ;
@@ -673,11 +675,11 @@
                                  {
                                       o1 += '<a  href="#" ' +
                                             '    class="list-group-item list-group-item-action" ' +
-                                            '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
-                                            '             wepsim_notify_success(\'<strong>INFO</strong>\',' +
-                                            '                                   \'Configuration loaded!.\') ;' +
-                                            '             wepsim_uicfg_restore() ;' +
-                                            '             wsweb_dialog_open(\'config\');' +
+                                            '    onclick="ws.cfgset_load(\'' + e_cfg + '\') ;' +
+                                            '             ws.wepsim_notify_success(\'<strong>INFO</strong>\',' +
+                                            '                                      \'Configuration loaded!.\') ;' +
+                                            '             ws.wepsim_uicfg_restore() ;' +
+                                            '             ws.wsweb_dialog_open(\'config\');' +
                                             '             return false;">' +
                                             '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
                                             '</a>' ;
@@ -694,10 +696,10 @@
 				    '<br>' +
                                     '<button type="button" ' +
                                     '    class="text-danger btn border-secondary m-1 btn-block col-6 text-center" ' +
-                                    '    onclick="reset_cfg();' +
-                                    '             wepsim_notify_success(\'<strong>INFO</strong>\',' +
+                                    '    onclick="ws.reset_cfg();' +
+                                    '             ws.wepsim_notify_success(\'<strong>INFO</strong>\',' +
                                     '                                   \'Configuration reset done!.\') ;' +
-                                    '             wsweb_dialog_open(\'config\');' +
+                                    '             ws.wsweb_dialog_open(\'config\');' +
                                     '             return false;">' +
                                     '<span data-langkey="Reset">Reset</span>' +
                                     '</button>' +
@@ -707,7 +709,7 @@
 				    '</div>' +
 			            '<div class="row py-2">' +
 			            '<h4 class="col p-3 text-center">' +
-			            i18n_get('dialogs', wsi, 'Close or Reset...') +
+			            ws.i18n_get('dialogs', wsi, 'Close or Reset...') +
 				    '</h4>' +
 				    '</div>' +
 				    '</div>' ;
@@ -722,10 +724,10 @@
 			 },
 		onshow:  function() {
 			    // ui lang
-			    var ws_idiom = get_cfg('ws_idiom') ;
-			    i18n_update_tags('dialogs', ws_idiom) ;
+			    var ws_idiom = ws.get_cfg('ws_idiom') ;
+			    ws.i18n_update_tags('dialogs', ws_idiom) ;
 
-			    simcore_record_captureInit() ;
+			    ws.simcore_record_captureInit() ;
 			 }
          },
 
@@ -733,10 +735,10 @@
          help: {
             id:      "help1",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Help",
+                          return ws.wepsim_config_dialog_title("Help",
                                                             "success",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('help', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('help', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-help id='help1_ref'></ws-help>" ;
@@ -748,11 +750,11 @@
 			   className: 'btn btn-success btn-sm col col-sm-3 float-end shadow-none',
 			   callback:  function() {
 				         // ui elements
-				         wepsim_help_set('code', 'index') ;
+				         ws.wepsim_help_set('code', 'index') ;
 
 			 		 // uicfg and events
-                                         wepsim_uicfg_apply() ;
-	    	 	                 simcore_record_captureInit() ;
+                                         ws.wepsim_uicfg_apply() ;
+	    	 	                 ws.simcore_record_captureInit() ;
 
 					 return false ;
 				      }
@@ -762,45 +764,45 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-		                              simcore_record_append_pending() ;
-    					      wsweb_dialog_close('help') ;
+		                              ws.simcore_record_append_pending() ;
+    					      ws.wsweb_dialog_close('help') ;
 				           }
 			}
 	             },
             size:    'extra-large',
             onshow:  function() {
 		         // ui elements
-    			 wepsim_help_set('code', 'index') ;
+    			 ws.wepsim_help_set('code', 'index') ;
 
 		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('help', ws_idiom) ;
+                         var ws_idiom = ws.get_cfg('ws_idiom') ;
+                         ws.i18n_update_tags('help', ws_idiom) ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-help1') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-help1') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          },
 
 	 rec_confirm_reset: {
 		id:      'record_confirm_reset',
 		title:   function() {
-			     var wsi = get_cfg('ws_idiom') ;
-			     return i18n_get('dialogs', wsi, 'Confirm remove record...') ;
+			     var wsi = ws.get_cfg('ws_idiom') ;
+			     return ws.i18n_get('dialogs', wsi, 'Confirm remove record...') ;
 			 },
 		body:    function() {
-			     var wsi = get_cfg('ws_idiom') ;
-			     return i18n_get('dialogs', wsi, 'Close or Reset...') ;
+			     var wsi = ws.get_cfg('ws_idiom') ;
+			     return ws.i18n_get('dialogs', wsi, 'Close or Reset...') ;
 			 },
 		buttons: {
 				reset: {
 				   label:     "<span data-langkey='Reset'>Reset</span>",
 				   className: 'btn-danger col float-start',
 				   callback: function() {
-						wsweb_record_reset();
+						ws.wsweb_record_reset();
 						return true;
 					     },
 				},
@@ -813,10 +815,10 @@
 		size:    '',
 		onshow:  function() {
 			    // ui lang
-			    var ws_idiom = get_cfg('ws_idiom') ;
-			    i18n_update_tags('dialogs', ws_idiom) ;
+			    var ws_idiom = ws.get_cfg('ws_idiom') ;
+			    ws.i18n_update_tags('dialogs', ws_idiom) ;
 
-			    simcore_record_captureInit() ;
+			    ws.simcore_record_captureInit() ;
 			 }
          },
 
@@ -824,10 +826,10 @@
          state: {
             id:      "current_state1",
 	    title:    function() {
-                          return wepsim_config_dialog_title("State",
+                          return ws.wepsim_config_dialog_title("State",
                                                             "dark",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialog', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialog', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-states></ws-states>" ;
@@ -838,31 +840,31 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('state') ;
+    					      ws.wsweb_dialog_close('state') ;
 				           }
 			}
 	             },
             size:    'large',
             onshow:  function() {
 		         // ui lang
-                         var ws_idiom = get_cfg('ws_idiom') ;
-                         i18n_update_tags('states', ws_idiom) ;
+                         var ws_idiom = ws.get_cfg('ws_idiom') ;
+                         ws.i18n_update_tags('states', ws_idiom) ;
 
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-	    	 	 simcore_record_captureInit() ;
+	    	 	 ws.simcore_record_captureInit() ;
 		     }
          },
 
 	 current_checkpoint: {
 		id:      'current_checkpoint1',
 		title:   function() {
-                             return wepsim_config_dialog_title("Checkpoint",
+                             return ws.wepsim_config_dialog_title("Checkpoint",
                                                                "secondary",
-							       "var ws_idiom = get_cfg('ws_idiom');" +
-							       "i18n_update_tags('dialog', ws_idiom);") ;
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialog', ws_idiom);") ;
 			 },
 		body:    function() {
                              var now = new Date().toLocaleString() ;
@@ -871,18 +873,18 @@
                                     "   <div class='col-12 col-sm-4 p-2'>" +
                                     "   <ws-save-file " +
                                     "     fid='FileNameToSaveAs1' " +
-                                    "	  jsave='wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "	  jsave='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                 \"Processing save request...\");" +
                                     "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
                                     "                                    \"tagToSave1\", checkpointObj);" +
                                     "             return false;'" +
-                                    "	  jshare='wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "	  jshare='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                   \"Processing share request...\");" +
                                     "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "		  var checkpointObj = wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
                                     "                                     \"tagToSave1\", checkpointObj);" +
                                     "             return false;'" +
                                     "   ></ws-save-file>" +
@@ -896,10 +898,10 @@
                                     "   <div class='col-12 col-sm-4 p-2'>" +
                                     "    <ws-load-file " +
                                     "        fid='fileToLoad31' " +
-                                    "	     jload='var ret = wepsim_checkpoint_load(\"fileToLoad31\") ;" +
+                                    "	     jload='var ret = ws.wepsim_checkpoint_load(\"fileToLoad31\") ;" +
                                     "		    if (ret) {" +
-                                    "		        wsweb_dialog_close(\"current_checkpoint\") ;" +
-                                    "		        wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "		        ws.wsweb_dialog_close(\"current_checkpoint\") ;" +
+                                    "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
                                     "                                         \"Processing load request...\") ;" +
                                     "		    }" +
                                     "		    return false;'></ws-load-file>" +
@@ -910,11 +912,11 @@
                                     "	  <h5 class='m-0'>" +
                                     "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
                                     "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
-                                    "		    onclick='var ret = wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
-                                    "			     wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                                    "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
                                     "			     if (ret.error)" +
-                                    "				  wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
-                                    "			     else wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                                    "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                                    "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
                                     "			     return false;'><span data-langkey='Load'>Load</span></button>" +
                                     "		  <div class='dropdown float-end'>" +
                                     "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
@@ -924,8 +926,8 @@
                                     "		    </button>" +
                                     "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
                                     "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
-                                    "			onclick='wepsim_checkpoint_clearCache();" +
-                                    "				 wepsim_checkpoint_listCache(\"browserCacheList1\");" +
+                                    "			onclick='ws.wepsim_checkpoint_clearCache();" +
+                                    "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
                                     "				 return false;'" +
                                     "			 ><span data-langkey='Yes'>Yes</span></a>" +
                                     "		      <div class='dropdown-divider'></div>" +
@@ -951,26 +953,26 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('current_checkpoint') ;
+    					      ws.wsweb_dialog_close('current_checkpoint') ;
 				           }
 			     }
 			 },
 		size:    'extra-large',
 		onshow:  function() {
                                  // update content
-	                         wepsim_checkpoint_listCache('browserCacheList1');
+	                         ws.wepsim_checkpoint_listCache('browserCacheList1');
 			         $('.dropify').dropify() ;
 				 $('#current_checkpoint1').modal('handleUpdate') ;
 
 				 // ui lang
-				 var ws_idiom = get_cfg('ws_idiom') ;
-				 i18n_update_tags('dialog', ws_idiom) ;
+				 var ws_idiom = ws.get_cfg('ws_idiom') ;
+				 ws.i18n_update_tags('dialog', ws_idiom) ;
 
 				 // uicfg and events
-                                 wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-				 wepsim_uicfg_apply() ;
+                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+				 ws.wepsim_uicfg_apply() ;
 
-				 simcore_record_captureInit() ;
+				 ws.simcore_record_captureInit() ;
 			 }
          },
 
@@ -978,10 +980,10 @@
          reload: {
             id:      "reload1",
 	    title:    function() {
-                          return wepsim_config_dialog_title("Reload",
+                          return ws.wepsim_config_dialog_title("Reload",
                                                             "danger",
-							    "var ws_idiom = get_cfg('ws_idiom');" +
-							    "i18n_update_tags('dialogs', ws_idiom);") ;
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        var o = '<div id="scroller-reload1" class="row m-0">' +
@@ -998,18 +1000,18 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 			        callback:  function() {
-    					      wsweb_dialog_close('reload') ;
+    					      ws.wsweb_dialog_close('reload') ;
 				           }
 			     }
 	             },
             size:    'large',
             onshow:  function() {
 			 // uicfg and events
-                         wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 wepsim_uicfg_apply() ;
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
 
-			 wsweb_scroll_record('#scroller-reload1') ;
-			 simcore_record_captureInit() ;
+			 ws.wsweb_scroll_record('#scroller-reload1') ;
+			 ws.simcore_record_captureInit() ;
 		     }
          }
 

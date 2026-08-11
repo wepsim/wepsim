@@ -19,15 +19,18 @@
  */
 
 
-        /*
-         *  Main Memory
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
         import { get_simware }                from "../sim_core/sim_adt_core.js";
         import { get_value }                  from "../sim_core/sim_core_values.js";
+        import { WORD_BYTES,
+                 WORD_LENGTH,
+                 BYTE_LENGTH }                      from "../sim_sw/assembly/datatypes.js";
 
+
+        /*
+         *  Main Memory
+         */
 
         export class ws_bin_asm extends ws_uielto
         {

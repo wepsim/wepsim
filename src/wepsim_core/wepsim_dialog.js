@@ -72,7 +72,7 @@
             // intercept events...
 	    d1.one("hidden.bs.modal",
 		    function () {
-			wsweb_dialog_close(dialog_obj) ;
+			ws.wsweb_dialog_close(dialog_obj) ;
 		    });
 
             // show

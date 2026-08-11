@@ -24,9 +24,10 @@
          */
 
         /* jshint esversion: 6 */
+        import { get_simware }              from "../sim_core/sim_adt_core.js";
+
         import { ws_uielto,
                  register_uielto }          from "./wepsim_uielto.js";
-        import { get_simware }              from "../sim_core/sim_adt_core.js";
         import { segments_get_begin_addr }  from "../sim_sw/assembly/memory_segments.js";
 
 
@@ -117,11 +118,11 @@
                                 '<div class="btn-group w-100" role="group" aria-label="compile_request_and_cancel">' +
 				'<button type="button" class="btn btn-outline-info mx-1"' +
 				'        id="btn_sendmicro"' +
-				'        onclick="gateway_do_sendmicro(\'div_url\', \'div_dev\', \'div_info\');"' +
+				'        onclick="ws.gateway_do_sendmicro(\'div_url\', \'div_dev\', \'div_info\');"' +
                                 '>Flash microcode</button>' +
 				'<button type="button" class="btn btn-outline-success mx-1"' +
 				'        id="btn_flash"' +
-				'        onclick="gateway_do_sendasm(\'div_url\', \'div_dev\', \'div_info\');"' +
+				'        onclick="ws.gateway_do_sendasm(\'div_url\', \'div_dev\', \'div_info\');"' +
                                 '>Flash program</button>' +
                                 '</div>' +
 				'</div>' +
@@ -153,7 +154,7 @@
          *  Flashing
          */
 
-	export async function gateway_do_request ( req_url, req_args, div_info )
+	export async function fpga_gateway_do_request ( req_url, req_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -179,7 +180,7 @@
              return jres ;
 	}
 
-	export function gateway_request_status ( status_url, info_div )
+	export function fpga_gateway_request_status ( status_url, info_div )
 	{
 	     var s = new EventSource(status_url) ;
 
@@ -250,7 +251,7 @@
              // >> do remote request to "http://<url>/build" ...
              idiv.value = 'Flashing...\n' ;
              var furl = udiv.value ;
-	     var ret  = gateway_do_request(furl + "/build", farg, idiv);
+	     var ret  = fpga_gateway_do_request(furl + "/build", farg, idiv);
 
 	     // << working with the async result...
              ret.then((result) => {
@@ -261,7 +262,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     fpga_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}
@@ -304,7 +305,7 @@
              // >> do remote request to "http://<url>/build" ...
              idiv.value = 'Flashing...\n' ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
+	     var ret = fpga_gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then((result) => {
@@ -315,7 +316,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     fpga_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}

@@ -18,42 +18,73 @@
  *
  */
 
+
+    import { wait_if_uievents }     from "../sim_core/sim_core_ctrl.js";
+    import { refresh,
+             show_memories_values } from "../sim_core/sim_core_ui.js";
+    import { get_cfg,
+             set_cfg,
+             save_cfg,
+             update_cfg }           from "../sim_core/sim_cfg.js";
+    import { simcore_ga }           from "../sim_core/sim_core_ga.js";
+    import { simcore_record_append_new,
+             simcore_record_start,
+             simcore_record_stop,
+             simcore_record_reset,
+             simcore_record_play,
+             simcore_record_playInterval,
+             simcore_record_isRecording,
+             simcore_record_setTimeBeforeNow,
+             simcore_record_pause } from "../sim_core/sim_core_record.js";
+    import { get_simware }          from "../sim_core/sim_adt_core.js";
+    import { saveFirmware }         from "../sim_sw/firmware.js";
+    import { simhw_active }         from "../sim_hw/sim_hw_index.js";
+    import { i18n_update_tags,
+             i18n_get }             from "../wepsim_i18n/i18n.js";
+
+    import { wsweb_dialogs }                   from "./wepsim_web_ui_dialogs.js";
+    import { sim_change_workspace,
+             set_ab_size }                     from "./wepsim_web_simulator.js";
+    import { wepsim_svg_start_drawing,
+             wepsim_svg_stop_drawing,
+             wepsim_svg_is_drawing }           from "./wepsim_uielto_cpusvg.js";
+    import { cpucu_show_graph,
+             show_cpuview_view }               from "./wepsim_uipacker_cpu_cu.js";
+    import { fullshow_asmdbg_pc }              from "./wepsim_uielto_dbg_asm.js";
+    import { simcoreui_show_hw }               from "./wepsim_uielto_hw.js";
+    import { wepsim_tooltips_hide }            from "./wepsim_web_ui_tooltip.js";
+    import { webui_executionbar_toggle_play }  from "./wepsim_uielto_executionbar.js";
+    import { uipacker_ddown_sel_set_select }   from "./wepsim_uipacker_ddown_sel.js";
+    import { uipacker_ddown_info_set_select }  from "./wepsim_uipacker_ddown_info.js";
+    import { scroll_memory_to_lastaddress }    from "./wepsim_uielto_mem.js";
+    import { wepsim_show_cache_memory_config } from "./wepsim_uielto_cache_config.js";
+    import { webui_toolbar_updateMode,
+             webui_toolbar_updateAction }      from "./wepsim_uielto_toolbar.js";
+    import { wepsim_compile_assembly,
+             wepsim_compile_firmware }         from "./wepsim_web_editor.js";
+    import { topbar_quickmenu_action }         from "./wepsim_uielto_topbar.js";
+    import { wepsim_popover_show,
+             wepsim_popover_hide,
+             wepsim_popover_action }           from "./wepsim_web_ui_popover.js";
+
+    import { wepsim_execute_reset,
+             wepsim_execute_microinstruction,
+             wepsim_execute_instruction,
+             wepsim_reset_max_turbo }         from "../wepsim_core/wepsim_execute.js";
+    import { wsweb_dlg_alert,
+             wsweb_dlg_open,
+             wsweb_dlg_close }                from "../wepsim_core/wepsim_dialog.js";
+    import { wepsim_update_signal_quick,
+             wepsim_update_signal_dialog }    from "../wepsim_core/wepsim_signal.js";
+    import { wepsim_mode_change }             from "../wepsim_core/wepsim_mode.js";
+    import { wepsim_newbie_tour }             from "../wepsim_core/wepsim_tour.js";
+    import { wepsim_help_set }                from "../wepsim_core/wepsim_help.js";
+    import { wepsim_save_to_file }            from "../wepsim_core/wepsim_url.js";
+
+
     //
     // WepSIM API
     //
-
-    import { sim_change_workspace, set_ab_size } from "./wepsim_web_simulator.js";
-    import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
-    import { refresh, show_memories_values } from "../sim_core/sim_core_ui.js";
-    import { get_cfg, set_cfg, save_cfg, update_cfg } from "../sim_core/sim_cfg.js";
-    import { simcore_ga } from "../sim_core/sim_core_ga.js";
-    import { simcore_record_append_new, simcore_record_start, simcore_record_stop, simcore_record_reset, simcore_record_play, simcore_record_pause, simcore_record_playInterval, simcore_record_isRecording, simcore_record_setTimeBeforeNow } from "../sim_core/sim_core_record.js";
-    import { wepsim_svg_start_drawing, wepsim_svg_stop_drawing, wepsim_svg_is_drawing } from "./wepsim_uielto_cpusvg.js";
-    import { cpucu_show_graph, show_cpuview_view } from "./wepsim_uipacker_cpu_cu.js";
-    import { simhw_active } from "../sim_hw/sim_hw_index.js";
-    import { fullshow_asmdbg_pc } from "./wepsim_uielto_dbg_asm.js";
-    import { wepsim_execute_reset, wepsim_execute_microinstruction, wepsim_execute_instruction, wepsim_reset_max_turbo } from "../wepsim_core/wepsim_execute.js";
-    import { simcoreui_show_hw } from "./wepsim_uielto_hw.js";
-    import { wsweb_dlg_alert, wsweb_dlg_open, wsweb_dlg_close } from "../wepsim_core/wepsim_dialog.js";
-    import { webui_executionbar_toggle_play } from "./wepsim_uielto_executionbar.js";
-    import { wepsim_update_signal_quick, wepsim_update_signal_dialog } from "../wepsim_core/wepsim_signal.js";
-    import { uipacker_ddown_sel_set_select } from "./wepsim_uipacker_ddown_sel.js";
-    import { uipacker_ddown_info_set_select } from "./wepsim_uipacker_ddown_info.js";
-    import { wepsim_tooltips_hide } from "./wepsim_web_ui_tooltip.js";
-    import { i18n_update_tags, i18n_get } from "../wepsim_i18n/i18n.js";
-    import { scroll_memory_to_lastaddress } from "./wepsim_uielto_mem.js";
-    import { wepsim_show_cache_memory_config } from "./wepsim_uielto_cache_config.js";
-    import { wepsim_mode_change } from "../wepsim_core/wepsim_mode.js";
-    import { webui_toolbar_updateMode, webui_toolbar_updateAction } from "./wepsim_uielto_toolbar.js";
-    import { wepsim_newbie_tour } from "../wepsim_core/wepsim_tour.js";
-    import { wepsim_help_set } from "../wepsim_core/wepsim_help.js";
-    import { wepsim_compile_assembly, wepsim_compile_firmware } from "./wepsim_web_editor.js";
-    import { get_simware } from "../sim_core/sim_adt_core.js";
-    import { saveFirmware } from "../sim_sw/firmware.js";
-    import { wepsim_save_to_file } from "../wepsim_core/wepsim_url.js";
-    import { topbar_quickmenu_action } from "./wepsim_uielto_topbar.js";
-    import { wepsim_popover_show, wepsim_popover_hide, wepsim_popover_action } from "./wepsim_web_ui_popover.js";
-
 
     //  To change Workspaces
 
@@ -66,13 +97,13 @@
 			                  if (actual_details.includes('MicroCode')) {
                                               jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
 					      wait_if_uievents(function() {
-							    inputfirm.refresh();
+							    ws.inputfirm.refresh();
 						         }, 50) ;
 					  }
 			             else if (actual_details.includes('Assembly')) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2");
 					      wait_if_uievents(function() {
-							    inputasm.refresh() ;
+							    ws.inputasm.refresh() ;
 						         }, 50) ;
 					  }
 	                              },
@@ -85,10 +116,10 @@
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder1');
                                           }
 
-					  if (inputfirm.is_refreshed != true) {
-					      inputfirm.is_refreshed = true ;
+					  if (ws.inputfirm.is_refreshed != true) {
+					      ws.inputfirm.is_refreshed = true ;
 			                      wait_if_uievents(function(){
-					                    inputfirm.refresh() ;
+					                    ws.inputfirm.refresh() ;
 				                         }, 50) ;
                                           }
 	                              },
@@ -101,10 +132,10 @@
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder1") ;
                                           }
 
-					  if (inputasm.is_refreshed != true) {
-					      inputasm.is_refreshed = true ;
+					  if (ws.inputasm.is_refreshed != true) {
+					      ws.inputasm.is_refreshed = true ;
 					      wait_if_uievents(function(){
-							    inputasm.refresh() ;
+							    ws.inputasm.refresh() ;
 					    	         }, 50) ;
 					  }
 	                              }
@@ -330,7 +361,7 @@
             // intercept events...
 	    d1.one("hidden.bs.modal",
 		    function () {
-			wsweb_dialog_close(dialog_id) ;
+			ws.wsweb_dialog_close(dialog_id) ;
 		    });
 
             // add if recording
@@ -356,7 +387,7 @@
 
             // add if recording
             simcore_record_append_new('Close dialogbox ' + dialog_id,
-		                      'wsweb_dialog_close("' + dialog_id + '");\n') ;
+		                      'ws.wsweb_dialog_close("' + dialog_id + '");\n') ;
 
 	    // return dialog
 	    return d1 ;
@@ -474,7 +505,7 @@
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder2');
                                           }
 					  wait_if_uievents(function() {
-                                                        inputfirm.refresh();
+                                                        ws.inputfirm.refresh();
 						     }, 50) ;
                                         },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);
@@ -484,7 +515,7 @@
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
                                           }
 					  wait_if_uievents(function() {
-							inputasm.refresh() ;
+							ws.inputasm.refresh() ;
 						     }, 50) ;
                                         },
 
@@ -615,7 +646,7 @@
 	        case 'microcandc':
                       // 1) compile firmware
                       wsweb_firmware_compile() ;
-                      if (false ==inputfirm.is_compiled) {
+                      if (false == inputfirm.is_compiled) {
                           wsweb_change_workspace_microcode() ;
 	                  return false;
 		      }

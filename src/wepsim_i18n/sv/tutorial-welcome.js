@@ -17,12 +17,14 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { i18n } from "../i18n.js";
+
+    import { i18n } from "../i18n.js";
+
 
     i18n.eltos.tutorial_welcome.sv = {
 
 		'title_0':		'Välkommen till WepSIM-simulatorn!',
-		'message_0':		'<img alt = \'wepsim screenshot\' src = \'images/simulator/simulator012.jpg\' style = \'max-width: 100%; maxhöjd: 40vh; \'> <p> <h5> Denna korta handledning kommer att visa dig hur man: <ol> <li> <a href =\' # \'onclick =\' sim_tutorial_goframe , 0,1); \'> Ladda ett exempel. </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,2);\'> Exekvera ett exempel. </a> </li> <li> <a href=\'#\'onclick=\'sim_tutorial_goframe("welcome",0,3);\'> Konfigurera simuleringen. </a> </li> <li> <a href = \'#\' onclick = \'sim_tutorial_goframe ("välkommen", 0,4);\'> Få hjälp. </a> </li> </ol> </h5>',
+		'message_0':		'<img alt = \'wepsim screenshot\' src = \'images/simulator/simulator012.jpg\' style = \'max-width: 100%; maxhöjd: 40vh; \'> <p> <h5> Denna korta handledning kommer att visa dig hur man: <ol> <li> <a href =\' # \'onclick =\'ws.sim_tutorial_goframe , 0,1); \'> Ladda ett exempel. </a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("welcome",0,2);\'> Exekvera ett exempel. </a> </li> <li> <a href=\'#\'onclick=\'ws.sim_tutorial_goframe("welcome",0,3);\'> Konfigurera simuleringen. </a> </li> <li> <a href = \'#\' onclick = \'ws.sim_tutorial_goframe ("välkommen", 0,4);\'> Få hjälp. </a> </li> </ol> </h5>',
 		'title_1':		'Så här laddar du lite exempel.',
 		'message_1':		'<img alt = \'wepsim screenshot\' src = \'images/welcome/example_usage.gif\' style = \'max-width: 100%; maxhöjd: 60vh \'> <p> <h5> Klicka på "exempel" -knappen och klicka sedan på exemplet "title" -namn. <br> Då är exemplet för mikrokod och montering laddad och mikrokompilerad och sammanställas. <br> </h5>',
 		'title_2':		'Hur man utför ett exempel.',

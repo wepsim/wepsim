@@ -214,7 +214,7 @@
         {
             var is_dark = false ;
 
-	    cfgValue = get_cfg('ws_skin_dark_mode') ;
+	    var cfgValue = get_cfg('ws_skin_dark_mode') ;
             switch (cfgValue)
 	    {
                case 'on':

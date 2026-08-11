@@ -19,17 +19,18 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { is_cfg_empty, get_cfg } from "../sim_core/sim_cfg.js";
+        import { sim }                   from "../sim_hw/sim_hw_index.js";
+        import { ws_info }               from "../sim_core/sim_adt_core.js";
+
+        import { ws_uielto,
+                 register_uielto }       from "./wepsim_uielto.js";
+
+
         /*
          *  Toolbar
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { is_cfg_empty, get_cfg } from "../sim_core/sim_cfg.js";
-        import { sim } from "../sim_hw/sim_hw_index.js";
-        import { ws_info } from "../sim_core/sim_adt_core.js";
-
 
         export class ws_toolbar extends ws_uielto
         {
@@ -122,8 +123,8 @@
                         '    id="btn_micro1"' +
 		        '    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '    title="This button switches into the \'Microcode\' editor."' +
-                        '    onclick="wsweb_change_workspace_microcode();' +
-                        '             wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+                        '    onclick="ws.wsweb_change_workspace_microcode();' +
+                        '             ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 		        '	      return false;"' +
 		        '><strong><span class="d-none d-sm-inline-flex" ' +
                         ' data-langkey=\'MicroCode\'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>' ;
@@ -135,8 +136,8 @@
                         '        id="btn_asm1"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="This button switches into the \'Assembly\' editor."' +
-                        '        onclick="wsweb_change_workspace_assembly();' +
-                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+                        '        onclick="ws.wsweb_change_workspace_assembly();' +
+                        '                 ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'		  return false;"' +
 			'><strong><span class="d-none d-sm-inline-flex" data-langkey=\'Assembly\'>Assembly</span><span class="d-sm-none" data-langkey=\'Assembly\'>Assembly</span></strong></button>' ;
 	      }
@@ -147,8 +148,8 @@
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
                         '        data-transition="none" data-inline="true"' +
 			'        title="This button switches into the \'Simulator\' workspace."' +
-                        '        onclick="wsweb_change_workspace_simulator();' +
-                        '                 wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+                        '        onclick="ws.wsweb_change_workspace_simulator();' +
+                        '                 ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
 			'		  return false;"' +
                         '><strong><span data-langkey=\'Simulator\'>Simulator</span></strong></button>' ;
 	      }
@@ -192,7 +193,7 @@
                          '        id="btn_help1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Help\' dialog."' +
-		         '        onclick="wsweb_dialog_open(\'help\');' +
+		         '        onclick="ws.wsweb_dialog_open(\'help\');' +
 			 '	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-info d-none d-sm-inline text-secondary"></em>' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -207,8 +208,8 @@
                          '        id="btn_cfg1"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
-                         '        onclick="wsweb_dialog_open(\'config\');' +
-			 '    	          return false;">' ;
+                         '        onclick="ws.wsweb_dialog_open(\'config\');' +
+			 '    	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-cogs d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
                     o += '<strong><span class="d-none d-sm-inline-flex" data-langkey=\'Configuration\'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>' ;
@@ -221,7 +222,7 @@
 		 var o = '<button class="btn bg-body-tertiary shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Notifications\' dialog."' +
-                         '        onclick="wsweb_dialog_open(\'notifications\');' +
+                         '        onclick="ws.wsweb_dialog_open(\'notifications\');' +
 			 '	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-comment-alt d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -235,7 +236,7 @@
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button toggles the \'Record\' bar."' +
-                         '        onclick="wsweb_recordbar_toggle();' +
+                         '        onclick="ws.wsweb_recordbar_toggle();' +
 			 '	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -249,7 +250,7 @@
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button microcompiles and compiles."' +
-                         '        onclick="wsweb_select_action(\'microcandc\');' +
+                         '        onclick="ws.wsweb_select_action(\'microcandc\');' +
 			 '	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-circle d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -263,7 +264,7 @@
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'state management\' dialog: it shows the current state, saves the current state, and shows the differences between two states."' +
-		         '        onclick="wsweb_dialog_open(\'state\');' +
+		         '        onclick="ws.wsweb_dialog_open(\'state\');' +
 			 '	           $(\'#bot_check1\').carousel(0);' +
 			 '                 return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-camera d-none d-sm-inline text-secondary"></em>&nbsp;' ;
@@ -279,7 +280,7 @@
                          '        id="s4_owncode" value="owncode"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			 '        title="This button opens the \'Configuration\' dialog."' +
-			 '        onclick="wsweb_select_action(\'checkpoint\');' +
+			 '        onclick="ws.wsweb_select_action(\'checkpoint\');' +
 			 '    	           return false;">' ;
                     o += (robj.icons_str == 'no') ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>&nbsp;' ;
                     o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -301,7 +302,7 @@
 			'           title="Dropdown on the right let you access to common actions."' +
 			'           data-action="checkpoint"' +
 			'	    onclick="var action = $(\'#select6a\').attr(\'data-action\');' +
-	                '                    wsweb_do_action(action);' +
+	                '                    ws.wsweb_do_action(action);' +
 	                '                    return false;"' +
 			'           id="select6a"' +
                         '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
@@ -316,40 +317,40 @@
                         '     <h6 class="text-white bg-secondary mt-2 mb-1 border border-secondary"' +
                         '     ><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_examples" value="examples"' +
-			'        onclick="wsweb_select_action(\'examples\');' +
+			'        onclick="ws.wsweb_select_action(\'examples\');' +
 			'	 return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Examples">Examples</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_checkpoint"  value="owncode"' +
-			'        onclick="wsweb_select_action(\'checkpoint\');' +
+			'        onclick="ws.wsweb_select_action(\'checkpoint\');' +
 			'	          return false;"><em class="fas fa-stream"></em>&nbsp;<span data-langkey="Checkpoint">Checkpoint</span></a>' +
                         '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Utilities">Utilities</span>:</h6>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_notifications" value="notifications"' +
-			'        onclick="wsweb_select_action(\'notifications\');' +
+			'        onclick="ws.wsweb_select_action(\'notifications\');' +
 			'	          return false;"><span data-langkey="Notifications">Notifications</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_recordbar" value="recordbar"' +
-			'        onclick="wsweb_select_action(\'recordbar\');' +
+			'        onclick="ws.wsweb_select_action(\'recordbar\');' +
 			'	          return false;"><span data-langkey="RecordBar">RecordBar</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_reload" value="reload"' +
-			'        onclick="wsweb_select_action(\'reload\');' +
+			'        onclick="ws.wsweb_select_action(\'reload\');' +
 			'	          return false;"><span data-langkey="Reload">Reload</span></a>' +
                         '\n' +
 			'     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Combinations">Combinations</span>:</h6>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_microcandc" value="microcandc"' +
-			'        onclick="wsweb_select_action(\'microcandc\');' +
+			'        onclick="ws.wsweb_select_action(\'microcandc\');' +
 			'	          return false;"><span data-langkey="microc and c">&micro;c and c</span></a>' +
                         '\n' +
                         '     <h6 class="text-white bg-secondary mt-2 mb-0 border border-secondary"' +
                         '     ><span data-langkey="Information from">Information from</span>:</h6>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_help" value="help"' +
-                        '        onclick="wsweb_select_action(\'help\');' +
+                        '        onclick="ws.wsweb_select_action(\'help\');' +
                         '                 return false;"><span data-langkey="Help">Help</span></a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_welcome" value="welcome"' +
-                        '        onclick="wsweb_select_action(\'welcome\');' +
+                        '        onclick="ws.wsweb_select_action(\'welcome\');' +
                         '                 return false;"><span data-langkey="Welcome tutorial">Welcome tutorial</span>...</a>' +
                         '     <a class="dropdown-item py-2" href="#" id="selact_intro" value="intro"' +
-                        '        onclick="wsweb_select_action(\'intro\');' +
+                        '        onclick="ws.wsweb_select_action(\'intro\');' +
                         '                 return false;"><span data-langkey="Initial intro">Initial intro</span>...</a>' +
                         '\n' +
 			'   </div>' +
@@ -367,8 +368,8 @@
 			'           title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."' +
 			'           id="select4"' +
                         '           onclick="wait_if_uievents(function(){$(\'#dd1\').dropdown(\'toggle\');},50);' +
-                        '                    wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-			'	          // wsweb_set_details(\'HARDWARE\');' +
+                        '                    ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+			'	          // ws.wsweb_set_details(\'HARDWARE\');' +
 			'	             return false;">HW</button>' +
                         '\n' +
 			'   <button id="dd1" type="button" ' +
@@ -395,7 +396,7 @@
 
                    o += '     <a class="dropdown-item py-2 ' + wip_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
-			'	 onclick="wsweb_select_main(\'' + item + '\');' +
+			'	 onclick="ws.wsweb_select_main(\'' + item + '\');' +
                         '                 inputfirm.is_compiled = false; ' +
                         '                 inputasm.is_compiled  = false; ' +
 			'		  return false;"' +
@@ -409,14 +410,14 @@
                         '        href="#" id="s4_asm_mips" value="asm_mips"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
-                        '        onclick="wsweb_select_main(\'asm_mips\');' +
+                        '        onclick="ws.wsweb_select_main(\'asm_mips\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item wsx_morecfg mb-0 py-2" ' +
                         '        href="#" id="s4_asm_rv32" value="asm_rv32"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
-                        '        onclick="wsweb_select_main(\'asm_rv32\');' +
+                        '        onclick="ws.wsweb_select_main(\'asm_rv32\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP+RV32<sub>i+m</sub></a>' +
                         '\n' +
@@ -425,14 +426,14 @@
                         '        href="#" id="s4_ep2_asm_mips" value="ep2_asm_mips"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="MIPS<sub>32</sub> assembly only (integer instructions)."' +
-                        '        onclick="wsweb_select_main(\'ep2_asm_mips\');' +
+                        '        onclick="ws.wsweb_select_main(\'ep2_asm_mips\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;EP2+MIPS<sub>int32</sub></a>' +
                         '     <a class="dropdown-item wsx_morecfg mb-0 py-2 wsx_ep2" ' +
                         '        href="#" id="s4_ep2_asm_rv32" value="ep2_asm_rv32"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
-                        '        onclick="wsweb_select_main(\'ep2_asm_rv32\');' +
+                        '        onclick="ws.wsweb_select_main(\'ep2_asm_rv32\');' +
                         '                 return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;E2P+RV32<sub>i+m</sub></a>' +
                         '\n' +
@@ -452,8 +453,8 @@
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 		        '           title="This button opens the \'Examples\' dialog."' +
                         '           id="btn_example1"' +
-			'	    onclick="wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-		        '                    wsweb_dialog_open(\'examples\');' +
+			'	    onclick="ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+		        '                    ws.wsweb_dialog_open(\'examples\');' +
 			'	             return false;">' ;
                    o += (robj.icons_str == "no") ? '' : '<em class="fas fa-stream d-none d-sm-inline text-secondary"></em>' ;
                    o += (robj.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -509,10 +510,10 @@
 
 	        o += '<a class="dropdown-item py-2 " ' +
 	     	     '   href="#" id="exs_' + item.name + '" value="' + i + '" ' +
-		     '   onclick="wepsim_example_reset();' +
-		     '            wepsim_example_load(\'' + item.name + '\');' +
-                     '            wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-	             '            wsweb_dialog_open(\'examples\');' +
+		     '   onclick="ws.wepsim_example_reset();' +
+		     '            ws.wepsim_example_load(\'' + item.name + '\');' +
+                     '            ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+	             '            ws.wsweb_dialog_open(\'examples\');' +
 		     '	     return false;"' +
 		     '><em class="fas fa-cube d-sm-inline d-xs-none text-secondary me-2"></em>' +
 		     item.name + '</a>\n' ;

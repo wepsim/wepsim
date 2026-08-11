@@ -26,22 +26,24 @@
         /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_control_memory_delay }         from "../sim_core/sim_cfg.js";
-        import { ws_uielto,
-                 register_uielto }                             from "./wepsim_uielto.js";
-        import { wepsim_execute_toggle_microbreakpoint } from "../wepsim_core/wepsim_execute.js";
-        import { wepsim_notify_do_notify }               from "../wepsim_core/wepsim_notify.js";
-        import { simcore_record_append_new }             from "../sim_core/sim_core_record.js";
-        import { sim_core_breakpointicon_get }           from "../wepsim_core/wepsim_dbg_breakpointicons.js";
-        import { simhw_sim_ctrlStates_get,
-                 simhw_sim_state,
-                 simhw_internalState }                   from "../sim_hw/sim_hw_index.js";
         import { get_value,
                  vue_observable_ifnotjetdone,
-                 vue_appyBinding }                       from "../sim_core/sim_core_values.js";
+                 vue_applyBinding }                      from "../sim_core/sim_core_values.js";
         import { get_simware }                           from "../sim_core/sim_adt_core.js";
         import { control_memory_set,
                  control_memory_lineToString }           from "../sim_core/sim_adt_ctrlmemory.js";
         import { element_scroll_setRelative }            from "../sim_core/sim_core_ui.js";
+        import { simcore_record_append_new }             from "../sim_core/sim_core_record.js";
+        import { simhw_sim_ctrlStates_get,
+                 simhw_sim_state,
+                 simhw_internalState }                   from "../sim_hw/sim_hw_index.js";
+
+        import { ws_uielto,
+                 register_uielto }                       from "./wepsim_uielto.js";
+
+        import { wepsim_execute_toggle_microbreakpoint } from "../wepsim_core/wepsim_execute.js";
+        import { wepsim_notify_do_notify }               from "../wepsim_core/wepsim_notify.js";
+        import { sim_core_breakpointicon_get }           from "../wepsim_core/wepsim_dbg_breakpointicons.js";
 
 
         export class ws_dbg_mc extends ws_uielto
@@ -344,7 +346,7 @@
                      "    :data-info='elto.key' v-bind:key='elto.key' " +
                      "    :style='elto.ui.style_obj' " +
 	 	     "    onclick='var key = this.getAttribute(\"data-info\"); " +
-                     "             dbg_set_breakpoint(key); " +
+                     "             ws.dbg_set_breakpoint(key); " +
                      "             if (event.stopPropagation) event.stopPropagation();'>" +
  	             "<td class='col-3 col-md-2 py-0' align='right' v-html='elto.ui.labels_str'></td>" +
 	             "<td class='col-auto py-0 px-0'  width='1%'    v-html='elto.ui.b_icon'></td>" +
@@ -369,7 +371,7 @@
                                       } ;
 
             memory = vue_observable_ifnotjetdone(memory) ;
-            vue_appyBinding(memory, '#ctrl_mem', f_computed_elements) ;
+            vue_applyBinding(memory, '#ctrl_mem', f_computed_elements) ;
 
             // scroll up/down to index element...
 	    if (redraw) {

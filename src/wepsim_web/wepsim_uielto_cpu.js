@@ -24,11 +24,11 @@
          */
 
         /* jshint esversion: 6 */
+        import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
         import { ws_uielto,
-                 register_uielto }         from "./wepsim_uielto.js";
+                 register_uielto }   from "./wepsim_uielto.js";
         import { simhw_active,
                  simhw_sim_state }   from "../sim_hw/sim_hw_index.js";
-        import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
 
 
         export class ws_cpu extends ws_uielto

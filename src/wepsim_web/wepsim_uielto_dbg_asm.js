@@ -19,34 +19,39 @@
  */
 
 
-        /*
-         *  DBG-MP
-         */
-
         /* jshint esversion: 6 */
         import { get_cfg,
-                 cfg_show_dbg_ir_delay }  from "../sim_core/sim_cfg.js";
+                 cfg_show_dbg_ir_delay }            from "../sim_core/sim_cfg.js";
+        import { get_value }                        from "../sim_core/sim_core_values.js";
+        import { get_simware }                      from "../sim_core/sim_adt_core.js";
+        import { main_memory_getsrc,
+                 main_memory_getsrcbin }            from "../sim_core/sim_adt_mainmemory.js";
+        import { simcore_record_append_new }        from "../sim_core/sim_core_record.js";
+        import { simhw_internalState,
+                 simhw_sim_ctrlStates_get,
+                 simhw_sim_state }                  from "../sim_hw/sim_hw_index.js";
+
+        import { i18n_get,
+                 i18n_get_TagFor }                  from "../wepsim_i18n/i18n.js";
+        import { wepsim_execute_toggle_breakpoint } from "../wepsim_core/wepsim_execute.js";
+        import { sim_core_breakpointicon_get }      from "../wepsim_core/wepsim_dbg_breakpointicons.js";
+        import { WORD_BYTES,
+                 WORD_LENGTH,
+                 BYTE_LENGTH }                      from "../sim_sw/assembly/datatypes.js";
+
         import { ws_uielto,
-                 register_uielto }              from "./wepsim_uielto.js";
-        import { get_value }              from "../sim_core/sim_core_values.js";
-        import { get_simware }            from "../sim_core/sim_adt_core.js";
+                 register_uielto }                  from "./wepsim_uielto.js";
         import { wepsim_quickcfg_init,
                  quickcfg_html_header,
                  quickcfg_html_onoff }              from "./wepsim_web_ui_quickcfg.js";
         import { wepsim_config_button_pretoggle,
                  wepsim_config_button_toggle }      from "./wepsim_web_ui_config.js";
-        import { i18n_get,
-                 i18n_get_TagFor }                  from "../wepsim_i18n/i18n.js";
-        import { main_memory_getsrc,
-                 main_memory_getsrcbin }            from "../sim_core/sim_adt_mainmemory.js";
-        import { simhw_internalState,
-                 simhw_sim_ctrlStates_get,
-                 simhw_sim_state }                  from "../sim_hw/sim_hw_index.js";
-        import { wepsim_execute_toggle_breakpoint } from "../wepsim_core/wepsim_execute.js";
-        import { sim_core_breakpointicon_get }      from "../wepsim_core/wepsim_dbg_breakpointicons.js";
         import { wepsim_uicfg_apply }               from "./wepsim_web_simulator.js";
-        import { simcore_record_append_new }        from "../sim_core/sim_core_record.js";
 
+
+        /*
+         *  DBG-MP
+         */
 
         export class ws_dbg_mp extends ws_uielto
         {
@@ -382,7 +387,7 @@
 		 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
 	     }
 
-	     var oclk = "    onclick='asmdbg_set_breakpoint(" + p + "); " +
+	     var oclk = "    onclick='ws.asmdbg_set_breakpoint(" + p + "); " +
 		        "             if (event.stopPropagation) event.stopPropagation();'" ;
 
 	     // join the pieces...
@@ -477,7 +482,7 @@
                      // <close>
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
-                     '        onclick="wepsim_popovers_hide('+asm_po+');">' + i18n_get('dialogs', wsi, 'Close') +
+                     '        onclick="ws.wepsim_popovers_hide('+asm_po+');">' + i18n_get('dialogs', wsi, 'Close') +
     		 '</button>' +
                  '</span>' ;
 
@@ -603,7 +608,7 @@
 	   o += '</div>' ;
            o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
                 '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
-                '        onclick=wepsim_tooltips_closeAll();return false;>' +
+                '        onclick=ws.wepsim_tooltips_closeAll();return false;>' +
     		         i18n_get('dialogs', wsi, 'Close') +
     		'</button>' ;
 

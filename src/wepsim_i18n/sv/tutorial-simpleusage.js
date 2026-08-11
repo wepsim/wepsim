@@ -17,12 +17,14 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { i18n } from "../i18n.js";
+
+    import { i18n } from "../i18n.js";
+
 
     i18n.eltos.tutorial_simpleusage.sv = {
 
 		'title_0':		'Enkel WepSIM-upplevelse: mikroprogrammering och programmering',
-		'message_0':		'<img alt = \'wepsim screenshot\' src = \'images/simulator/simulator011.jpg\' style = \'max-width: 100%; maxhöjd: 40vh; \'> <p> <h5> Denna korta handledning kommer att visa dig hur man: <ol> <li> <a href =\' # \'onclick =\' sim_tutorial_goframe ("simpleusage" , 0,1); \'> Ändra din mikrokod. </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("simpleusage",0,3);\'> Redigera din montering baserat på föregående mikrokod). </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("simpleusage",0,5) ;\'> Utför montering + mikrokod i simuleringen. </a> </li> </ol> </h5>',
+		'message_0':		'<img alt = \'wepsim screenshot\' src = \'images/simulator/simulator011.jpg\' style = \'max-width: 100%; maxhöjd: 40vh; \'> <p> <h5> Denna korta handledning kommer att visa dig hur man: <ol> <li> <a href =\' # \'onclick =\'ws.sim_tutorial_goframe("simpleusage" , 0,1); \'> Ändra din mikrokod. </a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("simpleusage",0,3);\'> Redigera din montering baserat på föregående mikrokod). </a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("simpleusage",0,5) ;\'> Utför montering + mikrokod i simuleringen. </a> </li> </ol> </h5>',
 		'title_1':		'Enkel WepSIM-upplevelse: mikroprogrammering och programmering',
 		'message_1':		'<img alt = \'wepsim skärmdump\' src = \'images/simulator/firmware001.jpg\' style = \'max-width: 100%; maxhöjd: 40vh; \'> <p> <h5> Det första steget är att mikroprogrammera den fasta programvaran som ska användas. Använd "Mikrokod" -knappen för att växla till mikrokodskärmen. </H5>',
 		'title_2':		'Enkel WepSIM-upplevelse: mikroprogrammering och programmering',

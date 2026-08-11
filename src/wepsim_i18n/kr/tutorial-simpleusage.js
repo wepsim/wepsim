@@ -27,9 +27,9 @@ import { i18n } from "../i18n.js";
                                 "<h5>" +
                                 "이 간단한 튜토리얼은:" +
                                 "<ol>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>마이크로 코드 편집.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>어셈블리 편집 (이전 마이크로 코드 기반).</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>시뮬레이션에서 어셈블리 + 마이크로 코드 실행.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,1);'>마이크로 코드 편집.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,3);'>어셈블리 편집 (이전 마이크로 코드 기반).</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,5);'>시뮬레이션에서 어셈블리 + 마이크로 코드 실행.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
 

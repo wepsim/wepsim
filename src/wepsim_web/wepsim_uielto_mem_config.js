@@ -19,16 +19,20 @@
  */
 
 
-        /*
-         * Memory (configuration)
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
-        import { simhw_active, simhw_internalState_get, simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
-        import { get_value, vue_observable, vue_appyBinding } from "../sim_core/sim_core_values.js";
+        import { simhw_active,
+                 simhw_internalState_get,
+                 simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
+        import { get_value,
+                 vue_observable,
+                 vue_applyBinding } from "../sim_core/sim_core_values.js";
 
+
+        /*
+         * Memory (configuration)
+         */
 
         export class ws_mem_config extends ws_uielto
         {
@@ -79,14 +83,14 @@
 		    var base_mp_wc_read = get_value(simhw_internalState_get('MP_wc', 'read')) ;
 		    var curr_mp_read_wc = { value: vue_observable(base_mp_wc_read) } ;
 		    simhw_internalState_reset('MP_wc.read', curr_mp_read_wc) ;
-		    vue_appyBinding(curr_mp_read_wc.value,
+		    vue_applyBinding(curr_mp_read_wc.value,
 				    '#mp_wc_read_' + input_div,
 				    function(value){ return value; }) ;
 
 		    var base_mp_wc_write = get_value(simhw_internalState_get('MP_wc', 'write')) ;
 		    var curr_mp_write_wc = { value: vue_observable(base_mp_wc_write) } ;
 		    simhw_internalState_reset('MP_wc.write', curr_mp_write_wc) ;
-		    vue_appyBinding(curr_mp_write_wc.value,
+		    vue_applyBinding(curr_mp_write_wc.value,
 				    '#mp_wc_write_' + input_div,
 				    function(value){ return value; }) ;
 	      }

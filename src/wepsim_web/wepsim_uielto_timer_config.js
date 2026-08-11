@@ -19,16 +19,19 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { vue_observable_ifnotjetdone,
+                 vue_applyBinding }    from "../sim_core/sim_core_values.js";
+        import { simhw_active,
+                 simhw_internalState } from "../sim_hw/sim_hw_index.js";
+
+        import { ws_uielto,
+                 register_uielto }     from "./wepsim_uielto.js";
+
+
         /*
          *  I/O device (config)
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { simhw_active, simhw_internalState } from "../sim_hw/sim_hw_index.js";
-        import { vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
-
 
         export class ws_io_config extends ws_uielto
         {
@@ -142,13 +145,13 @@
 		    {
                          // period
 			 curr_iointfactory[i].period = vue_observable_ifnotjetdone(curr_iointfactory[i].period) ;
-                         vue_appyBinding(curr_iointfactory[i].period,
+                         vue_applyBinding(curr_iointfactory[i].period,
                                          '#int'+i+'_per',
                                          function(value){ return value; }) ;
 	
                          // probability
 			 curr_iointfactory[i].probability = vue_observable_ifnotjetdone(curr_iointfactory[i].probability) ;
-                         vue_appyBinding(curr_iointfactory[i].probability,
+                         vue_applyBinding(curr_iointfactory[i].probability,
                                          '#int'+i+'_pro',
                                          function(value){ return value; }) ;
 		    }

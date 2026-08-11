@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Slider: CPU / Control Unit
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Slider: CPU / Control Unit
+         */
 
         export class ws_slider_cpucu extends ws_uielto
         {

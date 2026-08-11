@@ -24,7 +24,7 @@ import { i18n } from "../i18n.js";
     i18n.eltos.tutorial_welcome.ja = {
 
 		'title_0':		'WepSIMシミュレータへようこそ！',
-		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'images/simulator/simulator012.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' sim_tutorial_goframe（ "welcome" 、0,1）; \'>例を読み込みます。</a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,2);\'>例を実行してください。 </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,3);\'>シミュレーションを設定します。</a> </li> <li> <a href = \'＃\' onclick = \'sim_tutorial_goframe（ "welcome"、0,4）;\'>サポートを受けてください。</a> </li></ol> </h5>',
+		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'images/simulator/simulator012.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' ws.sim_tutorial_goframe（ "welcome" 、0,1）; \'>例を読み込みます。</a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("welcome",0,2);\'>例を実行してください。 </a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("welcome",0,3);\'>シミュレーションを設定します。</a> </li> <li> <a href = \'＃\' onclick = \'ws.sim_tutorial_goframe（ "welcome"、0,4）;\'>サポートを受けてください。</a> </li></ol> </h5>',
 		'title_1':		'例を読み込む方法',
 		'message_1':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/example_usage.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>「example」ボタンをクリックし、次に「title」名の例をクリックします。<br>次に、マイクロコードとアセンブリの例を読み込んでマイクロコンパイルし、コンパイル済み。<br> <br> </h5>',
 		'title_2':		'例を実行する方法',

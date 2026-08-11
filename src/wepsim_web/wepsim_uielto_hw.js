@@ -25,7 +25,7 @@
 
         /* jshint esversion: 6 */
         import { ws_uielto,
-                 register_uielto }                    from "./wepsim_uielto.js";
+                 register_uielto }              from "./wepsim_uielto.js";
         import { simhw_active }                 from "../sim_hw/sim_hw_index.js";
         import { simhwelto_prepare_hash,
                  simhwelto_describe_component } from "../sim_hw/sim_hw_eltos.js";
@@ -104,6 +104,8 @@
 
         export function simcoreui_init_hw ( div_name, components_arr )
         {
+	      var popover_cfg = null ;
+
               // get active hardware
               var ahw = simhw_active() ;
 
@@ -295,7 +297,7 @@
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
 		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Shows/Hide inactive signals"' +
-		    '      onclick="ws_signals_show_inactive = !ws_signals_show_inactive;' +
+		    '      onclick="ws.ws_signals_show_inactive = !ws_signals_show_inactive;' +
 		    '               $(\'.s-ina\').toggle();' +
 		    '               return false;" ' +
 		    '      data-langkey="Active">Active</span>' ;
@@ -309,7 +311,7 @@
 		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
 		    '      onclick="$(\'#depgraph1c\').collapse(\'toggle\'); ' +
-		    '               show_visgraph(jit_fire_dep, jit_fire_order);" ' +
+		    '               ws.show_visgraph(jit_fire_dep, jit_fire_order);" ' +
 		    '      data-langkey="Dependencies">Dependencies</span>' ;
 
 	    return o ;
@@ -339,7 +341,7 @@
               e = '<span style=\'text-align:left\'>' +
                   '<span data-langkey=\'name\'>name</span>: ' + ahw_signals[elto].name  + '<br>' +
                   '<span data-langkey=\'value\'>value</span>: ' +
-                  '<span onclick=simcoreui_signal_dialog(\'' + ahw_signals[elto].name + '\'); ' +
+                  '<span onclick=ws.simcoreui_signal_dialog(\'' + ahw_signals[elto].name + '\'); ' +
                   '      class=\'fw-bold\'>' + elto_v +
                   '</span><br>' +
                   '<span data-langkey=\'default_value\'>default_value</span>: ' + elto_dv + '<br>' +
@@ -348,7 +350,7 @@
                   '<span data-langkey=\'visible\'>visible</span>: '       + ahw_signals[elto].visible +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                  "        onclick='wepsim_popovers_hide(\".popover_hw\");'>" +
+                  "        onclick='ws.wepsim_popovers_hide(\".popover_hw\");'>" +
                   '<span data-langkey=\'Close\'>Close</span></button>' +
                   '</span>' ;
 
@@ -482,7 +484,7 @@
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
 		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Shows/Hide inactive states"' +
-		    '      onclick="ws_states_show_inactive = !ws_states_show_inactive;' +
+		    '      onclick="ws.ws_states_show_inactive = !ws.ws_states_show_inactive;' +
 		    '               $(\'.t-ina\').toggle();' +
 		    '               return false;" ' +
 		    '      data-langkey="Active">Active</span>' ;
@@ -530,7 +532,7 @@
                   '<span data-langkey=\'visible\'>visible</span>: '             + elto_vi +
                   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                   '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                  '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
+                  '        onclick=ws.wepsim_popovers_hide(\'.popover_hw\');>' +
                   '<span data-langkey=\'Close\'>Close</span></button>' +
                   '</span>' ;
 
@@ -598,7 +600,7 @@
                         // 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
                            '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=wepsim_popovers_hide(\'.popover_hw\');><span data-langkey=\'Close\'>Close</span></button>' +
+                           '        onclick=ws.wepsim_popovers_hide(\'.popover_hw\');><span data-langkey=\'Close\'>Close</span></button>' +
                            '</span>' +
                            '"' +
                            '   data-bs-html="true" title="">' + elto + '</a></span>' ;
@@ -627,7 +629,7 @@
 		      '<span data-langkey=\'abilities\'>abilities</span>: '  + ahw.components[elto].abilities.join(" + ") +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-		      '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
+		      '        onclick=ws.wepsim_popovers_hide(\'.popover_hw\');>' +
 		      '<span data-langkey=\'Close\'>Close</span></button>' ;
 
               return e ;
@@ -638,7 +640,7 @@
 	      var e = simhwelto_describe_component(elto_path, elto, 'html') +
 		      '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
 		      '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-		      '        onclick=wepsim_popovers_hide(\'.popover_hw\');>' +
+		      '        onclick=ws.wepsim_popovers_hide(\'.popover_hw\');>' +
 		      '<span data-langkey=\'Close\'>Close</span></button>' ;
 
               return e ;
@@ -684,8 +686,8 @@
 	         for (var j=0; j<ahw.elements_hash.by_belong[b].length; j++)
 	         {
 		         // new row
-                         elto = ahw.elements_hash.by_belong[b][j] ;
-                         elto_path = ahw.sim_short_name + ':' + elto.key ;
+                         var elto      = ahw.elements_hash.by_belong[b][j] ;
+                         var elto_path = ahw.sim_short_name + ':' + elto.key ;
 
 			 // 1) name
 			 o += '<td class="col-2"><span class="row w-100">' +
@@ -747,10 +749,10 @@
 			 o += '<td class="col-2"><span class="row w-100">' ;
 			 for (var es in elto.signals)
 			 {
-				 signal_ref = elto.signals[es].ref ;
+				 var signal_ref = elto.signals[es].ref ;
 
 				 elto_c = 'hw_signal_strong_' + signal_ref ;
-				 e = 'signal ' + signal_ref ; // simcoreui_hw_signals_popup(ahw.signals, signal_ref) ;
+				 var e = 'signal ' + signal_ref ; // simcoreui_hw_signals_popup(ahw.signals, signal_ref) ;
 
 				 // value
 				 o += '<span class="' + elto_c + ' s-ina col fw-normal">' +

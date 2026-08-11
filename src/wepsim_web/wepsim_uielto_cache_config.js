@@ -24,15 +24,16 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }                        from "./wepsim_uielto.js";
-        import { simhw_active,
-                 simhw_internalState,
-                 simhw_internalState_reset }        from "../sim_hw/sim_hw_index.js";
         import { get_var, set_var }                 from "../sim_core/sim_core_values.js";
         import { cache_memory_init,
                  cache_memory_init_eltofromcfg,
                  cache_memory_init_eltonextcache }  from "../sim_core/sim_adt_cachememory.js";
+        import { simhw_active,
+                 simhw_internalState,
+                 simhw_internalState_reset }        from "../sim_hw/sim_hw_index.js";
+
+        import { ws_uielto,
+                 register_uielto }                  from "./wepsim_uielto.js";
 
 
         export class ws_cache_config extends ws_uielto
@@ -294,7 +295,7 @@
 		  "</div>" +
 		  "<div class='col-auto px-2 py-0'>" +
 		  "<span class='btn btn-sm btn-warning text-white py-0' " +
-                  "      onclick='wepsim_cm_rm_cachelevel(\""+div_hash+"\","+index+");'>Remove</span>" +
+                  "      onclick='ws.wepsim_cm_rm_cachelevel(\""+div_hash+"\","+index+");'>Remove</span>" +
 		  "</div>" +
 		  "</div>" +
 		  "" +
@@ -327,7 +328,7 @@
 		   "<span class='col h5 ps-1'>" +
 		   "  <span data-langkey='Cache'>Cache</span>" +
 		   "  <span class='btn btn-sm btn-success text-white py-0' " +
-                   "        onclick='wepsim_cm_add_cachelevel(\""+div_hash+"\","+memory_cfg.length+");'>Add new</span>" +
+                   "        onclick='ws.wepsim_cm_add_cachelevel(\""+div_hash+"\","+memory_cfg.length+");'>Add new</span>" +
 		   "</span>" +
 		   "<span class='col border border-secondary border-2 opacity-75 align-middle mt-3'></span>" +
 		   "<span class='col h5 ps-1'>" +

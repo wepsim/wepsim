@@ -24,9 +24,11 @@
          */
 
         /* jshint esversion: 6 */
+        import { get_cfg }                     from "../sim_core/sim_cfg.js";
+
         import { ws_uielto,
                  register_uielto }             from "./wepsim_uielto.js";
-        import { get_cfg }                     from "../sim_core/sim_cfg.js";
+
         import { i18n_get }                    from "../wepsim_i18n/i18n.js";
         import { wepsim_execute_play,
                  wepsim_execute_stop,
@@ -82,7 +84,7 @@
 			     o += '<button id="btn_reset_' + this.name_str + '" ' +
 				  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="t" ' +
-				  '        onclick="wsweb_execution_reset();' +
+				  '        onclick="ws.wsweb_execution_reset();' +
 				  '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ''     : '<em class="fa fa-power-off"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -94,7 +96,7 @@
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +
 		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary wsx_microcode"' +
 		                  '        accesskey="m" ' +
-			          '        onclick="wsweb_execution_microinstruction();' +
+			          '        onclick="ws.wsweb_execution_microinstruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-forward"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -106,7 +108,7 @@
 			     o += '<button id="btn_next_instruction_' + this.name_str + '"' +
 		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="i" ' +
-			          '        onclick="wsweb_execution_instruction();' +
+			          '        onclick="ws.wsweb_execution_instruction();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-fast-forward"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -118,7 +120,7 @@
 			     o += '<button id="btn_run_stop_' + this.name_str + '"' +
 		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary"' +
 		                  '        accesskey="r" ' +
-                                  '        onclick="wsweb_execution_run();' +
+                                  '        onclick="ws.wsweb_execution_run();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -131,7 +133,7 @@
                                   '<button id="btn_run_stop_' + this.name_str + '"' +
 		                  '        class="btn bg-secondary-subtle border-secondary w-75"' +
 		                  '        accesskey="r" ' +
-                                  '        onclick="wsweb_execution_run();' +
+                                  '        onclick="ws.wsweb_execution_run();' +
                                   '                 return false;">' ;
                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-play"></em>' ;
                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
@@ -146,21 +148,21 @@
                                   '<ul class="dropdown-menu border border-secondary">' +
 			          '' +
                                   '    <li><a  class="dropdown-item" ' +
-                                  '            onclick="wsweb_execution_run(); return false;">' +
+                                  '            onclick="ws.wsweb_execution_run(); return false;">' +
                                   '<i class="fa-solid fa-person-running"></i>&nbsp;' +
 			          '<span data-langkey="Run">Run</span>' +
                                    '</a></li>' +
 			          '' +
                                   '    <li><hr class="dropdown-divider"></li>' +
                                   '    <li><a  class="dropdown-item" ' +
-                                  '            onclick="wsweb_dialog_open(\'flash_fpga\');">' +
+                                  '            onclick="ws.wsweb_dialog_open(\'flash_fpga\');">' +
                                   '<i class="fa-solid fa-bolt"></i>&nbsp;' +
 			          '<span data-langkey="Flash">Flash FPGA</span>' +
 			          '</a></li>' +
 			          '' +
                                   '    <li class="wsx_esp32"><hr class="dropdown-divider"></li>' +
                                   '    <li class="wsx_esp32"><a  class="dropdown-item" ' +
-                                  '            onclick="wsweb_dialog_open(\'flash_assembly\');">' +
+                                  '            onclick="ws.wsweb_dialog_open(\'flash_assembly\');">' +
                                   '<i class="fa-solid fa-bolt"></i>&nbsp;' +
 			          '<span data-langkey="Flash">Flash ESP32</span>' +
 			          '</a></li>' +

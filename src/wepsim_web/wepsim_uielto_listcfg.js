@@ -24,8 +24,9 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-        import { cfgset_getSet } from "../sim_core/sim_cfg.js";
+        import { cfgset_getSet }   from "../sim_core/sim_cfg.js";
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
 
 
         export class ws_list_cfg extends ws_uielto
@@ -84,10 +85,10 @@
                     {
 			 o1 += '<button type="button" ' +
 			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="cfgset_load(\'' + e_cfg + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\',' +
+			       '    onclick="ws.cfgset_load(\'' + e_cfg + '\') ;' +
+			       '	     ws.wepsim_notify_success(\'<strong>INFO</strong>\',' +
 			       '	  		           \'Configuration loaded!.\') ;' +
-			       '	     wepsim_uicfg_restore() ;' +
+			       '	     ws.wepsim_uicfg_restore() ;' +
 			       '	     return false;">' +
 			       '<span data-langkey="' + e_cfg + '">' + e_cfg + '</span>' +
 			       '</button>' ;

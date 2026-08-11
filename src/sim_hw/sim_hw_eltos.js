@@ -17,7 +17,10 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
+
+
+     import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
+
 
         export function simhwelto_prepare_hash ( ahw )
         {
@@ -28,8 +31,8 @@ import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
             ahw.elements_hash.by_belong = {} ;
 	    for (var e in ahw.elements)
 	    {
-                 elto = ahw.elements[e] ;
-                 elto.key = e ;
+                 var elto = ahw.elements[e] ;
+                     elto.key = e ;
 
                  if (typeof ahw.elements_hash.by_belong[elto.belongs] == "undefined") {
                      ahw.elements_hash.by_belong[elto.belongs] = [] ;

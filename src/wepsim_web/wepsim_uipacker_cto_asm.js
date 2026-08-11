@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Navbar: navtab circuits/assembly
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Navbar: navtab circuits/assembly
+         */
 
         export class ws_ctoasm extends ws_uielto
         {
@@ -45,7 +45,7 @@
                              '        <a id="tab26" href="#eltos_cpu"' +
                              '           class="nav-link border-3 active" data-bs-toggle="tab" role="tab"' +
 		             '		 aria-label="processor"' +
-                             '           onclick="wsweb_change_show_processor();' +
+                             '           onclick="ws.wsweb_change_show_processor();' +
                              '                    return false;">' +
                              '<em class="fas fa-microchip"></em>&nbsp;' +
                              '<span data-langkey="Processor">Processor</span>' +
@@ -55,7 +55,7 @@
                              '        <a id="tab24" href="#eltos_dbg"' +
                              '           class="nav-link border-3" data-bs-toggle="tab" role="tab"' +
 		             '		 aria-label="assembly debugger"' +
-                             '           onclick="wsweb_change_show_asmdbg();' +
+                             '           onclick="ws.wsweb_change_show_asmdbg();' +
                              '                    return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey="Assembly">Assembly</span><span class="d-none d-sm-inline-flex" data-langkey="Assembly Debugger">Assembly Debugger</span></a>' +
                              '          </li>' +
 		             '      </ul>' +

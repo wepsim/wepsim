@@ -24,10 +24,11 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
         import { ws_info }                    from "../sim_core/sim_adt_core.js";
         import { get_cfg }                    from "../sim_core/sim_cfg.js";
+
         import { wepsim_mode_getBaseMode }    from "../wepsim_core/wepsim_mode.js";
+        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 
 
         export class ws_examples extends ws_uielto
@@ -99,6 +100,7 @@
             var e_asm         = "" ;
             var e_description = "" ;
             var e_id          = "" ;
+            var e_modes       = "" ;
 
             // first pass: build data
             var u = "" ;
@@ -145,9 +147,9 @@
                         '     <span class="badge rounded-pill text-secondary me-2 align-self-center">' + t_index + '</span>' +
                         '     <button id="example_' + m + '" ' +
      		        '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border py-0 me-1 w-75"' +
-     		        '           onclick="simcore_record_append_pending();' +
-     		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
-     		        '                    wait_if_uievents(function() { wsweb_dialog_close(\'examples\'); }, 50);' +
+     		        '           onclick="ws.simcore_record_append_pending();' +
+     		        '                    ws.load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+     		        '                    ws.wait_if_uievents(function() { ws.wsweb_dialog_close(\'examples\'); }, 50);' +
      		        '                    return false;"' +
                         '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
                                     e_title +
@@ -158,28 +160,28 @@
                         '        <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                         '     </button>' +
                         '     <div class="dropdown-menu bg-info" style="z-index:1024;">' +
-     		        '             <a onclick="simcore_record_append_pending();' +
-     		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
-     		        '                         wsweb_dialog_close(\'examples\'); ' +
+     		        '             <a onclick="ws.simcore_record_append_pending();' +
+     		        '                         ws.load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+     		        '                         ws.wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
-     		        '             <a onclick="simcore_record_append_pending();' +
-     		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
-     		        '                         wsweb_dialog_close(\'examples\'); ' +
+     		        '             <a onclick="ws.simcore_record_append_pending();' +
+     		        '                         ws.load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
+     		        '                         ws.wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
-     		        '             <a onclick="simcore_record_append_pending();' +
-     		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
-     		        '                         wsweb_dialog_close(\'examples\'); ' +
+     		        '             <a onclick="ws.simcore_record_append_pending();' +
+     		        '                         ws.load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
+     		        '                         ws.wsweb_dialog_close(\'examples\'); ' +
      		        '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
      		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
-     		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
+     		        '                         ws.wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
      		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
-     		        '                         wsweb_dialog_close(\'examples\'); ' +
+     		        '                         ws.wsweb_dialog_close(\'examples\'); ' +
                              '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
-     	                '             <a onclick="wsweb_dialog_close(\'examples\'); ' +
+     	                '             <a onclick="ws.wsweb_dialog_close(\'examples\'); ' +
                         '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
      		        '                class="dropdown-item text-white bg-info my-1 wsx_share" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
@@ -243,11 +245,11 @@
 
                 o += '<li class="list-group-item d-flex justify-content-between align-items-start" ' +
                      '    id="exs_' + item.name + '" value="' + i + '" ' +
-                     '    onclick="wepsim_example_reset();' +
-                     '             wepsim_example_load(\'' + item.name + '\');' +
-                     '             wsweb_dialog_close(\'examples\');' +
-                     '             wsweb_dialog_open(\'examples\');' +
-                     '             wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
+                     '    onclick="ws.wepsim_example_reset();' +
+                     '             ws.wepsim_example_load(\'' + item.name + '\');' +
+                     '             ws.wsweb_dialog_close(\'examples\');' +
+                     '             ws.wsweb_dialog_open(\'examples\');' +
+                     '             ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
                      '             return false;">' +
                      '  <div class="ms-2 me-auto">' +
                      '     <div class="fw-bold">' + item.name + '</div>' +

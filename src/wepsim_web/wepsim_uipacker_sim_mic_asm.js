@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Navbar: navtab simulator/microcode/assembly
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Navbar: navtab simulator/microcode/assembly
+         */
 
         export class ws_simmicasm extends ws_uielto
         {
@@ -49,14 +49,14 @@
 			     '<span class="d-none d-sm-inline-flex" data-langkey="Simulation">Simulation</span><span class="d-sm-none">Sim.</span></a>' +
 			     '    <a class="nav-item nav-link wsx_microcode"    id="nav-microcode-tab" data-oldid="s5b_20"' +
 			     '       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"' +
-			     '       onclick="setTimeout(function(){ inputfirm.refresh(); }, 200) ;' +
+			     '       onclick="setTimeout(function(){ ws.inputfirm.refresh(); }, 200) ;' +
 			     '                return false;"' +
 			     '       data-bs-toggle="tab" href="#nav-microcode" role="tab"' +
 			     '       aria-controls="nav-profile" aria-selected="false">' +
 			     '<span class="d-none d-sm-inline-flex" data-langkey="MicroCode">MicroCode</span><span class="d-sm-none">&#181;code</span></a>' +
 			     '    <a class="nav-item nav-link"        id="nav-assembly-tab"  data-oldid="s5b_21"' +
 			     '       style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"' +
-			     '       onclick="setTimeout(function(){ inputasm.refresh(); }, 200) ;' +
+			     '       onclick="setTimeout(function(){ ws.inputasm.refresh(); }, 200) ;' +
 			     '                return false;"' +
 			     '       data-bs-toggle="tab" href="#nav-assembly" role="tab"' +
 			     '       aria-controls="nav-contact" aria-selected="false">' +

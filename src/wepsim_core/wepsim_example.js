@@ -42,6 +42,7 @@
 
      import { wepsim_show_rf_names }             from "../wepsim_web/wepsim_uielto_registers.js";
      import { asmdbg_update_assembly }           from "../wepsim_web/wepsim_uielto_dbg_asm.js";
+     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
 
 
     /*

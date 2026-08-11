@@ -22,7 +22,7 @@ import { i18n } from "../i18n.js";
     i18n.eltos.tutorial_simpleusage.ja = {
 
 		'title_0':		'簡単なWepSIMの経験：マイクロプログラミングとプログラミング',
-		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'images/simulator/simulator011.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' sim_tutorial_goframe（ "simpleusage" 、> 0,1）; \'>マイクロコードを編集します。</a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("simpleusage",0,3);\'>アセンブリを編集します（） </a> </li> <li> <a href=\'#\'onclick=\'sim_tutorial_goframe("simpleusage",0,5);\'>シミュレーションでアセンブリ+マイクロコードを実行します。 </a> </li></ol> </h5>',
+		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'images/simulator/simulator011.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' ws.sim_tutorial_goframe（ "simpleusage" 、> 0,1）; \'>マイクロコードを編集します。</a> </li> <li> <a href=\'#\' onclick=\'ws.sim_tutorial_goframe("simpleusage",0,3);\'>アセンブリを編集します（） </a> </li> <li> <a href=\'#\'onclick=\'ws.sim_tutorial_goframe("simpleusage",0,5);\'>シミュレーションでアセンブリ+マイクロコードを実行します。 </a> </li></ol> </h5>',
 		'title_1':		'簡単なWepSIMの経験：マイクロプログラミングとプログラミング',
 		'message_1':		'<center> <img alt = \'wepsim screenshot\' src = \'ヘルプ/シミュレータ/ firmware001.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>最初のステップは、使用するファームウェアをマイクロプログラミングすることです。マイクロコード画面に切り替えるには、[マイクロコード]ボタンを使用してください。</h5>',
 		'title_2':		'簡単なWepSIMの経験：マイクロプログラミングとプログラミング',

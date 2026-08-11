@@ -19,31 +19,34 @@
  */
 
 
-     import { get_cfg } from "../sim_core/sim_cfg.js";
-     import { wepsim_state_history_get,
-              wepsim_state_get_clk,
-              wepsim_state_history_reset } from "./wepsim_state.js";
+     import { get_cfg }                          from "../sim_core/sim_cfg.js";
+     import { ws_info }                          from "../sim_core/sim_adt_core.js";
      import { simcore_simstate_current2state,
               simcore_simstate_state2checklist } from "../sim_core/sim_api_stateshots.js";
-     import { simhw_internalState,
-              simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
      import { simcore_record_get,
-              simcore_record_set } from "../sim_core/sim_core_record.js";
-     import { ws_info } from "../sim_core/sim_adt_core.js";
-     import { wepsim_state_history_list } from "../wepsim_web/wepsim_uielto_states.js";
-     import { wsweb_select_main } from "../wepsim_web/wepsim_web_api.js";
-     import { wepsim_compile_firmware,
-              wepsim_compile_assembly } from "../wepsim_web/wepsim_web_editor.js";
-     import { wepsim_notify_do_notify } from "./wepsim_notify.js";
+              simcore_record_set }               from "../sim_core/sim_core_record.js";
+     import { simhw_internalState,
+              simhw_internalState_reset }        from "../sim_hw/sim_hw_index.js";
      import { cache_memory_init_eltofromcfg,
-              cache_memory_init_cm } from "../sim_core/sim_adt_cachememory.js";
-     import { wepsim_show_cache_memory_config } from "../wepsim_web/wepsim_uielto_cache_config.js";
+              cache_memory_init_cm }             from "../sim_core/sim_adt_cachememory.js";
+     import { ws_alert }                         from "../sim_core/sim_core_ui.js";
+
+     import { wepsim_state_history_get,
+              wepsim_state_get_clk,
+              wepsim_state_history_reset }       from "./wepsim_state.js";
+     import { wepsim_notify_do_notify }          from "./wepsim_notify.js";
      import { wepsim_save_to_file,
               wepsim_file_loadFrom,
               wepsim_url_json,
-              wepsim_load_from_url } from "./wepsim_url.js";
-     import { ws_alert } from "../sim_core/sim_core_ui.js";
-     import { share_information } from "./wepsim_share.js";
+              wepsim_load_from_url }             from "./wepsim_url.js";
+     import { share_information }                from "./wepsim_share.js";
+
+     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
+     import { wepsim_state_history_list }        from "../wepsim_web/wepsim_uielto_states.js";
+     import { wsweb_select_main }                from "../wepsim_web/wepsim_web_api.js";
+     import { wepsim_compile_firmware,
+              wepsim_compile_assembly }          from "../wepsim_web/wepsim_web_editor.js";
+     import { wepsim_show_cache_memory_config }  from "../wepsim_web/wepsim_uielto_cache_config.js";
 
 
     /*

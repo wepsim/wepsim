@@ -19,13 +19,13 @@
  */
 
 
-        /*
-         *  wepsim_uielto
-         */
-
         /* jshint esversion: 6 */
         import { wsHTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
 
+
+        /*
+         *  wepsim_uielto
+         */
 
         export class ws_uielto extends wsHTMLElement
         {

@@ -19,14 +19,15 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }           from "./wepsim_uielto.js";
+        import { simcore_notifications_get } from "../sim_core/sim_core_notify.js";
+
+
         /*
          *  Notifications
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-        import { simcore_notifications_get } from "../sim_core/sim_core_notify.js";
-
 
         export class ws_notifications extends ws_uielto
         {
@@ -64,14 +65,14 @@
                           "   </button>" +
                           "    <div class='dropdown-menu' aria-labelledby='resetyn'>" +
                           "     <a class='dropdown-item py-2 bg-tertiary text-danger' type='button' " +
-                          "        onclick='simcore_notifications_reset(); " +
-			  "		    var notifications = simcore_notifications_get(); " +
-			  "	            var ntf_html = table_notifications_html(notifications); " +
+                          "        onclick='ws.simcore_notifications_reset(); " +
+			  "		    var notifications = ws.simcore_notifications_get(); " +
+			  "	            var ntf_html = ws.table_notifications_html(notifications); " +
 			  "		    $(\"#scroller-notifications3\").html(ntf_html); " +
 			  "		    // reajust ui " +
-			  "		    wepsim_uicfg_apply(); " +
-			  "		    wsweb_scroll_record(\"#scroller-notifications3\"); " +
-			  "		    simcore_record_captureInit(); " +
+			  "		    ws.wepsim_uicfg_apply(); " +
+			  "		    ws.wsweb_scroll_record(\"#scroller-notifications3\"); " +
+			  "		    ws.simcore_record_captureInit(); " +
 			  "		    return false;'" +
                           "         ><span data-langkey='Yes'>Yes</span></a>" +
 			  "      <div class='dropdown-divider'></div>" +

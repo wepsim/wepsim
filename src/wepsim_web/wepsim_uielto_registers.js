@@ -19,22 +19,37 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }      from "./wepsim_uielto.js";
+        import { wepsim_quickcfg_init,
+                 quickcfg_html_btn,
+                 quickcfg_html_btnreg,
+                 quickcfg_html_onoff,
+                 quickcfg_html_header,
+                 quickcfg_html_br,
+                 quickcfg_html_close }  from "./wepsim_web_ui_quickcfg.js";
+        import { simhw_sim_states,
+                 simhw_internalState }  from "../sim_hw/sim_hw_index.js";
+        import { set_value,
+                 update_value,
+                 get_value,
+                 vue_observable_ifnotjetdone,
+                 vue_applyBinding }     from "../sim_core/sim_core_values.js";
+        import { hex2char8,
+                 simcoreui_pack,
+                 hex2bin,
+                 hex2float,
+                 value2string }         from "../sim_core/sim_core_ui.js";
+        import { get_cfg }              from "../sim_core/sim_cfg.js";
+        import { get_simware }          from "../sim_core/sim_adt_core.js";
+        import { i18n_get_TagFor }      from "../wepsim_i18n/i18n.js";
+        import { wepsim_popovers_init } from "./wepsim_web_ui_popover.js";
+
+
         /*
          *  Registers (Register file + transparent registers)
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { wepsim_quickcfg_init, quickcfg_html_btn, quickcfg_html_btnreg, quickcfg_html_onoff, quickcfg_html_header, quickcfg_html_br, quickcfg_html_close } from "./wepsim_web_ui_quickcfg.js";
-        import { simhw_sim_states, simhw_internalState } from "../sim_hw/sim_hw_index.js";
-        import { set_value, update_value, get_value, vue_observable_ifnotjetdone, vue_appyBinding } from "../sim_core/sim_core_values.js";
-        import { hex2char8, simcoreui_pack, hex2bin, hex2float, value2string } from "../sim_core/sim_core_ui.js";
-        import { get_cfg } from "../sim_core/sim_cfg.js";
-        import { get_simware } from "../sim_core/sim_adt_core.js";
-        import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
-        import { wepsim_popovers_init } from "./wepsim_web_ui_popover.js";
-
 
         export class ws_registers extends ws_uielto
         {
@@ -137,7 +152,7 @@
                          "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' " +
                          "       style='width:65%'>" +
                          "<span class='badge text-bg-secondary shadow ms-2 py-2' " +
-                         "      onclick='hex2values_update(\"" + index + "\");'>" +
+                         "      onclick='ws.hex2values_update(\"" + index + "\");'>" +
                          "<span data-langkey='update'>update</span></span>" +
                          "</td></tr>";
                 }
@@ -484,7 +499,7 @@
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value_rf) ;
+		 vue_applyBinding(ref_obj.value, '#rf_'+index, f_computed_value_rf) ;
 	    }
         }
 
@@ -614,7 +629,7 @@
 		 var ref_obj = sim_eltos[s] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
+		 vue_applyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }
 

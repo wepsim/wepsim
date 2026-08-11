@@ -29,8 +29,7 @@ const webConfig = {
 
        library: {
           name: 'ws',
-          type: 'umd',
-          export: 'default'
+          type: 'umd'
        },
 
        globalObject: 'typeof self !== "undefined" ? self : this'

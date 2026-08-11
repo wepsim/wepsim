@@ -25,10 +25,10 @@
 
         /* jshint esversion: 6 */
         import { ws_uielto,
-                 register_uielto }              from "./wepsim_uielto.js";
+                 register_uielto }          from "./wepsim_uielto.js";
         import { simhwelto_describe_component_enum_aux,
-                 simhwelto_prepare_hash } from "../sim_hw/sim_hw_eltos.js";
-        import { simhw_active }           from "../sim_hw/sim_hw_index.js";
+                 simhwelto_prepare_hash }   from "../sim_hw/sim_hw_eltos.js";
+        import { simhw_active }             from "../sim_hw/sim_hw_index.js";
 
 
         export class ws_help_hweltos extends ws_uielto

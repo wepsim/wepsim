@@ -56,8 +56,8 @@
 			      "	<div class='form-group m-0'>" +
 			      "	   <label for='about_license' class='text-secondary'>License:</label>" +
 			      "	   <span class='text-primary'" +
-			      "                 onclick='wepsim_help_set('relative', 'about#');" +
-			      "		                 wsweb_dialog_close('about');" +
+			      "                 onclick='ws.wepsim_help_set('relative', 'about#');" +
+			      "		                 ws.wsweb_dialog_close('about');" +
 			      "			         return false;'>GNU Lesser General Public 3</span>" +
 			      "	</div>" +
 			      "" +

@@ -29,10 +29,10 @@ import { i18n } from "../i18n.js";
                                   "<h5>" +
                                   "이 간단한 튜토리얼은:" +
                                   "<ol>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>예제로드.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>예제 실행.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>시뮬레이션 구성.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>도움 받기.</a></li>" +
+                                  "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"welcome\",0,1);'>예제로드.</a></li>" +
+                                  "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"welcome\",0,2);'>예제 실행.</a></li>" +
+                                  "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"welcome\",0,3);'>시뮬레이션 구성.</a></li>" +
+                                  "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"welcome\",0,4);'>도움 받기.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
 

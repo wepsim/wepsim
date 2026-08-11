@@ -19,13 +19,14 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto } from "./wepsim_uielto.js";
+
+
         /*
          *  Dropdown (information part)
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-
 
         export class ws_ddown_info extends ws_uielto
         {

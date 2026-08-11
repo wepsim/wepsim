@@ -24,13 +24,15 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }     from "./wepsim_uielto.js";
-        import { simhw_active,
-                 simhw_internalState } from "../sim_hw/sim_hw_index.js";
         import { get_var,
                  vue_observable_ifnotjetdone,
-                 vue_appyBinding }     from "../sim_core/sim_core_values.js";
+                 vue_applyBinding }     from "../sim_core/sim_core_values.js";
+
+        import { ws_uielto,
+                 register_uielto }      from "./wepsim_uielto.js";
+
+        import { simhw_active,
+                 simhw_internalState }  from "../sim_hw/sim_hw_index.js";
 
 
         export class ws_cachememory extends ws_uielto
@@ -275,7 +277,7 @@
                          "No cache memory was already defined.<br>" +
                          "Please use the " +
 		         "<span class='btn btn-sm btn-info text-white py-0' " +
-                         "      onclick='wsweb_set_details_select(29);'>cache configuration</span> first." +
+                         "      onclick='ws.wsweb_set_details_select(29);'>cache configuration</span> first." +
                          "<br>" +
                          "<div class='vr' style='width:3px'></div>" +
                          "<h5><span data-langkey='Memory'>Memory</span></h5>" ;
@@ -305,7 +307,7 @@
 		    "<span class='col-auto h5 m-0'>Cache-" + (i+1) + "</span>" +
 		    "<div  class='col'>" +
 		    "<span class='btn btn-sm btn-info text-white py-0' " +
-		    "      onclick='wepsim_show_cache_memory_i(" + (i+1) + ");'" +
+		    "      onclick='ws.wepsim_show_cache_memory_i(" + (i+1) + ");'" +
 		    ">Refresh</span>" +
 		    "</div>" +
 		    "</div>" +
@@ -385,13 +387,13 @@
             */
 
             memory.stats.n_access = vue_observable_ifnotjetdone(memory.stats.n_access) ;
-	    vue_appyBinding(memory.stats.n_access, p1 + 'n_access', function(value){ return value; }) ;
+	    vue_applyBinding(memory.stats.n_access, p1 + 'n_access', function(value){ return value; }) ;
 
 	    memory.stats.n_hits   = vue_observable_ifnotjetdone(memory.stats.n_hits) ;
-	    vue_appyBinding(memory.stats.n_hits,   p1 + 'n_hits',   function(value){ return value; }) ;
+	    vue_applyBinding(memory.stats.n_hits,   p1 + 'n_hits',   function(value){ return value; }) ;
 
 	    memory.stats.n_misses = vue_observable_ifnotjetdone(memory.stats.n_misses) ;
-	    vue_appyBinding(memory.stats.n_misses, p1 + 'n_misses', function(value){ return value; }) ;
+	    vue_applyBinding(memory.stats.n_misses, p1 + 'n_misses', function(value){ return value; }) ;
 
 
            /*
@@ -401,7 +403,7 @@
             *       "  </li>\n" ;
             */
 
-	    vue_appyBinding(memory.stats.n_access,
+	    vue_applyBinding(memory.stats.n_access,
                             p1 + 'hitratio',
                             function(value){
                                 var hit_ratio = 0.0;
@@ -411,7 +413,7 @@
                                 }
                                 return hit_ratio.toFixed(2) ;
                             }) ;
-	    vue_appyBinding(memory.stats.n_access,
+	    vue_applyBinding(memory.stats.n_access,
                             p1 + 'missratio',
                             function(value){
                                 var miss_ratio = 0.0;
@@ -434,24 +436,24 @@
             */
 
 	    memory.stats.last_r_w = vue_observable_ifnotjetdone(memory.stats.last_r_w) ;
-	    vue_appyBinding(memory.stats.last_r_w,
+	    vue_applyBinding(memory.stats.last_r_w,
                             p1 + 'last_r_w',
                             function(value){ return value; }) ;
 
 	    memory.stats.last_addr = vue_observable_ifnotjetdone(memory.stats.last_addr) ;
-	    vue_appyBinding(memory.stats.last_addr,
+	    vue_applyBinding(memory.stats.last_addr,
                             p1 + 'last_addr',
                             function(value){ return '0x' + value.toString(16); }) ;
 
 	    memory.stats.last_h_m = vue_observable_ifnotjetdone(memory.stats.last_h_m) ;
-	    vue_appyBinding(memory.stats.last_h_m,
+	    vue_applyBinding(memory.stats.last_h_m,
                             p1 + 'lhm_1',
                             function(value){
 			       if (value != '')
 			            return " was a " ;
 			       else return "" ;
                             }) ;
-	    vue_appyBinding(memory.stats.last_h_m,
+	    vue_applyBinding(memory.stats.last_h_m,
                             p1 + 'lhm_2',
                             function(value){
                                return value ;
@@ -481,7 +483,7 @@
             */
 
 	    memory.stats.last_parts.tag = vue_observable_ifnotjetdone(memory.stats.last_parts.tag) ;
-	    vue_appyBinding(memory.stats.last_parts.tag,
+	    vue_applyBinding(memory.stats.last_parts.tag,
                             p1 + 'lp_tag',
                             function(value) {
                                var tag_size = get_var(memory.cfg.tag_size) ;
@@ -489,7 +491,7 @@
                             }) ;
 
 	    memory.stats.last_parts.set = vue_observable_ifnotjetdone(memory.stats.last_parts.set) ;
-	    vue_appyBinding(memory.stats.last_parts.set,
+	    vue_applyBinding(memory.stats.last_parts.set,
                             p1 + 'lp_set',
                             function(value) {
                                var set_size = get_var(memory.cfg.set_size) ;
@@ -497,7 +499,7 @@
                             }) ;
 
 	    memory.stats.last_parts.offset = vue_observable_ifnotjetdone(memory.stats.last_parts.offset) ;
-	    vue_appyBinding(memory.stats.last_parts.offset,
+	    vue_applyBinding(memory.stats.last_parts.offset,
                             p1 + 'lp_off',
                             function(value) {
                                var off_size = get_var(memory.cfg.off_size) ;

@@ -70,7 +70,7 @@
 			  " <span class='text-white bg-secondary' data-langkey='Link'>Link</span>" +
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
-                          '                  share_information(\'share\', \'title\', \'text\', c);" ' +
+                          '                  ws.share_information(\'share\', \'title\', \'text\', c);" ' +
                           "><span data-langkey='Share'>Share</span></button>" +
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +

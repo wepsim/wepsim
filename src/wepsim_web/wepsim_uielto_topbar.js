@@ -19,16 +19,16 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }       from "./wepsim_uielto.js";
+        import { wepsim_popover_action } from "./wepsim_web_ui_popover.js";
+        import { wepsim_uicfg_apply }    from "./wepsim_web_simulator.js";
+
+
         /*
          *  Navbar: topbar
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto } from "./wepsim_uielto.js";
-        import { wepsim_popover_action } from "./wepsim_web_ui_popover.js";
-        import { wepsim_uicfg_apply } from "./wepsim_web_simulator.js";
-
 
         export class ws_topbar extends ws_uielto
         {
@@ -47,10 +47,10 @@
                                 '          style="text-decoration: none"' +
 				'          id="po1"' +
 				'	   data-container="body"' +
-	// bs5 toggle fails	'          onclick="if (typeof wsweb_quickmenu_toggle === \'function\')' +
-	// bs5 toggle fails	'	               wsweb_quickmenu_toggle();' +
-				'          onclick="if (typeof wsweb_quickmenu_show === \'function\')' +
-				'	                wsweb_quickmenu_show();' +
+	// bs5 toggle fails	'          onclick="if (typeof ws.wsweb_quickmenu_toggle === \'function\')' +
+	// bs5 toggle fails	'	               ws.wsweb_quickmenu_toggle();' +
+				'          onclick="if (typeof ws.wsweb_quickmenu_show === \'function\')' +
+				'	                ws.wsweb_quickmenu_show();' +
 				'	            return false;"' +
 				'	  data-bs-html="true"' +
 				'	  data-bs-placement="bottom">WepSIM&nbsp;<span class="badge rounded-pill text-bg-secondary"><div class="wsversion">loading ...</div></span>' +
@@ -62,7 +62,7 @@
                                 '          style="text-decoration: none"' +
 				'          id="po1"' +
 				'	   data-container="body"' +
-				'          onclick="wsweb_dialog_open(\'about\');' +
+				'          onclick="ws.wsweb_dialog_open(\'about\');' +
 				'	            return true;"' +
 				'	  data-bs-html="true"' +
 				'	  data-bs-placement="bottom"><span data-langkey="About">About</span>...</a>' +

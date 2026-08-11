@@ -19,14 +19,15 @@
  */
 
 
+        /* jshint esversion: 6 */
+        import { ws_uielto,
+                 register_uielto }    from "./wepsim_uielto.js";
+        import { simhw_hwset_getSet } from "../sim_hw/sim_hw_index.js";
+
+
         /*
          *  Processors list
          */
-
-        /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-        import { simhw_hwset_getSet } from "../sim_hw/sim_hw_index.js";
-
 
         export class ws_list_processor extends ws_uielto
         {
@@ -85,8 +86,8 @@
 			 var ename = e_hw.toUpperCase() ;
 			 o1 += '<button type="button" ' +
 			       '    class="text-danger btn border-secondary m-1 btn-block" ' +
-			       '    onclick="wepsim_reload_hw(\'' + e_hw + '\') ;' +
-			       '	     wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+			       '    onclick="ws.wepsim_reload_hw(\'' + e_hw + '\') ;' +
+			       '	     ws.wepsim_notify_success(\'<strong>INFO</strong>\', ' +
 			       '			          \'' + e_hw +' processor loaded!.\') ;'+
 			       '	     return false;">' +
 			       '<span data-langkey="' + ename + '">' + ename + '</span>' +

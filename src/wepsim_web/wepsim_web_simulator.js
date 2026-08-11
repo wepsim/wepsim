@@ -622,10 +622,10 @@
     }
 
 
-    var inputfirm_cfg = null ;
-    var inputfirm     = null ;
-    var inputasm_cfg  = null ;
-    var inputasm      = null ;
+    export var inputfirm_cfg = null ;
+    export var inputfirm     = null ;
+    export var inputasm_cfg  = null ;
+    export var inputasm      = null ;
 
     export function wepsim_init_ui ( )
     {
@@ -701,7 +701,7 @@
                     '<span class="btn btn-sm btn-info py-0" data-bs-dismiss="alert">X</span> mark. <br>' +
                     'In order to execute an example please press the ' +
                     '<span class="btn btn-sm btn-info py-0" ' +
-                    '      onclick="webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' +
+                    '      onclick="ws.webui_executionbar_toggle_play(\'exebar1\');">Run</span> ' +
                     'button.<br>' ;
 
                 if (url_hash.notify.toLowerCase() !== 'false') {

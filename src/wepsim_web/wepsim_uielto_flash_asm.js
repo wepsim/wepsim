@@ -24,10 +24,10 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }   from "./wepsim_uielto.js";
         import { get_simware }       from "../sim_core/sim_adt_core.js";
         import { wsasm_src2src }     from "../sim_sw/assembly.js";
+        import { ws_uielto,
+                 register_uielto }   from "./wepsim_uielto.js";
 
 
         export class ws_flash_asm extends ws_uielto
@@ -145,11 +145,11 @@
                                 '<div class="btn-group w-100" role="group" aria-label="flash_and_cancel">' +
 				'<button type="button" class="btn btn-outline-success"' +
 				'        id="btn_flash"' +
-				'        onclick="gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
+				'        onclick="ws.gateway_do_flash(\'div_url\', \'div_dev\', \'div_target\', \'div_info\');"' +
                                 '>Flash</button>' +
 		  		'<button type="button" class="btn btn-outline-danger"' +
 		  		'        id="btn_cancel"' +
-		  		'        onclick="gateway_do_stop(\'div_url\', \'div_info\');"' +
+		  		'        onclick="ws.gateway_do_stop(\'div_url\', \'div_info\');"' +
                                 '>Cancel</button>' +
                                 '</div>' +
 				'</div>' +
@@ -181,7 +181,7 @@
          *  Flashing
          */
 
-	export async function gateway_do_request ( flash_url, flash_args, div_info )
+	export async function asm_gateway_do_request ( flash_url, flash_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -207,7 +207,7 @@
              return jres ;
 	}
 
-	export function gateway_request_status ( status_url, info_div )
+	export function asm_gateway_request_status ( status_url, info_div )
 	{
 	     var s = new EventSource(status_url) ;
 
@@ -249,7 +249,7 @@
 			   assembly:     fasm
 			} ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
+	     var ret = asm_gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then((result) => {
@@ -260,7 +260,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     asm_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}
@@ -274,7 +274,7 @@
              // do remote flash...
              idiv.value = 'Cancel...\n' ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/stop", {}, idiv);
+	     var ret = asm_gateway_do_request(furl + "/stop", {}, idiv);
 
 	     // working with the async result...
              ret.then(result => {

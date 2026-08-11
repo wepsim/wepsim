@@ -29,9 +29,9 @@ import { i18n } from "../i18n.js";
                                 "<h5>" +
                                 "Ce bref tutoriel va vous montrer comment:" +
                                 "<ol>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>Editez votre microcode.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>Editez votre assemblage (basé sur le microcode précédent).</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Exécuter l'assemblage + le microcode dans la simulation.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,1);'>Editez votre microcode.</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,3);'>Editez votre assemblage (basé sur le microcode précédent).</a></li>" +
+                                "<li><a href='#' onclick='ws.sim_tutorial_goframe(\"simpleusage\",0,5);'>Exécuter l'assemblage + le microcode dans la simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
 

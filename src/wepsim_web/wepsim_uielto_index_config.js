@@ -24,10 +24,11 @@
          */
 
         /* jshint esversion: 6 */
-        import { ws_uielto,
-                 register_uielto }       from "./wepsim_uielto.js";
         import { ws_info }               from "../sim_core/sim_adt_core.js";
         import { reset_cfg }             from "../sim_core/sim_cfg.js";
+
+        import { ws_uielto,
+                 register_uielto }       from "./wepsim_uielto.js";
         import { wepsim_popovers_init }  from "./wepsim_web_ui_popover.js";
 
 

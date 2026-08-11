@@ -201,7 +201,7 @@ import { get_cfg } from "../sim_core/sim_cfg.js";
         for (var key in i18n.lang)
         {
             o += "<a class=\"btn btn-sm btn-outline-secondary mx-2 my-2 col-auto\" href=\"#\" " + 
-                 "   onclick=\"wepsim_newbie_tour_reload('" + key + "');\">" + 
+                 "   onclick=\"ws.wepsim_newbie_tour_reload('" + key + "');\">" + 
                  i18n_get('gui', key, 'Welcome') + 
                  "</a>" ;
         }

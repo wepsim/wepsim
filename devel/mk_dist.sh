@@ -118,20 +118,20 @@ echo "  Step for packing min.*:"
 BASE_DIR=$(dirname $0)/webpack_indexes/
 
 # building cat_indexes/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/i18n.js';"                         > ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/i18n.js';"                         > ${BASE_DIR}/min.wepsim_i18n.js
     echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
-    echo "import '../../src/wepsim_i18n/$LANG/gui.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/tutorial-simpleusage.js';"  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/tour-intro.js';"            >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/cfg.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/help.js';"                  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/states.js';"                >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/examples.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/compiler.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/hw.js';"                    >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "import '../../src/wepsim_i18n/$LANG/dialogs.js';"               >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/gui.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-simpleusage.js';"  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tour-intro.js';"            >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/cfg.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/help.js';"                  >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/states.js';"                >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/examples.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/compiler.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/hw.js';"                    >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/dialogs.js';"               >> ${BASE_DIR}/min.wepsim_i18n.js
     echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
 done
 

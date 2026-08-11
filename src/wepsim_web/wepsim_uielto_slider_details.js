@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Slider: processor /details
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Slider: processor /details
+         */
 
         export class ws_slider_details extends ws_uielto
         {
