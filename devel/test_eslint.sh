@@ -180,7 +180,7 @@ echo "checking wepsim_nodejs..."
      eslint ./src/wepsim_nodejs/wepsim_node_core.js
 
 echo "checking wepsim_i18n..."
-     eslint ./wepsim_i18n/i18n.js
+     eslint ./src/wepsim_i18n/i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
      eslint ./src/wepsim_i18n/$LANG/gui.js \
             ./src/wepsim_i18n/$LANG/tutorial-welcome.js \

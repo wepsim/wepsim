@@ -863,8 +863,8 @@
 
             // import json
             // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
-	    hw_obj = JSON.parse( hw_json,
-				 function(key, value) {
+	    var hw_obj = JSON.parse(hw_json,
+				    function(key, value) {
 					  if (typeof value === "string" &&
 					      value.startsWith("/Function(") &&
 					      value.endsWith(")/"))

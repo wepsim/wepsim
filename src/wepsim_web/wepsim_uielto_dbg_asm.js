@@ -30,6 +30,7 @@
         import { simhw_internalState,
                  simhw_sim_ctrlStates_get,
                  simhw_sim_state }                  from "../sim_hw/sim_hw_index.js";
+        import { cfg_show_asmdbg_pc_delay }         from "../sim_core/sim_cfg.js";
 
         import { i18n_get,
                  i18n_get_TagFor }                  from "../wepsim_i18n/i18n.js";
@@ -226,6 +227,7 @@
 		var l = "" ;
                 var an = 0 ;
                 var as = "" ;
+		var laddr = "" ;
 
                 // prepare hashtable for address to labels...
                 var a2l = {} ;
@@ -452,33 +454,33 @@
 		     quickcfg_html_onoff('C0',
 					 i18n_get('dialogs', wsi, 'Show/Hide labels'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "wepsim_click_asm_columns(\'label\',\'C0\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); return false;",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "wepsim_click_asm_columns(\'label\',\'C0\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); return false;") +
                      // <content>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show content')) +
 		     quickcfg_html_onoff('C2',
 					 i18n_get('dialogs', wsi, 'Show/Hide content'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "wepsim_click_asm_columns(\'hex\',\'C2\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); return false;",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "wepsim_click_asm_columns(\'hex\',\'C2\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); return false;") +
                      // <assembly>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show assembly')) +
 		     quickcfg_html_onoff('C3',
 					 i18n_get('dialogs', wsi, 'Show/Hide instruction'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "wepsim_click_asm_columns(\'ins\',\'C3\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); return false;",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "wepsim_click_asm_columns(\'ins\',\'C3\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); return false;") +
                      // <pseudo-instructions>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show pseudo-instructions')) +
 		     quickcfg_html_onoff('C4',
 					 i18n_get('dialogs', wsi, 'Show/Hide pseudo-instructions'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "wepsim_click_asm_columns(\'pins\',\'C4\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); return false;",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "wepsim_click_asm_columns(\'pins\',\'C4\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); return false;") +
                      // <close>
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +
@@ -753,7 +755,7 @@
 
 		// add if recording
                 simcore_record_append_new('Set assembly breakpoint at ' + addr,
-                                          'asmdbg_set_breakpoint(' + addr + ');\n') ;
+                                          'ws.asmdbg_set_breakpoint(' + addr + ');\n') ;
 
         }
 

@@ -36,7 +36,7 @@
 
             // add if recording
             simcore_record_append_new('Update help content',
-	       	                      'wepsim_help_set("' + type + '", "' + ref + '");\n') ;
+	       	                      'ws.wepsim_help_set("' + type + '", "' + ref + '");\n') ;
     }
 
 

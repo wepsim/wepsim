@@ -177,8 +177,8 @@
 					className:  'btn-info btn-sm col col-md-3 float-right',
 					callback:   function ()
 						    {
-							key        = $('#ask_skey').val();
-							user_input = $("input[name='ask_svalue']:checked").val();
+							var key        = $('#ask_skey').val();
+							var user_input = $("input[name='ask_svalue']:checked").val();
 							if (typeof user_input == "undefined") {
 							   user_input = $("input[name='ask_svalue']").val();
 							}
@@ -246,7 +246,7 @@
 
                 // add if recording
                 simcore_record_append_new('Update signal ' + key + ' with value ' + value,
-                                          'wepsim_update_signal_with_value("' + key + '", ' + value + ');\n') ;
+                                          'ws.wepsim_update_signal_with_value("' + key + '", ' + value + ');\n') ;
         }
 
         // Show signal dependencies

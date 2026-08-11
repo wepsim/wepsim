@@ -209,9 +209,9 @@
                     }
 
 	            o1 += quickcfg_html_btn(r_formats[i].label2,
-				            "update_cfg(\"RF_display_format\", " +
+				            "ws.update_cfg(\"RF_display_format\", " +
 				            "           \"" + r_formats[i].format2 + "\");" +
-				            "wepsim_refresh_registers();",
+				            "ws.wepsim_refresh_registers();",
 				            r_formats[i].colwidth) ;
                }
 
@@ -238,21 +238,21 @@
 
               // make menu
 	      o2 += quickcfg_html_btnreg('R10',
-	 			         "update_cfg(\"RF_display_name\", \"numerical\");" +
-				         "wepsim_show_rf_names();",
+	 			         "ws.update_cfg(\"RF_display_name\", \"numerical\");" +
+				         "ws.wepsim_show_rf_names();",
 				         'col-6') ;
               if (logical_defined.length == 0)
                    o2 += "<div class='col-6 p-1'></div>" ;
               else o2 += quickcfg_html_btnreg(logical_defined.join('|'),
-	 			              "update_cfg(\"RF_display_name\", \"logical\");" +
-				              "wepsim_show_rf_names();",
+	 			              "ws.update_cfg(\"RF_display_name\", \"logical\");" +
+				              "ws.wepsim_show_rf_names();",
 				              'col-6') ;
 
               for (var i=0; i<logical_defined.length; i++)
               {
 	           o2 += quickcfg_html_btnreg(logical_defined[i],
-		  		              "update_cfg(\"RF_display_name\", \"logical\");" +
-                                              "wepsim_refresh_rf_names(" + (i+1) + ");",
+		  		              "ws.update_cfg(\"RF_display_name\", \"logical\");" +
+                                              "ws.wepsim_refresh_rf_names(" + (i+1) + ");",
 				              'col-6') ;
               }
 
@@ -266,10 +266,10 @@
 	       o1 = quickcfg_html_onoff('20', 
 			                'Register show in horizontal',
 				           i18n_get_TagFor('cfg', 'Horizontal'),
-			                "  wepsim_config_button_toggle('RF_vertical_pack', false, '20');" +
+			                "  ws.wepsim_config_button_toggle('RF_vertical_pack', false, '20');" +
 		                        "  $('.mp_tooltip').collapse('hide');",
 				           "(*) " + i18n_get_TagFor('cfg', 'Vertical'),
-			                "  wepsim_config_button_toggle('RF_vertical_pack', true,  '20');" +
+			                "  ws.wepsim_config_button_toggle('RF_vertical_pack', true,  '20');" +
 		                        "  $('.mp_tooltip').collapse('show');") ;
 
 	       return  o1 ;

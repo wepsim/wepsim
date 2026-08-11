@@ -85,7 +85,7 @@ export function mem_rv_register ( sim_p )
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
                                                   var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                   elto) ;
+                                                                                   pos) ;
                                                   if (typeof value === "undefined") {
 					              return null ;
 					          }

@@ -63,3 +63,4 @@ export * from '../../src/wepsim_web/wepsim_uiscreen_main.js';
 export * from '../../src/wepsim_web/wepsim_web_editor.js';
        export * from '../../src/wepsim_web/wepsim_web_simulator.js';
 export * from '../../src/wepsim_web/wepsim_web_simulator.js';
+export { inputfirm_cfg, inputfirm, inputasm_cfg, inputasm } from '../../src/wepsim_web/wepsim_web_simulator.js';

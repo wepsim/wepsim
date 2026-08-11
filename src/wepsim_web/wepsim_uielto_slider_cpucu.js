@@ -52,7 +52,7 @@
 			     '	  min="0" max="14" value="7" step="1"' +
 			     '	  data-show-value="false"' +
                              '         class="form-range slider col mx-0 px-0"' +
-                             '         oninput="wsweb_set_cpucu_size(this.value);' +
+                             '         oninput="ws.wsweb_set_cpucu_size(this.value);' +
                              '                  return false;">' +
 			     '</form>' ;
 

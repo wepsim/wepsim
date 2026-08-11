@@ -19,7 +19,7 @@ const webConfig = {
 
     // 3. Bundles section
     entry: {
-       'wepsim_web':  './devel/webpack_indexes/min.wepsim_web.js'
+       'wepsim_web': './devel/webpack_indexes/min.wepsim_web.js'
     },
 
     output: {
@@ -29,7 +29,7 @@ const webConfig = {
 
        library: {
           name: 'ws',
-          type: 'umd'
+          type: 'assign-properties'
        },
 
        globalObject: 'typeof self !== "undefined" ? self : this'

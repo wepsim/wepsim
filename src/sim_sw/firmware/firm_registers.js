@@ -53,7 +53,7 @@ export function firm_registers_write ( context )
 
 	     o += 'registers ' + context.registers[m].name + '\n' +
 		  '{\n' ;
-	     for (i=0; i< context.registers[m].registers.length; i++)
+	     for (var i=0; i< context.registers[m].registers.length; i++)
 	     {
 		     if (typeof context.registers[m].registers[i] == "undefined") {
 			 continue ;
@@ -61,7 +61,7 @@ export function firm_registers_write ( context )
 
 		     var l = context.registers[m].registers[i].length - 1 ;
 		     var r = "(" ;
-		     for (j=0; j<l; j++) {
+		     for (var j=0; j<l; j++) {
 			  r += context.registers[m].registers[i][j] + ", " ;
 		     }
 		     r += context.registers[m].registers[i][l] + ")" ;

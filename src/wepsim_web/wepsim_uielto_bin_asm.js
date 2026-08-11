@@ -20,12 +20,13 @@
 
 
         /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-        import { get_simware }                from "../sim_core/sim_adt_core.js";
-        import { get_value }                  from "../sim_core/sim_core_values.js";
+        import { ws_uielto,
+                 register_uielto }     from "./wepsim_uielto.js";
+        import { get_simware }         from "../sim_core/sim_adt_core.js";
+        import { get_value }           from "../sim_core/sim_core_values.js";
         import { WORD_BYTES,
                  WORD_LENGTH,
-                 BYTE_LENGTH }                      from "../sim_sw/assembly/datatypes.js";
+                 BYTE_LENGTH }         from "../sim_sw/assembly/datatypes.js";
 
 
         /*
@@ -119,6 +120,14 @@
 
 	export function mp2html ( mp, labels, seg )
 	{
+                var c_begin = 0 ;
+                var c_end   = 0 ;
+                var rows    = 0 ;
+                var x =  "" ;
+                var p =  "" ;
+                var v =  0 ;
+                var c =  "" ;
+
                 // auxiliar for search label
                 var slebal = {} ;
                 for (var l in labels)
@@ -192,10 +201,10 @@
                      c_end   =  slimits[skey].m_end ;
 		     color   =  slimits[skey].color ;
 
-                     rows    =  0 ;
-                     var x   =  "" ;
-                     var p   =  "" ;
-                     var v   =  0 ;
+                     rows =  0 ;
+                     x    =  "" ;
+                     p    =  "" ;
+                     v    =  0 ;
 
 		     for (var i=c_begin; i<=c_end; i++)
 		     {

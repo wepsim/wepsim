@@ -3,8 +3,9 @@ set -x
 
 sudo apt install jq
 npm i --save-dev typescript@6
-npm i --save-dev jshint eslint
 npm i --save-dev terser@latest
+npm i --save-dev jshint
+npm i --save-dev eslint@10.8.0 @eslint/js globals
 
 npm i --save-dev webpack webpack-cli
 npm i --save-dev terser-webpack-plugin

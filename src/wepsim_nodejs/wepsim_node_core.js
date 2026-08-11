@@ -105,13 +105,13 @@
 		                        get_keyboard_content: function () {
 							        var readlineSync = require('readline-sync');
 							        var keys = readlineSync.question('keyboard> ');
-							        keystrokes = keys.toString() ;
+							        var keystrokes = keys.toString() ;
 
-                                    simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+                                                                simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
 							        return keystrokes ;
 						        },
                                 set_keyboard_content: function( keystrokes ) {
-                                    simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+                                                        simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
 					                return keystrokes ;
 				                }
 	                      },
@@ -908,17 +908,17 @@
 
     	    for (var k = 0; k < simhw_sim_signal(key).behavior.length; k++)
     	    {
-    		 str_bolded = '' ;
+    		 var str_bolded = '' ;
     		 if (k == simhw_sim_signal(key).default_value) {
     		     str_bolded = '(default value) ' ;
     		 }
 
-    		 behav_str = compute_signal_verbals(key, k) ;
+    		 var behav_str = compute_signal_verbals(key, k) ;
     		 if ('' == behav_str.trim()) {
 	    	     behav_str = '<without main effect>' ;
 	    	 }
 
-    		 n = k.toString(10) ;
+    		 var n = k.toString(10) ;
 	    	 input_help += ' * ' + n + ' ' + str_bolded + 'for ' + behav_str + '\n' ;
 	        }
     	}
@@ -986,8 +986,10 @@
 	var input_help    = '' ;
         var search_str    = '' ;
         var search_substr = options.purify.toUpperCase() ;
+        var elto_path     = '' ;
+        var elto          = null ;
 
-        for (tag in ahw.elements)
+        for (var tag in ahw.elements)
         {
              elto = ahw.elements[tag] ;
              search_str = elto.name.toUpperCase() ;

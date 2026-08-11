@@ -109,19 +109,19 @@
 			"	 <label id='label18-off' for='radio18-off' data-bs-toggle='buttons' " +
 			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 			"		   aria-label='Dark mode: Off'" +
-			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','off','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
+			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','off','18'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
 			"	 </label>" +
 			"	 <input type='radio' name='options' id='radio18-on'    autocomplete='off' class='btn-check'>" +
 			"	 <label id='label18-on' for='radio18-on' data-bs-toggle='buttons' " +
 			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 			"		   aria-label='Dark mode: On'" +
-			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','on','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
+			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','on','18'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
 			"	 </label>" +
 			"	 <input type='radio' name='options' id='radio18-auto'   autocomplete='off' class='btn-check'>" +
 			"	 <label id='label18-auto' for='radio18-auto' data-bs-toggle='buttons' " +
 			"		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 			"		   aria-label='Dark mode: Auto'" +
-			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','auto','18'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
+			"		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','auto','18'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
 			"	 </label>" +
 			"   </div>" +
 			'</li>' ;
@@ -175,30 +175,30 @@
 				     "<div class='row'>" +
 					 quickcfg_html_header("Display format") +
 					 quickcfg_html_btn("(*) 0x3B<sub>16</sub>",
-							   "update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_format\", \"unsigned_16_nofill\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 					 quickcfg_html_btn("073<sub>8</sub>",
-							   "update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_format\", \"unsigned_8_nofill\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 					 quickcfg_html_btn("59<sub>10</sub>",
-							   "update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_format\", \"unsigned_10_nofill\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 					 quickcfg_html_btn(";<sub>ascii</sub>",
-							   "update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_format\", \"char_ascii_nofill\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 				     quickcfg_html_br() +
 					 quickcfg_html_header("Display direction") +
 					 quickcfg_html_btn("(*) 04 -> 00",
-							   "update_cfg(\"MEM_display_direction\", \"h2l\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_direction\", \"h2l\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 					 quickcfg_html_btn("00 -> 04",
-							   "update_cfg(\"MEM_display_direction\", \"l2h\"); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_display_direction\", \"l2h\"); " +
+							   "ws.show_memories_values();",
 							   "col-6") +
 				     quickcfg_html_br() +
 					 quickcfg_html_header("Display segments") +
@@ -206,32 +206,32 @@
 							     'show segments',
 								"(*) " + i18n_get_TagFor('cfg', 'Off'),
 							     "  $('#lst_seg1').collapse('hide');" +
-							     "  wepsim_config_button_toggle('MEM_show_segments', false, '19');",
+							     "  ws.wepsim_config_button_toggle('MEM_show_segments', false, '19');",
 								i18n_get_TagFor('cfg', 'On'),
 							     "  $('#lst_seg1').collapse('show');" +
-							     "  wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
+							     "  ws.wepsim_config_button_toggle('MEM_show_segments', true, '19');") +
 					 quickcfg_html_header("Display origin") +
 					 quickcfg_html_onoff('20',
 							     'show origin',
 								"(*) " + i18n_get_TagFor('cfg', 'Off'),
 							     "  $('.mp_tooltip').collapse('hide');" +
-							     "  wepsim_config_button_toggle('MEM_show_source', false, '20');",
+							     "  ws.wepsim_config_button_toggle('MEM_show_source', false, '20');",
 								i18n_get_TagFor('cfg', 'On'),
 							     "  $('.mp_tooltip').collapse('show');" +
-							     "  wepsim_config_button_toggle('MEM_show_source', true, '20');") +
+							     "  ws.wepsim_config_button_toggle('MEM_show_source', true, '20');") +
 				     quickcfg_html_br() +
 					 quickcfg_html_header("Number of words") +
 					 quickcfg_html_btn("(*) 1",
-							   "update_cfg(\"MEM_show_nwords\", 1); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_show_nwords\", 1); " +
+							   "ws.show_memories_values();",
 							   "col-4") +
 					 quickcfg_html_btn("2",
-							   "update_cfg(\"MEM_show_nwords\", 2); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_show_nwords\", 2); " +
+							   "ws.show_memories_values();",
 							   "col-4") +
 					 quickcfg_html_btn("3",
-							   "update_cfg(\"MEM_show_nwords\", 3); " +
-							   "show_memories_values();",
+							   "ws.update_cfg(\"MEM_show_nwords\", 3); " +
+							   "ws.show_memories_values();",
 							   "col-4") +
 				     quickcfg_html_br() +
 				       quickcfg_html_close('popover-mem') +
@@ -275,14 +275,14 @@
 				       quickcfg_html_onoff('QD',
 							   'display format',
 							   ""     + i18n_get_TagFor('cfg', 'Text'),
-					       "wepsim_config_button_toggle(\'CPUCU_show_graph\', false, \'QD\');" +
-					       "wsweb_cpuview_as_text();" +
+					       "ws.wepsim_config_button_toggle(\'CPUCU_show_graph\', false, \'QD\');" +
+					       "ws.wsweb_cpuview_as_text();" +
                                                "$(\'#collapse_text\').show();" +
                                                "$(\'#collapse_graph\').hide();" +
 					       "return false;",
 							   "(*) " + i18n_get_TagFor('cfg', 'Graph'),
-					       "wepsim_config_button_toggle(\'CPUCU_show_graph\', true, \'QD\');" +
-					       "wsweb_cpuview_as_graph();" +
+					       "ws.wepsim_config_button_toggle(\'CPUCU_show_graph\', true, \'QD\');" +
+					       "ws.wsweb_cpuview_as_graph();" +
                                                "$(\'#collapse_text\').hide();" +
                                                "$(\'#collapse_graph\').show();" +
 					       "return false;"
@@ -301,10 +301,10 @@
 				       quickcfg_html_onoff('QI',
 							   'is interactive',
 								    i18n_get_TagFor('cfg', 'Off'),
-							   "wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
+							   "ws.wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
 							   "return false;",
 							   "(*) " + i18n_get_TagFor('cfg', 'On'),
-							   "wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
+							   "ws.wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
 							   "return false;") +
 				    '</li> ' +
                                     '</div>' +

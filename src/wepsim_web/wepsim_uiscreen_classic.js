@@ -220,9 +220,9 @@
                          '                     aria-labelledby="ddownAsmHelp1">' +
                          '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="ws.wsweb_dialog_open(\'help\');' +
-                         '                                ws.wepsim_help_set(\'relative\', ' +
-                         '                                                \'simulator#help_assembly_format\');' +
-                         '                                return false;"' +
+                         '                                        ws.wepsim_help_set(\'relative\', ' +
+                         '                                                        \'simulator#help_assembly_format\');' +
+                         '                                        return false;"' +
                          '                   ><strong><span data-langkey="Assembly format">Assembly format</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item bg-help" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs1" ' +
@@ -302,9 +302,9 @@
                          '                     aria-labelledby="ddownMicroHelp1">' +
                          '                   <li><button class="btn dropdown-item bg-help" ' +
                          '                               onclick="ws.wsweb_dialog_open(\'help\');' +
-                         '                                ws.wepsim_help_set(\'relative\', ' +
-                         '                                                \'simulator#help_firmware_format\');' +
-                         '                                return false;"' +
+                         '                                        ws.wepsim_help_set(\'relative\', ' +
+                         '                                                        \'simulator#help_firmware_format\');' +
+                         '                                        return false;"' +
                          '                   ><strong><span data-langkey="Firmware format">Firmware format</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item bg-help" type="button" ' +
                          '                               data-bs-toggle="offcanvas" data-bs-target="#offcvs2" ' +
@@ -313,7 +313,7 @@
                          '                                        offobj = document.getElementById(\'offcvs2\');' +
                          '                                        offobj.setAttribute(\'data-ws-content\', ' +
                          '                                                            \'hardware_summary\');' +
-                         '                                        wepsim_offcanvas_show(\'offcvs2\');' +
+                         '                                        ws.wepsim_offcanvas_show(\'offcvs2\');' +
                          '                                        return false;"' +
                          '                   ><strong><span data-langkey="Hardware summary">Hardware summary</span></strong></button></li>' +
                          '                   <li><button class="btn dropdown-item bg-help" type="button" ' +

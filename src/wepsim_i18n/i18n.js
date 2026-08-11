@@ -18,11 +18,12 @@
  *
  */
 
+    import { get_cfg } from "../sim_core/sim_cfg.js";
+
 
     /*
      * Initialize...
      */
-import { get_cfg } from "../sim_core/sim_cfg.js";
 
     export var i18n = {
 	          lang:  {
@@ -155,10 +156,10 @@ import { get_cfg } from "../sim_core/sim_cfg.js";
 	         "	   aria-label='idiom for examples and help' " +
 	         "	   onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	      var optValue = opt.val();" +
-	         "		      update_cfg('ws_idiom', optValue);" +
-	         "                    i18n_update_tagsFor('gui',      optValue); " +
-	         "                    i18n_update_tagsFor('dialogs',  optValue); " +
-	         "                    i18n_update_tagsFor('hw',       optValue); " +
+	         "		      ws.update_cfg('ws_idiom', optValue);" +
+	         "                    ws.i18n_update_tagsFor('gui',      optValue); " +
+	         "                    ws.i18n_update_tagsFor('dialogs',  optValue); " +
+	         "                    ws.i18n_update_tagsFor('hw',       optValue); " +
                  str_onchange +
 	         "                    return true; \"" +
 	         "	   data-native-menu='false'>" ;
@@ -179,10 +180,10 @@ import { get_cfg } from "../sim_core/sim_cfg.js";
 	         "	     aria-label='idiom for examples and help' " +
 	         "	     onchange=\"var opt = $(this).find('option:selected');" +
 	         "	 	        var optValue = opt.val();" +
-	         "		        update_cfg('ws_idiom', optValue);" +
-	         "                      i18n_update_tagsFor('gui', optValue);" +
-	         "                      i18n_update_tagsFor('cfg', optValue);" +
-	         "                      i18n_update_tagsFor('hw', optValue);" +
+	         "		        ws.update_cfg('ws_idiom', optValue);" +
+	         "                      ws.i18n_update_tagsFor('gui', optValue);" +
+	         "                      ws.i18n_update_tagsFor('cfg', optValue);" +
+	         "                      ws.i18n_update_tagsFor('hw', optValue);" +
 	         "		        return true;\"" +
 	         "	     data-native-menu='false'>" ;
 	for (var l in i18n.lang)

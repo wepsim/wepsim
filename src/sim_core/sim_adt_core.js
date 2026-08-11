@@ -29,7 +29,7 @@
         export function get_simware ( )
         {
             return simhw_internalState('FIRMWARE') ;
-	}
+    	}
 
         export function set_simware ( preWARE )
         {
@@ -41,7 +41,7 @@
                      cf[item] = preWARE[item] ;
                  }
             }
-	}
+	    }
 
         // empty firmware
 

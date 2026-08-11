@@ -42,7 +42,7 @@ export function firm_fields_v1_write ( elto_fields )
         }
 
         // return fields as string...
-	for (j=0; j<elto_fields.length; j++)
+	for (var j=0; j<elto_fields.length; j++)
 	{
 		 o += '\t' + elto_fields[j].name + " = " + elto_fields[j].type ;
 		 o += "(" + elto_fields[j].startbit + "," + elto_fields[j].stopbit + ")" ;

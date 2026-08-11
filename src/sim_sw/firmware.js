@@ -85,7 +85,7 @@ export function saveFirmware ( SIMWARE, firm_version )
         o += firm_metadata_write(SIMWARE) ;
 
         // save instructions
-	for (i=0; i<SIMWARE.firmware.length; i++) {
+	for (var i=0; i<SIMWARE.firmware.length; i++) {
              o += firm_instruction_write(SIMWARE, SIMWARE.firmware[i], SIMWARE.labels_firm) ;
 	}
 

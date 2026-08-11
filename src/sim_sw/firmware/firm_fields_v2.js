@@ -41,7 +41,7 @@ export function firm_fields_v2_write ( elto_fields )
 	// fields:
 	//   reg(25:21)=field1,
 	//   address-rel(19|18:0)=field2,
-	for (j=0; j<elto_fields.length; j++)
+	for (var j=0; j<elto_fields.length; j++)
 	{
 		 o += '\t' + elto_fields[j].type ;
 		 if ("address" == elto_fields[j].type) {
@@ -49,7 +49,7 @@ export function firm_fields_v2_write ( elto_fields )
 		 }
 
 		 o += "(" ;
-		 for (k=0; k<elto_fields[j].bits_start.length; k++)
+		 for (var k=0; k<elto_fields[j].bits_start.length; k++)
 		 {
 		      if (elto_fields[j].bits_start[k] != elto_fields[j].bits_stop[k])
 			   o += elto_fields[j].bits_start[k] + ":" + elto_fields[j].bits_stop[k] ;  // 18:0

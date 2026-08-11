@@ -19,10 +19,15 @@
  */
 
 
+     import { simhw_sim_signals,
+              simhw_sim_signal,
+              simhw_sim_states,
+              simhw_sim_state } from "./sim_hw_index.js";
+
+
         /*
          *  References
          */
-import { simhw_sim_signals, simhw_sim_signal, simhw_sim_states, simhw_sim_state } from "./sim_hw_index.js";
 
         export var sim_references = {} ; // new Object() ;
 

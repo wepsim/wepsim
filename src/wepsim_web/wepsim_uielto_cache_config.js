@@ -109,7 +109,7 @@
 		  "    <div id='via_size_" + index + "_" + this.name_str + "'>Id.: " +
 		  "    <input type='number' " +
 		  "           value='" + get_var(memory_cfg_i.cfg.via_size) + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
+		  "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
                   "    # bits to identify line" +
@@ -130,7 +130,7 @@
 		  "    <div id='off_size_" + index + "_" + this.name_str + "'>Offset: " +
 		  "    <input type='number' " +
 		  "           value='" + get_var(memory_cfg_i.cfg.off_size) + "' " +
-		  "           onchange='wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
+		  "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
 		  "           min='0' max='32'>" +
 		  "    </div>" +
                   "    # bits to select byte inside line" +
@@ -151,7 +151,7 @@
                   "    <div class='col-xs-12 col-md-8'>" +
 		  "    <select class='form-select form-control' " +
 		  "            id='su_pol_" + index + "_" + this.name_str + "' " +
-		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
+		  "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
 		  "            aria-label='Replace policy'>" +
 		  "      <option value='unify' selected>Unified</option>" +
 		  "      <option value='split_i'>Split (instruction)</option>" +
@@ -172,7 +172,7 @@
                   "    <div class='col-xs-12 col-md-8'>" +
 		  "    <select class='form-select' " +
 		  "            id='replace_pol_" + index + "_" + this.name_str + "' " +
-		  "            onchange='wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
+		  "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
 		  "            aria-label='Replace policy'>" +
 		  "      <option value='lfu' selected>LFU</option>" +
 		  "      <option value='fifo'>FIFO</option>" +
@@ -221,7 +221,7 @@
 		  "      <tr>" +
 		  "          <td align='center' colspan='3'>" +
                   "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
-                  "             onchange='wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value)); var e = document.getElementById(\"rng_cmcfg\"); e.textContent = this.value;'>" +
+                  "             onchange='ws.wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value)); var e = document.getElementById(\"rng_cmcfg\"); e.textContent = this.value;'>" +
                   "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'><span id='rng_cmcfg'>#</span> bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
 		  "          </td>" +
 		  "      </tr>" +
@@ -256,7 +256,7 @@
                   "  <div class='col-xs-12 col-md-8'>" +
 		  "  <select class='form-select form-control' " +
 		  "          id='su_next_" + index + "_" + this.name_str + "' " +
-		  "          onchange='wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
+		  "          onchange='ws.wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
 		  "          aria-label='Next Cache'>" ;
 
               o += "<option value='-1'>None</option>" ;

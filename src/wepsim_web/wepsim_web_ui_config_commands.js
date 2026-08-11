@@ -65,19 +65,19 @@
 				   "	    <label id='label15-off' for='radio15-off' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Dark mode: Off'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','off','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','off','15'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_stop(); \"><span data-langkey='Off'>Off</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio15-on'    autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label15-on' for='radio15-on' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Dark mode: On'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','on','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','on','15'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_stop(); \"><span data-langkey='On'>On</span>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio15-auto'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label15-auto' for='radio15-auto' data-bs-toggle='buttons' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Dark mode: Auto'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','auto','15'); wepsim_restore_darkmode(); wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('ws_skin_dark_mode','auto','15'); ws.wepsim_restore_darkmode(); ws.wepsim_keepsync_darkmode_start(); \"><span data-langkey='Auto'>Auto</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() {
@@ -160,10 +160,10 @@
                       code_cfg:    wepsim_config_button_html_2options('1', 'Execution unit',
                                                    "<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span>",
                                                    "instruction",
-		                                   "wepsim_config_button_toggle('DBG_level','instruction','1');",
+		                                   "ws.wepsim_config_button_toggle('DBG_level','instruction','1');",
                                                    "<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span>",
                                                    "microinstruction",
-		                                   "wepsim_config_button_toggle('DBG_level','microinstruction','1');"),
+		                                   "ws.wepsim_config_button_toggle('DBG_level','microinstruction','1');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('DBG_level', '1') ;
 		                   },
@@ -208,7 +208,7 @@
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
-				   "			       update_cfg('DBG_limitins',optValue);\"" +
+				   "			       ws.update_cfg('DBG_limitins',optValue);\"" +
 				   "		    data-native-menu='false'>" +
 				   "		<option value='-1'>without limit</option>" +
 				   "		<option value='500'  >500</option>" +
@@ -234,7 +234,7 @@
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
-				   "			       update_cfg('DBG_limitick',optValue);\"" +
+				   "			       ws.update_cfg('DBG_limitick',optValue);\"" +
 				   "		    data-native-menu='false'>" +
 				   "		<option value='-1'>without limit</option>" +
 				   "		<option value='500'  >500</option>" +
@@ -256,11 +256,11 @@
                       u_class:     "",
                       code_cfg:    wepsim_config_button_html_onoff('4', 'Skip notify: comments',
                                                   i18n_get_TagFor('cfg', 'Off'),
-		                                   "update_cfg('editor_mode', false);" +
-		                                   "wepsim_config_button_toggle('DBG_skip_notifycolon',false,'4');",
+		                                   "ws.update_cfg('editor_mode', false);" +
+		                                   "ws.wepsim_config_button_toggle('DBG_skip_notifycolon',false,'4');",
                                                   i18n_get_TagFor('cfg', 'On'),
-		                                   "update_cfg('editor_mode', true);" +
-		                                   "wepsim_config_button_toggle('DBG_skip_notifycolon',true,'4');"),
+		                                   "ws.update_cfg('editor_mode', true);" +
+		                                   "ws.wepsim_config_button_toggle('DBG_skip_notifycolon',true,'4');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('DBG_skip_notifycolon', '4') ;
 		                   },
@@ -281,10 +281,10 @@
                                    "        class='form-control form-control-sm form-select border-secondary'" +
 			           "	    aria-label='Editor theme'    " +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
-			           "		      var optValue = opt.val();" +
-			           "		      update_cfg('editor_theme', optValue);" +
-			           "		      sim_cfg_editor_theme(inputfirm);" +
-			           "		      sim_cfg_editor_theme(inputasm);\"" +
+			           "		       var optValue = opt.val();" +
+			           "		       ws.update_cfg('editor_theme', optValue);" +
+			           "		       ws.sim_cfg_editor_theme(ws.inputfirm);" +
+			           "		       ws.sim_cfg_editor_theme(ws.inputasm);\"" +
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>(💡) default</option>" +
 			           "	<option value='blackboard'>(🔅) blackboard</option>" +
@@ -315,9 +315,9 @@
 			           "	    aria-label='Editor mode'    " +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
-			           "		      update_cfg('editor_mode',optValue);" +
-			           "		      sim_cfg_editor_mode(inputfirm);" +
-			           "		      sim_cfg_editor_mode(inputasm);\"" +
+			           "		      ws.update_cfg('editor_mode',optValue);" +
+			           "		      ws.sim_cfg_editor_mode(ws.inputfirm);" +
+			           "		      ws.sim_cfg_editor_mode(ws.inputasm);\"" +
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>default</option>" +
 			           "	<option value='vim'>VIM</option>" +
@@ -346,19 +346,19 @@
 				   "	    <label id='label2-unsigned_16_nofill' for='radio2-unsigned_16_nofill'" +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','2'); show_memories_values();\">1A<sub>16</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_16_nofill','2'); ws.wepsim_refresh_registers();\">1A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <input type='radio' name='options' id='radio2-unsigned_10_nofill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_nofill' for='radio2-unsigned_10_nofill'" +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','2');  show_memories_values();\">32<sub>10</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_10_nofill','2');  ws.wepsim_refresh_registers();\">32<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_nofill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_nofill' for='radio2-unsigned_8_nofill' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','2');   show_memories_values();\">26<sub>8</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_8_nofill','2');   ws.wepsim_refresh_registers();\">26<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
                                    "    <div class='btn-group d-flex btn-group-justified'>" +
@@ -366,19 +366,19 @@
 				   "	    <label id='label2-unsigned_16_fill' for='radio2-unsigned_16_fill' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','2'); show_memories_values();\">001A<sub>16</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_16_fill','2'); ws.wepsim_refresh_registers();\">001A<sub>16</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_10_fill' for='radio2-unsigned_10_fill' " +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','2'); show_memories_values();\">0032<sub>10</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_10_fill','2'); ws.wepsim_refresh_registers();\">0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' class='btn-check'>" +
 				   "	    <label id='label2-unsigned_8_fill' for='radio2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm w-50 btn-outline-secondary fw-bold' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_8_fill','2'); show_memories_values();\">0026<sub>8</sub>" +
+				   "		   onclick=\"ws.wepsim_config_button_toggle('RF_display_format','unsigned_8_fill','2'); ws.wepsim_refresh_registers();\">0026<sub>8</sub>" +
 				   "	    </label>" +
                                    "    </div>" +
 				   "	</div>",
@@ -397,10 +397,10 @@
                       code_cfg:    wepsim_config_button_html_2options('3', 'register file display name',
                                                    "<span data-langkey='Numbers'>Numbers</span>",
                                                    "numerical",
-		                                   "wepsim_config_button_toggle('RF_display_name','numerical','3'); wepsim_show_rf_names();",
+		                                   "ws.wepsim_config_button_toggle('RF_display_name','numerical','3'); ws.wepsim_show_rf_names();",
                                                    "<span data-langkey='Labels'>Labels</span>",
                                                    "logical",
-		                                   "wepsim_config_button_toggle('RF_display_name','logical','3'); wepsim_show_rf_names();"),
+		                                   "ws.wepsim_config_button_toggle('RF_display_name','logical','3');   ws.wepsim_show_rf_names();"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('RF_display_name', '3') ;
 		                   },
@@ -413,9 +413,9 @@
                       u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_onoff('9', 'Is editable',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('is_editable',false,'9');",
+		                                       "ws.wepsim_config_button_toggle('is_editable',false,'9');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('is_editable',true,'9');"),
+		                                       "ws.wepsim_config_button_toggle('is_editable',true,'9');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_editable', '9') ;
 		                   },
@@ -464,7 +464,7 @@
 				   "		 onchange=\"var opt = $(this).find('option:selected');" +
 				   "			    var optValue = opt.val();" +
 				   "			    optValue = parseFloat(optValue);" +
-				   "			    update_cfg('size_inactive', optValue);\"" +
+				   "			    ws.update_cfg('size_inactive', optValue);\"" +
 				   "		 data-native-menu='false'>" +
 				   "	   <option value='1.0'>1.0</option>" +
 				   "	   <option value='1.5'>1.5</option>" +
@@ -488,7 +488,7 @@
 				   "		 onchange=\"var opt = $(this).find('option:selected');" +
 				   "			    var optValue = opt.val();" +
 				   "			    optValue = parseFloat(optValue);" +
-				   "			    update_cfg('size_active', optValue);\"" +
+				   "			    ws.update_cfg('size_active', optValue);\"" +
 				   "		 data-native-menu='false'>" +
 				   "	   <option value='1.0'>1.0</option>" +
 				   "	   <option value='3.0'>3.0</option>" +
@@ -507,9 +507,9 @@
                       u_class:     "wsx_morecfg wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('10', 'Is by value',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('is_byvalue',false,'10');",
+		                                       "ws.wepsim_config_button_toggle('is_byvalue',false,'10');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('is_byvalue',true,'10');"),
+		                                       "ws.wepsim_config_button_toggle('is_byvalue',true,'10');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_byvalue', '10') ;
 		                   },
@@ -522,9 +522,9 @@
                       u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('5', 'Is interactive',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                      "wepsim_config_button_toggle('is_interactive',false,'5');",
+		                                      "ws.wepsim_config_button_toggle('is_interactive',false,'5');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                      "wepsim_config_button_toggle('is_interactive',true,'5');"),
+		                                      "ws.wepsim_config_button_toggle('is_interactive',true,'5');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_interactive', '5') ;
 		                   },
@@ -537,9 +537,9 @@
                       u_class:     "wsx_microcode",
                       code_cfg:    wepsim_config_button_html_onoff('6', 'Is quick interactive',
                                                   i18n_get_TagFor('cfg', 'Off'),
-		                                 "wepsim_config_button_toggle('is_quick_interactive',false,'6');",
+		                                 "ws.wepsim_config_button_toggle('is_quick_interactive',false,'6');",
                                                   i18n_get_TagFor('cfg', 'On'),
-		                                 "wepsim_config_button_toggle('is_quick_interactive',true,'6');"),
+		                                 "ws.wepsim_config_button_toggle('is_quick_interactive',true,'6');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('is_quick_interactive', '6') ;
 		                   },
@@ -557,9 +557,9 @@
                       u_class:     "wsx_morecfg",
                       code_cfg:    wepsim_config_button_html_onoff('11', 'Active voice',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('use_voice',false,'11');",
+		                                       "ws.wepsim_config_button_toggle('use_voice',false,'11');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('use_voice',true,'11');"),
+		                                       "ws.wepsim_config_button_toggle('use_voice',true,'11');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_voice', '11') ;
 		                   },
@@ -573,10 +573,10 @@
                       code_cfg:    wepsim_config_button_html_2options('13', 'Verbose',
                                                    i18n_get_TagFor('cfg', 'Text'),
                                                    "text",
-		                                   "wepsim_config_button_toggle('verbal_verbose','text','13');",
+		                                   "ws.wepsim_config_button_toggle('verbal_verbose','text','13');",
                                                    i18n_get_TagFor('cfg', 'Math'),
                                                    "math",
-		                                   "wepsim_config_button_toggle('verbal_verbose','math','13');"),
+		                                   "ws.wepsim_config_button_toggle('verbal_verbose','math','13');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('verbal_verbose', '13') ;
 		                   },
@@ -593,8 +593,8 @@
                                    "         aria-label='User Interface for WepSIM' " +
                                    "         onchange=\"var opt = $(this).find('option:selected');" +
                                    "                    var optValue = opt.val();" +
-                                   "                    update_cfg('ws_skin_ui', optValue);" +
-                                   "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
+                                   "                    ws.update_cfg('ws_skin_ui', optValue);" +
+                                   "                    window.removeEventListener('beforeunload', ws.wepsim_confirm_exit);" +
                                    "                    window.location='wepsim-' + optValue + '.html';" +
                                    "                    return false;\"" +
                                    "         data-native-menu='false'>" +
@@ -614,9 +614,9 @@
                       u_class:     "",
                       code_cfg:    wepsim_config_button_html_onoff('16', 'AutoScrolling',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('AS_enable',false,'16');",
+		                                       "ws.wepsim_config_button_toggle('AS_enable',false,'16');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('AS_enable',true,'16');"),
+		                                       "ws.wepsim_config_button_toggle('AS_enable',true,'16');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('AS_enable', '16') ;
 		                   },
@@ -634,9 +634,9 @@
                       u_class:     "",
                       code_cfg:    wepsim_config_button_html_onoff('17', 'Use Google Analytics',
                                                      i18n_get_TagFor('cfg', 'Off'),
-		                                       "wepsim_config_button_toggle('use_ga',false,'17');",
+		                                       "ws.wepsim_config_button_toggle('use_ga',false,'17');",
                                                      i18n_get_TagFor('cfg', 'On'),
-		                                       "wepsim_config_button_toggle('use_ga',true,'17');"),
+		                                       "ws.wepsim_config_button_toggle('use_ga',true,'17');"),
 		      code_init:   function() {
                                        wepsim_config_button_pretoggle('use_ga', '17') ;
 		                   },

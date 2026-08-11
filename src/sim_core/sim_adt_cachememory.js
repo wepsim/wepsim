@@ -240,9 +240,9 @@
 
             if (get_var(cfg_i.cfg.next_cache) != -1)
                  set_var(cm_i.cfg.next_cache, cm[cfg_i.cfg.next_cache]) ;
-	    else set_var(cm_i.cfg.next_cache, null) ;
+	        else set_var(cm_i.cfg.next_cache, null) ;
 
-	    return cm_i ;
+	        return cm_i ;
         }
 
         // Example: var array_cm = cache_memory_init_cm(array_cm_cfg) ;

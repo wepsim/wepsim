@@ -125,7 +125,7 @@
 				    {
 			o1 += "<td align='center' class='m-0' " +
                               "    id='ledm" + (j*ledm_dim + k) + "_context' " +
-                              "    v-bind:style='{ \"background-color\": ws.webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
+                              "    v-bind:style='{ \"background-color\": webui_ledm_value2color(value), height: \"15px\", width: \"15px\"}' " +
                               "    v-on:click='value = (value + 1) % 256'>" +
                               "<span class='visually-hidden'>background-color {{value}}</span>" +
                               "</td>" ;

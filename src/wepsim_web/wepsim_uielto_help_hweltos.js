@@ -117,6 +117,7 @@
 
 		    // html holder
 		    var o1 = '' ;
+                    var elto = null ;
                     var elto_path = '' ;
                     var grid = 'col-md-12 col-lg-6 col-xxl-4' ;
                     if (this.layout == "offcanvas") {

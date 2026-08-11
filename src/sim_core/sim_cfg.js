@@ -56,7 +56,7 @@
 
              // add if recording
              simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
-                                       'update_cfg("' + field + '","' + value + '");\n') ;
+                                       'ws.update_cfg("' + field + '","' + value + '");\n') ;
 
              save_cfg() ;
         }
@@ -237,8 +237,8 @@
         {
              var wscfg = {
                    /* version */
-                   "version":               { upgrade:false, type:"string",    value:"2.4.2" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.4.2.20260510A" },
+                   "version":               { upgrade:false, type:"string",    value:"2.5.0" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.5.0.20260710A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -407,7 +407,7 @@
              ws_alert("WepSIM can not import the configuration from URL: \n'" +
                        ws_cfg_hash[cfg_name]  + "'.\n" +
                       "Found following error: \n" +
-                       err.message) ;
+                       e.message) ;
 	 }
 
 	 return ret ;

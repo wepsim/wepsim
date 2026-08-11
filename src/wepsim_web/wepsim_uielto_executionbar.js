@@ -192,8 +192,8 @@
             var run_tag = i18n_get('gui',wsi,'Run') ;
 
 	    var o = "<b>" + run_tag + "</b>" ;
-            if (this.icons_str !== 'no')
-	        o = "<i class='fa fa-play'></i><br>" + o ;
+        //  if (this.icons_str !== 'no')
+        //      o = "<i class='fa fa-play'></i><br>" + o ;
 
 	    $('#btn_run_stop_' + name).html(o) ;
 	    $('#btn_run_stop_' + name).css("backgroundColor", webui_stop_button_color) ;
@@ -205,8 +205,8 @@
             var stop_tag = i18n_get('gui',wsi,'Stop') ;
 
             var o = "<b>" + stop_tag + "</b>" ;
-            if (this.icons_str !== 'no')
-                o = "<i class='fa fa-stop'></i><br>" + o ;
+        //  if (this.icons_str !== 'no')
+        //      o = "<i class='fa fa-stop'></i><br>" + o ;
 
 	    $('#btn_run_stop_' + name).css("backgroundColor", webui_start_button_color) ;
 	    $('#btn_run_stop_' + name).html(o) ;

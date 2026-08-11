@@ -20,11 +20,12 @@
 
 
         /* jshint esversion: 6 */
-        import { ws_uielto, register_uielto }    from "./wepsim_uielto.js";
-        import { get_simware }                   from "../sim_core/sim_adt_core.js";
-        import { wait_if_uievents }              from "../sim_core/sim_core_ctrl.js";
+        import { ws_uielto,
+                 register_uielto }        from "./wepsim_uielto.js";
+        import { get_simware }            from "../sim_core/sim_adt_core.js";
+        import { wait_if_uievents }       from "../sim_core/sim_core_ctrl.js";
         import { simhw_internalState,
-                 simhw_sim_signals }             from "../sim_hw/sim_hw_index.js";
+                 simhw_sim_signals }      from "../sim_hw/sim_hw_index.js";
 
 
         /*
@@ -127,7 +128,7 @@
 		{
 		    var mstart = fir[i]["mc-start"];
 		    var mcode  = fir[i].microcode;
-		    for (j=0; j<mcode.length; j++)
+		    for (var j=0; j<mcode.length; j++)
 		    {
                          if ((++l % 10) == 1)
 		             o = o + h ;

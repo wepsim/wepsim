@@ -23,17 +23,21 @@
     import { get_simware,
              set_simware }               from "../sim_core/sim_adt_core.js";
     import { refresh }                   from "../sim_core/sim_core_ui.js";
+    import { wait_if_uievents,
+             update_memories }           from "../sim_core/sim_core_ctrl.js";
+    import { simcore_reset,
+             simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
+    import { wsasm_src2mem }             from "../sim_sw/assembly.js";
+
+    import { sim_change_workspace }      from "./wepsim_web_simulator.js";
+    import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
+
     import { wepsim_notify_error,
              wepsim_notify_success }     from "../wepsim_core/wepsim_notify.js";
     import { i18n_get }                  from "../wepsim_i18n/i18n.js";
-    import { wait_if_uievents,
-             update_memories }           from "../sim_core/sim_core_ctrl.js";
     import { wsweb_dlg_alert }           from "../wepsim_core/wepsim_dialog.js";
-    import { sim_change_workspace }      from "./wepsim_web_simulator.js";
-    import { wsasm_src2mem }             from "../sim_sw/assembly.js";
-    import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
-    import { simcore_reset,
-             simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
+
+    import { inputfirm, inputasm }       from "../wepsim_web/wepsim_web_simulator.js";
 
 
     //
@@ -48,6 +52,11 @@
     {
 	    var theme = get_cfg('editor_theme') ;
 
+            // check arguments
+            if (null == editor) {
+                return ;
+            }
+
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 	    editor.getWrapperElement().style['font-weight'] = 'bold';
 
@@ -61,6 +70,11 @@
     export function sim_cfg_editor_mode ( editor )
     {
 	    var edt_mode = get_cfg('editor_mode');
+
+            // check arguments
+            if (null == editor) {
+                return ;
+            }
 
 	    if (edt_mode === 'vim') {
 		editor.setOption('keyMap','vim');

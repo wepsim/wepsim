@@ -359,9 +359,11 @@
 
         export function simcoreui_hw_signals_update ( ahw, framed )
         {
+              var e = '' ;
+              var id_tt     = "" ;
+              var id_strong = "" ;
               var elto_v  = '' ;
               var elto_dv = '' ;
-              var e = '' ;
 
               // list of signals
               for (var elto in ahw.signals)

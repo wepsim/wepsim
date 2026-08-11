@@ -870,21 +870,24 @@ export function cpu_rv_register ( sim_p )
                                      types: ["X", "X", "E", "I"],
                                      operation: function(s_expr)
                                                 {
-									if (get_value(sim_p.states["FLAG_N"]) != parseInt(s_expr[4])) {
-										var a = get_value(sim_p.states[s_expr[3]]) << 0 ;
-										var result = a + 1 ;
-										set_value(sim_p.states[s_expr[1]], result >>> 0) ;
-									} else {
-										r = s_expr[2].split('/') ;
-										sim_elto_org = get_reference(r[0]) ;
+							if (get_value(sim_p.states["FLAG_N"]) != parseInt(s_expr[4]))
+                                                        {
+								var a = get_value(sim_p.states[s_expr[3]]) << 0 ;
+								var result = a + 1 ;
+								set_value(sim_p.states[s_expr[1]], result >>> 0) ;
+							}
+                                                        else
+                                                        {
+								var r = s_expr[2].split('/') ;
+								var sim_elto_org = get_reference(r[0]) ;
 
-										newval = get_value(sim_elto_org) ;
-										newval = newval[r[1]] ;
-										if (typeof newval != "undefined") {
-											sim_elto_dst = get_reference(s_expr[1]) ;
-											set_value(sim_elto_dst, newval);
-										}
-									}
+								var newval = get_value(sim_elto_org) ;
+								    newval = newval[r[1]] ;
+								if (typeof newval != "undefined") {
+								    var sim_elto_dst = get_reference(s_expr[1]) ;
+								    set_value(sim_elto_dst, newval);
+								}
+							}
                                                 },
                                         verbal: function (s_expr)
                                                 {

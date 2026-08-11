@@ -111,6 +111,6 @@
 
             // add if recording
             simcore_record_append_new('Close all notifications',
-                                      'wepsim_notify_close();\n') ;
+                                      'ws.wepsim_notify_close();\n') ;
     }
 

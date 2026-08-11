@@ -87,7 +87,7 @@
 
         export function current_state_html ( )
         {
-             o = "" ;
+             var o = "" ;
 
              o += "<div class='card mb-2 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_1'>" +
@@ -180,7 +180,7 @@
 
         export function state_history_html ( )
         {
-             o = "" ;
+             var o = "" ;
 
              o += "<div class='card mb-2 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_2'>" +
@@ -226,7 +226,7 @@
 
         export function state_differences_html ( )
         {
-             o = "" ;
+             var o = "" ;
 
              o += "<div class='card mb-1 border-secondary'>" +
                   "  <div class='card-header text-white bg-dark p-1' id='state_header_3'>" +
@@ -313,7 +313,7 @@
                       '        onclick="ws.wepsim_popover_hide("' + it + '");"><span data-langkey="Close">Close</span></button>' +
                       '</div>' ;
 
-                 vrow = '' ;
+                 var vrow = '' ;
                  if (i != 0)
                      vrow = '<div class="row h-100"><div class="col border-end border-secondary">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
 
@@ -332,17 +332,17 @@
                       '                   <button class="btn btn-outline-secondary btn-sm col-auto float-end"' +
                       '                           onclick="ws.wepsim_state_results_empty();  ' +
                       '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' +
-                      '                                    wepsim_clipboard_CopyFromDiv(\'state_' + i + '\');  ' +
+                      '                                    ws.wepsim_clipboard_CopyFromDiv(\'state_' + i + '\');  ' +
                       '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' +
                       '                                    $(\'#s_clip\').html(\'' + ws_info.state_history[i].title_short + '\'); ' +
                       '                                    $(\'#s_ref\').html(\'reference\'); " ' +
                       '                           type="button"><span data-langkey="Copy">Copy</span><span class="d-none d-sm-inline-flex">&nbsp;<span data-langkey="to clipboard">to clipboard</span></span></button>' +
                       '                   <button class="btn btn-outline-secondary btn-sm col-auto float-end"' +
                       '                           onclick="var txt_chklst1 = ws.get_clipboard_copy();' +
-                      '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
+                      '                                    var obj_exp1    = ws.simcore_simstate_checklist2state(txt_chklst1);' +
                       '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                      '                                    var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);' +
-                      '                                    wepsim_dialog_check_state(obj_exp1, obj_exp2);' +
+                      '                                    var obj_exp2    = ws.simcore_simstate_checklist2state(txt_chklst2);' +
+                      '                                    ws.wepsim_dialog_check_state(obj_exp1, obj_exp2);' +
                       '                                    $(\'#s_ref\').html(\'' + ws_info.state_history[i].title_short + '\'); ' +
                       '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                       '                           type="button"><span data-langkey="Check">Check</span> <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +

@@ -190,7 +190,7 @@
 
         // add if recording
         simcore_record_append_new('Load assembly from example ' + example_id,
-                                  'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
+                                  'ws.load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
 
 	// stats about examples
         simcore_ga('example', 'example.assembly', 'example.assembly.' + eltos.sample_hw + "." + eltos.sample_asm) ;
@@ -249,7 +249,7 @@
 
         // add if recording
         simcore_record_append_new('Load firmware from example ' + example_id,
-                                  'load_from_example_firmware("' + example_id + '", false);\n') ;
+                                  'ws.load_from_example_firmware("' + example_id + '", false);\n') ;
 
 	// stats about examples
         simcore_ga('example', 'example.firmware', 'example.firmware.' + eltos.sample_hw + "." + eltos.sample_mc) ;

@@ -68,6 +68,7 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
+                    var i  = 1 ; // TODO: loop??
                     var o1 = "  <h6 class='dropdown-header'>Optional " + i + ":</h6>" +
                              "  <a class='dropdown-item' href='#' " +
                              "     onclick='" + this.jsrc + "'><span data-langkey='" + this.label + "'>" +

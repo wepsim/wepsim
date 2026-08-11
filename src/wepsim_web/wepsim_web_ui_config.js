@@ -59,7 +59,7 @@
 		        "     onclick=\"$('#img_select1').attr('src',        'images/stop/stop_" + elto + ".gif');" +
 		        "               $('#img_select1').attr('class',      '" + ws.ws_info.breakpoint_icon_list[elto].addclass + "');" +
 		        "               $('#img_select1').attr('data-bs-theme', '');" +
-		        "	        ws.set_cfg('ICON_theme','" + elto + "'); save_cfg();" +
+		        "	        ws.set_cfg('ICON_theme','" + elto + "'); ws.save_cfg();" +
                         "               ws.wepsim_popover_hide('breakpointicon1');" +
                         "               ws.wepsim_uicfg_apply();\">" ;
 	}
@@ -79,7 +79,7 @@
 	        '  <div class="m-0 p-2" style="background-color: #f7f7f7">' +
                 '  <button type="button" id="close" data-role="none" ' +
                 '          class="btn btn-sm btn-danger w-100 p-0" ' +
-                '          onclick="wepsim_popover_hide(\'breakpointicon1\');"><span data-langkey="Close">Close</span></button>' +
+                '          onclick="ws.wepsim_popover_hide(\'breakpointicon1\');"><span data-langkey="Close">Close</span></button>' +
 		'  </div>' +
 		'</div>' +
 		'</div>' ;
@@ -196,7 +196,7 @@
 	 return "<div class='col p-1 mt-2'>" +
 		"<button type='button' id='close' data-role='none' " +
 		"        class='btn btn-sm btn-danger w-100 p-0 mt-2' " +
-		"        onclick='wepsim_popover_hide(\"" + btn2_id + "\");'>" +
+		"        onclick='ws.wepsim_popover_hide(\"" + btn2_id + "\");'>" +
                 "<span data-langkey='Close'>Close</span>" +
                 "</button>" +
 		"</div>" ;
@@ -276,7 +276,7 @@
 	        "	   aria-label='" + arial2 + "'" +
 	        "          class='form-control form-control-color w-100' " +
 	        "          id='" + id2 + "' value='#000000' " +
-	        "	   onchange=\"wepsim_config_color_update('" + cfg_name2 + "',this.value,'#"+id2+"');\"" +
+	        "	   onchange=\"ws.wepsim_config_color_update('" + cfg_name2 + "',this.value,'#"+id2+"');\"" +
 	        "          title='Choose your color'>" +
 	        "</fieldset> " ;
     }

@@ -80,6 +80,7 @@
     import { wepsim_newbie_tour }             from "../wepsim_core/wepsim_tour.js";
     import { wepsim_help_set }                from "../wepsim_core/wepsim_help.js";
     import { wepsim_save_to_file }            from "../wepsim_core/wepsim_url.js";
+    import { inputfirm, inputasm }            from "../wepsim_web/wepsim_web_simulator.js";
 
 
     //
@@ -97,13 +98,13 @@
 			                  if (actual_details.includes('MicroCode')) {
                                               jQuery("#t3_firm").detach().appendTo("#t3_firm_placeholder2");
 					      wait_if_uievents(function() {
-							    ws.inputfirm.refresh();
+							    inputfirm.refresh();
 						         }, 50) ;
 					  }
 			             else if (actual_details.includes('Assembly')) {
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2");
 					      wait_if_uievents(function() {
-							    ws.inputasm.refresh() ;
+							    inputasm.refresh() ;
 						         }, 50) ;
 					  }
 	                              },
@@ -116,10 +117,10 @@
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder1');
                                           }
 
-					  if (ws.inputfirm.is_refreshed != true) {
-					      ws.inputfirm.is_refreshed = true ;
+					  if (inputfirm.is_refreshed != true) {
+					      inputfirm.is_refreshed = true ;
 			                      wait_if_uievents(function(){
-					                    ws.inputfirm.refresh() ;
+					                    inputfirm.refresh() ;
 				                         }, 50) ;
                                           }
 	                              },
@@ -132,10 +133,10 @@
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder1") ;
                                           }
 
-					  if (ws.inputasm.is_refreshed != true) {
-					      ws.inputasm.is_refreshed = true ;
+					  if (inputasm.is_refreshed != true) {
+					      inputasm.is_refreshed = true ;
 					      wait_if_uievents(function(){
-							    ws.inputasm.refresh() ;
+							    inputasm.refresh() ;
 					    	         }, 50) ;
 					  }
 	                              }
@@ -168,7 +169,7 @@
 
             // add if recording
             simcore_record_append_new('Change to workspace simulator',
-		                      'wsweb_change_workspace_simulator();\n') ;
+		                      'ws.wsweb_change_workspace_simulator();\n') ;
 
             // return ok
             return true ;
@@ -189,7 +190,7 @@
 
             // add if recording
             simcore_record_append_new('Change to workspace microcode',
-		                      'wsweb_change_workspace_microcode();\n') ;
+		                      'ws.wsweb_change_workspace_microcode();\n') ;
 
             // return ok
             return true ;
@@ -210,7 +211,7 @@
 
             // add if recording
             simcore_record_append_new('Change to workspace assembly',
-	       	                      'wsweb_change_workspace_assembly();\n') ;
+	       	                      'ws.wsweb_change_workspace_assembly();\n') ;
 
             // return ok
             return true ;
@@ -225,7 +226,7 @@
 
             // add if recording
             simcore_record_append_new('Show processor details',
-		                      'wsweb_change_show_processor();\n') ;
+		                      'ws.wsweb_change_show_processor();\n') ;
 
             // return ok
             return true ;
@@ -262,7 +263,7 @@
 
             // add if recording
             simcore_record_append_new('Show assembly debugger',
-		                      'wsweb_change_show_asmdbg();\n') ;
+		                      'ws.wsweb_change_show_asmdbg();\n') ;
 
             // return ok
             return true ;
@@ -280,7 +281,7 @@
 
             // add if recording
             simcore_record_append_new('Reset',
-		                      'wsweb_execution_reset();\n') ;
+		                      'ws.wsweb_execution_reset();\n') ;
 
             // return ok
             return true ;
@@ -296,7 +297,7 @@
 
             // add if recording
             simcore_record_append_new('Execute microinstruction',
-		                      'wsweb_execution_microinstruction();\n') ;
+		                      'ws.wsweb_execution_microinstruction();\n') ;
 
             // return ok
             return true ;
@@ -314,7 +315,7 @@
 
             // add if recording
             simcore_record_append_new('Execute instruction',
-		                      'wsweb_execution_instruction();\n') ;
+		                      'ws.wsweb_execution_instruction();\n') ;
 
             // return ok
             return true ;
@@ -333,13 +334,13 @@
 
             // add if recording
             simcore_record_append_new('Run',
-		                      'wsweb_execution_run();\n') ;
+		                      'ws.wsweb_execution_run();\n') ;
 
             // intercept events...
 	    $("#current_state2").one("hidden.bs.modal",
 		                     function () {
 					 simcore_record_append_new('Close execution summary',
-						                   'wsweb_dialogbox_close_all();\n');
+						                   'ws.wsweb_dialogbox_close_all();\n');
 				     });
 
             // return ok
@@ -366,7 +367,7 @@
 
             // add if recording
             simcore_record_append_new('Open dialogbox ' + dialog_id,
-		                      'wsweb_dialog_open("' + dialog_id + '");\n') ;
+		                      'ws.wsweb_dialog_open("' + dialog_id + '");\n') ;
 
 	    // stats about ui
             simcore_ga('ui', 'ui.dialog', 'ui.dialog.' + wsweb_dialogs[dialog_id].id) ;
@@ -405,7 +406,7 @@
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
-		                      'wsweb_dialogbox_close_all();\n') ;
+		                      'ws.wsweb_dialogbox_close_all();\n') ;
 
             // return ok
             return true ;
@@ -435,7 +436,7 @@
 
             // add if recording
             simcore_record_append_new('Open update signal dialogbox for ' + key,
-                                      'wepsim_update_signal_dialog(\'' + key + '\');\n') ;
+                                      'ws.wepsim_update_signal_dialog(\'' + key + '\');\n') ;
 
             wepsim_update_signal_dialog(key) ;
 	    // show_states();
@@ -444,7 +445,7 @@
 	    $("#dlg_updatesignal").one("hidden.bs.modal",
 		                       function () {
 					  simcore_record_append_new('Close update signal dialog',
-						                    'wsweb_dialogbox_close_updatesignal();\n') ;
+						                    'ws.wsweb_dialogbox_close_updatesignal();\n') ;
 				       });
 
             // return ok
@@ -457,7 +458,7 @@
 
             // add if recording
             simcore_record_append_new('Close update signal dialogbox',
-		                      'wsweb_dialogbox_close_updatesignal();\n') ;
+		                      'ws.wsweb_dialogbox_close_updatesignal();\n') ;
 
             // return ok
             return true ;
@@ -473,7 +474,7 @@
 
             // add if recording
             simcore_record_append_new('Change select details to ' + opt,
-		                      'wsweb_set_details_select(' + opt + ');\n') ;
+		                      'ws.wsweb_set_details_select(' + opt + ');\n') ;
 
             // return ok
             return true ;
@@ -539,7 +540,7 @@
 
             // add if recording
             simcore_record_append_new('Set details to ' + opt,
-		                      'wsweb_set_details(\'' + opt + '\');\n') ;
+		                      'ws.wsweb_set_details(\'' + opt + '\');\n') ;
 
             // return ok
             return true ;
@@ -564,7 +565,7 @@
 
             // add if recording
             simcore_record_append_new('Refresh in selection',
-		                      'wsweb_select_refresh();\n') ;
+		                      'ws.wsweb_select_refresh();\n') ;
 
             // return ok
             return true ;
@@ -590,7 +591,7 @@
 
             // add if recording
             simcore_record_append_new('Set main work mode to ' + opt,
-		                      'wsweb_select_main("' + opt + '");\n') ;
+		                      'ws.wsweb_select_main("' + opt + '");\n') ;
 
             // return ok
             return true ;
@@ -701,7 +702,7 @@
 
             // add if recording
             simcore_record_append_new('Set cpu-cu size to ' + new_value,
-		                      'wsweb_set_cpucu_size(' + new_value + ');\n') ;
+		                      'ws.wsweb_set_cpucu_size(' + new_value + ');\n') ;
 
             // return ok
             return true ;
@@ -719,7 +720,7 @@
 
             // add if recording
             simcore_record_append_new('Set c1-c2 size to ' + new_value,
-		                      'wsweb_set_c1c2_size(' + new_value + ');\n') ;
+		                      'ws.wsweb_set_c1c2_size(' + new_value + ');\n') ;
 
             // return ok
             return true ;
@@ -742,7 +743,7 @@
 
             // add if recording
             simcore_record_append_new('Compile assembly',
-		                      'wsweb_assembly_compile();\n') ;
+		                      'ws.wsweb_assembly_compile();\n') ;
 
             // return ok
             return true ;
@@ -763,7 +764,7 @@
 
             // add if recording
             simcore_record_append_new('Compile firmware',
-		                      'wsweb_firmware_compile();\n') ;
+		                      'ws.wsweb_firmware_compile();\n') ;
 
             // return ok
             return true ;
@@ -793,7 +794,7 @@
 
             // add if recording
             simcore_record_append_new('Save control memory to file',
-		                      'wsweb_save_controlmemory_to_file(firm_version);\n') ;
+		                      'ws.wsweb_save_controlmemory_to_file(firm_version);\n') ;
 
             // return ok
             return true ;
@@ -888,7 +889,7 @@
 
             // add if recording
             simcore_record_append_new('Open the "quick menu"',
-		                      'wsweb_quickmenu_show();\n') ;
+		                      'ws.wsweb_quickmenu_show();\n') ;
 
             // return ok
             return true ;
@@ -900,7 +901,7 @@
 
             // add if recording
             simcore_record_append_new('Close the "quick menu"',
-		                      'wsweb_quickmenu_close();\n') ;
+		                      'ws.wsweb_quickmenu_close();\n') ;
 
             // return ok
             return true ;
@@ -912,7 +913,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle the "quick menu"',
-		                      'wsweb_quickmenu_toggle();\n') ;
+		                      'ws.wsweb_quickmenu_toggle();\n') ;
 
             // return ok
             return true ;
@@ -925,7 +926,7 @@
 
             // add if recording
             simcore_record_append_new('Open the "quick slider"',
-		                      'wsweb_quickslider_show();\n') ;
+		                      'ws.wsweb_quickslider_show();\n') ;
 
             // return ok
             return true ;
@@ -937,7 +938,7 @@
 
             // add if recording
             simcore_record_append_new('Close the "quick slider"',
-		                      'wsweb_quickslider_close();\n') ;
+		                      'ws.wsweb_quickslider_close();\n') ;
 
             // return ok
             return true ;
@@ -949,7 +950,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle the "quick slider"',
-		                      'wsweb_quickslider_toggle();\n') ;
+		                      'ws.wsweb_quickslider_toggle();\n') ;
 
             // return ok
             return true ;
@@ -962,7 +963,7 @@
 
             // add if recording
             simcore_record_append_new('Open the "quick cpuview"',
-		                      'wsweb_quickcpuview_show();\n') ;
+		                      'ws.wsweb_quickcpuview_show();\n') ;
 
             // return ok
             return true ;
@@ -974,7 +975,7 @@
 
             // add if recording
             simcore_record_append_new('Close the "quick cpuview"',
-		                      'wsweb_quickcpuview_close();\n') ;
+		                      'ws.wsweb_quickcpuview_close();\n') ;
 
             // return ok
             return true ;
@@ -986,7 +987,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle the "quick cpuview"',
-		                      'wsweb_quickcpuview_toggle();\n') ;
+		                      'ws.wsweb_quickcpuview_toggle();\n') ;
 
             // return ok
             return true ;
@@ -999,7 +1000,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle to "view as graphic"',
-		                      'wsweb_cpuview_as_graph();\n') ;
+		                      'ws.wsweb_cpuview_as_graph();\n') ;
 
             // return ok
             return true ;
@@ -1012,7 +1013,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle to "view as text"',
-		                      'wsweb_cpuview_as_text();\n') ;
+		                      'ws.wsweb_cpuview_as_text();\n') ;
 
             // return ok
             return true ;
@@ -1025,7 +1026,7 @@
 
             // add if recording
             simcore_record_append_new('Open the "quick rfcfg"',
-		                      'wsweb_quickrf_show();\n') ;
+		                      'ws.wsweb_quickrf_show();\n') ;
 
             // return ok
             return true ;
@@ -1037,7 +1038,7 @@
 
             // add if recording
             simcore_record_append_new('Close the "quick rfcfg"',
-		                      'wsweb_quickrf_close();\n') ;
+		                      'ws.wsweb_quickrf_close();\n') ;
 
             // return ok
             return true ;
@@ -1049,7 +1050,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle the "quick rfcfg"',
-		                      'wsweb_quickrf_toggle();\n') ;
+		                      'ws.wsweb_quickrf_toggle();\n') ;
 
             // return ok
             return true ;
@@ -1062,7 +1063,7 @@
 
             // add if recording
             simcore_record_append_new('Open the "record toolbar"',
-		                      'wsweb_recordbar_show();\n') ;
+		                      'ws.wsweb_recordbar_show();\n') ;
 
             // return ok
             return true ;
@@ -1074,7 +1075,7 @@
 
             // add if recording
             simcore_record_append_new('Toggle the "record toolbar"',
-		                      'wsweb_recordbar_toggle();\n') ;
+		                      'ws.wsweb_recordbar_toggle();\n') ;
 
             // return ok
             return true ;
@@ -1086,7 +1087,7 @@
 
             // add if recording
             simcore_record_append_new('Close the "record toolbar"',
-		                      'wsweb_recordbar_close();\n') ;
+		                      'ws.wsweb_recordbar_close();\n') ;
 
             // return ok
             return true ;
@@ -1220,10 +1221,10 @@
 			    // add if recording
 			    simcore_record_setTimeBeforeNow(500) ;
 			    simcore_record_append_new('Show message with title "'  + s_title + '" and body "' + s_message + '".',
-						      'wsweb_notifyuser_show("'    + w_title + '", "'         + c_message + '", "' + w_duration + '");\n') ;
+						      'ws.wsweb_notifyuser_show("'    + w_title + '", "'         + c_message + '", "' + w_duration + '");\n') ;
 			    simcore_record_setTimeBeforeNow(w_duration) ;
 			    simcore_record_append_new('Close message with title "' + s_title + '".',
-				                      'wsweb_notifyuser_hide();\n') ;
+				                      'ws.wsweb_notifyuser_hide();\n') ;
 
                             /* eslint-enable no-control-regex */
 		    }
@@ -1272,7 +1273,7 @@
 	    var add_scroll_to = function() {
 				     var div_pos = container_obj.scrollTop() ;
 				     simcore_record_append_new('Scroll content',
-						               'wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ;
+						               'ws.wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ;
 				};
 
             container_obj.scroll(function() {

@@ -19,13 +19,21 @@
  */
 
 
+     import { main_memory_getvalue,
+              main_memory_get_program_counter,
+              main_memory_set,
+              main_memory_extractvalues,
+              main_memory_updatevalues } from "../../sim_core/sim_adt_mainmemory.js";
+     import { get_value,
+              set_value,
+              get_var }                  from "../../sim_core/sim_core_values.js";
+     import { show_main_memory }         from "../../sim_core/sim_core_ui.js";
+     import { cache_memory_access }      from "../../sim_core/sim_adt_cachememory.js";
+
+
 /*
  *  Memory
  */
-import { main_memory_getvalue, main_memory_get_program_counter, main_memory_set, main_memory_extractvalues, main_memory_updatevalues } from "../../sim_core/sim_adt_mainmemory.js";
-import { get_value, set_value, get_var } from "../../sim_core/sim_core_values.js";
-import { show_main_memory } from "../../sim_core/sim_core_ui.js";
-import { cache_memory_access } from "../../sim_core/sim_adt_cachememory.js";
 
 export function mem_poc_register ( sim_p )
 {
@@ -238,7 +246,8 @@ export function mem_poc_register ( sim_p )
                                                    },
                                            verbal: function (s_expr)
                                                    {
-					              var verbal = "" ;
+					              var verbal  = "" ;
+					              var bw_type = "" ;
 
 						      var address = sim_p.states[s_expr[1]].value;
                                                       var dbvalue = sim_p.states[s_expr[2]].value;
@@ -341,7 +350,8 @@ export function mem_poc_register ( sim_p )
                                                    },
                                            verbal: function (s_expr)
                                                    {
-					              var verbal = "" ;
+					              var verbal  = "" ;
+					              var bw_type = "" ;
 
 						      var address = sim_p.states[s_expr[1]].value;
                                                       var dbvalue = sim_p.states[s_expr[2]].value;

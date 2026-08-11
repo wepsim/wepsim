@@ -397,8 +397,8 @@
                    o += '     <a class="dropdown-item py-2 ' + wip_class + '" ' +
                         '        href="#" id="s4_' + item + '" value="' + item + '" ' +
 			'	 onclick="ws.wsweb_select_main(\'' + item + '\');' +
-                        '                 inputfirm.is_compiled = false; ' +
-                        '                 inputasm.is_compiled  = false; ' +
+                        '                 ws.inputfirm.is_compiled = false; ' +
+                        '                 ws.inputasm.is_compiled  = false; ' +
 			'		  return false;"' +
                         '     ><em class="fas fa-microchip"></em>&nbsp;' + item.toUpperCase() + '</a>' ;
                    }

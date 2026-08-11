@@ -49,6 +49,7 @@
         {
 	    var o = '' ;
 	    var e = '' ;
+	    var elto = null ;
 
 	    // header row...
 	    o += i18n_get_TagFor('hw',    'Component').padEnd(10, ' ') + ';' +
@@ -73,14 +74,14 @@
 
 			 // 3) list of input states
                          e = '' ;
-			 for (i=0; i<elto.states_inputs.length; i++) {
+			 for (var i=0; i<elto.states_inputs.length; i++) {
 			      e += elto.states[elto.states_inputs[i]].ref + ' ' ;
 			 }
 			 o += e.padEnd(20, ' ') + ';' ;
 
 			 // 4) list of output states
                          e = '' ;
-			 for (i=0; i<elto.states_outputs.length; i++) {
+			 for (var i=0; i<elto.states_outputs.length; i++) {
 			      e += elto.states[elto.states_outputs[i]].ref + ' ' ;
 			 }
 			 o += e.padEnd(20, ' ') + ';' ;

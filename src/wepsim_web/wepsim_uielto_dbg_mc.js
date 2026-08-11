@@ -93,7 +93,7 @@
 
 		// add if recording
                 simcore_record_append_new('Set firmware breakpoint at ' + addr,
-                                          'dbg_set_breakpoint(' + addr + ');\n') ;
+                                          'ws.dbg_set_breakpoint(' + addr + ');\n') ;
         }
 
         export function dbg_set_breakpoint_ui ( addr, bp_state )
@@ -172,7 +172,7 @@
         export function light_refresh_control_memory ( memory, index )
         {
 	    // if not visible -> skip
-            o1 = $("#memory_MC") ;
+            var o1 = $("#memory_MC") ;
             if (o1.is(':visible') == false) {
 		return ;
             }

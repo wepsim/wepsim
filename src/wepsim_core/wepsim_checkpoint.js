@@ -41,12 +41,12 @@
               wepsim_load_from_url }             from "./wepsim_url.js";
      import { share_information }                from "./wepsim_share.js";
 
-     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
      import { wepsim_state_history_list }        from "../wepsim_web/wepsim_uielto_states.js";
      import { wsweb_select_main }                from "../wepsim_web/wepsim_web_api.js";
      import { wepsim_compile_firmware,
               wepsim_compile_assembly }          from "../wepsim_web/wepsim_web_editor.js";
      import { wepsim_show_cache_memory_config }  from "../wepsim_web/wepsim_uielto_cache_config.js";
+     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
 
 
     /*
@@ -544,7 +544,7 @@
 	    // build backup list
             o = '<div class="btn-group btn-group-toggle list-group m-1" data-bs-toggle="buttons">' ;
 	    obj_wsbackup = obj_wsbackup.reverse() ;
-	    for (i=0; i<obj_wsbackup.length; i++)
+	    for (var i=0; i<obj_wsbackup.length; i++)
 	    {
 		 o += '<label data-bs-toggle="list" ' +
                       '       class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +

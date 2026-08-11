@@ -49,13 +49,8 @@
              simhw_hwset_init }                 from "../sim_hw/sim_hw_index.js";
     import { simcore_record_init,
              simcore_record_captureInit }       from "../sim_core/sim_core_record.js";
-
-    import { wepsim_notify_warning,
-             wepsim_notify_success,
-             wepsim_notify_close,
-             wepsim_notify_do_notify,
-             wepsim_notify_error }                 from "../wepsim_core/wepsim_notify.js";
-    import { wepsim_checkpoint_addCurrentToCache } from "../wepsim_core/wepsim_checkpoint.js";
+    import { get_simware }                      from "../sim_core/sim_adt_core.js";
+    import { update_memories }                  from "../sim_core/sim_core_ctrl.js";
 
     import { wsweb_change_workspace_simulator,
              wsweb_change_show_processor,
@@ -93,16 +88,28 @@
              wepsim_set_keyboard_content }         from "./wepsim_uielto_console.js";
     import { wepsim_set_sound_content,
              wepsim_get_sound_content }            from "./wepsim_uielto_sound.js";
-
-    import { get_simware }                         from "../sim_core/sim_adt_core.js";
-    import { update_memories }                     from "../sim_core/sim_core_ctrl.js";
     import { wepsim_popovers_init }                from "./wepsim_web_ui_popover.js";
     import { wepsim_quickcfg_init }                from "./wepsim_web_ui_quickcfg.js";
+
+    import { wepsim_notify_warning,
+             wepsim_notify_success,
+             wepsim_notify_close,
+             wepsim_notify_do_notify,
+             wepsim_notify_error }                 from "../wepsim_core/wepsim_notify.js";
+    import { wepsim_checkpoint_addCurrentToCache } from "../wepsim_core/wepsim_checkpoint.js";
     import { wepsim_voice_init,
              wepsim_voice_stop }                   from "../wepsim_core/wepsim_voice.js";
     import { wepsim_preload_fromHash,
              wepsim_preload_get2hash }             from "../wepsim_core/wepsim_preload.js";
     import { wepsim_example_loadSet }              from "../wepsim_core/wepsim_example.js";
+
+
+    // editor (inputfirm, inputasm)
+
+    export var inputfirm_cfg = null ;
+    export var inputfirm     = null ;
+    export var inputasm_cfg  = null ;
+    export var inputasm      = null ;
 
 
     // workspaces
@@ -292,7 +299,7 @@
             // event handler for onChange (only once)
             if (observer_darkmode == null)
             {
-                observer = new MutationObserver(function ( mutations ) {
+                var observer = new MutationObserver(function ( mutations ) {
 						    var is_dark_mode = is_darkmode() ;
 						    wepsim_appy_darkmode(is_dark_mode) ;
 			                        }) ;
@@ -308,7 +315,7 @@
 
         export function wepsim_keepsync_darkmode_onEvent ( event )
         {
-            cfgValue = get_cfg('ws_skin_dark_mode') ;
+            var cfgValue = get_cfg('ws_skin_dark_mode') ;
 	    if (cfgValue != 'auto') {
 		return ;
 	    }
@@ -598,11 +605,6 @@
 
     export function wepsim_init_quickfixes ( )
     {
-	// https://github.com/facebook/react-native/issues/18375
-	/* eslint-disable no-extend-native */
-	/* eslint-disable no-param-reassign */
-	/* eslint-disable no-bitwise */
-
 	if (!String.prototype.padStart)
         {
 	  String.prototype.padStart = function padStart(targetLength, padString) {
@@ -620,12 +622,6 @@
 	  };
 	}
     }
-
-
-    export var inputfirm_cfg = null ;
-    export var inputfirm     = null ;
-    export var inputasm_cfg  = null ;
-    export var inputasm      = null ;
 
     export function wepsim_init_ui ( )
     {
