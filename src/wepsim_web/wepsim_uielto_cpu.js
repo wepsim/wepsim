@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  CPU device
-         */
-
         /* jshint esversion: 6 */
         import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
         import { ws_uielto,
@@ -30,6 +26,10 @@
         import { simhw_active,
                  simhw_sim_state }   from "../sim_hw/sim_hw_index.js";
 
+
+        /*
+         *  CPU device
+         */
 
         export class ws_cpu extends ws_uielto
         {

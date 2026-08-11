@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Main Memory
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto, register_uielto }    from "./wepsim_uielto.js";
         import { get_simware }                   from "../sim_core/sim_adt_core.js";
@@ -30,6 +26,10 @@
         import { simhw_internalState,
                  simhw_sim_signals }             from "../sim_hw/sim_hw_index.js";
 
+
+        /*
+         *  Main Memory
+         */
 
         export class ws_bin_mc extends ws_uielto
         {

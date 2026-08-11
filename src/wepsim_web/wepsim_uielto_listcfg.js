@@ -19,15 +19,15 @@
  */
 
 
-        /*
-         *  Configuration list
-         */
-
         /* jshint esversion: 6 */
         import { cfgset_getSet }   from "../sim_core/sim_cfg.js";
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Configuration list
+         */
 
         export class ws_list_cfg extends ws_uielto
         {

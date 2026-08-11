@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Assembly Editor
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Assembly Editor
+         */
 
         export class ws_edit_as extends ws_uielto
         {

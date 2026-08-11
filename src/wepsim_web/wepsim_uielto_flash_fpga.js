@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Flash FPGA
-         */
-
         /* jshint esversion: 6 */
         import { get_simware }              from "../sim_core/sim_adt_core.js";
 
@@ -30,6 +26,10 @@
                  register_uielto }          from "./wepsim_uielto.js";
         import { segments_get_begin_addr }  from "../sim_sw/assembly/memory_segments.js";
 
+
+        /*
+         *  Flash FPGA
+         */
 
         export class ws_flash_fpga extends ws_uielto
         {

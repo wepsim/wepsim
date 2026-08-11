@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Simulated HW
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }              from "./wepsim_uielto.js";
@@ -34,6 +30,10 @@
         import { wepsim_update_signal_dialog }  from "../wepsim_core/wepsim_signal.js";
         import { value_toString }               from "../sim_core/sim_core_values.js";
 
+
+        /*
+         *  Simulated HW
+         */
 
         export class ws_hw extends ws_uielto
         {

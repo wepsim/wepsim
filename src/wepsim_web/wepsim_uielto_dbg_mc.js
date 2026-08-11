@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  DBG-MC
-         */
-
         /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_control_memory_delay }         from "../sim_core/sim_cfg.js";
@@ -45,6 +41,10 @@
         import { wepsim_notify_do_notify }               from "../wepsim_core/wepsim_notify.js";
         import { sim_core_breakpointicon_get }           from "../wepsim_core/wepsim_dbg_breakpointicons.js";
 
+
+        /*
+         *  DBG-MC
+         */
 
         export class ws_dbg_mc extends ws_uielto
         {

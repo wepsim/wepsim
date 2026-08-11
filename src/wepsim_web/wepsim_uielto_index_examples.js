@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Examples
-         */
-
         /* jshint esversion: 6 */
         import { ws_info }                    from "../sim_core/sim_adt_core.js";
         import { get_cfg }                    from "../sim_core/sim_cfg.js";
@@ -30,6 +26,10 @@
         import { wepsim_mode_getBaseMode }    from "../wepsim_core/wepsim_mode.js";
         import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  Examples
+         */
 
         export class ws_examples extends ws_uielto
         {

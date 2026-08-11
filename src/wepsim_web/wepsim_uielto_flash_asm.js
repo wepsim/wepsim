@@ -19,16 +19,16 @@
  */
 
 
-        /*
-         *  Flash assembly
-         */
-
         /* jshint esversion: 6 */
         import { get_simware }       from "../sim_core/sim_adt_core.js";
         import { wsasm_src2src }     from "../sim_sw/assembly.js";
         import { ws_uielto,
                  register_uielto }   from "./wepsim_uielto.js";
 
+
+        /*
+         *  Flash assembly
+         */
 
         export class ws_flash_asm extends ws_uielto
         {

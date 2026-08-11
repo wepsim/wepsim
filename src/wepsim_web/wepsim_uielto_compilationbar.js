@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  Compilation bar
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }   from "./wepsim_uielto.js";
 
+
+        /*
+         *  Compilation bar
+         */
 
         export class ws_compilationbar extends ws_uielto
         {

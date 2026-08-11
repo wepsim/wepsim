@@ -19,14 +19,14 @@
  */
 
 
-        /*
-         *  MicroCode Editor
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";
 
+
+        /*
+         *  MicroCode Editor
+         */
 
         export class ws_edit_mc extends ws_uielto
         {

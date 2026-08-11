@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Execution toolbar
-         */
-
         /* jshint esversion: 6 */
         import { get_cfg }                     from "../sim_core/sim_cfg.js";
 
@@ -34,6 +30,10 @@
                  wepsim_execute_stop,
                  wepsim_execute_toggle_play }  from "../wepsim_core/wepsim_execute.js";
 
+
+        /*
+         *  Execution toolbar
+         */
 
         export class ws_executionbar extends ws_uielto
         {

@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         * Cache memory (configuration)
-         */
-
         /* jshint esversion: 6 */
         import { get_var, set_var }                 from "../sim_core/sim_core_values.js";
         import { cache_memory_init,
@@ -35,6 +31,10 @@
         import { ws_uielto,
                  register_uielto }                  from "./wepsim_uielto.js";
 
+
+        /*
+         * Cache memory (configuration)
+         */
 
         export class ws_cache_config extends ws_uielto
         {

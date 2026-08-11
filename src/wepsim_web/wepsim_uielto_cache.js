@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Cache Memory
-         */
-
         /* jshint esversion: 6 */
         import { get_var,
                  vue_observable_ifnotjetdone,
@@ -34,6 +30,10 @@
         import { simhw_active,
                  simhw_internalState }  from "../sim_hw/sim_hw_index.js";
 
+
+        /*
+         *  Cache Memory
+         */
 
         export class ws_cachememory extends ws_uielto
         {

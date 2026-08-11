@@ -19,15 +19,15 @@
  */
 
 
-        /*
-         *  Help on hardware elements
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }   from "./wepsim_uielto.js";
         import { get_simware }       from "../sim_core/sim_adt_core.js";
 
+
+        /*
+         *  Help on hardware elements
+         */
 
         export class ws_help_swset extends ws_uielto
         {

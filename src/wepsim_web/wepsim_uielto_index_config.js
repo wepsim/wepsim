@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Configuration options
-         */
-
         /* jshint esversion: 6 */
         import { ws_info }               from "../sim_core/sim_adt_core.js";
         import { reset_cfg }             from "../sim_core/sim_cfg.js";
@@ -31,6 +27,10 @@
                  register_uielto }       from "./wepsim_uielto.js";
         import { wepsim_popovers_init }  from "./wepsim_web_ui_popover.js";
 
+
+        /*
+         *  Configuration options
+         */
 
         export class ws_config extends ws_uielto
         {

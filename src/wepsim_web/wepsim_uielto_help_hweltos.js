@@ -19,10 +19,6 @@
  */
 
 
-        /*
-         *  Help on hardware elements
-         */
-
         /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }          from "./wepsim_uielto.js";
@@ -30,6 +26,10 @@
                  simhwelto_prepare_hash }   from "../sim_hw/sim_hw_eltos.js";
         import { simhw_active }             from "../sim_hw/sim_hw_index.js";
 
+
+        /*
+         *  Help on hardware elements
+         */
 
         export class ws_help_hweltos extends ws_uielto
         {
