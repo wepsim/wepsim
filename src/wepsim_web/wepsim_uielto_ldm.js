@@ -188,3 +188,5 @@
              return color ;
         }
 
+        window.webui_ledm_value2color = webui_ledm_value2color ;
+
