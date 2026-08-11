@@ -133,7 +133,7 @@
 		    }
 		};
 
-	tutbox = bootbox.dialog({
+	var tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
 	    buttons: bbbt,
