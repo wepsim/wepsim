@@ -19,14 +19,22 @@
  */
 
 
+     import { main_memory_getvalue,
+              main_memory_get_program_counter,
+              main_memory_set,
+              main_memory_extractvalues,
+              main_memory_updatevalues }     from "../../sim_core/sim_adt_mainmemory.js";
+     import { get_value,
+              set_value,
+              get_var }                      from "../../sim_core/sim_core_values.js";
+     import { show_main_memory }             from "../../sim_core/sim_core_ui.js";
+     import { cache_memory_access }          from "../../sim_core/sim_adt_cachememory.js";
+     import { get_cfg }                      from "../../sim_core/sim_cfg.js";
+
+
 /*
  *  Memory
  */
-import { main_memory_getvalue, main_memory_get_program_counter, main_memory_set, main_memory_extractvalues, main_memory_updatevalues } from "../../sim_core/sim_adt_mainmemory.js";
-import { get_value, set_value, get_var } from "../../sim_core/sim_core_values.js";
-import { show_main_memory } from "../../sim_core/sim_core_ui.js";
-import { cache_memory_access } from "../../sim_core/sim_adt_cachememory.js";
-import { get_cfg } from "../../sim_core/sim_cfg.js";
 
 export function mem_ep2_register ( sim_p )
 {

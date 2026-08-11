@@ -20,13 +20,13 @@
 
 
      import { set_value,
-              get_value } from "./sim_core_values.js";
-     import { show_value } from "../sim_hw/sim_hw_values.js";
+              get_value }           from "./sim_core_values.js";
+     import { show_value }          from "../sim_hw/sim_hw_values.js";
      import { simhw_sim_ctrlStates_get,
               simhw_sim_state,
               simhw_sim_state_getref,
               simhw_internalState } from "../sim_hw/sim_hw_index.js";
-     import { simcoreui_pack } from "./sim_core_ui.js";
+     import { simcoreui_pack }      from "./sim_core_ui.js";
 
 
         /*

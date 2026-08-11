@@ -19,16 +19,16 @@
  */
 
 
-     import { board_base_register } from "./hw_items/board_base.js";
-     import { cpu_rv_register } from "./hw_items/cpu_rv.js";
-     import { mem_rv_register } from "./hw_items/mem_rv.js";
-     import { io_screen_base_register } from "./hw_items/io_screen_base.js";
-     import { io_keyboard_base_register } from "./hw_items/io_keyboard_base.js";
-     import { io_clk_base_register } from "./hw_items/io_clk_base.js";
-     import { io_l3d_base_register } from "./hw_items/io_l3d_base.js";
-     import { io_ldm_base_register } from "./hw_items/io_ldm_base.js";
-     import { io_sound_base_register } from "./hw_items/io_sound_base.js";
-     import { simhw_add } from "./sim_hw_index.js";
+     import { board_base_register }        from "./hw_items/board_base.js";
+     import { cpu_rv_register }            from "./hw_items/cpu_rv.js";
+     import { mem_rv_register }            from "./hw_items/mem_rv.js";
+     import { io_screen_base_register }    from "./hw_items/io_screen_base.js";
+     import { io_keyboard_base_register }  from "./hw_items/io_keyboard_base.js";
+     import { io_clk_base_register }       from "./hw_items/io_clk_base.js";
+     import { io_l3d_base_register }       from "./hw_items/io_l3d_base.js";
+     import { io_ldm_base_register }       from "./hw_items/io_ldm_base.js";
+     import { io_sound_base_register }     from "./hw_items/io_sound_base.js";
+     import { simhw_add }                  from "./sim_hw_index.js";
 
 
         /*

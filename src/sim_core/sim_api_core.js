@@ -22,15 +22,16 @@
      import { restore_cfg,
               reset_cfg_values,
               get_cfg,
-              set_cfg } from "./sim_cfg.js";
+              set_cfg }                  from "./sim_cfg.js";
+     import { show_asmdbg_pc,
+              show_dbg_ir,
+              show_dbg_mpc }             from "./sim_core_ui.js";
      import { get_value,
-              set_value } from "./sim_core_values.js";
+              set_value }                from "./sim_core_values.js";
      import { get_simware,
-              set_simware } from "./sim_adt_core.js";
-     import { update_memories } from "./sim_core_ctrl.js";
-     import { loadFirmware } from "../sim_sw/firmware.js";
-     import { wsasm_src2mem,
-              wsasm_src2binsrc } from "../sim_sw/assembly.js";
+              set_simware }              from "./sim_adt_core.js";
+     import { update_memories }          from "./sim_core_ctrl.js";
+
      import { simhw_getIdByName,
               simhw_setActive,
               simhw_sim_components,
@@ -42,15 +43,17 @@
               simhw_sim_state,
               simhw_sim_state_getref,
               simhw_getObjByName,
-              simhw_add } from "../sim_hw/sim_hw_index.js";
-     import { hash_detail2init } from "../wepsim_web/wepsim_web_simulator.js";
-     import { hash_detail2action,
-              hash_signal2action } from "../wepsim_web/wepsim_web_api.js";
-     import { control_memory_get } from "./sim_adt_ctrlmemory.js";
+              simhw_add }                from "../sim_hw/sim_hw_index.js";
      import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
-     import { show_asmdbg_pc,
-              show_dbg_ir,
-              show_dbg_mpc } from "./sim_core_ui.js";
+
+     import { loadFirmware }             from "../sim_sw/firmware.js";
+     import { wsasm_src2mem,
+              wsasm_src2binsrc }         from "../sim_sw/assembly.js";
+
+     import { hash_detail2init }         from "../wepsim_web/wepsim_web_simulator.js";
+     import { hash_detail2action,
+              hash_signal2action }       from "../wepsim_web/wepsim_web_api.js";
+     import { control_memory_get }       from "./sim_adt_ctrlmemory.js";
 
 
         /* 1) Init */
