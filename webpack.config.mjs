@@ -41,6 +41,10 @@ const webConfig = {
        sideEffects: false
     },
 
+    performance: {
+        hints: false
+    },
+
     module: {
         rules: [
             {
@@ -93,7 +97,11 @@ const nodeConfig = {
        extensions: ['.js', '.json']
     },
 
-    optimization: { usedExports: false }
+    optimization: { usedExports: false },
+
+    performance: {
+        hints: false
+    }
 };
 
 

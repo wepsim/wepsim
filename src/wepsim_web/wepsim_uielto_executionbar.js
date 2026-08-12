@@ -188,28 +188,32 @@
 
         export function webui_button_set_stop ( name )
         {
-	    var wsi     = get_cfg('ws_idiom') ;
-            var run_tag = i18n_get('gui',wsi,'Run') ;
+	    var wsi      = get_cfg('ws_idiom') ;
+            var run_tag  = i18n_get('gui',wsi,'Run') ;
+	    var ebar_obj = $('#btn_run_stop_' + name) ;
 
 	    var o = "<b>" + run_tag + "</b>" ;
-        //  if (this.icons_str !== 'no')
-        //      o = "<i class='fa fa-play'></i><br>" + o ;
+            if (ebar_obj.icons_str !== 'no') {
+                o = "<i class='fa fa-play'></i><br>" + o ;
+            }
 
-	    $('#btn_run_stop_' + name).html(o) ;
-	    $('#btn_run_stop_' + name).css("backgroundColor", webui_stop_button_color) ;
+	    ebar_obj.html(o) ;
+	    ebar_obj.css("backgroundColor", webui_stop_button_color) ;
         }
 
         export function webui_button_set_start ( name )
         {
 	    var wsi      = get_cfg('ws_idiom') ;
             var stop_tag = i18n_get('gui',wsi,'Stop') ;
+	    var ebar_obj = $('#btn_run_stop_' + name) ;
 
             var o = "<b>" + stop_tag + "</b>" ;
-        //  if (this.icons_str !== 'no')
-        //      o = "<i class='fa fa-stop'></i><br>" + o ;
+            if (ebar_obj.icons_str !== 'no') {
+                o = "<i class='fa fa-stop'></i><br>" + o ;
+            }
 
-	    $('#btn_run_stop_' + name).css("backgroundColor", webui_start_button_color) ;
-	    $('#btn_run_stop_' + name).html(o) ;
+	    ebar_obj.css("backgroundColor", webui_start_button_color) ;
+	    ebar_obj.html(o) ;
         }
 
 

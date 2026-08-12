@@ -17,7 +17,9 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { i18n } from "../i18n.js";
+
+     import { i18n } from "../i18n.js";
+
 
     // Tranlation thanks to https://github.com/shiptux
 
