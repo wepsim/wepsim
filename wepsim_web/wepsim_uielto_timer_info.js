@@ -113,12 +113,12 @@
 		    for (i=0; i<curr_iointfactory.length; i++)
 		    {
 			 curr_iointfactory[i].accumulated = vue_observable_ifnotjetdone(curr_iointfactory[i].accumulated) ;
-                         vue_appyBinding(curr_iointfactory[i].accumulated,
+                         vue_applyBinding(curr_iointfactory[i].accumulated,
                                          '#int'+i+'_acc',
                                          function(value){ return value; }) ;
 
 			 curr_iointfactory[i].active      = vue_observable_ifnotjetdone(curr_iointfactory[i].active) ;
-                         vue_appyBinding(curr_iointfactory[i].active,
+                         vue_applyBinding(curr_iointfactory[i].active,
                                          '#int'+i+'_act',
                                          function(value){ return value; }) ;
 		    }

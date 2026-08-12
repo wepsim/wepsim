@@ -512,10 +512,6 @@
 
     function wepsim_init_quickfixes ( )
     {
-	// https://github.com/facebook/react-native/issues/18375
-	/* eslint-disable no-extend-native */
-	/* eslint-disable no-param-reassign */
-	/* eslint-disable no-bitwise */
 	if (!String.prototype.padStart)
         {
 	  String.prototype.padStart = function padStart(targetLength, padString) {

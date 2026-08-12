@@ -175,7 +175,7 @@
          *  Flashing
          */
 
-	async function gateway_do_request ( flash_url, flash_args, div_info )
+	async function asm_gateway_do_request ( flash_url, flash_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -201,7 +201,7 @@
              return jres ;
 	}
 
-	function gateway_request_status ( status_url, info_div )
+	function asm_gateway_request_status ( status_url, info_div )
 	{
 	     var s = new EventSource(status_url) ;
 
@@ -243,7 +243,7 @@
 			   assembly:     fasm
 			} ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
+	     var ret = asm_gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then((result) => {
@@ -254,7 +254,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     asm_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}
@@ -268,7 +268,7 @@
              // do remote flash...
              idiv.value = 'Cancel...\n' ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/stop", {}, idiv);
+	     var ret = asm_gateway_do_request(furl + "/stop", {}, idiv);
 
 	     // working with the async result...
              ret.then(result => {

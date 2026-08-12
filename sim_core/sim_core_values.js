@@ -200,7 +200,7 @@
             return element ;
         }
 
-        function vue_appyBinding ( r_value, vue_context, f_computed_value )
+        function vue_applyBinding ( r_value, vue_context, f_computed_value )
         {
 	    // without Vue
 	    if (typeof Vue === "undefined") {
@@ -258,6 +258,6 @@
                 f_computed_value = function(value){ return value; } ;
 	    }
 
-	    vue_appyBinding(ref_obj.value, id_elto, f_computed_value) ;
+	    vue_applyBinding(ref_obj.value, id_elto, f_computed_value) ;
         }
 

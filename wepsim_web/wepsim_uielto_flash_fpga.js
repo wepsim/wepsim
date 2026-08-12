@@ -147,7 +147,7 @@
          *  Flashing
          */
 
-	async function gateway_do_request ( req_url, req_args, div_info )
+	async function fpga_gateway_do_request ( req_url, req_args, div_info )
 	{
              var fetch_args = {
 			        method:  'POST',
@@ -173,7 +173,7 @@
              return jres ;
 	}
 
-	function gateway_request_status ( status_url, info_div )
+	function fpga_gateway_request_status ( status_url, info_div )
 	{
 	     var s = new EventSource(status_url) ;
 
@@ -244,7 +244,7 @@
              // >> do remote request to "http://<url>/build" ...
              idiv.value = 'Flashing...\n' ;
              var furl = udiv.value ;
-	     var ret  = gateway_do_request(furl + "/build", farg, idiv);
+	     var ret  = fpga_gateway_do_request(furl + "/build", farg, idiv);
 
 	     // << working with the async result...
              ret.then((result) => {
@@ -255,7 +255,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     fpga_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}
@@ -298,7 +298,7 @@
              // >> do remote request to "http://<url>/build" ...
              idiv.value = 'Flashing...\n' ;
              var furl = udiv.value ;
-	     var ret = gateway_do_request(furl + "/flash", farg, idiv);
+	     var ret = fpga_gateway_do_request(furl + "/flash", farg, idiv);
 
 	     // working with the async result...
              ret.then((result) => {
@@ -309,7 +309,7 @@
                          idiv.value = result.status + '\n' ;
 
                          if (result.error == 0) {
-	                     gateway_request_status(furl + "/status", idiv) ;
+	                     fpga_gateway_request_status(furl + "/status", idiv) ;
                          }
                      }) ;
 	}
