@@ -474,7 +474,7 @@
 		 var ref_obj = simhw_sim_states().BR[index] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+index, f_computed_value_rf) ;
+		 vue_applyBinding(ref_obj.value, '#rf_'+index, f_computed_value_rf) ;
 	    }
         }
 
@@ -604,7 +604,7 @@
 		 var ref_obj = sim_eltos[s] ;
 
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
-		 vue_appyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
+		 vue_applyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
         }
 

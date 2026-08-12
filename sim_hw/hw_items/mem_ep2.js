@@ -80,7 +80,7 @@ function mem_ep2_register ( sim_p )
                                   get_state: function ( pos ) {
                                                   var index = parseInt(pos) ;
                                                   var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                   elto) ;
+                                                                                   index) ;
                                                   if (typeof value === "undefined") {
                                                       return null ;
                                                   }

@@ -139,11 +139,11 @@
 		    for (i=0; i<ledm_states.length; i++)
 		    {
 			 ledm_states[i].color = vue_observable_ifnotjetdone(ledm_states[i].color) ;
-                         vue_appyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
+                         vue_applyBinding(ledm_states[i].color, '#ledm'+i+'_context', f_computed_value) ;
 		    }
 
 		    ledm_apirest_endpoint = vue_observable_ifnotjetdone(ledm_apirest_endpoint) ;
-		    vue_appyBinding(ledm_apirest_endpoint, '#ledm_apirest_endpoint', f_computed_value) ;
+		    vue_applyBinding(ledm_apirest_endpoint, '#ledm_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

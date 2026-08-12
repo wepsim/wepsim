@@ -136,13 +136,13 @@
 		    {
                          // period
 			 curr_iointfactory[i].period = vue_observable_ifnotjetdone(curr_iointfactory[i].period) ;
-                         vue_appyBinding(curr_iointfactory[i].period,
+                         vue_applyBinding(curr_iointfactory[i].period,
                                          '#int'+i+'_per',
                                          function(value){ return value; }) ;
 	
                          // probability
 			 curr_iointfactory[i].probability = vue_observable_ifnotjetdone(curr_iointfactory[i].probability) ;
-                         vue_appyBinding(curr_iointfactory[i].probability,
+                         vue_applyBinding(curr_iointfactory[i].probability,
                                          '#int'+i+'_pro',
                                          function(value){ return value; }) ;
 		    }

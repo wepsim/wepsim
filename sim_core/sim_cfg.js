@@ -392,7 +392,7 @@
              ws_alert("WepSIM can not import the configuration from URL: \n'" +
                        ws_cfg_hash[cfg_name]  + "'.\n" +
                       "Found following error: \n" +
-                       err.message) ;
+                       e.message) ;
 	 }
 
 	 return ret ;

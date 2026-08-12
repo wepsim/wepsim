@@ -141,11 +141,11 @@
 		    for (i=0; i<l3d_states.length; i++)
 		    {
 			 l3d_states[i].active = vue_observable_ifnotjetdone(l3d_states[i].active) ;
-                         vue_appyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
+                         vue_applyBinding(l3d_states[i].active, '#l3d'+i+'_context', f_computed_value) ;
 		    }
 
 		    l3d_apirest_endpoint = vue_observable_ifnotjetdone(l3d_apirest_endpoint) ;
-		    vue_appyBinding(l3d_apirest_endpoint, '#l3d_apirest_endpoint', f_computed_value) ;
+		    vue_applyBinding(l3d_apirest_endpoint, '#l3d_apirest_endpoint', f_computed_value) ;
 	      }
         }
 

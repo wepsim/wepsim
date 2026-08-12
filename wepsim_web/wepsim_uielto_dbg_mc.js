@@ -351,7 +351,7 @@
                                       } ;
 
             memory = vue_observable_ifnotjetdone(memory) ;
-            vue_appyBinding(memory, '#ctrl_mem', f_computed_elements) ;
+            vue_applyBinding(memory, '#ctrl_mem', f_computed_elements) ;
 
             // scroll up/down to index element...
 	    if (redraw) {

@@ -73,14 +73,14 @@
 		    var base_mp_wc_read = get_value(simhw_internalState_get('MP_wc', 'read')) ;
 		    var curr_mp_read_wc = { value: vue_observable(base_mp_wc_read) } ;
 		    simhw_internalState_reset('MP_wc.read', curr_mp_read_wc) ;
-		    vue_appyBinding(curr_mp_read_wc.value,
+		    vue_applyBinding(curr_mp_read_wc.value,
 				    '#mp_wc_read_' + input_div,
 				    function(value){ return value; }) ;
 
 		    var base_mp_wc_write = get_value(simhw_internalState_get('MP_wc', 'write')) ;
 		    var curr_mp_write_wc = { value: vue_observable(base_mp_wc_write) } ;
 		    simhw_internalState_reset('MP_wc.write', curr_mp_write_wc) ;
-		    vue_appyBinding(curr_mp_write_wc.value,
+		    vue_applyBinding(curr_mp_write_wc.value,
 				    '#mp_wc_write_' + input_div,
 				    function(value){ return value; }) ;
 	      }
