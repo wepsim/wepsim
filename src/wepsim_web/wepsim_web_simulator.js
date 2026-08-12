@@ -106,10 +106,10 @@
 
     // editor (inputfirm, inputasm)
 
-    export var inputfirm_cfg = null ;
-    export var inputfirm     = null ;
-    export var inputasm_cfg  = null ;
-    export var inputasm      = null ;
+    export var inputfirm_cfg = inputfirm_cfg ?? null ;
+    export var inputfirm     = inputfirm     ?? null ;
+    export var inputasm_cfg  = inputasm_cfg  ?? null ;
+    export var inputasm      = inputasm      ?? null ;
 
 
     // workspaces
