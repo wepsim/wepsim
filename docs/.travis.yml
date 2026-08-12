@@ -9,7 +9,7 @@ arch:
 language: node_js
 
 node_js:
-  - 17  
+  - 17
 
 before_install:
   - rm -fr node_modules

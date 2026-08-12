@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 // 30. Configuration (1/2)
 const webConfig = {
     // 1. Compilation mode: development | production
-    mode: 'production',
+    mode: 'development',
 
     // 2. Target Web
     target: ['web', 'es2022'],
