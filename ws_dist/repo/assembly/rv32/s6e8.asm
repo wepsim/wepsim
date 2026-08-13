@@ -63,6 +63,7 @@ sys_prt_ch:  out  a0 0x1000
               8,     8,     8,     8,     8,     8,     8,      8,
               8,     8,     8,     8,     8,     8,     8,      8,
               8,     0
+   anote: .asciiz "note "
 
 .text
 main:
@@ -81,14 +82,8 @@ main:
            li  t2 2      # play + silence
            out t2 0x4000 # play + silence
 
-           li  a0 'o'
-           li  a7 11
-           ecall
-           li  a0 'o'
-           li  a7 11
-           ecall
-           li  a0 'o'
-           li  a7 11
+           li  a0 anote
+           li  a7 4
            ecall
 
            addi t1 t1 1
@@ -110,9 +105,12 @@ main:
            li  t0 500
            out t0 0x1108
 
-           li  a1 132
+           li  a1 70
 loop3:     beq a1 x0 fin3
            li  a0 'o'
+           li  a7 11
+           ecall   
+           li  a0 ' '
            li  a7 11
            ecall   
            addi a1 a1 -1
