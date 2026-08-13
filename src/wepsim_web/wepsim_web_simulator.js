@@ -766,42 +766,49 @@
 
     export function wepsim_init_PWA ( )
     {
-            // progressive web application
-	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
-            {
-		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function()
-                {
-		    wepsim_notify_warning("<h4>Warning:" +
-		  		          "<br/>WepSIM was used over a HTTP connection.</h4>",
-		                          "Progressive Web Applications requires a HTTPS connection " +
-		                          "with a valid certificate, so PWA is disabled.<br/>" +
-		                          "Please use the 'x' to close this notification.") ;
-		}) ;
-	    }
+            // check serviceWorker available...
+            if (("serviceWorker" in navigator) == false) {
+                 return ;
+            }
+
+            // try lo register as progressive web application
+            window.addEventListener("load", () => {
+		    navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function()
+                    {
+		        var msg = "<h4>Warning:" +
+                                  "<br/>WepSIM was used probably over a HTTP connection.</h4>",
+                                  "Progressive Web Applications requires a HTTPS connection " +
+                                  "with a valid certificate, so PWA is disabled.<br/>" +
+                                  "Please use the 'x' to close this notification." ;
+
+		        wepsim_notify_warning(msg) ;
+		    }) ;
+            });
     }
 
     export function wepsim_init_firefoxOS ( )
     {
+	    if (('mozApps' in navigator) == false) {
+                  return ;
+	    }
+
             // Firefox OS
-	    if ('mozApps' in navigator)
-	    {
-		    var manifest_url = location.href + 'manifest.webapp';
-		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
-		    installCheck.onsuccess = function()
+	    var manifest_url = location.href + 'manifest.webapp';
+	    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+	    installCheck.onsuccess = function()
 		    {
-		        if (!installCheck.result)
-		        {
+			if (!installCheck.result)
+			{
 			      var installLocFind = navigator.mozApps.install(manifest_url);
 			      installLocFind.onsuccess = function(data) {
 				  wepsim_notify_success('<h4>Info:<br/></h4>',
-					                'WepSIM was installed.');
+							'WepSIM was installed.');
 			      } ;
 			      installLocFind.onerror = function() {
 				  wepsim_notify_error('<h4>Warning:<br/>' + installLocFind.error.name + '</h4>',
 						      'FirefoxOS/KaiOS installation was cancelled.') ;
 			      } ;
-		        }
+			}
 		    } ;
-            }
     }
 

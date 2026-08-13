@@ -105,7 +105,7 @@ main:
            li  t0 500
            out t0 0x1108
 
-           li  a1 70
+           li  a1 85
 loop3:     beq a1 x0 fin3
            li  a0 'o'
            li  a7 11

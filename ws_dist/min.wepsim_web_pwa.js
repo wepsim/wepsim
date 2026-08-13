@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-export var cacheName = 'v242a_static';
+export var cacheName = 'v250a_static';
 
 
 /*
