@@ -775,13 +775,14 @@
             window.addEventListener("load", () => {
 		    navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function()
                     {
-		        var msg = "<h4>Warning:" +
-                                  "<br/>WepSIM was used probably over a HTTP connection.</h4>",
-                                  "Progressive Web Applications requires a HTTPS connection " +
-                                  "with a valid certificate, so PWA is disabled.<br/>" +
-                                  "Please use the 'x' to close this notification." ;
+		        var title = "<h4>Warning:" +
+                                    "<br/>WepSIM was used probably over a HTTP connection.</h4>";
 
-		        wepsim_notify_warning(msg) ;
+                        var msg   = "Progressive Web Applications requires a HTTPS connection " +
+                                    "with a valid certificate, so PWA is disabled.<br/>" +
+                                    "Please use the 'x' to close this notification." ;
+
+		        wepsim_notify_warning(title, msg) ;
 		    }) ;
             });
     }
