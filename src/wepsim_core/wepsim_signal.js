@@ -43,14 +43,14 @@
 			      '<button onclick="$(\'#bot_signal\').carousel(1); ' +
                               '                 var shval = $(\'#ask_shard\').val(); ' +
                               '                 var shkey = $(\'#ask_skey\').val(); ' +
-                              '                 update_signal_loadhelp(\'#help2\', shval, shkey);" ' +
+                              '                 ws.update_signal_loadhelp(\'#help2\', shval, shkey);" ' +
 			      '        type="button" class="btn btn-success">Help</button>' ;
 
                 return wepsim_config_dialog_dropdown("success",
 						     b_btns,
 						     'var shval = $(\'#ask_shard\').val(); ' +
 						     'var shkey = $(\'#ask_skey\').val(); ' +
-						     'update_signal_loadhelp(\'#help2\', shval, shkey);"') ;
+						     'ws.update_signal_loadhelp(\'#help2\', shval, shkey);"') ;
         }
 
         export function wepsim_update_signal_dialog_body ( key, signal_obj )

@@ -506,8 +506,8 @@
                                               jQuery("#t3_firm").detach().appendTo('#t3_firm_placeholder2');
                                           }
 					  wait_if_uievents(function() {
-                                                        ws.inputfirm.refresh();
-						     }, 50) ;
+                                                             inputfirm.refresh();
+						          }, 50) ;
                                         },
 	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);
 					  var t4_asm = document.getElementById("t4_asm");
@@ -516,8 +516,8 @@
                                               jQuery("#t4_asm").detach().appendTo("#t4_asm_placeholder2") ;
                                           }
 					  wait_if_uievents(function() {
-							ws.inputasm.refresh() ;
-						     }, 50) ;
+							     inputasm.refresh() ;
+						          }, 50) ;
                                         },
 
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
