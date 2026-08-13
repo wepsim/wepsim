@@ -22,6 +22,10 @@ const webConfig = {
        'wepsim_web': './devel/webpack_indexes/min.wepsim_web.js'
     },
 
+    externals: {
+        'bootstrap': 'bootstrap'
+    },
+
     output: {
        filename: 'min.[name].js',
        path: path.resolve(__dirname, 'ws_dist'),
@@ -49,7 +53,7 @@ const webConfig = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/, 
+                exclude: /node_modules/,
                 parser: { javascript: { strictMode: false } }
             }
         ]
