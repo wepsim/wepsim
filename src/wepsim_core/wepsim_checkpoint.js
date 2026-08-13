@@ -46,7 +46,7 @@
      import { wepsim_compile_firmware,
               wepsim_compile_assembly }          from "../wepsim_web/wepsim_web_editor.js";
      import { wepsim_show_cache_memory_config }  from "../wepsim_web/wepsim_uielto_cache_config.js";
-     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_inputfirm, get_inputasm }      from "../wepsim_web/wepsim_web_simulator.js";
 
 
     /*
@@ -70,8 +70,8 @@
 	    // pack elements
 	    var elements = {
 		              "mode":          ws_mode,
-		              "firmware":      inputfirm.getValue(),
-			      "assembly":      inputasm.getValue(),
+		              "firmware":      get_inputfirm().getValue(),
+			      "assembly":      get_inputasm().getValue(),
 			      "state_current": state_current,
 			      "state_history": history_obj,
 			      "record":        simcore_record_get(),
@@ -125,8 +125,8 @@
 	        wsweb_select_main(checkpointObj.mode) ;
 
 		// firmware + assembly: load into editor
-		inputfirm.setValue(checkpointObj.firmware) ;
-		 inputasm.setValue(checkpointObj.assembly) ;
+		get_inputfirm().setValue(checkpointObj.firmware) ;
+		 get_inputasm().setValue(checkpointObj.assembly) ;
 
 		o += '<li>Firmware and Assembly: Loaded' ;
 

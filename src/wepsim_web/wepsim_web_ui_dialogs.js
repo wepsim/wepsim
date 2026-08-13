@@ -68,9 +68,10 @@
                                 "     label='Save editor content' " +
                                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
 				"	     var fileNameToSaveAs = ifntsa2.value;" +
-				"	     var textToWrite      = ws.inputasm.getValue();" +
+				"	     var inputasm         = ws.get_inputasm();" +
+				"	     var textToWrite      = inputasm.getValue();" +
 				"	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "            ws.inputasm.is_modified = false;" +
+		                "            inputasm.is_modified = false;" +
                                 "            return false;'></ws-save-files-option>" +
                                 "<ws-save-files-option " +
                                 "     label='Save as binary section' " +
@@ -88,12 +89,13 @@
                                 "<ws-load-file " +
                                 "    fid='fileToLoad2' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
-                                "                     ws.wepsim_file_loadFrom(ftl, " +
-                                "		                           function(txt) { " +
-                                "		       ws.inputasm.setValue(txt);" +
+                                "           ws.wepsim_file_loadFrom(ftl, " +
+                                "		                    function(txt) { " +
+				"	               var inputasm = ws.get_inputasm();" +
+                                "		       inputasm.setValue(txt);" +
     				"                      ws.wsweb_dialog_close(\"load_save_assembly\");" +
 			        "		       ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
-                                "		                 });" +
+                                "		                    });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +
@@ -188,10 +190,11 @@
                                 "<ws-save-files fid='inputFileNameToSaveAs'>" +
                                 "<ws-save-files-option " +
                                 "    label='Save editor content' " +
-                                "     jsrc='var fileNameToSaveAs  = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-		                "           var textToWrite       = ws.inputfirm.getValue();" +
+                                "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+				"	    var inputfirm        = ws.get_inputfirm();" +
+		                "           var textToWrite      = inputfirm.getValue();" +
 		                "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "           ws.inputfirm.is_modified = false;" +
+		                "           inputfirm.is_modified = false;" +
 				"	    return false;'></ws-save-files-option>" +
                                 "<ws-save-files-option " +
                                 "    label='Save control memory (firmware v2)' " +
@@ -209,12 +212,13 @@
                                 "    fid='fileToLoad' " +
                                 "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
                                 "           ws.wepsim_file_loadFrom(ftl, " +
-                                "		                 function(txt) { " +
-                                "		      ws.inputfirm.setValue(\"Please wait...\");" +
+                                "		                    function(txt) { " +
+				"	              var inputfirm = ws.get_inputfirm();" +
+                                "		      inputfirm.setValue(\"Please wait...\");" +
     				"                     ws.wsweb_dialog_close(\"load_save_firmware\");" +
-                                "		      ws.inputfirm.setValue(txt);" +
+                                "		      inputfirm.setValue(txt);" +
 			        "		      ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
-                                "		                 });" +
+                                "		                    });" +
                                 "           return false;'></ws-load-file>" +
                                "</div>" +
                                "</div>" +

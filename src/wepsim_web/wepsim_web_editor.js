@@ -19,25 +19,25 @@
  */
 
 
-    import { get_cfg }                   from "../sim_core/sim_cfg.js";
-    import { get_simware,
-             set_simware }               from "../sim_core/sim_adt_core.js";
-    import { refresh }                   from "../sim_core/sim_core_ui.js";
-    import { wait_if_uievents,
-             update_memories }           from "../sim_core/sim_core_ctrl.js";
-    import { simcore_reset,
-             simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
-    import { wsasm_src2mem }             from "../sim_sw/assembly.js";
+     import { get_cfg }                   from "../sim_core/sim_cfg.js";
+     import { get_simware,
+              set_simware }               from "../sim_core/sim_adt_core.js";
+     import { refresh }                   from "../sim_core/sim_core_ui.js";
+     import { wait_if_uievents,
+              update_memories }           from "../sim_core/sim_core_ctrl.js";
+     import { simcore_reset,
+              simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
+     import { wsasm_src2mem }             from "../sim_sw/assembly.js";
 
-    import { sim_change_workspace }      from "./wepsim_web_simulator.js";
-    import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
+     import { sim_change_workspace }      from "./wepsim_web_simulator.js";
+     import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
 
-    import { wepsim_notify_error,
-             wepsim_notify_success }     from "../wepsim_core/wepsim_notify.js";
-    import { i18n_get }                  from "../wepsim_i18n/i18n.js";
-    import { wsweb_dlg_alert }           from "../wepsim_core/wepsim_dialog.js";
+     import { wepsim_notify_error,
+              wepsim_notify_success }     from "../wepsim_core/wepsim_notify.js";
+     import { i18n_get }                  from "../wepsim_i18n/i18n.js";
+     import { wsweb_dlg_alert }           from "../wepsim_core/wepsim_dialog.js";
 
-    import { inputfirm, inputasm }       from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_inputfirm, get_inputasm }      from "../wepsim_web/wepsim_web_simulator.js";
 
 
     //
@@ -229,6 +229,9 @@
 
     export function wepsim_get_binary_code ( )
     {
+	 var inputfirm = get_inputfirm() ;
+	 var inputasm  = get_inputasm() ;
+
          // compile if needed
 	 if (false == inputasm.is_compiled)
          {
@@ -257,6 +260,9 @@
 
     export function wepsim_get_binary_microcode ( )
     {
+	 var inputfirm = get_inputfirm() ;
+	 var inputasm  = get_inputasm() ;
+
          // microcompile if needed
 	 if (false == inputfirm.is_compiled)
 	 {

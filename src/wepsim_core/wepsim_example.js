@@ -42,7 +42,7 @@
 
      import { wepsim_show_rf_names }             from "../wepsim_web/wepsim_uielto_registers.js";
      import { asmdbg_update_assembly }           from "../wepsim_web/wepsim_uielto_dbg_asm.js";
-     import { inputfirm, inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_inputfirm, get_inputasm }      from "../wepsim_web/wepsim_web_simulator.js";
 
 
     /*
@@ -146,6 +146,7 @@
             return ;
         }
 
+	var inputasm = get_inputasm() ;
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
@@ -155,6 +156,7 @@
 
 	// do next
         var do_next = function( mcode ) {
+	                    var inputasm = get_inputasm() ;
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
 
@@ -203,6 +205,7 @@
             return ;
         }
 
+	var inputfirm = get_inputfirm() ;
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 	inputfirm.setOption('readOnly', false);
@@ -213,6 +216,7 @@
 
 	// do next
         var do_next = function( mcode ) {
+	                   var inputfirm = get_inputfirm() ;
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
 

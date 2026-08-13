@@ -23,7 +23,17 @@ const webConfig = {
     },
 
     externals: {
-        'bootstrap': 'bootstrap'
+        'bootstrap':  'bootstrap',
+        'bootbox':    'bootbox',
+        'jQuery':     'jQuery',
+        'CodeMirror': 'CodeMirror',
+        'Vue':        'Vue',
+        'QRCode':     'QRCode',
+        'LZString':   'LZString',
+        'vis':        'vis',
+        'introJs':    'introJs',
+        'SpeechKITT': 'SpeechKITT',
+        'annyang':    'annyang'
     },
 
     output: {

@@ -283,8 +283,8 @@
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		       var optValue = opt.val();" +
 			           "		       ws.update_cfg('editor_theme', optValue);" +
-			           "		       ws.sim_cfg_editor_theme(ws.inputfirm);" +
-			           "		       ws.sim_cfg_editor_theme(ws.inputasm);\"" +
+			           "		       ws.sim_cfg_editor_theme(ws.get_inputfirm());" +
+			           "		       ws.sim_cfg_editor_theme(ws.get_inputasm());\"" +
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>(💡) default</option>" +
 			           "	<option value='blackboard'>(🔅) blackboard</option>" +
@@ -316,8 +316,8 @@
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
 			           "		      ws.update_cfg('editor_mode',optValue);" +
-			           "		      ws.sim_cfg_editor_mode(ws.inputfirm);" +
-			           "		      ws.sim_cfg_editor_mode(ws.inputasm);\"" +
+			           "		      ws.sim_cfg_editor_mode(ws.get_inputfirm());" +
+			           "		      ws.sim_cfg_editor_mode(ws.get_inputasm());\"" +
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>default</option>" +
 			           "	<option value='vim'>VIM</option>" +

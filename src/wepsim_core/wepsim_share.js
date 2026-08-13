@@ -28,7 +28,7 @@
      import { wsweb_dlg_alert }                 from "./wepsim_dialog.js";
 
      import { wepsim_show_cache_memory_config } from "../wepsim_web/wepsim_uielto_cache_config.js";
-     import { inputfirm, inputasm }             from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_inputfirm, get_inputasm }      from "../wepsim_web/wepsim_web_simulator.js";
 
 
     /*
@@ -89,12 +89,12 @@
 
             if (share_eltos.includes('mc'))
             {
-                txt_enc  = LZString.compressToEncodedURIComponent(  inputfirm.getValue() ) ;
+                txt_enc  = LZString.compressToEncodedURIComponent( get_inputfirm().getValue() ) ;
                 url_to_share = url_to_share + '&mc=' + txt_enc ;
             }
             if (share_eltos.includes('asm'))
             {
-                txt_enc = LZString.compressToEncodedURIComponent(  inputasm.getValue() ) ;
+                txt_enc = LZString.compressToEncodedURIComponent(  get_inputasm().getValue() ) ;
                 url_to_share = url_to_share + '&asm=' + txt_enc ;
             }
             if (share_eltos.includes('cache'))
@@ -106,8 +106,8 @@
                      cm_cfg.push(cm_cfg_i) ;
                 }
 
-		json_enc = JSON.stringify(cm_cfg) ;
-                txt_enc  = LZString.compressToEncodedURIComponent(json_enc) ;
+		var json_enc = JSON.stringify(cm_cfg) ;
+                txt_enc      = LZString.compressToEncodedURIComponent(json_enc) ;
                 url_to_share = url_to_share + '&cache=' + txt_enc ;
             }
          }
@@ -140,14 +140,14 @@
 	         {
                      elto_shared.asm = LZString.decompressFromEncodedURIComponent( b[1] ) ;
 	             if (elto_shared.asm != null) {
-                         inputasm.setValue(elto_shared.asm) ;
+                         get_inputasm().setValue(elto_shared.asm) ;
 		     }
                  }
                  if ('mc' == b[0])
 	         {
                      elto_shared.mc  = LZString.decompressFromEncodedURIComponent( b[1] ) ;
 		     if (elto_shared.mc != null) {
-		         inputfirm.setValue(elto_shared.mc) ;
+		         get_inputfirm().setValue(elto_shared.mc) ;
 		     }
                  }
                  if ('cache' == b[0])

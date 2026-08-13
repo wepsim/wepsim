@@ -35,6 +35,8 @@
 
     ws_info.tutorials = {} ;
 
+    var tutbox = null ; // UI
+
     export function sim_tutorial_goframe ( tutorial_name, from_step, to_step )
     {
         //var ws_lang  = get_cfg('ws_idiom') ;
@@ -133,7 +135,7 @@
 		    }
 		};
 
-	var tutbox = bootbox.dialog({
+	tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
 	    buttons: bbbt,

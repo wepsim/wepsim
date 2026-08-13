@@ -106,11 +106,30 @@
 
     // editor (inputfirm, inputasm)
 
-    export var inputfirm_cfg = inputfirm_cfg ?? null ;
-    export var inputfirm     = inputfirm     ?? null ;
-    export var inputasm_cfg  = inputasm_cfg  ?? null ;
-    export var inputasm      = inputasm      ?? null ;
+    var inputfirm_cfg = null ;
+    var inputasm_cfg  = null ;
+    var inputfirm     = null ;
+    var inputasm      = null ;
 
+    export function get_inputfirm ( )
+    {
+         return inputfirm ;
+    }
+
+    export function get_inputasm ( )
+    {
+         return inputasm ;
+    }
+
+    export function get_inputfirm_cfg ( )
+    {
+         return inputfirm_cfg ;
+    }
+
+    export function get_inputasm_cfg ( )
+    {
+         return inputasm_cfg ;
+    }
 
     // workspaces
 
@@ -632,10 +651,9 @@
 	    window.addEventListener("beforeunload", wepsim_confirm_exit) ;
 
 	    // disable effects
-	    if (typeof jQuery.fx != "undefined")
+	    if (typeof jQuery.fx != "undefined") {
 		jQuery.fx.off = true;
-	    if (typeof ko != "undefined")
-		ko.options.deferUpdates = true;
+            }
 
 	    // carousel: touch swipe disabled
 	    $('.carousel').carousel({ touch: false }) ;

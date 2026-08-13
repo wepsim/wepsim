@@ -29,7 +29,7 @@ export default [
             "no-useless-assignment": "off",
             "no-unused-vars": "off",
             "block-scoped-var": "off",
-            "no-undef": "warn",
+            "no-undef": "off",
             "no-unreachable": "off",
             "no-self-assign": "off",
             "no-global-assign": "off",
