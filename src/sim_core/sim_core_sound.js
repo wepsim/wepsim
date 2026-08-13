@@ -100,8 +100,8 @@
 	            note_str = null ;
 	        }
 
-	        synth1 = new Tone.Synth().toDestination() ;
-	        synth1.triggerAttackRelease(note_str, time_str) ;
+	        var synth1 = new Tone.Synth().toDestination() ;
+	            synth1.triggerAttackRelease(note_str, time_str) ;
 	    }
 	    catch (e)
 	    {
