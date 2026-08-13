@@ -1767,7 +1767,22 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
          ret2.eltos = [] ;
          ret2.some_pending = false ;
 
-         pseudo_values   = pseudo_elto.source.trim().split(' ') ;
+         // In case "li a0 ' '" -> "li", "a0", "' '"
+         pseudo_values = pseudo_elto.source.trim() ;
+         if (pseudo_values.includes("' '"))
+         {
+             pseudo_values = base_replaceAll(pseudo_values, "' '", "SPACE_CHAR") ;
+             pseudo_values = pseudo_values.split(' ') ;
+             for (let k=0; k<pseudo_values.length; k++) {
+                  pseudo_values[k] = pseudo_values[k].replace("SPACE_CHAR", "' '") ;
+	     }
+         }
+         else
+         {
+             pseudo_values = pseudo_values.split(' ') ;
+         }
+
+         // pseudo_replaced...
          pseudo_replaced = pseudo_elto_candidate.finish ;
          for (let k=0; k<(pseudo_values.length-1); k++)
 	 {
@@ -1778,7 +1793,18 @@ function wsasm_try_resolve_pseudo ( context, ret, pseudo_elto, pseudo_elto_candi
          }
 
          // example pseudo_replaced: "lui rd , sel ( 31 , 12 , label ) addu rd , rd , sel ( 11 , 0 , label ) "
-         pseudo_context.parts = pseudo_replaced.split(' ') ;
+	 if (pseudo_replaced.includes("' '"))
+	 {
+	     pseudo_replaced = base_replaceAll(pseudo_replaced, "' '", "SPACE_CHAR") ;
+	     pseudo_context.parts = pseudo_replaced.split(' ') ;
+	     for (let k=0; k<pseudo_context.parts.length; k++) {
+		  pseudo_context.parts[k] = pseudo_context.parts[k].replace("SPACE_CHAR", "' '") ;
+	     }
+	 }
+	 else
+	 {
+	     pseudo_context.parts = pseudo_replaced.split(' ') ;
+	 }
 
          pseudo_context.index = 0 ;
          while (pseudo_context.index < (pseudo_context.parts.length-1))
