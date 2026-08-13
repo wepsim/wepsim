@@ -99,165 +99,174 @@
 
         export function wepsim_show_cm_level_cfg_bits ( memory_cfg, index )
         {
-          var memory_cfg_i = memory_cfg[index] ;
+           var memory_cfg_i  = memory_cfg[index] ;
+           var this_name_str = '' ;
 
-	  var o = "" +
-	          "<table class='table table-hover table-sm m-0'>" +
-		  "<tbody>" +
-		  "<tr>" +
-		  "    <td align='center' class='border border-0 border-tertiary'>" +
-		  "    <div id='via_size_" + index + "_" + this.name_str + "'>Id.: " +
-		  "    <input type='number' " +
-		  "           value='" + get_var(memory_cfg_i.cfg.via_size) + "' " +
-		  "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits to identify line" +
-		  "    </td>" +
-		  "" +
-		  "    <td align='center' " +
-		  "        style='vertical-align: middle;' " +
-                  "        class='border border-2 border-tertiary'>" +
-		  "        <div class='w-100 mx-auto border'></div>" +
-		  "        line / via" +
-		  "        <div class='w-100 mx-auto border'></div>" +
-		  "    </td>" +
-                  "</tr>" +
-		  "<tr>" +
-		  "    <td align='center' class='border border-0 border-tertiary'>&nbsp;</td>" +
-		  "" +
-		  "    <td align='center' class='border border-0 border-tertiary'>" +
-		  "    <div id='off_size_" + index + "_" + this.name_str + "'>Offset: " +
-		  "    <input type='number' " +
-		  "           value='" + get_var(memory_cfg_i.cfg.off_size) + "' " +
-		  "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
-		  "           min='0' max='32'>" +
-		  "    </div>" +
-                  "    # bits to select byte inside line" +
-		  "    </td>" +
-                  "</tr>" +
-                  "</tbody>" +
-                  "</table>" ;
+	   var o = "" +
+	           "<table class='table table-hover table-sm m-0'>" +
+	 	   "<tbody>" +
+	 	   "<tr>" +
+		   "    <td align='center' class='border border-0 border-tertiary'>" +
+		   "    <div id='via_size_" + index + "_" + this_name_str + "'>Id.: " +
+		   "    <input type='number' " +
+		   "           value='" + get_var(memory_cfg_i.cfg.via_size) + "' " +
+		   "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"via_size\", parseInt(this.value));' " +
+		   "           min='0' max='32'>" +
+		   "    </div>" +
+                   "    # bits to identify line" +
+		   "    </td>" +
+		   "" +
+		   "    <td align='center' " +
+		   "        style='vertical-align: middle;' " +
+                   "        class='border border-2 border-tertiary'>" +
+		   "        <div class='w-100 mx-auto border'></div>" +
+		   "        line / via" +
+		   "        <div class='w-100 mx-auto border'></div>" +
+		   "    </td>" +
+                   "</tr>" +
+		   "<tr>" +
+		   "    <td align='center' class='border border-0 border-tertiary'>&nbsp;</td>" +
+		   "" +
+		   "    <td align='center' class='border border-0 border-tertiary'>" +
+		   "    <div id='off_size_" + index + "_" + this_name_str + "'>Offset: " +
+		   "    <input type='number' " +
+		   "           value='" + get_var(memory_cfg_i.cfg.off_size) + "' " +
+		   "           onchange='ws.wepsim_cm_update_cfg(" + index + ", \"off_size\", parseInt(this.value));' " +
+		   "           min='0' max='32'>" +
+		   "    </div>" +
+                   "    # bits to select byte inside line" +
+		   "    </td>" +
+                   "</tr>" +
+                   "</tbody>" +
+                   "</table>" ;
 
-	   return o ;
+	    return o ;
         }
 
         export function wepsim_show_cm_level_cfg_splitunify ( memory_cfg, index )
         {
-	  var o = "  <div class='row mb-3'>" +
-                  "    <label for='su_pol_" + index + "_" + this.name_str + "' " +
-                  "           class='col-xs-12 col-md-4 col-form-label' " +
-                  "    ><span data-langkey='Split/unified'>Split/unified</span></label>" +
-                  "    <div class='col-xs-12 col-md-8'>" +
-		  "    <select class='form-select form-control' " +
-		  "            id='su_pol_" + index + "_" + this.name_str + "' " +
-		  "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
-		  "            aria-label='Replace policy'>" +
-		  "      <option value='unify' selected>Unified</option>" +
-		  "      <option value='split_i'>Split (instruction)</option>" +
-		  "      <option value='split_d'>Split (data)</option>" +
-		  "    </select>" +
-                  "    </div>" +
-                  "  </div>" ;
+           var this_name_str = '' ;
 
-	   return o ;
+	   var o = "  <div class='row mb-3'>" +
+                   "    <label for='su_pol_" + index + "_" + this_name_str + "' " +
+                   "           class='col-xs-12 col-md-4 col-form-label' " +
+                   "    ><span data-langkey='Split/unified'>Split/unified</span></label>" +
+                   "    <div class='col-xs-12 col-md-8'>" +
+		   "    <select class='form-select form-control' " +
+		   "            id='su_pol_" + index + "_" + this_name_str + "' " +
+		   "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"su_pol\", this.value);'" +
+		   "            aria-label='Replace policy'>" +
+		   "      <option value='unify' selected>Unified</option>" +
+		   "      <option value='split_i'>Split (instruction)</option>" +
+		   "      <option value='split_d'>Split (data)</option>" +
+		   "    </select>" +
+                   "    </div>" +
+                   "  </div>" ;
+
+	    return o ;
         }
 
         export function wepsim_show_cm_level_cfg_replacepol ( memory_cfg, index )
         {
-	  var o = "  <div class='row mb-3'>" +
-                  "    <label for='replace_pol_" + index + "_" + this.name_str + "' " +
-                  "           class='col-xs-12 col-md-4 col-form-label' " +
-                  "    ><span data-langkey='Replace policy'>Replace policy</span></label>" +
-                  "    <div class='col-xs-12 col-md-8'>" +
-		  "    <select class='form-select' " +
-		  "            id='replace_pol_" + index + "_" + this.name_str + "' " +
-		  "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
-		  "            aria-label='Replace policy'>" +
-		  "      <option value='lfu' selected>LFU</option>" +
-		  "      <option value='fifo'>FIFO</option>" +
-		  "    </select>" +
-                  "    </div>" +
-                  "  </div>" ;
+           var this_name_str = '' ;
 
-	   return o ;
+	   var o = "  <div class='row mb-3'>" +
+                   "    <label for='replace_pol_" + index + "_" + this_name_str + "' " +
+                   "           class='col-xs-12 col-md-4 col-form-label' " +
+                   "    ><span data-langkey='Replace policy'>Replace policy</span></label>" +
+                   "    <div class='col-xs-12 col-md-8'>" +
+		   "    <select class='form-select' " +
+		   "            id='replace_pol_" + index + "_" + this_name_str + "' " +
+		   "            onchange='ws.wepsim_cm_update_cfg(" + index + ", \"replace_pol\", this.value);'" +
+		   "            aria-label='Replace policy'>" +
+		   "      <option value='lfu' selected>LFU</option>" +
+		   "      <option value='fifo'>FIFO</option>" +
+		   "    </select>" +
+                   "    </div>" +
+                   "  </div>" ;
+
+	    return o ;
         }
 
         export function wepsim_show_cm_level_cfg_placepol ( memory_cfg, index )
         {
-	  var o = "  <div class='row mb-3'>" +
-                  "    <label for='replace_cpp_" + index + "_" + this.name_str + "' " +
-                  "           class='col-xs-12 col-md-4 col-form-label'" +
-                  "    ><span data-langkey='Cache placement policy'>Cache placement policy</span></label>" +
-                  "    <div class='col-xs-12 col-md-8'>" +
-		  "    <select class='form-select' " +
-		  "            id='replace_cpp_" + index + "_" + this.name_str + "' " +
-		  "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
-		  "            aria-label='Cache placement policy'>" +
-		  "      <option value='fa' selected>Fully associative</option>" +
-		  "      <option value='sa'         >Set-associative</option>" +
-		  "      <option value='dm'         >Direct-mapped</option>" +
-		  "    </select>" +
-		  "    " +
-                  "<div class='accordion-group'>" +
-                  "    <div class='collapse show' id='cpp_fa'>" +
-	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
-		  "      <tbody>" +
-		  "      <tr>" +
-		  "          <td align='center' class='border border-dark w-50'>tag</td>" +
-		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
-		  "      </tr>" +
-		  "      </tbody>" +
-		  "      </table>" +
-                  "    </div>" +
-                  "    <div class='collapse' id='cpp_sa'>" +
-	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
-		  "      <tbody>" +
-		  "      <tr>" +
-		  "          <td align='center' class='border border-dark w-25'>tag</td>" +
-		  "          <td align='center' class='border border-dark w-25'><strong>set</strong></td>" +
-		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
-		  "      </tr>" +
-		  "      <tr>" +
-		  "          <td align='center' colspan='3'>" +
-                  "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
-                  "             onchange='ws.wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value)); var e = document.getElementById(\"rng_cmcfg\"); e.textContent = this.value;'>" +
-                  "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'><span id='rng_cmcfg'>#</span> bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
-		  "          </td>" +
-		  "      </tr>" +
-		  "      </tbody>" +
-		  "      </table>" +
-                  "    </div>" +
-                  "    <div class='collapse' id='cpp_dm'>" +
-	          "      <table class='table table-hover table-sm table-bordered m-0'>" +
-		  "      <tbody>" +
-		  "      <tr>" +
-		  "          <td align='center' class='border border-dark w-25'>tag</td>" +
-		  "          <td align='center' class='border border-dark w-25'>index</td>" +
-		  "          <td align='center' class='border border-dark w-50'>offset</td>" +
-		  "      </tr>" +
-		  "      </tbody>" +
-		  "      </table>" +
-                  "    </div>" +
-                  "</div>" +
-                  "    " +
-                  "    </div>" +
-                  "  </div>" ;
+           var this_name_str = '' ;
 
-	   return o ;
+	   var o = "  <div class='row mb-3'>" +
+                   "    <label for='replace_cpp_" + index + "_" + this_name_str + "' " +
+                   "           class='col-xs-12 col-md-4 col-form-label'" +
+                   "    ><span data-langkey='Cache placement policy'>Cache placement policy</span></label>" +
+                   "    <div class='col-xs-12 col-md-8'>" +
+		   "    <select class='form-select' " +
+		   "            id='replace_cpp_" + index + "_" + this_name_str + "' " +
+		   "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
+		   "            aria-label='Cache placement policy'>" +
+		   "      <option value='fa' selected>Fully associative</option>" +
+		   "      <option value='sa'         >Set-associative</option>" +
+		   "      <option value='dm'         >Direct-mapped</option>" +
+		   "    </select>" +
+		   "    " +
+                   "<div class='accordion-group'>" +
+                   "    <div class='collapse show' id='cpp_fa'>" +
+	           "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		   "      <tbody>" +
+		   "      <tr>" +
+		   "          <td align='center' class='border border-dark w-50'>tag</td>" +
+		   "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		   "      </tr>" +
+		   "      </tbody>" +
+		   "      </table>" +
+                   "    </div>" +
+                   "    <div class='collapse' id='cpp_sa'>" +
+	           "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		   "      <tbody>" +
+		   "      <tr>" +
+		   "          <td align='center' class='border border-dark w-25'>tag</td>" +
+		   "          <td align='center' class='border border-dark w-25'><strong>set</strong></td>" +
+		   "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		   "      </tr>" +
+		   "      <tr>" +
+		   "          <td align='center' colspan='3'>" +
+                   "          <input type='range' class='form-range pt-1' min='0' max='5' id='cmcfg_range' " +
+                   "             onchange='ws.wepsim_cm_update_cfg(" + index + ", \"set_size\", parseInt(this.value)); var e = document.getElementById(\"rng_cmcfg\"); e.textContent = this.value;'>" +
+                   "          <label for='cmcfg_range' class='form-label my-0 pt-2 pb-0'><span id='rng_cmcfg'>#</span> bits for set in cache &nbsp;(0: full-assoc., max:direct)</label>" +
+		   "          </td>" +
+		   "      </tr>" +
+		   "      </tbody>" +
+		   "      </table>" +
+                   "    </div>" +
+                   "    <div class='collapse' id='cpp_dm'>" +
+	           "      <table class='table table-hover table-sm table-bordered m-0'>" +
+		   "      <tbody>" +
+		   "      <tr>" +
+		   "          <td align='center' class='border border-dark w-25'>tag</td>" +
+		   "          <td align='center' class='border border-dark w-25'>index</td>" +
+		   "          <td align='center' class='border border-dark w-50'>offset</td>" +
+		   "      </tr>" +
+		   "      </tbody>" +
+		   "      </table>" +
+                   "    </div>" +
+                   "</div>" +
+                   "    " +
+                   "    </div>" +
+                   "  </div>" ;
+
+	    return o ;
         }
 
         export function wepsim_show_cm_level_cfg_nextcm ( memory_cfg, index )
         {
-	  var o = "<div class='row mb-3'>" +
-                  "  <label for='su_pol_" + index + "_" + this.name_str + "' " +
-                  "         class='col-xs-12 col-md-4 col-form-label' " +
-                  "  ><span data-langkey='Next Cache'>Next Cache</span></label>" +
-                  "  <div class='col-xs-12 col-md-8'>" +
-		  "  <select class='form-select form-control' " +
-		  "          id='su_next_" + index + "_" + this.name_str + "' " +
-		  "          onchange='ws.wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
-		  "          aria-label='Next Cache'>" ;
+           var this_name_str = '' ;
+
+	   var o = "<div class='row mb-3'>" +
+                   "  <label for='su_pol_" + index + "_" + this_name_str + "' " +
+                   "         class='col-xs-12 col-md-4 col-form-label' " +
+                   "  ><span data-langkey='Next Cache'>Next Cache</span></label>" +
+                   "  <div class='col-xs-12 col-md-8'>" +
+		   "  <select class='form-select form-control' " +
+		   "          id='su_next_" + index + "_" + this_name_str + "' " +
+		   "          onchange='ws.wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
+		   "          aria-label='Next Cache'>" ;
 
               o += "<option value='-1'>None</option>" ;
               for (var i=0; i<memory_cfg.length; i++)
@@ -289,7 +298,7 @@
 
 	     o += "<div class='card container border mb-3'>" +
 		  "" +
-	  "<div class='card-header row mb-1'>" +
+                  "<div class='card-header row mb-1'>" +
 		  "<div class='col-auto px-2 py-0'>" +
 		  "<h5>Cache-" + (index+1) + "</h5>" +
 		  "</div>" +
@@ -311,7 +320,7 @@
                   wepsim_show_cm_level_cfg_nextcm    (memory_cfg, index) +
 		  "</div>" ;
 
-	   return o ;
+	    return o ;
         }
 
         export function wepsim_show_cache_memory_cfg ( div_hash, memory_cfg )
