@@ -1677,6 +1677,7 @@ export function wsasm_src2obj_binary ( context, ret )
 
 	           possible_addr = asm_getToken(context) ;
 
+		   elto.value                    = {} ;
 		   elto.value.instruction        = '*' ;
 		   elto.value.fields             = [] ;
 		   elto.value.signature_type_arr = [ '*' ] ;
@@ -1693,7 +1694,6 @@ export function wsasm_src2obj_binary ( context, ret )
 
 		   elto.datatype  = "binary" ;
                    elto.byte_size = WORD_BYTES ;
-		   elto.value     = {} ;
 		   elto.binary    = parseInt(possible_value).toString(2) ;
                    elto.binary    = elto.binary.padStart(WORD_BYTES*BYTE_LENGTH, '0') ;
 

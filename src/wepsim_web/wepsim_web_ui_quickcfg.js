@@ -131,7 +131,7 @@
 			"   <div class='btn btn-sm btn-outline-secondary p-1 col-8 mx-start' " +
 			"        aria-label='open the reload dialog box' " +
 			"        onclick=\"ws.wsweb_quickslider_close(); " +
-			"                  wsweb_dialog_open('reload'); " +
+			"                  ws.wsweb_dialog_open('reload'); " +
 			"                  return true;\">" +
                         "<i class='fas fa-redo'></i>&nbsp;<span data-langkey='Reload'>Reload</span></div>" +
 			'</li>' ;
