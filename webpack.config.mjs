@@ -15,6 +15,7 @@ const webConfig = {
     mode: 'production',
 
     // 2. Target Web
+    name: 'web',
     target: ['web', 'es2022'],
 
     // 3. Bundles section
@@ -89,7 +90,9 @@ const nodeConfig = {
     mode: 'production',
 
     // 2. Target node
+    name: 'nodejs',
     target: 'node',
+    dependencies: ['web'],
 
     // 3. Bundles section
     entry: {
