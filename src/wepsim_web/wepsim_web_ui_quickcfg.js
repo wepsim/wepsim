@@ -301,11 +301,9 @@
 				       quickcfg_html_onoff('QI',
 							   'is interactive',
 								    i18n_get_TagFor('cfg', 'Off'),
-							   "ws.wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');" +
-							   "return false;",
+							   "ws.wepsim_config_button_toggle(\'is_interactive\',false,\'QI\');",
 							   "(*) " + i18n_get_TagFor('cfg', 'On'),
-							   "ws.wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');" +
-							   "return false;") +
+							   "ws.wepsim_config_button_toggle(\'is_interactive\',true,\'QI\');") +
 				    '</li> ' +
                                     '</div>' +
 
@@ -318,16 +316,16 @@
 				       wepsim_config_button_html_2options('Q2', 'Text shows inactive elements',
 									  "Only active",
 									  "false",
-								      "var ov = ws_signals_show_inactive;" +
-								      "ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
-								      "ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
+								      "var ov = ws.ws_signals_show_inactive;" +
+								      "ws.ws_signals_show_inactive=false; $(\'.s-ina\').hide();" +
+								      "ws.ws_states_show_inactive =false; $(\'.t-ina\').hide();" +
 								      "$('#labelQ2-' + ov).button('toggle');" +
 								      "$('#labelQ2-false').button('toggle');",
 									  "(*) All",
 									  "true",
-								      "var ov = ws_signals_show_inactive;" +
-								      "ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
-								      "ws_states_show_inactive =true; $(\'.t-ina\').show();" +
+								      "var ov = ws.ws_signals_show_inactive;" +
+								      "ws.ws_signals_show_inactive=true; $(\'.s-ina\').show();" +
+								      "ws.ws_states_show_inactive =true; $(\'.t-ina\').show();" +
 								      "$('#labelQ2-' + ov).button('toggle');" +
 								      "$('#labelQ2-true').button('toggle');"
                                                                           ) +
@@ -356,7 +354,7 @@
 			      $("#slider4b").val(get_cfg('CPUCU_size')) ;
 			      wepsim_config_button_pretoggle('is_interactive', 'QI') ;
 			      wepsim_config_button_pretoggle('CPUCU_show_graph', 'QD') ;
-			      wepsim_config_button_pretoggle_val('', 'Q2', ws_signals_show_inactive) ;
+			      wepsim_config_button_pretoggle_val('', 'Q2', ws.ws_signals_show_inactive) ;
                           }
          }
 
