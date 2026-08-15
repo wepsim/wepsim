@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_simware }              from "../sim_core/sim_adt_core.js";
 
         import { ws_uielto,

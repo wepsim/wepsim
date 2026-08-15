@@ -19,8 +19,6 @@
  */
 
 
-    /* jshint esversion: 8 */
-
     // Web Components
     const HTMLElementBase = (typeof window !== "undefined") ? HTMLElement : class {};
 

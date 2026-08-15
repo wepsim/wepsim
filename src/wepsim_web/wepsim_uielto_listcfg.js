@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { cfgset_getSet }   from "../sim_core/sim_cfg.js";
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";

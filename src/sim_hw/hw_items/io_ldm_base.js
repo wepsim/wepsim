@@ -43,7 +43,6 @@ export var LEDMDR_ID   = 0x3108 ;
 
 export function io_ldm_base_register ( sim_p )
 {
-        /* jshint esversion: 6 */
         sim_p.components.LEDM = {
                                   name: "LEDM",
                                   version: "1",

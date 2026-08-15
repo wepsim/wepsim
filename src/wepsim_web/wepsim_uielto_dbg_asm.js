@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_dbg_ir_delay }            from "../sim_core/sim_cfg.js";
         import { get_value }                        from "../sim_core/sim_core_values.js";

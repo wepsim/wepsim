@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { is_cfg_empty, get_cfg } from "../sim_core/sim_cfg.js";
         import { sim }                   from "../sim_hw/sim_hw_index.js";
         import { ws_info }               from "../sim_core/sim_adt_core.js";

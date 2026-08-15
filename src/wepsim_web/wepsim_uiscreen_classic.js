@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_cfg }          from "../sim_core/sim_cfg.js";
         import { simhw_active }     from "../sim_hw/sim_hw_index.js";
         import { resolve_html_url } from "../wepsim_core/wepsim_help.js";
@@ -174,7 +173,7 @@
 			    '			       return false;">' +
                             '<em class="fas fa-camera"></em>' + '&nbsp;' +
                             '<span data-langkey="States">States</span></button>' +
-			    '	      <ws-ddown-sel class="col btn-group p-0 mx-1" style="flex-grow:2;"' +
+			    '	      <ws-ddown-sel class="col-auto btn-group p-0 mx-1" style="flex-grow:2;"' +
 			    '                       components="' + ui1 + '"></ws-ddown-sel>' +
 			    '	 </div>' +
 			    '	 </div>' +

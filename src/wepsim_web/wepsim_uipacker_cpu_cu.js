@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_cfg }                    from "../sim_core/sim_cfg.js";
         import { wait_if_uievents }           from "../sim_core/sim_core_ctrl.js";
         import { simcore_init_eventlistener } from "../sim_core/sim_api_core.js";

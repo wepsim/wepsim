@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_cfg }                     from "../sim_core/sim_cfg.js";
 
         import { ws_uielto,
@@ -91,6 +90,18 @@
 			     o += '<span class="fw-bold" data-langkey="Reset">Reset</span>' +
 				  '</button>' ;
                                   break ;
+
+                       case "btn_pm":
+			     o += '<button id="btn_prev_microinstruction_' + this.name_str + '"' +
+		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary wsx_microcode wsx_history"' +
+		                  '        accesskey="p" ' +
+			          '        onclick="wsweb_execution_previous_microinstruction();' +
+                                  '                 return false;">' ;
+                              o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-backward"></em>' ;
+                              o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;
+                              o += '<span class="d-none d-sm-inline-flex fw-bold" data-langkey="previousMicroinstruction">&#181;Back</span><span class="d-sm-none fw-bold">&#181;Bk</span>' +
+                                   '</button>' ;
+                                    break ;
 
                        case "btn_emins":
 			     o += '<button id="btn_next_microinstruction_' + this.name_str + '"' +

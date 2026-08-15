@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { simcore_rest_add } from "../sim_core/sim_core_rest.js";
         import { simhw_active,
                  simhw_internalState,

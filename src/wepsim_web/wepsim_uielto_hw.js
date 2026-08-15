@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }              from "./wepsim_uielto.js";
         import { simhw_active }                 from "../sim_hw/sim_hw_index.js";

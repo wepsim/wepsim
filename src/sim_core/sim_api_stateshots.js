@@ -19,7 +19,6 @@
  */
 
 
-    /* jshint esversion: 6 */
     import { simhw_sim_components, simhw_sim_component } from "../sim_hw/sim_hw_index.js";
 
 

@@ -174,6 +174,21 @@
 					github:  { name: "github", faclass: "fab fa-github",
 						   href:"https://github.com/ALVAROPING1" }
 				     }
+			  },
+			  {
+			    c_id:    "collapse-team-7",
+			    i_src:   "images/team_dario.jpg",
+			    i_alt:   "Dario Muñoz Muñoz",
+			    a_id:    "dariomnz",
+			    a_name:  "Dario Muñoz Muñoz",
+			    socials: {
+					lkin:    { name: "linkedin", faclass: "fab fa-linkedin",
+						   href:"https://www.linkedin.com/in/dario-mu%C3%B1oz-mu%C3%B1oz/" },
+					rgate:   { name: "r-gate", faclass: "fab fa-researchgate",
+						   href:"https://www.researchgate.net/profile/Dario-Munoz-Munoz" },
+					github:  { name: "github", faclass: "fab fa-github",
+						   href:"https://github.com/dariomnz" }
+				     }
 			  }
                         ] ;
 

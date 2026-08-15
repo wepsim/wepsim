@@ -42,6 +42,7 @@
                          sim_img_processor:   "repo/hardware/poc/images/processor.svg",
                          sim_img_controlunit: "repo/hardware/poc/images/controlunit.svg",
                          sim_img_cpu:         "repo/hardware/poc/images/cpu.svg",
+                         sim_properties:      ["beta"],
 
                          components:          {},
                          states:              {},

@@ -19,7 +19,6 @@
  */
 
 
-    /* jshint esversion: 8 */
     import { get_value }                     from "../sim_core/sim_core_values.js";
     import { simcore_native_get_value,
              simcore_native_set_value }      from "../sim_core/sim_api_native.js";

@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }           from "./wepsim_uielto.js";
         import { simcore_notifications_get } from "../sim_core/sim_core_notify.js";

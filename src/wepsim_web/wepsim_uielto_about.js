@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }  from "./wepsim_uielto.js";
         import { ws_info }          from "../sim_core/sim_adt_core.js";

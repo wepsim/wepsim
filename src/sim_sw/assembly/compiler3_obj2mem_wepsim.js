@@ -19,7 +19,6 @@
  */
 
 
-     /* jshint esversion: 9 */
      import { WORD_BYTES,
               WORD_LENGTH,
               BYTE_LENGTH }                from "../assembly/datatypes.js";

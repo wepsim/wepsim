@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }                from "./wepsim_uielto.js";
         import { uipacker_ddown_info_set_select } from "./wepsim_uipacker_ddown_info.js";
@@ -70,7 +69,7 @@
                          '</button>' +
                          '<div class="dropdown-menu border border-secondary pb-2" ' +
                          '     id="dd2_container" ' +
-                         '     style="max-height:55vh; max-width:475px; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
+                         '     style="max-height:55vh; width:100%; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">' +
                          '</div>' ;
 
                    // load HTML
@@ -81,12 +80,12 @@
 	      {
                    // render ddown elements
                    var u1 = '' ;
-                   var o1 = '<span class="row w-100">' ;
+                   var o1 = '<span class="row w-100 mx-0">' ;
                    for (var k=0; k<2; k++)
                    {
                         if ( (k%2) == 0 )
-                             o1 += '<span class="col-12 col-lg-6 order-last  order-md-first mx-0">' ;
-                        else o1 += '<span class="col-12 col-lg-6 order-first order-md-last  mx-0">' ;
+                             o1 += '<span class="col order-last  order-md-first mx-0" style="width:fit-content;">' ;
+                        else o1 += '<span class="col order-first order-md-last  mx-0" style="width:fit-content;">' ;
 
                         for (var i=0; i<this.devices[k].length; i++)
                         {
@@ -172,10 +171,10 @@
 				      '		  return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span></a>',
 				  cm: ' <a class="dropdown-item wsx_cache" href="#" id="s5b_28" value="28"' +
 				      '	 onclick="ws.wsweb_set_details(\'CACHE\');' +
-				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
+			              '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Memory\'>Memory</span> <sup><span class="badge text-bg-secondary p-1">beta</span></sup> </a>',
 			       cmcfg: ' <a class="dropdown-item wsx_cache" href="#" id="s5b_29" value="29"' +
 				      '	 onclick="ws.wsweb_set_details(\'CACHE_CONFIG\');' +
-				      '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span> <span class="badge text-bg-secondary py-0 px-1">beta</span> </a>',
+			              '		  return false;"><span class="bg-dark text-white">CM</span>&nbsp;<span data-langkey=\'Configuration\'>Configuration</span> <sup><span class="badge text-bg-secondary p-1">beta</span></sup> </a>',
 				 con: '      <a class="dropdown-item" href="#" id="s5b_12" value="12"' +
 				      '	 onclick="ws.wsweb_set_details(\'SCREEN\');' +
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Keyboard+Display\'>Keyboard+Display</span></a>',
@@ -193,7 +192,7 @@
 				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Led-Matrix\'>Led-Matrix</span></a>',
 			       sound: '      <a class="dropdown-item" href="#" id="s5b_30" value="30"' +
 				      '	 onclick="ws.wsweb_set_details(\'SOUND\');' +
-				      '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Sound\'>Sound</span> <span class="badge text-bg-secondary py-0 px-1">beta</span></a>',
+			              '		  return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey=\'Sound\'>Sound</span> <sup><span class="badge text-bg-secondary p-1">beta</span></sup> </a>',
 
 			       ed_hw: '      <a class="dropdown-item" href="#" id="s5b_22" value="22"' +
 				      '	 onclick="ws.wsweb_set_details(\'HARDWARE\');' +

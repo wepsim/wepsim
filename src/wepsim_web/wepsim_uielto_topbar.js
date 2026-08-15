@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_uielto,
                  register_uielto }       from "./wepsim_uielto.js";
         import { wepsim_popover_action } from "./wepsim_web_ui_popover.js";

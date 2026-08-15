@@ -119,6 +119,24 @@
         return true ;
     }
 
+    export function wepsim_execute_microinstruction_backwards ( )
+    {
+	var ret = simcore_check_if_can_execute() ;
+	if (false === ret.ok)
+	{
+	    wsweb_dlg_alert(ret.msg) ;
+	    return false ;
+        }
+
+	ret = simcore_execute_microinstruction_backwards() ;
+	if (false === ret.ok) {
+            wepsim_show_stopbyevent("Info", ret.msg) ;
+	    return false ;
+        }
+
+        return true ;
+    }
+
     export function wepsim_execute_set_breakpoint ( hexaddr, is_set )
     {
         var SIMWARE   = get_simware() ;

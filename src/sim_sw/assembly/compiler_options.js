@@ -19,9 +19,6 @@
  */
 
 
-    /* jshint esversion: 9 */
-
-
     export function wsasm_mk_default_options ( )
     {
            var options = {} ;

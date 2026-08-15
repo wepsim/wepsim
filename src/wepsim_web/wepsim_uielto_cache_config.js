@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_var, set_var }                 from "../sim_core/sim_core_values.js";
         import { cache_memory_init,
                  cache_memory_init_eltofromcfg,

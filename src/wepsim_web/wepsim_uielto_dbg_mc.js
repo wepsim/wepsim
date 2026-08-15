@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { get_cfg,
                  cfg_show_control_memory_delay }         from "../sim_core/sim_cfg.js";
         import { get_value,

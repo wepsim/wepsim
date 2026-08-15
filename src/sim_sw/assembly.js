@@ -19,7 +19,6 @@
  */
 
 
-     /* jshint esversion: 9 */
      import { i18n_get_TagFor }       from "../wepsim_i18n/i18n.js";
      import { wsasm_prepare_context } from "./assembly/compiler1_prepare_wepsim.js";
      import { wsasm_prepare_source,

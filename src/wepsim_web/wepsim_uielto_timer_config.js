@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { vue_observable_ifnotjetdone,
                  vue_applyBinding }    from "../sim_core/sim_core_values.js";
         import { simhw_active,

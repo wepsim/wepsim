@@ -69,6 +69,7 @@
 
      import { wepsim_execute_reset,
               wepsim_execute_microinstruction,
+              wepsim_execute_microinstruction_backwards,
               wepsim_execute_instruction,
               wepsim_reset_max_turbo }         from "../wepsim_core/wepsim_execute.js";
      import { wsweb_dlg_alert,
@@ -306,6 +307,21 @@
 		                      'ws.wsweb_execution_microinstruction();\n') ;
 
             // return ok
+            return true ;
+    }
+
+    function wsweb_execution_previous_microinstruction ( )
+    {
+            if (simhw_active() !== null)
+            {
+	        wepsim_execute_microinstruction_backwards() ;
+                simcoreui_show_hw() ;
+            }
+
+            // add if recording
+            simcore_record_append_new('Execute previous instruction',
+		                      'ws.wsweb_execution_previous_microinstruction();\n') ;
+
             return true ;
     }
 

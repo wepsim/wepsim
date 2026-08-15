@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { wsHTMLElement }   from "../wepsim_nodejs/wepsim_node_adapt.js";
         import { ws_uielto,
                  register_uielto } from "./wepsim_uielto.js";

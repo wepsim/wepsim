@@ -40,7 +40,6 @@ export var L3DDR_ID   = 0x2108 ;
 
 export function io_l3d_base_register ( sim_p )
 {
-        /* jshint esversion: 6 */
         sim_p.components.L3D = {
 		                  name: "L3D",
 		                  version: "1",

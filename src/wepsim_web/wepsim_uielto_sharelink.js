@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { wsHTMLElement }    from "../wepsim_nodejs/wepsim_node_adapt.js";
         import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
         import { share_as_uri }     from "../wepsim_core/wepsim_share.js";

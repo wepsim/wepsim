@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { ws_info }               from "../sim_core/sim_adt_core.js";
         import { reset_cfg }             from "../sim_core/sim_cfg.js";
 

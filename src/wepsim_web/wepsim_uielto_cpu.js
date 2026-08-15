@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
         import { ws_uielto,
                  register_uielto }   from "./wepsim_uielto.js";

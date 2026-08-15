@@ -19,7 +19,6 @@
  */
 
 
-        /* jshint esversion: 6 */
         import { simhw_active,
                  simhw_sim_state }                   from "../sim_hw/sim_hw_index.js";
         import { ws_info }                           from "../sim_core/sim_adt_core.js";

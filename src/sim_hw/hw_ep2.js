@@ -41,6 +41,7 @@
                        sim_img_processor:   "repo/hardware/ep2/images/processor.svg",
                        sim_img_controlunit: "repo/hardware/ep2/images/controlunit.svg",
                        sim_img_cpu:         "repo/hardware/ep2/images/cpu.svg",
+                       sim_properties:      [],
 
                        components:          {},
                        states:              {},
