@@ -65,10 +65,10 @@
 
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
             return false ;
-	    }
+	}
 
         // ...and check results
         ret = wepsim_nodejs_check(data, options) ;
@@ -88,10 +88,10 @@
 
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
             return false ;
-	    }
+	}
 
         // ...and show state at the end
         ret = wepsim_nodejs_show_currentstate(options) ;
@@ -110,9 +110,9 @@
 
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
-	    }
+	}
 
         return ret.ok ;
     } ;
@@ -128,9 +128,9 @@
 
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
-	    }
+	}
 
         return ret.ok ;
     } ;
@@ -146,9 +146,9 @@
 
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
-	    }
+	}
 
         return ret.ok ;
     } ;
@@ -168,10 +168,10 @@
 
         // run...
         var ret = wepsim_nodejs_runAppInteractive(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
             return false ;
-	    }
+	}
     } ;
 
     //
@@ -222,21 +222,21 @@
     {
         // 1) initialize
         var ret = wepsim_nodejs_init(data) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
             console.log(ret.msg);
-	        return false ;
-	    }
+	    return false ;
+	}
 
 	    // 2) prepare firmware-assembly
         ret = wepsim_nodejs_prepareCode(data, options) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
             console.log(ret.msg);
-	        return false ;
-	    }
+	    return false ;
+	}
 
 	    // 3) transform into binary assembly
         ret = wepsim_nodejs_get_asmbin(data, options) ;
-	    if (false === ret.ok) {
+	if (false === ret.ok) {
             console.log(ret.msg);
     	    return false ;
     	}
@@ -263,10 +263,10 @@
     {
         // run...
         var ret = wepsim_nodejs_runApp(data, options) ;
-	    if (ret.ok === false) {
+	if (ret.ok === false) {
             console.log(ret.msg);
             return false ;
-	    }
+	}
 
     	// show screen at the end
         ret.msg = get_screen_content() ;
@@ -287,7 +287,7 @@
             return false ;
     	}
 
-	    // show screen at the end
+	// show screen at the end
         ret.msg = get_sound_content() ;
         console.log(ret.msg);
         return true ;
@@ -325,11 +325,11 @@
         {
     	    elto_obj = keys_byname[keys_sorted[i]] ;
 
-	        if (typeof elto_obj.fields !== "undefined")
+	    if (typeof elto_obj.fields !== "undefined")
     	         elto_fields = elto_obj.fields ;
             else elto_fields = [] ;
 
-	        console.log(elto_obj.name + ': ' + JSON.stringify(elto_fields, null, 5)) ;
+	    console.log(elto_obj.name + ': ' + JSON.stringify(elto_fields, null, 5)) ;
         }
 
         console.log('End microcode-fields\n') ;

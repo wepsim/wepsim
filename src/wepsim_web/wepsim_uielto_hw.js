@@ -296,7 +296,7 @@
             var o = '<span class="col-auto btn btn-sm btn-outline-secondary me-2" ' +
 		    '      data-bs-toggle="tooltip" data-bs-html="true" ' +
 		    '      title="Shows/Hide inactive signals"' +
-		    '      onclick="ws.ws_signals_show_inactive = !ws_signals_show_inactive;' +
+		    '      onclick="ws.ws_signals_show_inactive = !ws.ws_signals_show_inactive;' +
 		    '               $(\'.s-ina\').toggle();' +
 		    '               return false;" ' +
 		    '      data-langkey="Active">Active</span>' ;
@@ -386,7 +386,7 @@
                        $("." + id_tt).attr('aria-hidden', 'true') ;
 
                        $("." + id_strong).attr('class', 's-ina col fw-normal ' + id_strong) ;
-                       if (ws_signals_show_inactive == false) {
+                       if (ws.ws_signals_show_inactive == false) {
                            $("." + id_strong).hide() ;
                        }
                    }

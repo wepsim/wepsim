@@ -438,7 +438,7 @@
             var label_name = "SHOWCODE_" + name ;
             var show_elto  = get_cfg(label_name) ;
 
-    	show_elto = !show_elto ;
+            show_elto = !show_elto ;
 
             var column_name = "table .asm_" + name ;
             if (show_elto !== false)
@@ -458,33 +458,33 @@
 		     quickcfg_html_onoff('C0',
 					 i18n_get('dialogs', wsi, 'Show/Hide labels'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); ",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'label\',\'C0\'); ") +
                      // <content>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show content')) +
 		     quickcfg_html_onoff('C2',
 					 i18n_get('dialogs', wsi, 'Show/Hide content'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); ",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'hex\',\'C2\'); ") +
                      // <assembly>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show assembly')) +
 		     quickcfg_html_onoff('C3',
 					 i18n_get('dialogs', wsi, 'Show/Hide instruction'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); ",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'ins\',\'C3\'); ") +
                      // <pseudo-instructions>
                      quickcfg_html_header(i18n_get('dialogs', wsi, 'Show pseudo-instructions')) +
 		     quickcfg_html_onoff('C4',
 					 i18n_get('dialogs', wsi, 'Show/Hide pseudo-instructions'),
                                                   i18n_get_TagFor('cfg', 'Off'),
-					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); return false;",
+					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); ",
                                          "(*) " + i18n_get_TagFor('cfg', 'On'),
-					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); return false;") +
+					 "ws.wepsim_click_asm_columns(\'pins\',\'C4\'); ") +
                      // <close>
                      '<button type="button" id="close" data-role="none" ' +
                      '        class="btn btn-sm btn-danger w-100 p-0 mt-3" ' +

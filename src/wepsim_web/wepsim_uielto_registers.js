@@ -20,30 +20,32 @@
 
 
         import { ws_uielto,
-                 register_uielto }      from "./wepsim_uielto.js";
+                 register_uielto }        from "./wepsim_uielto.js";
         import { wepsim_quickcfg_init,
                  quickcfg_html_btn,
                  quickcfg_html_btnreg,
                  quickcfg_html_onoff,
                  quickcfg_html_header,
                  quickcfg_html_br,
-                 quickcfg_html_close }  from "./wepsim_web_ui_quickcfg.js";
+                 quickcfg_html_close }    from "./wepsim_web_ui_quickcfg.js";
+
         import { simhw_sim_states,
-                 simhw_internalState }  from "../sim_hw/sim_hw_index.js";
+                 simhw_sim_state_getref,
+                 simhw_internalState }    from "../sim_hw/sim_hw_index.js";
         import { set_value,
                  update_value,
                  get_value,
                  vue_observable_ifnotjetdone,
-                 vue_applyBinding }     from "../sim_core/sim_core_values.js";
+                 vue_applyBinding }       from "../sim_core/sim_core_values.js";
         import { hex2char8,
                  simcoreui_pack,
                  hex2bin,
                  hex2float,
-                 value2string }         from "../sim_core/sim_core_ui.js";
-        import { get_cfg }              from "../sim_core/sim_cfg.js";
-        import { get_simware }          from "../sim_core/sim_adt_core.js";
-        import { i18n_get_TagFor }      from "../wepsim_i18n/i18n.js";
-        import { wepsim_popovers_init } from "./wepsim_web_ui_popover.js";
+                 value2string }           from "../sim_core/sim_core_ui.js";
+        import { get_cfg }                from "../sim_core/sim_cfg.js";
+        import { get_simware }            from "../sim_core/sim_adt_core.js";
+        import { i18n_get_TagFor }        from "../wepsim_i18n/i18n.js";
+        import { wepsim_popovers_init }   from "./wepsim_web_ui_popover.js";
 
 
         /*
@@ -59,6 +61,7 @@
 
                     this.rf_div = "states_BR" ;
                     this.tf_div = "states_ALL" ;
+                    this.gf_div = "states_GR" ;
 	      }
 
 	      render ( event_name )
@@ -79,6 +82,10 @@
                              '<div id="' + this.rf_div + '" ' +
                              '     style="width: inherit; overflow-y: auto;"' +
                              '     class="container container-fluid px-1 pt-1">' +
+                             '</div>' +
+                             '<div id="' + this.gf_div + '" ' +
+                             '     style="width:inherit; overflow-y:auto;"' +
+                             '     class="container container-fluid px-1 pb-1">' +
                              '</div>' ;
 
                     this.innerHTML = o1 ;
@@ -262,7 +269,7 @@
            {
 	       var o1 = "" ;
 
-	       o1 = quickcfg_html_onoff('20', 
+	       o1 = quickcfg_html_onoff('20',
 			                'Register show in horizontal',
 				           i18n_get_TagFor('cfg', 'Horizontal'),
 			                "  ws.wepsim_config_button_toggle('RF_vertical_pack', false, '20');" +
@@ -305,12 +312,26 @@
 		 update_value(sim_eltos.BR[index]) ;
             }
 
-            // transparent registers
+            // transparent registers (flat filter_states)
             var filter_states = simhw_internalState('filter_states') ;
             for (var i=0; i<filter_states.length; i++)
             {
                  var s = filter_states[i].split(",")[0] ;
-		 update_value(sim_eltos[s]) ;
+                 update_value(simhw_sim_state_getref(s)) ;
+            }
+
+            // filter_states_groups
+            var filter_groups = simhw_internalState('filter_states_groups') ;
+            if (filter_groups)
+            {
+                for (var group_name in filter_groups)
+                {
+                    var group = filter_groups[group_name];
+                    for (var i = 0; i < group.length; i++) {
+                        var s = group[i].split(",")[0] ;
+                        update_value(simhw_sim_state_getref(s)) ;
+                    }
+                }
             }
         }
 
@@ -502,7 +523,7 @@
 	    }
         }
 
-        export function wepsim_init_states ( )
+        export function wepsim_init_states_v1 ( )
         {
             var sim_eltos = simhw_sim_states() ;
             var filter    = simhw_internalState('filter_states') ;
@@ -517,13 +538,13 @@
             var o1 = "" ;
 
             // Registers
-            var filspl   = [] ;
-	    var ename    =  "" ;
-	    var divclass =  "" ;
-	    var spanbetw =  "" ;
-	    var vir_real =  "" ;
-	    var value    =  "" ;
-	    var dbs_toggle= "" ;
+            var filspl     = [] ;
+	    var ename      = "" ;
+	    var divclass   = "" ;
+	    var spanbetw   = "" ;
+	    var vir_real   = "" ;
+	    var value      = "" ;
+	    var dbs_toggle = "" ;
 
             var part1 = "" ;
             var part2 = "" ;
@@ -630,5 +651,162 @@
 		 ref_obj.value = vue_observable_ifnotjetdone(ref_obj) ;
 		 vue_applyBinding(ref_obj.value, '#rf_'+s, f_computed_value) ;
 	    }
+        }
+
+        // wepsim_init_states_v2 ( )
+
+        function render_state_button ( ename, vir_real, separator_class, btn_id_prefix, val_id_prefix, toggle_name )
+        {
+            var dbs_toggle = "";
+            var divclass   = "";
+            var spanbetw   = "";
+
+            if ("real" == vir_real) {
+                dbs_toggle = " data-bs-toggle='" + toggle_name + "' data-popover-content='" + ename + "' data-container='body' ";
+                divclass   = "col-auto";
+                spanbetw   = " <span class='" + separator_class + "'></span>";
+            } else {
+                divclass   = "col-12";
+                spanbetw   = " <span class='w-100 d-sm-none'></span>";
+            }
+
+            const state = simhw_sim_state_getref(ename);
+            var disp_ename = ename.replace(".", "_");
+            var showkey = state.name;
+            if (state.nbits > 1)
+            {
+                var part1 = showkey.substring(0, 3);
+                var part2 = showkey.substring(3, showkey.length);
+                if (showkey.length < 3)
+                     showkey = '<span class="font-monospace">' + part1 + '&nbsp;</span>';
+                else showkey = '<span class="font-monospace">' + part1 + '</span>';
+                if (part2.length > 0)
+                    showkey += '<span class="d-none d-sm-inline-flex font-monospace">' + part2 + '</span>';
+            }
+
+            return "<button type='button' " +
+                   "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
+                   "        style='' data-role='none' " +
+                   dbs_toggle +
+                   "        id='" + btn_id_prefix + disp_ename + "'>" +
+                   showkey +
+                   spanbetw +
+                   " <span class='badge badge-secondary bg-info-subtle text-body' style='' " +
+                   "       id='" + val_id_prefix + disp_ename + "'>{{ computed_value }}</span>" +
+                   "</button>";
+        }
+
+        function popover_cfg_make ( btn_prefix )
+        {
+            return {
+                html: true,
+                placement: 'bottom',
+                animation: false,
+                template: '<div class="popover shadow" role="tooltip">' +
+                          '<div class="arrow"></div>' +
+                          '<h3  class="popover-header d-flex"></h3>' +
+                          '<div class="popover-body"></div>' +
+                          '</div>',
+                content: function (obj) {
+                    var index = $(obj).attr('data-popover-content');
+                    var hexvalue = get_value(simhw_sim_state_getref(index));
+                    return hex2values(hexvalue, index);
+                },
+                title: function (obj) {
+                    var index     = $(obj).attr('data-popover-content');
+                    var id_button = "&quot;#" + btn_prefix + index + "&quot;";
+                    return '<span class="text-body col"><strong>' +
+                           simhw_sim_state_getref(index).name +
+                           '</strong></span>' +
+                           '<button type="button" id="close" ' +
+                           '        class="btn-close border border-secondary ms-auto" ' +
+                           '        onclick="$(' + id_button.replace(".", "_") + ').click();"></button>';
+                },
+                sanitizeFn: function (content) {
+                    return content;
+                }
+            };
+        }
+
+        function bind_state_vue ( entry, val_prefix, f_computed )
+        {
+            var s         = entry.split(",")[0];
+            var ref_obj   = simhw_sim_state_getref(s);
+            ref_obj.value = vue_observable_ifnotjetdone(ref_obj);
+            s = s.replace(".", "_");
+
+            vue_applyBinding(ref_obj.value, '#' + val_prefix + s, f_computed);
+        }
+
+        export function wepsim_init_states ( )
+        {
+            var filter        = simhw_internalState('filter_states');
+            var filter_groups = simhw_internalState('filter_states_groups');
+
+            var separator_class = "";
+            if (get_cfg('RF_vertical_pack'))
+                 separator_class = "row mp_tooltip collapse show";
+            else separator_class = "row mp_tooltip collapse";
+
+            // flat filter_states (above register file)
+            var o1 = "";
+            for (var i = 0; i < filter.length; i++)
+            {
+                 var filspl = filter[i].split(",");
+                 o1 += render_state_button(filspl[0], filspl[1], separator_class, 'rp', 'rf_', 'popover-bottom');
+            }
+            $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
+            wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg_make('rp'), null);
+
+            var f_computed_value = function (value, elto_id) {
+                var rf_format = '';
+                var rf_value  = '';
+                if (Number.isInteger(value)) {
+                    rf_format = get_cfg('RF_display_format');
+                    rf_value  = value2string(rf_format, (value >>> 0));
+                } else {
+                    rf_format = 'text:char:nofill';
+                    rf_value  = value2string(rf_format, value);
+                }
+                return rf_value;
+            };
+
+            for (var i = 0; i < filter.length; i++) {
+                bind_state_vue(filter[i], 'rf_', f_computed_value);
+            }
+
+            // filter_states_groups (below register file)
+            if (typeof filter_groups == "undefined")
+            {
+                $("#states_GR").html("");
+                return ;
+            }
+
+            var o2 = "";
+            var last_group = null;
+            for (var group_name in filter_groups)
+            {
+                    var group = filter_groups[group_name];
+                    for (var j = 0; j < group.length; j++)
+       	            {
+                        if (group_name != last_group) {
+                            o2 += "<div class='w-100 mt-1 mb-0 text-center border border-secondary bg-body-tertiary rounded py-0 px-1'><small><strong>" +
+                                  group_name +
+                                  "</strong></small></div>";
+                            last_group = group_name;
+                        }
+                        var filspl = group[j].split(",");
+                        o2 += render_state_button(filspl[0], filspl[1], separator_class, 'rpg', 'rfg_', 'popover-grp');
+                    }
+            }
+            $("#states_GR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o2 + "</div>");
+            wepsim_popovers_init("[data-bs-toggle=popover-grp]", popover_cfg_make('rpg'), null);
+
+            for (var group_name in filter_groups)
+            {
+                    var group = filter_groups[group_name];
+                    for (var j = 0; j < group.length; j++)
+                        bind_state_vue(group[j], 'rfg_', f_computed_value);
+            }
         }
 
