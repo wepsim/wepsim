@@ -105,15 +105,7 @@ main:
            li  t0 500
            out t0 0x1108
 
-<<<<<<< HEAD
-           li  a1 70
-=======
-<<<<<<< HEAD
            li  a1 85
-=======
-           li  a1 70
->>>>>>> 19a2bb300 (2.4.2: minor update on SPACE_CHAR)
->>>>>>> acaldero-2.5.0
 loop3:     beq a1 x0 fin3
            li  a0 'o'
            li  a7 11
