@@ -17,13 +17,14 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=2.5, minimum-scale=.5" />
 
-    <link async href="ws_dist/min.external.css" rel="stylesheet" />
-
-    <script type="application/javascript" src="external/jquery.min.js"></script>
-    <script type="application/javascript" src="ws_dist/min.external.js"></script>
-
     <link rel="shortcut icon" href="images/icons/favicon.ico" />
     <link rel="mask-icon"     href="images/icons/safari-pinned-tab.svg" color="#5bbad5" />
+
+    <style>
+    @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+    }
+    </style>
 </head>
 
 
@@ -35,11 +36,23 @@
 	<table style="width:100%; height:100%; position:fixed; background-color: white;  z-index:100;">
 	<tr>
 	<td align="center">
-	    <div class="spinner-border spinner-border-xl text-success" role="status">
-	      <span class="visually-hidden">Loading...</span>
-	    </div>
+            <div role="status"
+                 style="display:inline-block;
+                        width:2.5em;
+                        height:2.5em;
+                        border:0.30em solid #198754;
+                        border-right-color:transparent;
+                        border-radius:50%;
+                        animation:spinner-border .75s linear infinite;">
+              <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
+                Loading...
+              </span>
+            </div>
+
 	    <br/><br/>
-	    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
+            <span style="color: #0d6efd !important; font-weight: 700 !important;">
+            <h3><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></h3>
+            </span>
 	</td>
 	</tr>
 	</table>
@@ -49,10 +62,10 @@
 <script type="text/javascript">
     try
     {
-            // get_cfg('ws_skin_ui') ...
+	    // get_cfg('ws_skin_ui') ...
             var optValue = localStorage.getItem('wepsim_ws_skin_ui') ;
 
-	    // redirect to wepsim-classic, wepsim-compact, etc.
+            // redirect to wepsim-classic, wepsim-compact, etc.
             window.location='ws_dist/wepsim-' + optValue + '.html' ;
     }
     catch(err)

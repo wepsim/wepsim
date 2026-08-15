@@ -38,7 +38,7 @@
 
     <meta name="mobile-web-app-capable"                content="yes" />
     <meta name="mobile-web-app-status-bar-style"       content="black" />
-    <meta name="mobile-web-app-title"                  content="WepSIM 2.4.2" />
+    <meta name="mobile-web-app-title"                  content="WepSIM 2.5.0" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -93,26 +93,23 @@
     <script type="application/javascript" src="min.external.js"></script>
     <script type="application/javascript" src="external/fontawesome/js/all.min.js"></script>
 
-    <script type="application/javascript" src="min.sim_all.js"></script>
-    <script type="application/javascript" src="min.wepsim_i18n.js"></script>
-    <script type="application/javascript" src="min.wepsim_core.js"></script>
-    <script type="application/javascript" src="min.wepsim_webui.js"></script>
+    <script type="application/javascript" src="min.wepsim_web.js"></script>
 
     <script type='application/javascript' src="external/cordova.js"></script>
 
 
-<script type="text/javascript">
+<script type="application/javascript">
     try
     {
 	    // basic initialization of wepsim...
-	    simcore_init(true) ;
-	    upgrade_cfg() ;
+	    ws.simcore_init(true) ;
+	    ws.upgrade_cfg() ;
 
 	    // go to wepsim UI skin...
-	    var optValue = get_cfg('ws_skin_ui') ;
+	    var optValue = ws.get_cfg('ws_skin_ui') ;
 	    if ( (optValue != 'classic') && (optValue != 'compact') )
 	    {
-		reset_cfg() ;
+		ws.reset_cfg() ;
 
 		var msg = 'WepSIM has been updated...' ;
 		console.log(msg) ;
@@ -135,15 +132,19 @@
 			      }) ;
 
             // Platform-specific
-            wepsim_init_PWA() ;       // Progressive Web Application
-            wepsim_init_firefoxOS() ; // Firefox OS
-            simcore_sound_init() ;
+            ws.wepsim_init_PWA() ;       // Progressive Web Application
+            ws.wepsim_init_firefoxOS() ; // Firefox OS
+            ws.simcore_sound_init() ;
     }
     catch(err)
     {
           $("#ws_loader").hide() ;
 
-          wepsim_general_exception_handler(err) ;
+          if (typeof ws !== 'undefined' && typeof ws.wepsim_general_exception_handler === 'function') {
+              ws.wepsim_general_exception_handler(err) ;
+          } else {
+              console.log(err) ;
+          }
     }
 </script>
 

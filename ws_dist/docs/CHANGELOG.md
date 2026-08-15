@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.4.2 -> 2.5.0:
+* Main improvements:
+  * Migration to modules ES
+  * Migration to webpack
+
 ## 2.4.1 -> 2.4.2:
 * Main improvements:
   * Firmware syntax for immediate formats updated

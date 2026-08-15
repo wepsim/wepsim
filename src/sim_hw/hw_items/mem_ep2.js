@@ -1,0 +1,521 @@
+/*
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+     import { main_memory_getvalue,
+              main_memory_get_program_counter,
+              main_memory_set,
+              main_memory_extractvalues,
+              main_memory_updatevalues }     from "../../sim_core/sim_adt_mainmemory.js";
+     import { get_value,
+              set_value,
+              get_var }                      from "../../sim_core/sim_core_values.js";
+     import { show_main_memory }             from "../../sim_core/sim_core_ui.js";
+     import { cache_memory_access }          from "../../sim_core/sim_adt_cachememory.js";
+     import { get_cfg }                      from "../../sim_core/sim_cfg.js";
+
+
+/*
+ *  Memory
+ */
+
+export function mem_ep2_register ( sim_p )
+{
+        sim_p.components.MEMORY = {
+                                  name: "MEMORY",
+                                  version: "1",
+                                  abilities:    [ "MEMORY" ],
+
+                                  // ui: details
+                                  details_name: [ "MEMORY", "MEMORY_CONFIG" ],
+                                  details_fire: [ ['svg_p:text3001'], [] ],
+
+                                  // state: write_state, read_state, get_state
+                                  write_state: function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = {} ;
+
+                                                  var key = 0 ;
+                                                  var value = 0 ;
+                                                  for (var index in sim_p.internal_states.MP)
+                                                  {
+                                                       value = main_memory_getvalue(sim_p.internal_states.MP,
+                                                                                    index) ;
+                                                       value = parseInt(value) ;
+                                                       if (value != 0)
+                                                       {
+                                                           key = parseInt(index).toString(16) ;
+                                                           vec.MEMORY["0x" + key] = {"type":  "memory",
+                                                                                     "default_value": 0x0,
+                                                                                     "id":    "0x" + key,
+                                                                                     "op":    "=",
+                                                                                     "value": "0x" + value.toString(16)} ;
+                                                       }
+                                                  }
+
+                                                  return vec;
+                                              },
+                                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = {} ;
+
+                                                  var key = parseInt(check.id).toString(16) ;
+                                                  var val = parseInt(check.value).toString(16) ;
+                                                  if ("MEMORY" == check.type.toUpperCase().trim())
+                                                  {
+                                                      vec.MEMORY["0x" + key] = {"type":  "memory",
+                                                                                "default_value": 0x0,
+                                                                                "id":    "0x" + key,
+                                                                                "op":    check.condition,
+                                                                                "value": "0x" + val} ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+                                             },
+                                  get_state: function ( pos ) {
+                                                  var index = parseInt(pos) ;
+                                                  var value = main_memory_getvalue(sim_p.internal_states.MP,
+                                                                                   index) ;
+                                                  if (typeof value === "undefined") {
+                                                      return null ;
+                                                  }
+                                                  return "0x" + parseInt(value).toString(16) ;
+                                             },
+
+                                  // native: get_value, set_value
+                                  get_value: function ( elto ) {
+                                                 var value = main_memory_getvalue(sim_p.internal_states.MP,
+                                                                                  elto) ;
+                                                 show_main_memory(sim_p.internal_states.MP, elto, false,false) ;
+                                                 return (value >>> 0) ;
+                                             },
+                                  set_value: function ( elto, value ) {
+                                                 // PC
+                                                 var origin = '' ;
+                                                 var r_value = main_memory_get_program_counter() ;
+                                                 if (r_value != null) {
+                                                     origin = 'PC=0x' + r_value.toString(16) ;
+                                                 }
+
+                                                 var melto = {
+                                                                "value":           (value >>> 0),
+                                                                "source_tracking": [ origin ],
+                                                                "comments":        null
+                                                             } ;
+                                                 var valref = main_memory_set(sim_p.internal_states.MP,
+                                                                              elto,
+                                                                              melto) ;
+
+                                                 show_main_memory(sim_p.internal_states.MP,
+                                                                  elto,
+                                                                  (typeof valref === "undefined"),
+                                                                  true) ;
+
+                                                 return value ;
+                                             }
+                                };
+
+
+        /*
+         *  Internal States
+         */
+
+        sim_p.internal_states.segments  = {} ;
+        sim_p.internal_states.MP        = {} ;
+        sim_p.internal_states.MP_wc     = { read:{value:1}, write:{value:0} } ;
+
+        sim_p.internal_states.CM_cfg    = [] ;
+        sim_p.internal_states.CM        = [] ;
+
+
+	/*
+	 *  States
+	 */
+
+	sim_p.states["MAR_MEM_R"] = { name:"MAR_MEM_R",
+		                      verbal: "Internal memory address register for reading",
+                                      visible:false, nbits:"32", value:0,  default_value:0,
+                                      draw_data: [] };
+
+
+        /*
+         *  Signals
+         */
+
+        sim_p.signals.MMR        = { name: "MMR",
+                                     visible: false, type: "E", value: 0, default_value:0, nbits: "1",
+                                     depends_on: ["CLK"],
+                                     behavior:  ["MV MAR_MEM_R BUS_AB", "MV MAR_MEM_R BUS_AB"],
+                                     fire_name: [],
+                                     draw_data: [[], []],
+                                     draw_name: [[], []] };
+        sim_p.signals.MRDY      = { name: "MRDY",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                     depends_on: ["CLK"],
+                                     behavior:  ["FIRE_IFSET C 3", "FIRE_IFSET C 3"],
+                                     fire_name: ['svg_p:tspan3916','svg_p:text3909'],
+                                     draw_data: [[], ['svg_p:path3895','svg_p:path3541']],
+                                     draw_name: [[], []] };
+        sim_p.signals.R         = { name: "R",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                     behavior: ["NOP; CHECK_RTD",
+					        "MEM_READ MAR_MEM_R BUS_DB BW SE CLK MRDY; FIRE M1; FIRE MRDY; CHECK_RTD"],
+                                     fire_name: ['svg_p:text3533-5-2','svg_p:text3713'],
+                                     draw_data: [[], ['svg_p:path3557','svg_p:path3571']],
+                                     draw_name: [[], []] };
+        sim_p.signals.W         = { name: "W",
+                                     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                     behavior: ["NOP",
+					        "MEM_WRITE BUS_AB BUS_DB BW SE CLK MRDY; FIRE M1; FIRE MRDY"],
+                                     fire_name: ['svg_p:text3533-5-08','svg_p:text3527'],
+                                     draw_data: [[], ['svg_p:path3559','svg_p:path3575']],
+                                     draw_name: [[], []] };
+
+        sim_p.signals.BW       = { name: "BW",
+                                     verbal: ['Access to one byte from memory (four options). ',
+                                              'Access to two bytes from memory   (upper/lower two). ',
+                                              'Access to three bytes from memory (upper/lower three). ',
+                                              'Access to a word from memory (one single option). '],
+                                     visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+                                     behavior: ['FIRE R; FIRE W',
+				    	        'FIRE R; FIRE W',
+					        'FIRE R; FIRE W',
+					        'FIRE R; FIRE W'],
+                                     fire_name: ['svg_p:text3533-5'],
+                                     draw_data: [['svg_p:path3535-8', 'svg_p:path3101-8']],
+                                     draw_name: [[],[]] };
+
+
+        /*
+         *  Syntax of behaviors
+         */
+
+        sim_p.behaviors.MEM_READ    = { nparameters: 7,
+                                        types: ["E", "E", "S", "S", "E", "S"],
+                                        operation: function (s_expr)
+                                                   {
+						      var address  =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue  =  sim_p.states[s_expr[2]].value;
+                                                      var bw       = sim_p.signals[s_expr[3]].value;
+                                                      var se       = sim_p.signals[s_expr[4]].value;
+                                                      var clk      = get_value(sim_p.states[s_expr[5]]) ;
+
+						      // remaining clk cycles of the current operation
+						      var read_clk = get_value(sim_p.internal_states.MP_wc.read);
+						      var remain = read_clk ;
+						      if (
+                                                           (typeof sim_p.events.mem[clk-1] != "undefined") &&
+						           (sim_p.events.mem[clk-1].remain > 0)
+                                                         )
+						      {
+						            remain = sim_p.events.mem[clk-1].remain - 1;
+                                                      }
+
+						      if (typeof sim_p.events.mem[clk] == "undefined")
+						      {
+                                                          // reset events.mem (cleanup former trace)
+                                                          sim_p.events.mem = [] ;
+
+                                                          // set new event
+						          sim_p.events.mem[clk] = {};
+						          sim_p.events.mem[clk].address = address ;
+						          sim_p.events.mem[clk].dbvalue = dbvalue ;
+						          sim_p.events.mem[clk].bw = bw ;
+						          sim_p.events.mem[clk].se = se ;
+						          sim_p.events.mem[clk].remain = remain;
+
+						          // MRDY=0
+                                                          sim_p.signals[s_expr[6]].value = 0;
+						      }
+
+						      // if memory already updated and no any value changes -> skip to speed-up re-evaluations
+						      if (
+                                                           (1 == sim_p.signals[s_expr[6]].value) &&
+						           (sim_p.events.mem[clk].address == address) &&
+						           (sim_p.events.mem[clk].dbvalue == dbvalue) &&
+						           (sim_p.events.mem[clk].bw == bw) &&
+						           (sim_p.events.mem[clk].se == se)
+							 )
+						      {
+						           return ;
+						      }
+
+						      // if remain clk cycles > 0 -> skip not needed re-evaluations
+                                                      if (remain > 0) {
+                                                          return;
+                                                      }
+
+						      // first clk cycle when memory read operation is requested -> cache
+                                                      if (0 == sim_p.signals[s_expr[6]].value)
+						      {
+						          for (var i=0; i<sim_p.internal_states.CM.length; i++)
+						          {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "read", clk) ;
+							       }
+						          }
+						      }
+
+						      // memory update (and related work)...
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
+                                                          value = 0 ;
+                                                          full_redraw = true ;
+               					      }
+
+                                                      // bit-width
+						      dbvalue = main_memory_extractvalues(value, bw, (address & 0x00000003), se) ;
+
+                                                      sim_p.states[s_expr[2]].value = (dbvalue >>> 0) ;
+                                                     sim_p.signals[s_expr[6]].value = 1;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, false) ;
+                                                   },
+                                           verbal: function (s_expr)
+                                                   {
+					              var verbal = "" ;
+
+						      var address = sim_p.states [s_expr[1]].value;
+                                                      var dbvalue = sim_p.states [s_expr[2]].value;
+                                                      var bw      = sim_p.signals[s_expr[3]].value;
+                                                      var clk     = get_value(sim_p.states[s_expr[5]]) ;
+
+                                                      // bit-width
+						      switch (bw)
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
+
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP,
+                                                                                       address) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
+
+                                                      verbal = "Try to read a " + bw_type + " from memory " +
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+
+                                                      return verbal ;
+                                                   }
+                                      };
+
+        sim_p.behaviors.MEM_WRITE  = { nparameters: 7,
+                                        types: ["E", "E", "S", "S", "E", "S"],
+                                        operation: function (s_expr)
+                                                   {
+						      var address   =  sim_p.states[s_expr[1]].value;
+                                                      var dbvalue   =  sim_p.states[s_expr[2]].value;
+                                                      var bw        = sim_p.signals[s_expr[3]].value;
+                                                      var se        = sim_p.signals[s_expr[4]].value; // se not used on write operation
+                                                      var clk       = get_value(sim_p.states[s_expr[5]]) ;
+
+						      // remaining clk cycles of the current operation
+						      var write_clk = get_value(sim_p.internal_states.MP_wc.write);
+						      var remain = write_clk ;
+						      if (
+                                                           (typeof sim_p.events.mem[clk-1] != "undefined") &&
+						           (sim_p.events.mem[clk-1].remain > 0)
+                                                         )
+						      {
+						            remain = sim_p.events.mem[clk-1].remain - 1;
+                                                      }
+
+						      if (typeof sim_p.events.mem[clk] == "undefined")
+					              {
+                                                          // reset events.mem (cleanup former trace)
+                                                          sim_p.events.mem = [] ;
+
+                                                          // set new event
+						          sim_p.events.mem[clk] = {};
+						          sim_p.events.mem[clk].address = address ;
+						          sim_p.events.mem[clk].dbvalue = dbvalue ;
+						          sim_p.events.mem[clk].bw = bw ;
+						          sim_p.events.mem[clk].se = se ;
+						          sim_p.events.mem[clk].remain = remain;
+
+						          // MRDY=0
+                                                          sim_p.signals[s_expr[6]].value = 0;
+						      }
+
+						      // memory already updated and no any value changes -> skip to speed-up re-evaluations
+						      if (
+                                                           (1 == sim_p.signals[s_expr[6]].value) &&
+						           (sim_p.events.mem[clk].address == address) &&
+						           (sim_p.events.mem[clk].dbvalue == dbvalue) &&
+						           (sim_p.events.mem[clk].bw == bw) &&
+						           (sim_p.events.mem[clk].se == se)
+							 )
+						      {
+						           return ;
+						      }
+
+						      // if remain clk cycles > 0 -> skip not needed re-evaluations
+                                                      if (remain > 0) {
+                                                          return;
+                                                      }
+
+						      // first clk cycle when write operation is requested -> cache
+                                                      if (0 == sim_p.signals[s_expr[6]].value)
+						      {
+						          for (var i=0; i<sim_p.internal_states.CM.length; i++)
+						          {
+							       if (1 == get_var(sim_p.internal_states.CM[i].cfg.level)) {
+                                                                   cache_memory_access(sim_p.internal_states.CM[i], address, "write", clk) ;
+							       }
+						          }
+						      }
+
+						      // memory update (and related work)...
+                                                      var wordress = address & 0xFFFFFFFC ;
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, wordress) ;
+                                                      var full_redraw = false ;
+                                                      if (typeof value === "undefined") {
+                                                          value = 0 ;
+                                                          full_redraw = true ;
+               					      }
+
+                                                      // bit-width
+						      value = main_memory_updatevalues(value, dbvalue, bw, (address & 0x00000003)) ;
+
+						      // PC
+                                                      var origin = '' ;
+                                                      var r_value = main_memory_get_program_counter() ;
+                                                      if (r_value != null) {
+						          origin = 'PC=0x' + r_value.toString(16) ;
+                                                      }
+
+						      var melto = {
+								     "value":           (value >>> 0),
+								     "source_tracking": [ origin ],
+								     "comments":        null
+							          } ;
+                                                      var elto = main_memory_set(sim_p.internal_states.MP, wordress, melto) ;
+
+                                                      sim_p.signals[s_expr[6]].value = 1 ;
+				                      show_main_memory(sim_p.internal_states.MP, wordress, full_redraw, true) ;
+
+                                                   },
+                                           verbal: function (s_expr)
+                                                   {
+					              var verbal = "" ;
+
+						      var address = get_value(sim_p.states [s_expr[1]]) ;
+                                                      var dbvalue = get_value(sim_p.states [s_expr[2]]) ;
+                                                      var bw      = get_value(sim_p.signals[s_expr[3]]) ;
+                                                      var se      = get_value(sim_p.signals[s_expr[4]]) ;
+                                                      var clk     = get_value(sim_p.states [s_expr[5]]) ;
+
+                                                      // bit-width
+						      switch (bw)
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
+
+                                                      var value = main_memory_getvalue(sim_p.internal_states.MP, address) ;
+						      if (typeof value === "undefined") {
+						   	  value = 0 ;
+                                                      }
+
+                                                      var verbose = get_cfg('verbal_verbose') ;
+                                                      if (verbose !== 'math') {
+                                                          verbal = "Try to write a " + bw_type + " to memory (" + dbvalue.toString(16) + ") " +
+							           "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+                                                      }
+						      else {
+                                                          verbal = "Memory[0x" + address.toString(16) + "] = " +
+                                                                   "0x" + dbvalue.toString(16) +
+                                                                   " (Write a " + bw_type +
+                                                                   " to 0x" + address.toString(16)  + "). " ;
+                                                      }
+
+                                                      return verbal ;
+                                                   }
+                                    };
+
+        sim_p.behaviors.MEMORY_RESET = { nparameters: 1,
+                                        operation: function (s_expr)
+                                                   {
+                                                       // reset events.mem
+                                                       sim_p.events.mem = [] ;
+                                                   },
+                                           verbal: function (s_expr)
+                                                   {
+                                                       return "Reset main memory (all values will be zeroes). " ;
+                                                   }
+                                   };
+
+
+        /*
+         *  Model (see docs/WEPSIM-TEAM.md)
+	 */
+
+        sim_p.elements.memory = {
+                              name:              "Main memory",
+                              description:       "Main memory subsystem",
+                              type:              "subcomponent",
+                              belongs:           "MEMORY",
+                              states:            {
+                                                   "addr":      {
+                                                                   ref:  "BUS_AB"
+                                                                },
+                                                   "data":      {
+                                                                   ref:  "BUS_DB"
+                                                                },
+                                                   "mrdy":      {
+                                                                   ref:  "MRDY"
+                                                                }
+                                                 },
+                              signals:           {
+                                                   "be":        {
+                                                                   ref:  "BWA"
+                                                                },
+                                                   "r":         {
+                                                                   ref:  "R"
+                                                                },
+                                                   "w":         {
+                                                                   ref:  "W"
+                                                                }
+                                                 },
+                              states_inputs:     [ "addr", "data" ],
+                              states_outputs:    [ "mrdy", "data" ],
+                              signals_inputs:    [ "be", "r", "w" ],
+			      signals_output:    [ ],
+			      states_mapping:    [ ]
+                       } ;
+
+        return sim_p ;
+}
+

@@ -1,0 +1,147 @@
+/*
+ *  Copyright 2015-2026 The WepSIM team (see docs/WEPSIM-TEAM.md)
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+    import { i18n } from "../i18n.js";
+
+
+    i18n.eltos.gui.ru = {
+
+		'Loading WepSIM...':		'Загрузка WepSIM ...',
+		'About':			'О компании',
+		'Configuration':		'конфигурация',
+		'MicroCode':			'микрокода',
+		'Assembly':			'сборочный',
+		'Simulator':			'имитатор',
+		'Examples':			'Примеры',
+		'Load':				'нагрузка',
+		'Save':				'Сохранить',
+		'Load/Save':			'нагрузка/Сохранить',
+		'Restore':			'Восстановить',
+		'Help':				'Помогите',
+		'Notifications':		'Yведомления',
+		'RecordBar':			'Запись бар',
+		'Input':			'вход',
+		'Output':			'Выход',
+		'Reload':			'перезагрузить',
+		'Checkpoint':			'контрольно-пропускной пункт',
+		'Input file':			'Входной файл',
+		'Output file':			'Выходной файл',
+
+		'Help Index':			'Индекс справки',
+		'Processor':			'процессор',
+		'Assembly Debugger':		'Сборочный отладчик',
+		'Reset':			'Сброс',
+		'microInstruction':		'μинструкция',
+		'Instruction':			'инструкция',
+		'Run':				'Бежать',
+		'Hardware Summary':		'Краткое описание оборудования',
+		'processor':			'процессор',
+		'details':			'подробности',
+		'microcode':			'микрокода',
+		'Signals':			'сигналы',
+		'Behaviors':			'поведения',
+		'States':			'состояния',
+		'Control States':		'Контрольные состояния',
+		'Dependencies':			'зависимости',
+		'Close':			'близко',
+		'Description':			'Описание',
+		'Show':				'Шоу',
+		'Show Main Memory':		'Показать основную память',
+		'compile':			'компилировать',
+		'Compile':			'компилировать',
+		'Please write the file name':	'Пожалуйста, напишите имя файла',
+		'Load from this File':		'Загрузить из этого файла',
+		'labels':			'этикетки',
+		'addr':				'адр',
+		'ess':				'ESS',
+		'content':			'содержание',
+		'assembly':			'сборка',
+		'instructions':			'инструкции',
+
+                "simulator intro 1": "Вы можете выбрать оборудование, которое будет использоваться. По умолчанию используется оборудование EP (Elemental Processor). <br> Вы можете использовать <span class='text-primary bg-body-tertiary' onclick=\"setTimeout(function(){$('#dd1').dropdown('toggle');},50);\">селектор режима</span> для изменения используемого оборудования.",
+
+                "simulator intro 2": "Затем вам нужно загрузить микрокод (определяет набор инструкций) и код сборки. <br> Вы можете использовать <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_dialog_open(\"examples\");'>пример</span>, <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_select_action(\"checkpoint\");'> загрузить его из файла </span>, или вы можете редактировать <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_change_workspace_microcode();'>новый микрокод</span> и <span class='text-primary bg-body-tertiary' onclick='ws.wsweb_change_workspace_assembly();'>новый код сборки</ span>. ",
+
+                "simulator intro 3": "Наконец, в симуляторе вы можете выполнить микрокод плюс сборку, загруженную ранее. <br> Вы можете выполнить его как на уровне микрокоманды, так и на уровне инструкции сборки.",
+
+		'Prev.':			'Пред.',
+		'Next':				'следующий',
+		'End':				'Конец',
+		'Disable tutorial mode':	'Отключить учебный режим',
+		'Comment':			'Комментарий',
+		'Pause':			'Пауза',
+		'Play':				'Играть',
+		'Stop':				'Стоп',
+		'Record':			'запись',
+		'Registers':			'Регистры',
+		'Control Memory':		'Управляющая память',
+		'Stats':			'Статистика',
+		'Memory':			'Память',
+		'Keyboard+Display':		'Клавиатура+Дисплей',
+		'Timer Stats':			'Статистика таймера',
+		'Timer Configuration':		'Настройка таймера',
+		'Recent':			'последний',
+		'Refresh':			'обновление',
+		'Welcome':			'желанный',
+                'Microcode & Assembly':      	'Микрокод и ассемблер',
+                'Pick firm/soft':  		'Выберите прошивку / программное обеспечение от',
+                'Information': 	    		'Информация от',
+                'Native':   			'Родные',
+                'MIPS32-like':   		'MIPS32-подобный код',
+                'RISCV32':  			'Код RISCV32',
+                'Z80-like':   			'Z80-подобный код',
+
+                'Actions': 			'Действия',
+                'Utilities': 			'Утилиты',
+                'Information from': 		'Информация из',
+                'Pick firm/soft from': 		'Выбрать фирму / софт из',
+                'Welcome tutorial': 		'Добро пожаловать в учебник',
+                'Assembly only': 		'Только сборка',
+                'Micro & Assembly': 		'Микро и сборка',
+
+                'idiom': 			'язык',
+                'quick config': 		'быстрая настройка',
+                'Graph: quick interactive mode':'График: быстрый интерактивный режим',
+
+                "Interactive mode": 	 		"Интерактивный режим",
+                "Split view":		 		"Разделенный вид",
+
+                "Input link":				"Ввод ссылки",
+                "Link":					"Ссылка",
+                "Copy": 				"Копировать",
+                "Share": 				"Поделиться",
+                "Add new": 				"Добавить новую",
+
+                "Load from the following link":		"Загрузить по следующей ссылке",
+                "You can use the following link":	"Вы можете использовать следующую ссылку",
+                "Combinations": 			"Комбинации",
+
+                "Display direction": 			"Направление отображения",
+                "Display segments": 			"Отображать сегменты",
+                "Display origin": 			"Отображать начало координат",
+                "Number of words": 			"Количество слов",
+                "Wait cycles":				"Циклы ожидания",
+
+                "Please remember that after updates on the microcode, the assembly code has be re-compiled too.": "Помните, что после обновления микрокода необходимо перекомпилировать и ассемблерный код.",
+                "No cache memory was already defined.":		"Кэш-память уже не была определена.",
+
+		'_last_':			'_last_'
+    };
+
