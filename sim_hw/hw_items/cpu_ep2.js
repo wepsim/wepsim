@@ -600,7 +600,7 @@ function cpu_ep2_register ( sim_p )
 	 sim_p.signals["T2"]   = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 1"],
 			           fire_name: ['svg_p:text3449'],
-			           draw_data: [['svg_p:path3195','svg_p:path3201','svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
+			           draw_data: [['svg_p:path3195', 'svg_p:path3201', 'svg_p:path3199', 'svg_p:path3049']],
 			           draw_name: [['svg_p:path3329']] };
 	 sim_p.signals["T3"]   = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 2"],
@@ -646,7 +646,7 @@ function cpu_ep2_register ( sim_p )
 			           behavior: ["NOP; RST_TT TTCPU 10", "MV BUS_IB EXCODE_SE; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 10"],
 			           fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			           draw_data: [['svg_cu:path3131-3','svg_p:path3131-3','svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3081-3-5']],
-			           draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
+			           draw_name: [['svg_p:path3133-6','svg_cu:path3133-6', 'svg_cu:path3133-6-7']] };
 	 sim_p.signals["T12"]  = { name: "T12", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 11", "MV BUS_IB HPC_T12; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 11"],
 			           fire_name: ['svg_p:text3147-5-0-1-1'],
@@ -791,7 +791,7 @@ function cpu_ep2_register ( sim_p )
                                       depends_on: ["T3", "T11"],
 			              fire_name: ['svg_cu:text3147-5-6', 'svg_p:text3593', 'svg_p:text3431'],
 			              draw_data: [['svg_p:path3559-3']],
-			              draw_name: [['svg_p:path3133-6', 'svg_p:path3591', 'svg_p:path3447-7-7']] };
+			              draw_name: [['svg_p:path3591', 'svg_p:path3447-7-7']] };
 	 sim_p.signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			              behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; GETIMM SELEC_T3 REG_IR OFFSET SIZE; FIRE_IFSET T3 1'],
                                       depends_on: ["T3"],
