@@ -310,7 +310,7 @@
             return true ;
     }
 
-    function wsweb_execution_previous_microinstruction ( )
+    export function wsweb_execution_previous_microinstruction ( )
     {
             if (simhw_active() !== null)
             {

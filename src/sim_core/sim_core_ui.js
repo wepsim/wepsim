@@ -19,15 +19,17 @@
  */
 
 
+     import { get_value }                  from "./sim_core_values.js";
+     import { simcore_action_ui }          from "./sim_api_core.js";
+
      import { WORD_BYTES,
               WORD_LENGTH,
               BYTE_LENGTH }                from "../sim_sw/assembly/datatypes.js";
-     import { get_value }                  from "./sim_core_values.js";
-     import { simcore_action_ui }          from "./sim_api_core.js";
      import { simhw_sim_ctrlStates_get,
               simhw_sim_state,
               simhw_internalState,
               simhw_sim_signals }          from "../sim_hw/sim_hw_index.js";
+     import { compute_behavior }           from "../sim_hw/sim_hw_behavior.js";
 
 
         /*
