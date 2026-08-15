@@ -95,7 +95,7 @@
 			     o += '<button id="btn_prev_microinstruction_' + this.name_str + '"' +
 		                  '        class="btn bg-secondary-subtle col pb-1 px-1 me-1 border-secondary wsx_microcode wsx_history"' +
 		                  '        accesskey="p" ' +
-			          '        onclick="wsweb_execution_previous_microinstruction();' +
+			          '        onclick="ws.wsweb_execution_previous_microinstruction();' +
                                   '                 return false;">' ;
                               o += (this.icons_str == 'no') ? ""     : '<em class="fa fa-step-backward"></em>' ;
                               o += (this.icons_str == 'up') ? '<br>' : '&nbsp;' ;

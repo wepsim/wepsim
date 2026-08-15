@@ -521,7 +521,7 @@
             return ret ;
         }
 
-        function simcore_execute_microinstruction_backwards ( )
+        export function simcore_execute_microinstruction_backwards ( )
         {
 	    var ret = simcore_check_if_can_continue() ;
 	    if (false === ret.ok) {

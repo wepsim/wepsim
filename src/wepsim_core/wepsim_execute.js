@@ -29,6 +29,7 @@
               simcore_check_if_can_execute,
               simcore_execute_microprogram,
               simcore_execute_microinstruction,
+              simcore_execute_microinstruction_backwards,
               simcore_check_if_can_continue,
               simcore_execute_microinstruction2 } from "../sim_core/sim_api_core.js";
      import { simcore_record_glowing }            from "../sim_core/sim_core_record.js";

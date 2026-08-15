@@ -19,7 +19,10 @@
  */
 
 
-        import { vue_rebind_state }  from "../sim_core/sim_core_values.js";
+        import { get_value,
+                 set_value,
+                 reset_value,
+                 vue_rebind_state }  from "../sim_core/sim_core_values.js";
         import { ws_uielto,
                  register_uielto }   from "./wepsim_uielto.js";
         import { simhw_active,
@@ -78,10 +81,20 @@
                     var ref_obj = simhw_sim_state('CLK') ;
                     vue_rebind_state(ref_obj, '#clk_context') ;
 
-                        ref_obj = simhw_sim_state('DECO_INS') ;
+                   ref_obj = simhw_sim_state('DECO_INS') ;
                     vue_rebind_state(ref_obj, '#ins_context') ;
 
-                        ref_obj = simhw_sim_state('ACC_TIME') ;
+		    ref_obj = simhw_sim_state('CLK') ;
+		    vue_rebind_state(ref_obj, '#cpi_context', function(v) {
+			var i = get_value(simhw_sim_state('DECO_INS'));
+                        var r = '0.0' ;
+			if (i > 0) {
+                            r = (v / i).toFixed(2);
+                        }
+			return r;
+		    }) ;
+
+                    ref_obj = simhw_sim_state('ACC_TIME') ;
                     vue_rebind_state(ref_obj, '#tms_context') ;
 	      }
 
@@ -97,12 +110,21 @@
 			  "<div id='ins_context'>{{ value }}</div>" +
 			  "</td>" +
 			  " </tr>" +
+
 			  " <tr>" +
 			  "<td align='center' class='w-50'>CLK ticks</td>" +
 			  "<td align='center' class='w-50'>" +
 			  "<div id='clk_context'>{{ value }}</div>" +
 			  "</td>" +
 			  " </tr>" +
+
+			  "<td align='center' class='w-50'>CPI</td>" +
+			  "<td align='center' class='w-50'>" +
+			  "<div id='cpi_context'>{{ computed_value }}</div>" +
+			  "</td>" +
+			  " </tr>" +
+			  " <tr>" +
+
 			  " <tr>" +
 			  "<td align='center' class='w-50'>Accumulated msec.</td>" +
 			  "<td align='center' class='w-50'>" +
@@ -138,6 +160,17 @@
                           " <p class='card-text'><div id='clk_context'>{{ value }}</div></p>" +
 			  " </div>" +
 			  "</div>" +
+			  "</div>" +
+
+		          "</div>" +
+			  "<div class='col-auto p-2'>" +
+			  "<div class='card bg-body-tertiary'>" +
+			  " <h5 class='card-header text-center p-2'>" +
+			  "<span data-langkey='CPI'>CPI</span><br>" +
+			  " </h5>" +
+			  " <div class='card-body  text-center p-2'>" +
+			  " <p class='card-text'><div id='cpi_context'>{{ computed_value }}</div></p>" +
+			  " </div>" +
 			  "</div>" +
 
 		          "<div class='col-auto p-2'>" +
