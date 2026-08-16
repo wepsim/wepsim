@@ -27,22 +27,318 @@
               update_memories }           from "../sim_core/sim_core_ctrl.js";
      import { simcore_reset,
               simcore_compile_firmware }  from "../sim_core/sim_api_core.js";
-     import { wsasm_src2mem }             from "../sim_sw/assembly.js";
 
-     import { sim_change_workspace }      from "./wepsim_web_simulator.js";
+     import { wsasm_src2mem }             from "../sim_sw/assembly.js";
+     import { i18n_get }                  from "../wepsim_i18n/i18n.js";
+
      import { asmdbg_update_assembly }    from "./wepsim_uielto_dbg_asm.js";
+     import { sim_change_workspace }      from "./wepsim_web_simulator.js";
+
+     import { get_inputfirm,
+              get_inputasm }              from "../wepsim_web/wepsim_web_simulator.js";
 
      import { wepsim_notify_error,
               wepsim_notify_success }     from "../wepsim_core/wepsim_notify.js";
-     import { i18n_get }                  from "../wepsim_i18n/i18n.js";
      import { wsweb_dlg_alert }           from "../wepsim_core/wepsim_dialog.js";
-
-     import { get_inputfirm, get_inputasm }      from "../wepsim_web/wepsim_web_simulator.js";
 
 
     //
     // WepSIM API
     //
+
+/* CM6
+
+    import { EditorState,
+             Compartment,
+             StateField,
+             StateEffect } from "@codemirror/state";
+    import {
+             EditorView,
+             Decoration,
+             keymap }      from "@codemirror/view";
+    import { showMinimap } from "@replit/codemirror-minimap";
+
+
+    export class ws_editor_cm6
+    {
+        constructor ( editor_id, editor_cfg )
+        {
+            // is_modified, is_compiled, and is_refreshed
+            this.is_modified  = true;
+            this.is_compiled  = false;
+            this.is_refreshed = false;
+
+            const updateListener = EditorView.updateListener.of((update) => {
+                if (update.docChanged) {
+                    this.is_modified  = true;
+                    this.is_compiled  = false;
+                    this.is_refreshed = false;
+                }
+            });
+
+            // Para opciones modificables dinámicamente con setOption()
+            this.theme_compartment  = new Compartment();
+            this.keymap_compartment = new Compartment();
+
+            // Decoraciones usadas por addLineClass/removeLineClass
+            this.lineDecorations = Decoration.none;
+
+            const extensions = [
+                                 updateListener,
+				 basicSetup,
+				 javascript(),
+
+                                 // let dynamic decorators
+                                 EditorView.decorations.of(() => this.lineDecorations),
+
+                                 this.theme_compartment.of([]),
+                                 this.keymap_compartment.of([]),
+
+                                 showMinimap.compute(['doc'], (state) => {
+                                   return {
+                                     create,
+                                     displayText: 'blocks',
+                                     showOverlay: 'always',
+                                     gutters: [ { 1: '#00FF00', 2: '#00FF00' } ],
+                                   }
+                                 }),
+
+                                 ...(editor_cfg.extensions || [])
+                               ] ;
+
+            const state = EditorState.create({
+                doc: "\n\n\n\n\n\n\n\n\n\n",
+                extensions
+            });
+
+            const parent = document.getElementById(editor_id);
+
+            // new EditorView
+            this.view = new EditorView({ state, parent });
+        }
+
+        setSize ( width, height )
+        {
+            if (width !== null && width !== undefined) {
+                this.view.dom.style.width =
+                    typeof width === "number" ? `${width}px` : width;
+            }
+
+            if (height !== null && height !== undefined) {
+                this.view.dom.style.height =
+                    typeof height === "number" ? `${height}px` : height;
+            }
+
+            this.view.requestMeasure();
+        }
+
+        refresh ( ) {
+            this.view.requestMeasure();
+        }
+
+        getValue ( ) {
+            return this.view.state.doc.toString();
+        }
+
+        setValue ( text )
+        {
+            this.view.dispatch({
+                changes: {
+                    from: 0,
+                    to: this.view.state.doc.length,
+                    insert: text
+                }
+            });
+        }
+
+        getCursor ( )
+        {
+            const pos  = this.view.state.selection.main.head;
+            const line = this.view.state.doc.lineAt(pos);
+
+            return {
+                line: line.number - 1,
+                ch:   pos - line.from
+            };
+        }
+
+        lineChToOffset ( line, ch )
+        {
+            const l = this.view.state.doc.line(line + 1);
+            return Math.min(l.from + ch, l.to);
+        }
+
+        setCursor ( {line, ch} )
+        {
+            const pos = this.lineChToOffset(line, ch);
+
+            this.view.dispatch({
+                selection: {anchor: pos},
+                scrollIntoView: true
+            });
+        }
+
+
+        getWrapperElement () {
+            return this.view.dom;
+        }
+
+        setOption ( name, value )
+        {
+            switch (name)
+            {
+                case "theme":
+                    this.setTheme(value);
+                    break;
+
+                case "keyMap":
+                    this.setKeyMap(value);
+                    break;
+
+                default:
+                    console.warn(
+                        `ws_editor_cm6.setOption(): unsupported option '${name}'`
+                    );
+            }
+        }
+
+        setTheme ( theme )
+        {
+            const extension = this.themeToExtension(theme);
+
+            this.view.dispatch({
+                effects: this.theme_compartment.reconfigure(extension)
+            });
+        }
+
+
+        setKeyMap ( name )
+        {
+            const extension = this.keyMapToExtension(name);
+
+            this.view.dispatch({
+                effects: this.keymap_compartment.reconfigure(extension)
+            });
+        }
+
+        scrollToLine ( line )
+        {
+            var lineBase   = Math.min(line + 1, this.view.state.doc.lines) ;
+            var lineNumber = Math.max(1, lineBase) ;
+
+            const docLine = this.view.state.doc.line(lineNumber) ;
+
+            this.view.dispatch({
+                effects: EditorView.scrollIntoView( docLine.from, { y: "center" })
+            }) ;
+        }
+
+        highlightLine ( line )
+        {
+            var lineBase   = Math.min(line + 1, this.view.state.doc.lines) ;
+            var lineNumber = Math.max(1, lineBase) ;
+
+            const line = this.view.state.doc.line(lineNumber);
+
+            this.view.dispatch({
+                selection: {
+                    anchor: line.from
+                },
+
+                effects: setLineHighlight.of(line.from)
+            });
+        }
+
+        clearHighlight ( )
+        {
+            this.view.dispatch({
+                effects: clearLineHighlight.of(null)
+            }) ;
+        }
+
+        focus ( ) {
+            this.view.focus();
+        }
+
+        destroy ( ) {
+            this.view.destroy();
+        }
+    }
+*/
+
+    export class ws_editor_cm5
+    {
+        constructor ( editor_id, editor_cfg )
+        {
+            // new EditorView
+            this.view = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
+
+            // default values
+            this.view.setValue("\n\n\n\n\n\n\n\n\n\n") ;
+
+            // event onChange -> update is_* attributes
+	    this.is_modified  = true ;
+	    this.is_compiled  = false ;
+	    this.is_refreshed = false ;
+
+            this.view.on("change", () => {
+                this.is_modified  = true;
+                this.is_compiled  = false;
+                this.is_refreshed = false;
+            });
+
+            // line marked
+            this.marked = 0 ;
+        }
+
+        setSize ( width, height ) {
+            return this.view.setSize(width, height);
+        }
+
+        refresh ( ) {
+            this.view.refresh();
+        }
+
+        getValue ( ) {
+            return this.view.getValue() ;
+        }
+
+        setValue ( text ) {
+            return this.view.setValue(text) ;
+        }
+
+        getCursor ( ) {
+            return this.view.getCursor() ;
+        }
+
+        setCursor ( line_ch ) {
+            return this.view.setCursor( line_ch ) ;
+        }
+
+        getWrapperElement () {
+            return this.view.getWrapperElement() ;
+        }
+
+        setOption ( name, value ) {
+            return this.view.setOption(name, value) ;
+        }
+
+        scrollToLine ( line ) {
+            var topHeight    = this.view.charCoords({line: line, ch: 0}, 'local').top ;
+            var middleHeight = this.view.getScrollerElement().offsetHeight / 2 ;
+            this.view.scrollTo(null, topHeight - middleHeight - 5) ;
+        }
+
+        highlightLine ( line ) {
+            this.view.setCursor({ line: line, ch: 0 }) ;
+            this.marked = this.view.addLineClass(line, 'background', 'CodeMirror-selected') ;
+        }
+
+        clearHighlight ( ) {
+	    this.view.removeLineClass(this.marked, 'background', 'CodeMirror-selected');
+        }
+    }
+
 
     /*
      *  Editor
@@ -91,14 +387,17 @@
     {
 	    return {
 			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			lineNumbers: true,
-			lineWrapping: true,
+
+			lineNumbers:   true,
+			lineWrapping:  true,
 			matchBrackets: true,
-			tabSize: 2,
+			tabSize:       2,
+
 			foldGutter: {
 			   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 			},
 			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+
 			mode: "text/javascript"
 		   } ;
     }
@@ -107,10 +406,12 @@
     {
 	    return {
 			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-			lineNumbers: true,
-			lineWrapping: true,
+
+			lineNumbers:   true,
+			lineWrapping:  true,
 			matchBrackets: true,
 			tabSize: 2,
+
 			extraKeys: {
 			  "Ctrl-Space": function(cm) {
 			      CodeMirror.showHint(cm, function(cm, options) {
@@ -129,50 +430,25 @@
 			      cm.execCommand('toggleComment');
 			  }
 			},
+
 			mode: "gas"
 		   } ;
     }
 
     export function sim_init_editor ( editor_id, editor_cfg )
     {
-/*
-            var view = new EditorView({
-			      doc: "\n\n\n\n\n\n\n\n\n\n",
-			      extensions: [
-				 basicSetup,
-				 history(),
-				 keymap.of([...defaultKeymap, ...historyKeymap]),
-				 javascript(),
-				 syntaxHighlighting(defaultHighlightStyle),
-			      ],
-			      parent: document.getElementById(editor_id)
-			   }) ;
+            var useCM6 = false ; // DEBUG: for debugging purposes
+            var EditorClass = useCM6 ? ws_editor_cm6 : ws_editor_cm5;
 
-            return view ;
-*/
+            // new editor
+            var editor_obj = new EditorClass(editor_id, editor_cfg) ;
 
-	    var editor_obj = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
-
-            // default values
-            editor_obj.setValue("\n\n\n\n\n\n\n\n\n\n") ;
-
+            // set default values...
             sim_cfg_editor_theme(editor_obj) ;
             sim_cfg_editor_mode(editor_obj) ;
 
             editor_obj.setSize("auto", "75vh");
             editor_obj.refresh();
-
-            // event onChange -> update is_* attributes
-	    editor_obj.is_modified  = true ;
-	    editor_obj.is_compiled  = false ;
-	    editor_obj.is_refreshed = false ;
-
-            editor_obj.on("change",
-                          function (cmi, change) {
-                             cmi.is_modified  = true ;
-                             cmi.is_compiled  = false ;
-                             cmi.is_refreshed = false ;
-                          }) ;
 
             // return object
 	    return editor_obj ;
@@ -187,15 +463,12 @@
 
     export function goError ( editor, pos )
     {
-         editor.setCursor({ line: pos-1, ch: 0 }) ;
-         var marked = editor.addLineClass(pos-1, 'background', 'CodeMirror-selected') ;
+         editor.highlightLine(pos - 1) ;
          setTimeout(function(){
-			editor.removeLineClass(marked, 'background', 'CodeMirror-selected');
+                        editor.clearHighlight() ;
                     }, 3000) ;
 
-   	 var t = editor.charCoords({line: pos, ch: 0}, 'local').top ;
-   	 var middleHeight = editor.getScrollerElement().offsetHeight / 2 ;
-   	 editor.scrollTo(null, t - middleHeight - 5) ;
+         editor.scrollToLine(pos - 1) ;
     }
 
     export function showError ( Msg, editor )
@@ -208,7 +481,7 @@
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
                            '        onclick="ws.wepsim_notify_close(); ' +
-                           '                 goError(' + editor + ', ' + pos + ');">' +
+                           '                 ws.goError(ws.get_' + editor + '(), ' + pos + ');">' +
                            ' Go line ' + pos +
                            '</button>&nbsp;' ;
             }
