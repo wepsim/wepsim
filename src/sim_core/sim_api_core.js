@@ -32,6 +32,9 @@
      import { get_simware,
               set_simware }              from "./sim_adt_core.js";
      import { update_memories }          from "./sim_core_ctrl.js";
+     import { simcore_simstate_saveCurrent,
+              simcore_simstate_restoreCurrent,
+              simcore_simstate_current2state } from "./sim_api_stateshots.js";
 
      import { simhw_getIdByName,
               simhw_setActive,
@@ -57,7 +60,7 @@
      import { control_memory_get }       from "./sim_adt_ctrlmemory.js";
 
 
-        /* 1) Init */
+     /* 1) Init */
 
         /**
          * Initialize simulator core and UI.
@@ -138,7 +141,7 @@
         }
 
 
-        /* 2) UI panels */
+     /* 2) UI panels */
 
         /**
          * Initialize simulator core and UI.
@@ -279,7 +282,7 @@
         }
 
 
-        /* 3) Check if can... */
+     /* 3) Check if can... */
 
         /**
          * Check if simulation can be executed
@@ -391,7 +394,7 @@
         }
 
 
-        /* 4) Execution */
+     /* 4) Execution */
 
         /**
          * Reset the WepSIM simulation.
@@ -490,6 +493,8 @@
         /**
          * Execute the next microinstruction.
          */
+        var state_history = [] ;
+
         export function simcore_execute_microinstruction ( )
         {
 	    var ret = simcore_check_if_can_continue() ;
@@ -498,10 +503,18 @@
 	    }
 
             // if history_enabled -> save history before next clock cycle
-            if (get_cfg('history_enable') == true)
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
             {
-                // TODO: HISTORY_SAVE
-                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                // save current state
+                var state_obj = simcore_simstate_saveCurrent() ;
+                state_history.push(state_obj) ;
+
+                // remove older ones
+                var history_size = get_cfg('history_size') ;
+                if (state_history.length > history_size) {
+                    array.splice(0, history_size - state_history.length);
+                }
             }
 
             // CPU - Hardware
@@ -521,10 +534,18 @@
 	    }
 
             // if history_enabled -> save history before next clock cycle
-            if (get_cfg('history_enable') == true)
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
             {
-                // TODO: HISTORY_SAVE
-                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                // save current state
+                var state_obj = simcore_simstate_saveCurrent() ;
+                state_history.push(state_obj) ;
+
+                // remove older ones
+                var history_size = get_cfg('history_size') ;
+                if (state_history.length > history_size) {
+                    array.splice(0, history_size - state_history.length);
+                }
             }
 
             // CPU - Hardware
@@ -544,10 +565,18 @@
 	    }
 
             // if history_enabled -> restore history
-            if (get_cfg('history_enable') == true)
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
             {
                 // TODO: HISTORY_RESTORE
-                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+                ws_alert('ERROR: undo execution not supported on this processor. ') ;
+
+                // restory current state
+                if (state_history.length > 0)
+                {
+                    var state_obj = state_history.pop();
+                    simcore_simstate_restoreCurrent(state_obj) ;
+                }
             }
 
             // CPU - Hardware
@@ -736,7 +765,7 @@
         }
 
 
-        /* 5) Compile */
+     /* 5) Compile */
 
         /**
          * Compile Firmware.
@@ -859,7 +888,7 @@
         }
 
 
-        /* 6) Hardware */
+     /* 6) Hardware */
 
         /**
          * Export Hardware to JSON string

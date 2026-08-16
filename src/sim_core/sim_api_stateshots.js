@@ -45,7 +45,7 @@
 		 continue ;
 
 	     var check = { "type": parts[0],
-                           "id": parts[1],
+                           "id":   parts[1],
                            "condition": parts[2],
                            "value": decodeURI(parts[3]) } ;
              for (var index in simhw_sim_components())
@@ -65,11 +65,47 @@
     export function simcore_simstate_current2state ( )
     {
 	var o = {} ;
-	for (var index in simhw_sim_components()) {
+
+	var components = simhw_sim_components() ;
+	for (var index in components) {
 	     simhw_sim_component(index).write_state(o) ;
 	}
 
         return o ;
+    }
+
+    export function simcore_simstate_saveCurrent ( )
+    {
+	var o = {} ;
+
+	var components = simhw_sim_components() ;
+	for (var index in components) {
+	     simhw_sim_component(index).write_state(o) ;
+	}
+
+        return o ;
+    }
+
+    export function simcore_simstate_restoreCurrent ( states )
+    {
+        var o = {} ;
+        var ret = true ;
+
+	var components = simhw_sim_components() ;
+	for (var key1 in components) 
+        {
+
+console.log("key1: " + key1) ;
+console.log("val1: " + states[key1]) ;
+
+             if (states[key1] != "undefined") {
+	         ret = simhw_sim_component(key1).read_state(o, states[key1]) ;
+             }
+
+             // TODO: set value...
+	}
+
+        return states ;
     }
 
     export function simcore_simstate_expandfilter ( filter )
