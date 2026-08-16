@@ -25,7 +25,8 @@
               set_cfg }                  from "./sim_cfg.js";
      import { show_asmdbg_pc,
               show_dbg_ir,
-              show_dbg_mpc }             from "./sim_core_ui.js";
+              show_dbg_mpc,
+              ws_alert }                 from "./sim_core_ui.js";
      import { get_value,
               set_value }                from "./sim_core_values.js";
      import { get_simware,
@@ -496,11 +497,18 @@
 		return ret ;
 	    }
 
+            // if history_enabled -> save history before next clock cycle
+            if (get_cfg('history_enable') == true)
+            {
+                // TODO: HISTORY_SAVE
+                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+            }
+
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
-            show_dbg_mpc();
+            show_dbg_mpc() ;
 
             return ret ;
         }
@@ -511,6 +519,13 @@
 	    if (false === ret.ok) {
 		return ret ;
 	    }
+
+            // if history_enabled -> save history before next clock cycle
+            if (get_cfg('history_enable') == true)
+            {
+                // TODO: HISTORY_SAVE
+                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+            }
 
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;
@@ -528,8 +543,15 @@
 		return ret ;
 	    }
 
+            // if history_enabled -> restore history
+            if (get_cfg('history_enable') == true)
+            {
+                // TODO: HISTORY_RESTORE
+                ws_alert('ERROR: undo execution not supported in this CPU. ') ;
+            }
+
             // CPU - Hardware
-            compute_general_behavior("HISTORY_RESTORE") ;
+            compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
             show_dbg_mpc();

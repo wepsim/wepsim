@@ -48,16 +48,11 @@
 
 /* CM6
 
-    import { EditorState,
-             Compartment,
-             StateField,
-             StateEffect } from "@codemirror/state";
-    import {
-             EditorView,
-             Decoration,
-             keymap }      from "@codemirror/view";
-    import { showMinimap } from "@replit/codemirror-minimap";
-
+    const {
+      EditorState, Compartment, StateField, StateEffect,
+      EditorView, Decoration, keymap,
+      showMinimap
+    } = window.CM6 ;
 
     export class ws_editor_cm6
     {
@@ -188,17 +183,15 @@
             switch (name)
             {
                 case "theme":
-                    this.setTheme(value);
-                    break;
+                     this.setTheme(value);
+                     break;
 
                 case "keyMap":
-                    this.setKeyMap(value);
-                    break;
+                     this.setKeyMap(value);
+                     break;
 
                 default:
-                    console.warn(
-                        `ws_editor_cm6.setOption(): unsupported option '${name}'`
-                    );
+                     console.warn("ws_editor_cm6.setOption(...): unsupported option " + name) ;
             }
         }
 
@@ -346,12 +339,12 @@
 
     export function sim_cfg_editor_theme ( editor )
     {
-	    var theme = get_cfg('editor_theme') ;
-
             // check arguments
             if (null == editor) {
                 return ;
             }
+
+	    var theme = get_cfg('editor_theme') ;
 
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 	    editor.getWrapperElement().style['font-weight'] = 'bold';
@@ -365,21 +358,16 @@
 
     export function sim_cfg_editor_mode ( editor )
     {
-	    var edt_mode = get_cfg('editor_mode');
-
             // check arguments
             if (null == editor) {
                 return ;
             }
 
-	    if (edt_mode === 'vim') {
-		editor.setOption('keyMap','vim');
-            }
-	    if (edt_mode === 'emacs') {
-		editor.setOption('keyMap','emacs');
-            }
-	    if (edt_mode === 'sublime') {
-		editor.setOption('keyMap','sublime');
+	    var edt_mode   = get_cfg('editor_mode');
+            var aval_modes = [ 'vim', 'emacs', 'sublime' ] ;
+
+            if (aval_modes.includes(edt_mode)) {
+		editor.setOption('keyMap', edt_mode);
             }
     }
 
