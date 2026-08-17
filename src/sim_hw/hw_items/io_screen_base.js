@@ -90,18 +90,16 @@ export function io_screen_base_register ( sim_p )
                                                       vec.SCREEN = {} ;
                                                   }
 
-                                                  vec.SCREEN.screen_content = Object.assign({}, sim_p.internal_states.screen_content) ;
-
+                                                  vec.SCREEN.screen_content = get_screen_content() ;
 						  return vec;
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.SCREEN == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
-                                                  sim_p.internal_states.screen_content = Object.assign({}, vec.SCREEN.screen_content) ;
-
-						  return vec;
+                                                  set_screen_content(vec.SCREEN.screen_content) ;
+						  return true ;
 				               },
 
 		                  // native: get_value, set_value

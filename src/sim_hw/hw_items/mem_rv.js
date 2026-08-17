@@ -97,17 +97,15 @@ export function mem_rv_register ( sim_p )
                                                   }
 
                                                   vec.MEMORY.MP = Object.assign({}, sim_p.internal_states.MP) ;
-
 						  return vec;
 				              },
 		                 load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.MEMORY == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
                                                   sim_p.internal_states.MP = Object.assign({}, vec.MEMORY.MP) ;
-
-						  return vec;
+						  return true ;
 				              },
 
 		                  // native: get_value, set_value

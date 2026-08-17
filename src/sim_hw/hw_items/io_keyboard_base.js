@@ -61,18 +61,16 @@ export function io_keyboard_base_register ( sim_p )
                                                       vec.KEYBOARD = {} ;
                                                   }
 
-                                                  vec.KEYBOARD.keyboard_content = Object.assign({}, sim_p.internal_states.keyboard_content) ;
-
-						  return vec;
+                                                  vec.KEYBOARD.keyboard_content = get_keyboard_content() ;
+						  return vec ;
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.KEYBOARD == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
-                                                  sim_p.internal_states.keyboard_content = Object.assign({}, vec.KEYBOARD.keyboard_content) ;
-
-						  return vec;
+                                                  set_keyboard_content(vec.KEYBOARD.keyboard_content) ;
+						  return true ;
 				               },
 
 		                  // native: get_value, set_value
