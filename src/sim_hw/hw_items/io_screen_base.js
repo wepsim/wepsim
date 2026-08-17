@@ -83,14 +83,14 @@ export function io_screen_base_register ( sim_p )
 
                                                   return false ;
 				             },
-		                  get_state: function ( line ) {
-					          var sim_screen = sim_p.internal_states.screen_content ;
-					          var sim_lines  = sim_screen.trim().split("\n") ;
-						  var index = parseInt(line) ;
-						  if (typeof sim_lines[index] != "undefined")
-						      return sim_lines[index] ;
+		                  get_state: function ( vec ) {
+                                                  if (typeof vec.SCREEN == "undefined") {
+                                                      vec.SCREEN = {} ;
+                                                  }
 
-					          return null ;
+					          vec.SCREEN[0] = sim_p.internal_states.screen_content ;
+
+                                                  return vec;
 				              },
 
 		                  // native: get_value, set_value

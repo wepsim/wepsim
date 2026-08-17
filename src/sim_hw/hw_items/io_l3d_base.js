@@ -56,24 +56,40 @@ export function io_l3d_base_register ( sim_p )
 		                  read_state:  function ( o, check ) {
                                                   return false ;
 				               },
-		                  get_state:   function ( reg ) {
-					          return null ;
+		                  get_state:   function ( vec ) {
+						  if (typeof vec["3DLED"] == "undefined") {
+						      vec["3DLED"] = {} ;
+						  }
+
+						  var value = 0 ;
+						  for (var i=0; i<sim_p.internal_states.l3d_neltos; i++)
+                                                  {
+						       var associated_state = simhw_internalState_get('io_hash', i) ;
+                                                       if (typeof associated_state == "undefined") {
+                                                           continue ;
+                                                       }
+
+						       value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
+						       vec["3DLED"][i] = value ;
+                                                  }
+
+						  return vec;
 				               },
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var associated_state = simhw_internalState_get('io_hash', elto) ;
-                                                    if (typeof associated_state == "undefined") {
-                                                        throw new Error("unknown element named " + elto) ;
-                                                    }
-						    var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
+						  var associated_state = simhw_internalState_get('io_hash', elto) ;
+                                                  if (typeof associated_state == "undefined") {
+                                                      throw new Error("unknown element named " + elto) ;
+                                                  }
+						  var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
-						    set_value(simhw_sim_state('BUS_AB'), elto) ;
-						    set_value(simhw_sim_signal('IOR'), 1) ;
-						    signal_fire("IOR") ; //compute_behavior("FIRE IOR") ;
-						    value = get_value(simhw_sim_state('BUS_DB')) ;
+						  set_value(simhw_sim_state('BUS_AB'), elto) ;
+						  set_value(simhw_sim_signal('IOR'), 1) ;
+						  signal_fire("IOR") ; // compute_behavior("FIRE IOR") ;
+						  value = get_value(simhw_sim_state('BUS_DB')) ;
 
-						    return value ;
+						  return value ;
                                                },
                                   set_value:   function ( elto, value ) {
 						    var associated_state = simhw_internalState_get('io_hash', elto) ;

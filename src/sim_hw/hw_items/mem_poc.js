@@ -90,15 +90,8 @@ export function mem_poc_register ( sim_p )
 
                                                   return false ;
 				             },
-		                  get_state: function ( pos ) {
-						  var index = parseInt(pos) ;
-                                                  var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                   index) ;
-						  if (typeof value === "undefined") {
-					              return null ;
-					          }
-
-						  return "0x" + parseInt(value).toString(16) ;
+		                  get_state: function ( vec ) {
+					          return vec ;  // TODO
 				             },
 
 		                  // native: get_value, set_value

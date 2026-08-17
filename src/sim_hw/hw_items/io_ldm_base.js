@@ -59,8 +59,23 @@ export function io_ldm_base_register ( sim_p )
                                   read_state:  function ( o, check ) {
                                                   return false ;
                                                },
-                                  get_state:   function ( reg ) {
-                                                  return null ;
+                                  get_state:   function ( vec ) {
+                                                  var value = 0 ;
+
+                                                  if (typeof vec.LEDM == "undefined") {
+                                                      vec.LEDM = {} ;
+                                                  }
+
+                                                  for (var key in sim_p.states)
+                                                  {
+                                                      value = parseInt(get_value(sim_p.states[key])) >>> 0;
+                                                      if (value != 0) {
+                                                          vec.LEDM[key] = "0x" + value.toString(16) ;
+                                                      }
+
+                                                  }
+
+                                                  return vec;
                                                },
 
                                   // native: get_value, set_value

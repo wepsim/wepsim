@@ -55,8 +55,8 @@ export function io_clk_base_register ( sim_p )
 		                  read_state:  function ( o, check ) {
                                                   return false ;
 				               },
-		                  get_state:   function ( reg ) {
-					          return null ;
+		                  get_state:   function ( vec ) {
+					          return vec ;  // TODO
 				               },
 
 		                  // native: get_value, set_value

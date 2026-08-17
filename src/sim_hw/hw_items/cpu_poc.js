@@ -119,20 +119,31 @@ export function cpu_poc_register ( sim_p )
                                                   return false ;
 				              },
 		                  get_state:  function ( reg ) {
-					          var r_reg = reg.toUpperCase().trim() ;
-					          if (typeof sim_p.states['REG_' + r_reg] != "undefined") {
-					              var value = get_value(sim_p.states['REG_' + r_reg]) >>> 0;
-					              return "0x" + value.toString(16) ;
-					          }
+						  var value = 0 ;
 
-					              r_reg = r_reg.replace('R','') ;
-					          var index = parseInt(r_reg) ;
-					          if (typeof sim_p.states.BR[index] != "undefined") {
-					              var value = get_value(sim_p.states.BR[index]) >>> 0;
-					              return "0x" + value.toString(16) ;
-					          }
+                                                  if (typeof vec.CPU == "undefined") {
+                                                      vec.CPU = {} ;
+                                                  }
 
-					          return null ;
+					          for (var i=0; i<sim_p.states.BR.length; i++)
+						  {
+						      value = parseInt(get_value(sim_p.states.BR[i])) >>> 0;
+						      if (value != 0) {
+							  vec.CPU["BR." + i] = "0x" + value.toString(16) ;
+						      }
+						  }
+                                                  for (var key in sim_p.states)
+                                                  {
+                                                      if (key === "BR") { continue ; }
+
+						      value = parseInt(get_value(sim_p.states[key])) >>> 0;
+						      if (value != 0) {
+							  vec.CPU[key] = "0x" + value.toString(16) ;
+						      }
+
+                                                  }
+
+						  return vec;
 				              },
 
 		                  // native: get_value, set_value
