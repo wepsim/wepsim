@@ -272,3 +272,36 @@
 	    }
 	}
 
+
+        /*
+	 *  Support for save_state, load_state
+	 */
+
+        export function hw_signals_save ( snapshot, sim_signals )
+        {
+	     if (typeof snapshot.signals == "undefined") {
+                 snapshot.signals = {} ;
+	     }
+
+             for (var key in sim_signals) {
+                  snapshot.signals[key] = get_value(sim_signals[key]);
+             }
+
+             return true ;
+        }
+
+        export function hw_signals_load ( snapshot, sim_signals )
+        {
+	     if ( (typeof snapshot         == "undefined") ||
+	          (typeof snapshot.signals == "undefined") )
+             {
+                 return false ;
+	     }
+
+             for (var key in snapshot.signals) {
+                  set_value(sim_signals[key], snapshot.signals[key]) ;
+             }
+
+             return true ;
+        }
+

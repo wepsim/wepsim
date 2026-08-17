@@ -173,11 +173,6 @@
             });
         }
 
-
-        getWrapperElement () {
-            return this.view.dom;
-        }
-
         setOption ( name, value )
         {
             switch (name)
@@ -308,11 +303,27 @@
             return this.view.setCursor( line_ch ) ;
         }
 
-        getWrapperElement () {
-            return this.view.getWrapperElement() ;
-        }
+        setOption ( name, value )
+        {
+            if ('theme' == name)
+            {
+                 var welto = this.view.getWrapperElement() ;
 
-        setOption ( name, value ) {
+	         if (value === 'blackboard')
+		      welto.style['font-weight'] = 'normal';
+	         else welto.style['font-weight'] = 'bold';
+
+	         welto.style['text-shadow'] = '0.0em 0.0em';
+            }
+            else if ('keyMap' == name)
+            {
+		 var aval_modes = [ 'default', 'vim', 'emacs', 'sublime' ] ;
+
+		 if (false == aval_modes.includes(value)) {
+                     return null ;
+		 }
+            }
+
             return this.view.setOption(name, value) ;
         }
 
@@ -345,14 +356,6 @@
             }
 
 	    var theme = get_cfg('editor_theme') ;
-
-	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
-	    editor.getWrapperElement().style['font-weight'] = 'bold';
-
-	    if (theme === 'blackboard') {
-		editor.getWrapperElement().style['font-weight'] = 'normal';
-	    }
-
 	    editor.setOption('theme', theme);
     }
 
@@ -363,12 +366,8 @@
                 return ;
             }
 
-	    var edt_mode   = get_cfg('editor_mode');
-            var aval_modes = [ 'vim', 'emacs', 'sublime' ] ;
-
-            if (aval_modes.includes(edt_mode)) {
-		editor.setOption('keyMap', edt_mode);
-            }
+	    var edt_mode = get_cfg('editor_mode');
+            editor.setOption('keyMap', edt_mode);
     }
 
     export function sim_cm_get_firmcfg ( )

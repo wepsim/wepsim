@@ -50,7 +50,7 @@
             </div>
 
 	    <br/><br/>
-            <span style="color: #0d6efd !important; font-weight: 700 !important;">
+            <span style="color:#0d6efd !important; font-weight:700 !important; font-family:Verdana, Arial, sans-serif;">
             <h3><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></h3>
             </span>
 	</td>
@@ -65,9 +65,17 @@
 	    // (1/2) get_cfg('ws_skin_dark_mode') ...
             var optValue = localStorage.getItem('wepsim_ws_skin_dark_mode') ;
 
-            // update background for dark_mode
-            if ('on' == optValue)
+            // update background for dark_mode if 'on' or 'auto' and 'prefers-color-scheme: dark'
+            var isDarkMode = false ;
+            switch (optValue)
             {
+               case 'on':   isDark = true ;
+                            break ;
+               case 'auto': isDark = window.matchMedia('(prefers-color-scheme: dark)').matches ;
+                            break ;
+            }
+
+            if (isDarkMode) {
                 document.body.style.background = 'black' ;
                 document.getElementById('tbl_loader').style.background = 'black' ;
             }

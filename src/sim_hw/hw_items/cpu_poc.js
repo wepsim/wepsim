@@ -24,13 +24,6 @@
      import { get_value,
               set_value,
               reset_value }                   from "../../sim_core/sim_core_values.js";
-     import { get_reference,
-              show_verbal,
-              show_value }                    from "../sim_hw_values.js";
-     import { simhw_sim_state_getref,
-              simhw_sim_ctrlStates_get,
-              simhw_sim_signal,
-              simhw_sim_state }               from "../sim_hw_index.js";
      import { show_asmdbg_pc,
               ws_alert,
               show_dbg_ir,
@@ -38,10 +31,22 @@
      import { update_cpu_bus_fire,
               update_system_bus_fire,
               oceoc2rom_addr }                from "../../sim_core/sim_core_ctrl.js";
-     import { compute_signal_verbals }        from "../sim_hw_behavior.js";
-     import { decode_instruction }            from "../../sim_sw/firmware.js";
      import { get_deco_from_pc }              from "../../sim_core/sim_adt_mainmemory.js";
-     import { signal_fire,
+     import { decode_instruction }            from "../../sim_sw/firmware.js";
+
+     import { compute_signal_verbals }        from "../sim_hw_behavior.js";
+     import { get_reference,
+              show_verbal,
+              show_value }                    from "../sim_hw_values.js";
+     import { simhw_sim_state_getref,
+              simhw_sim_ctrlStates_get,
+              simhw_sim_signal,
+              simhw_sim_state }               from "../sim_hw_index.js";
+     import { hw_states_save,
+              hw_states_load }                from "../sim_hw_state.js";
+     import { hw_signals_save,
+              hw_signals_load,
+              signal_fire,
               signal_apply_behaviour_allByEdge,
               signal_update_draw_allByEdge,
               signal_apply_behaviour_allByLevel,
@@ -122,21 +127,12 @@ export function cpu_poc_register ( sim_p )
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
-                                                      vec.CPU = { signals: {}, states: {}, br: {} } ;
+                                                      vec.CPU = {} ;
                                                   }
 
-                                                  vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
-
-                                                  for (var key in sim_p.signals) {
-                                                       vec.CPU.signals[key] = get_value(sim_p.signals[key]);
-                                                  }
-                                                  for (var key in sim_p.states) {
-                                                       if (key === "BR") continue;
-                                                       vec.CPU.states[key]  = get_value(sim_p.states[key]);
-                                                  }
-                                                  for (var key in sim_p.states.BR) {
-                                                       vec.CPU.br[key]      = get_value(sim_p.states.BR[key]);
-                                                  }
+                                                   hw_states_save(vec.CPU, sim_p.states) ;
+                                                   vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
+                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
 
 						  return vec;
 				              },
@@ -145,18 +141,9 @@ export function cpu_poc_register ( sim_p )
                                                       return false ;
                                                   }
 
-                                                  sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
-
-                                                  for (var key in sim_p.signals) {
-                                                       set_value(sim_p.signals[key],   vec.CPU.signals[key]) ;
-                                                  }
-                                                  for (var key in sim_p.states) {
-                                                       if (key === "BR") continue;
-                                                       set_value(sim_p.states[key],    vec.CPU.states[key]);
-                                                  }
-                                                  for (var key in sim_p.states.BR) {
-                                                       set_value(sim_p.states.BR[key], vec.CPU.br[key]) ;
-                                                  }
+                                                   hw_states_load(vec.CPU, sim_p.states) ;
+                                                   sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
+                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
 
 						  return true ;
 				              },

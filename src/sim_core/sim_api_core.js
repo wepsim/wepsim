@@ -30,7 +30,8 @@
      import { get_value,
               set_value }                from "./sim_core_values.js";
      import { get_simware,
-              set_simware }              from "./sim_adt_core.js";
+              set_simware,
+              ws_info }                  from "./sim_adt_core.js";
      import { update_memories }          from "./sim_core_ctrl.js";
      import { simcore_simstate_saveCurrent,
               simcore_simstate_restoreCurrent,
@@ -493,7 +494,8 @@
         /**
          * Execute the next microinstruction.
          */
-        var state_history = [] ;
+
+        ws_info.state_history = [] ;
 
         export function simcore_execute_microinstruction ( )
         {
@@ -508,12 +510,12 @@
             {
                 // save current state
                 var state_obj = simcore_simstate_saveCurrent() ;
-                state_history.push(state_obj) ;
+                ws_info.state_history.push(state_obj) ;
 
                 // remove older ones
                 var history_size = get_cfg('history_size') ;
-                if (state_history.length > history_size) {
-                    array.splice(0, history_size - state_history.length);
+                if (ws_info.state_history.length > history_size) {
+                    array.splice(0, history_size - ws_info.state_history.length);
                 }
             }
 
@@ -539,12 +541,12 @@
             {
                 // save current state
                 var state_obj = simcore_simstate_saveCurrent() ;
-                state_history.push(state_obj) ;
+                ws_info.state_history.push(state_obj) ;
 
                 // remove older ones
                 var history_size = get_cfg('history_size') ;
-                if (state_history.length > history_size) {
-                    state_history.splice(0, history_size - state_history.length) ;
+                if (ws_info.state_history.length > history_size) {
+                    ws_info.state_history.splice(0, history_size - ws_info.state_history.length) ;
                 }
             }
 
@@ -572,9 +574,9 @@
                 ws_alert('ERROR: undo execution not supported on this processor. ') ;
 
                 // restory current state
-                if (state_history.length > 0)
+                if (ws_info.state_history.length > 0)
                 {
-                    var state_obj = state_history.pop();
+                    var state_obj = ws_info.state_history.pop();
                     simcore_simstate_restoreCurrent(state_obj) ;
                 }
                 else

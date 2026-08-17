@@ -24,13 +24,6 @@
      import { get_value,
               set_value,
               reset_value }                   from "../../sim_core/sim_core_values.js";
-     import { get_reference,
-              show_verbal,
-              show_value }                    from "../sim_hw_values.js";
-     import { simhw_sim_state_getref,
-              simhw_sim_ctrlStates_get,
-              simhw_sim_signal,
-              simhw_sim_state }               from "../sim_hw_index.js";
      import { show_asmdbg_pc,
               ws_alert,
               hex2float,
@@ -42,11 +35,23 @@
      import { update_cpu_bus_fire,
               update_system_bus_fire,
               oceoc2rom_addr }                from "../../sim_core/sim_core_ctrl.js";
-     import { compute_signal_verbals }        from "../sim_hw_behavior.js";
      import { get_simware }                   from "../../sim_core/sim_adt_core.js";
-     import { decode_instruction }            from "../../sim_sw/firmware.js";
      import { get_deco_from_pc }              from "../../sim_core/sim_adt_mainmemory.js";
-     import { signal_fire,
+     import { decode_instruction }            from "../../sim_sw/firmware.js";
+
+     import { compute_signal_verbals }        from "../sim_hw_behavior.js";
+     import { get_reference,
+              show_verbal,
+              show_value }                    from "../sim_hw_values.js";
+     import { simhw_sim_state_getref,
+              simhw_sim_ctrlStates_get,
+              simhw_sim_signal,
+              simhw_sim_state }               from "../sim_hw_index.js";
+     import { hw_states_save,
+              hw_states_load }                from "../sim_hw_state.js";
+     import { hw_signals_save,
+              hw_signals_load,
+              signal_fire,
               signal_apply_behaviour_allByEdge,
               signal_update_draw_allByEdge,
               signal_apply_behaviour_allByLevel,
@@ -66,7 +71,10 @@ export function cpu_ep2_register ( sim_p )
 
 		                  // ui: details
 		                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
-                                  details_fire: [ ['svg_p:text3029', 'svg_p:text3031'], ['svg_cu:text3010'], ['svg_p:text3459-7', 'svg_cu:text4138', 'svg_cu:text4138-7'], ['svg_p:text3495'] ],
+                                  details_fire: [ ['svg_p:text3029', 'svg_p:text3031'],
+                                                  ['svg_cu:text3010'],
+                                                  ['svg_p:text3459-7', 'svg_cu:text4138', 'svg_cu:text4138-7'],
+                                                  ['svg_p:text3495'] ],
 
 		                  // state: write_state, read_state
 		                  write_state:  function ( vec ) {
@@ -74,31 +82,31 @@ export function cpu_ep2_register ( sim_p )
                                                       vec.CPU = {} ;
                                                   }
 
-					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT2", "RT3", "SR"] ;
-					          var internal_reg = ["PC", "SR"] ;
-
 						  var value = 0 ;
 					          for (var i=0; i<sim_p.states.BR.length; i++)
 						  {
 						      value = parseInt(get_value(sim_p.states.BR[i])) >>> 0;
 						      if (value != 0) {
-							  vec.CPU["R" + i] = {"type":  "register",
-								              "default_value": 0x0,
-								              "id":    "R" + i,
-								              "op":    "=",
-								              "value": "0x" + value.toString(16)} ;
+							  vec.CPU["R" + i] = { "type":  "register",
+								               "default_value": 0x0,
+								               "id":    "R" + i,
+								               "op":    "=",
+								               "value": "0x" + value.toString(16) } ;
 						      }
 						  }
+
+					       // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT2", "RT3", "SR"] ;
+					          var internal_reg = ["PC", "SR"] ;
 
 					          for (i=0; i<internal_reg.length; i++)
 						  {
 						      value = parseInt(get_value(sim_p.states['REG_' + internal_reg[i]])) >>> 0;
 						      if (value != 0) {
-							  vec.CPU[internal_reg[i]] = {"type":  "register",
-								                      "default_value": 0x0,
-								                      "id":    internal_reg[i],
-								                      "op":    "=",
-								                      "value": "0x" + value.toString(16)} ;
+							  vec.CPU[internal_reg[i]] = { "type":  "register",
+								                       "default_value": 0x0,
+								                       "id":    internal_reg[i],
+								                       "op":    "=",
+								                       "value": "0x" + value.toString(16) } ;
 						      }
 						  }
 
@@ -127,21 +135,12 @@ export function cpu_ep2_register ( sim_p )
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
-                                                      vec.CPU = { signals: {}, states: {}, br: {} } ;
+                                                      vec.CPU = {} ;
                                                   }
 
-                                                  vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
-
-                                                  for (var key in sim_p.signals) {
-                                                       vec.CPU.signals[key] = get_value(sim_p.signals[key]);
-                                                  }
-                                                  for (var key in sim_p.states) {
-                                                       if (key === "BR") continue;
-                                                       vec.CPU.states[key]  = get_value(sim_p.states[key]);
-                                                  }
-                                                  for (var key in sim_p.states.BR) {
-                                                       vec.CPU.br[key]      = get_value(sim_p.states.BR[key]);
-                                                  }
+                                                   hw_states_save(vec.CPU, sim_p.states) ;
+                                                   vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
+                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
 
 						  return vec;
 				              },
@@ -150,18 +149,9 @@ export function cpu_ep2_register ( sim_p )
                                                       return false ;
                                                   }
 
-                                                  sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
-
-                                                  for (var key in sim_p.signals) {
-                                                       set_value(sim_p.signals[key],   vec.CPU.signals[key]) ;
-                                                  }
-                                                  for (var key in sim_p.states) {
-                                                       if (key === "BR") continue;
-                                                       set_value(sim_p.states[key],    vec.CPU.states[key]);
-                                                  }
-                                                  for (var key in sim_p.states.BR) {
-                                                       set_value(sim_p.states.BR[key], vec.CPU.br[key]) ;
-                                                  }
+                                                   hw_states_load(vec.CPU, sim_p.states) ;
+                                                   sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
+                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
 
 						  return true ;
 				              },
