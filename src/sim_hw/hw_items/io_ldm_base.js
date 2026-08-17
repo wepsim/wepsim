@@ -52,31 +52,43 @@ export function io_ldm_base_register ( sim_p )
                                   details_name: [ "LEDMATRIX" ],
                                   details_fire: [ [] ],
 
-                                  // state: write_state, read_state, get_state
+                                  // state: write_state, read_state
                                   write_state: function ( vec ) {
                                                   return vec;
                                                },
                                   read_state:  function ( o, check ) {
                                                   return false ;
                                                },
-                                  get_state:   function ( vec ) {
-                                                  var value = 0 ;
 
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
                                                   if (typeof vec.LEDM == "undefined") {
                                                       vec.LEDM = {} ;
                                                   }
 
-                                                  for (var key in sim_p.states)
-                                                  {
-                                                      value = parseInt(get_value(sim_p.states[key])) >>> 0;
-                                                      if (value != 0) {
-                                                          vec.LEDM[key] = "0x" + value.toString(16) ;
-                                                      }
+                                                  vec.LEDM.ledm_dim    = sim_p.internal_states.ledm_dim ;
+                                                  vec.LEDM.ledm_neltos = sim_p.internal_states.ledm_neltos ;
+                                                  vec.LEDM.ledm_state  = Object.assign({}, sim_p.internal_states.ledm_state) ;
+                                                  vec.LEDM.ledm_colors = Object.assign({}, sim_p.internal_states.ledm_colors) ;
+                                                  vec.LEDM.ledm_frame  = sim_p.internal_states.ledm_frame ;
+                                                  vec.LEDM.ledm_sync   = sim_p.internal_states.ledm_sync ;
 
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.LEDM == "undefined") ) {
+                                                      return ;
                                                   }
 
-                                                  return vec;
-                                               },
+                                                  sim_p.internal_states.ledm_dim    = vec.LEDM.ledm_dim ;
+                                                  sim_p.internal_states.ledm_neltos = vec.LEDM.ledm_neltos ;
+                                                  sim_p.internal_states.ledm_state  = Object.assign({}, vec.LEDM.ledm_state) ;
+                                                  sim_p.internal_states.ledm_colors = Object.assign({}, vec.LEDM.ledm_colors) ;
+                                                  sim_p.internal_states.ledm_frame  = vec.LEDM.ledm_frame ;
+                                                  sim_p.internal_states.ledm_sync   = vec.LEDM.ledm_sync ;
+
+						  return vec;
+				               },
 
                                   // native: get_value, set_value
                                   get_value:   function ( elto ) {

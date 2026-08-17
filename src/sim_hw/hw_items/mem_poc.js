@@ -46,7 +46,7 @@ export function mem_poc_register ( sim_p )
 				  details_name: [ "MEMORY", "MEMORY_CONFIG" ],
 				  details_fire: [ ['svg_p:text3001'], [] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;
@@ -90,9 +90,26 @@ export function mem_poc_register ( sim_p )
 
                                                   return false ;
 				             },
-		                  get_state: function ( vec ) {
-					          return vec ;  // TODO
-				             },
+
+		                 // state: save_state, load_state
+		                 save_state:  function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined") {
+                                                      vec.MEMORY = {} ;
+                                                  }
+
+                                                  vec.MEMORY.MP = Object.assign({}, sim_p.internal_states.MP) ;
+
+						  return vec;
+				              },
+		                 load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.MEMORY == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.MP = Object.assign({}, vec.MEMORY.MP) ;
+
+						  return vec;
+				              },
 
 		                  // native: get_value, set_value
 		                  get_value: function ( elto ) {

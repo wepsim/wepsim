@@ -48,15 +48,32 @@ export function io_clk_base_register ( sim_p )
 		                  details_name: [ "IO_STATS", "IO_CONFIG" ],
                                   details_fire: [ ['svg_p:text3775'], [] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
 		                  read_state:  function ( o, check ) {
                                                   return false ;
 				               },
-		                  get_state:   function ( vec ) {
-					          return vec ;  // TODO
+
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
+                                                  if (typeof vec.IO == "undefined") {
+                                                      vec.IO = {} ;
+                                                  }
+
+                                                  vec.IO.io_int_factory = Object.assign({}, sim_p.internal_states.io_int_factory) ;
+
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.IO == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.io_int_factory = Object.assign({}, vec.IO.io_int_factory) ;
+
+						  return vec;
 				               },
 
 		                  // native: get_value, set_value

@@ -46,10 +46,11 @@ export function mem_ep_register ( sim_p )
                                   details_name: [ "MEMORY", "MEMORY_CONFIG" ],
                                   details_fire: [ ['svg_p:text3001'], [] ],
 
-                                  // state: write_state, read_state, get_state
+                                  // state: write_state, read_state
                                   write_state: function ( vec ) {
-                                                  if (typeof vec.MEMORY == "undefined")
+                                                  if (typeof vec.MEMORY == "undefined") {
                                                       vec.MEMORY = {} ;
+                                                  }
 
                                                   var key = 0 ;
                                                   var value = 0 ;
@@ -72,8 +73,9 @@ export function mem_ep_register ( sim_p )
                                                   return vec;
                                               },
                                   read_state: function ( vec, check ) {
-                                                  if (typeof vec.MEMORY == "undefined")
+                                                  if (typeof vec.MEMORY == "undefined") {
                                                       vec.MEMORY = {} ;
+                                                  }
 
                                                   var key = parseInt(check.id).toString(16) ;
                                                   var val = parseInt(check.value).toString(16) ;
@@ -89,15 +91,26 @@ export function mem_ep_register ( sim_p )
 
                                                   return false ;
                                              },
-                                  get_state: function ( pos ) {
-                                                  var index = parseInt(pos) ;
-                                                  var value = main_memory_getvalue(sim_p.internal_states.MP,
-                                                                                   index) ;
-                                                  if (typeof value === "undefined") {
-                                                      return null ;
+
+		                 // state: save_state, load_state
+		                 save_state:  function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined") {
+                                                      vec.MEMORY = {} ;
                                                   }
-                                                  return "0x" + parseInt(value).toString(16) ;
-                                             },
+
+                                                  vec.MEMORY.MP = Object.assign({}, sim_p.internal_states.MP) ;
+
+						  return vec;
+				              },
+		                 load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.MEMORY == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.MP = Object.assign({}, vec.MEMORY.MP) ;
+
+						  return vec;
+				              },
 
                                   // native: get_value, set_value
                                   get_value: function ( elto ) {

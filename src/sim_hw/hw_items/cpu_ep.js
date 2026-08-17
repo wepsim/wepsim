@@ -67,7 +67,7 @@ export function cpu_ep_register ( sim_p )
 		                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
                                   details_fire: [ ['svg_p:text3029', 'svg_p:text3031'], ['svg_cu:text3010'], ['svg_p:text3459-7', 'svg_cu:text4138', 'svg_cu:text4138-7'], ['svg_p:text3495'] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
@@ -122,30 +122,29 @@ export function cpu_ep_register ( sim_p )
 
                                                   return false ;
 				              },
-		                  get_state:  function ( reg ) {
-						  var value = 0 ;
 
+		                 // state: save_state, load_state
+		                 save_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
                                                   }
 
-					          for (var i=0; i<sim_p.states.BR.length; i++)
-						  {
-						      value = parseInt(get_value(sim_p.states.BR[i])) >>> 0;
-						      if (value != 0) {
-							  vec.CPU["BR." + i] = "0x" + value.toString(16) ;
-						      }
-						  }
-                                                  for (var key in sim_p.states)
-                                                  {
-                                                      if (key === "BR") { continue ; }
+                                                  vec.CPU.states    = Object.assign({}, sim_p.states) ;
+                                                  vec.CPU.signals   = Object.assign({}, sim_p.signals) ;
+                                                  vec.CPU.rf        = Object.assign({}, sim_p.states.BR) ;
+                                                  vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
 
-						      value = parseInt(get_value(sim_p.states[key])) >>> 0;
-						      if (value != 0) {
-							  vec.CPU[key] = "0x" + value.toString(16) ;
-						      }
-
+						  return vec;
+				              },
+		                 load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.CPU == "undefined") ) {
+                                                      return ;
                                                   }
+
+                                                  sim_p.states      = Object.assign({}, vec.CPU.states) ;
+                                                  sim_p.signals     = Object.assign({}, vec.CPU.signals) ;
+                                                  sim_p.states.BR   = Object.assign({}, vec.CPU.rf) ;
+                                                  sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
 
 						  return vec;
 				              },

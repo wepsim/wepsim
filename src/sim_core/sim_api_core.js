@@ -577,10 +577,11 @@
                     var state_obj = state_history.pop();
                     simcore_simstate_restoreCurrent(state_obj) ;
                 }
+                else
+                {
+                    ws_alert('ERROR: history limit reached, please check the configuration value. ') ;
+                }
             }
-
-            // CPU - Hardware
-            compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
             show_dbg_mpc();

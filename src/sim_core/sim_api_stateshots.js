@@ -76,28 +76,21 @@
 
     export function simcore_simstate_saveCurrent ( )
     {
-	var o = {} ;
+	var states = {} ;
 
 	var components = simhw_sim_components() ;
 	for (var index in components) {
-	     simhw_sim_component(index).get_state(o) ;
+	     simhw_sim_component(index).save_state(states) ;
 	}
 
-        return o ;
+        return states ;
     }
 
     export function simcore_simstate_restoreCurrent ( states )
     {
 	var components = simhw_sim_components() ;
-	for (var key1 in components) 
-        {
-             if (states[key1] == "undefined") {
-                 continue ;
-             }
-
-	     for (var key2 in states[key1]) {
-	         simhw_sim_component(key1).set_value(key2, states[key1][key2]) ;
-             }
+	for (var index in components) {
+	     simhw_sim_component(index).load_state(states) ;
 	}
 
         return states ;

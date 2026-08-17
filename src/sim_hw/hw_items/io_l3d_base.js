@@ -49,29 +49,34 @@ export function io_l3d_base_register ( sim_p )
 		                  details_name: [ "3DLED" ],
                                   details_fire: [ [] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
 		                  read_state:  function ( o, check ) {
                                                   return false ;
 				               },
-		                  get_state:   function ( vec ) {
-						  if (typeof vec["3DLED"] == "undefined") {
-						      vec["3DLED"] = {} ;
-						  }
 
-						  var value = 0 ;
-						  for (var i=0; i<sim_p.internal_states.l3d_neltos; i++)
-                                                  {
-						       var associated_state = simhw_internalState_get('io_hash', i) ;
-                                                       if (typeof associated_state == "undefined") {
-                                                           continue ;
-                                                       }
-
-						       value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
-						       vec["3DLED"][i] = value ;
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
+                                                  if (typeof vec["3DLED"] == "undefined") {
+                                                      vec["3DLED"] = {} ;
                                                   }
+
+                                                  vec["3DLED"].l3d_dim    = sim_p.internal_states.l3d_dim ;
+                                                  vec["3DLED"].l3d_neltos = sim_p.internal_states.l3d_neltos ;
+                                                  vec["3DLED"].l3d_state  = Object.assign({}, sim_p.internal_states.l3d_state) ;
+
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec["3DLED"] == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.l3d_dim    = vec["3DLED"].l3d_dim ;
+                                                  sim_p.internal_states.l3d_neltos = vec["3DLED"].l3d_neltos ;
+                                                  sim_p.internal_states.l3d_state  = Object.assign({}, vec["3DLED"].l3d_state) ;
 
 						  return vec;
 				               },

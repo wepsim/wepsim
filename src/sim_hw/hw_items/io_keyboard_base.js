@@ -47,21 +47,32 @@ export function io_keyboard_base_register ( sim_p )
 		                  details_name: [ "KEYBOARD" ],
                                   details_fire: [ ['svg_p:text3829'] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
 						    return vec;
 				               },
 		                  read_state:  function ( o, check ) {
                                                     return false ;
 				               },
-		                  get_state:   function ( vec ) {
+
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
                                                   if (typeof vec.KEYBOARD == "undefined") {
                                                       vec.KEYBOARD = {} ;
                                                   }
 
-					          vec.KEYBOARD[0] = sim_p.internal_states.keyboard_content ;
+                                                  vec.KEYBOARD.keyboard_content = Object.assign({}, sim_p.internal_states.keyboard_content) ;
 
-                                                  return vec;
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.KEYBOARD == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.keyboard_content = Object.assign({}, vec.KEYBOARD.keyboard_content) ;
+
+						  return vec;
 				               },
 
 		                  // native: get_value, set_value

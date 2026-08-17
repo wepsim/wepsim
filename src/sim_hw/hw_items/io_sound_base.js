@@ -49,7 +49,7 @@ export function io_sound_base_register ( sim_p )
                         		details_name: [ "SOUND" ],
                         		details_fire: [ ],
 
-                        		// state: write_state, read_state, get_state
+                                        // state: write_state, read_state
                         		write_state: function ( vec ) {
                         				if (typeof vec.SOUND == "undefined") {
                         				      vec.SOUND = {} ;
@@ -88,15 +88,26 @@ export function io_sound_base_register ( sim_p )
 
                         				return false ;
                         			     },
-                        		get_state: function ( vec ) {
-							if (typeof vec.SOUND == "undefined") {
-							    vec.SOUND = {} ;
-							}
-	
-							vec.SOUND[0] = sim_p.internal_states.sound_content ;
-	
-							return vec;
-                        			   },
+
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
+                                                  if (typeof vec.SOUND == "undefined") {
+                                                      vec.SOUND = {} ;
+                                                  }
+
+                                                  vec.SOUND.sound_content = Object.assign({}, sim_p.internal_states.sound_content) ;
+
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.SOUND == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.sound_content = Object.assign({}, vec.SOUND.sound_content) ;
+
+						  return vec;
+				               },
 
                         		// native: get_value, set_value
                         		get_value: function ( elto ) {
