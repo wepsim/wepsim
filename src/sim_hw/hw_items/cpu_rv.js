@@ -129,27 +129,43 @@ export function cpu_rv_register ( sim_p )
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
-                                                      vec.CPU = {} ;
+                                                      vec.CPU = { signals: {}, states: {}, br: {} } ;
                                                   }
 
-                                                  vec.CPU.states    = Object.assign({}, sim_p.states) ;
-                                                  vec.CPU.signals   = Object.assign({}, sim_p.signals) ;
-                                                  vec.CPU.rf        = Object.assign({}, sim_p.states.BR) ;
                                                   vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
+
+                                                  for (var key in sim_p.signals) {
+                                                       vec.CPU.signals[key] = get_value(sim_p.signals[key]);
+                                                  }
+                                                  for (var key in sim_p.states) {
+                                                       if (key === "BR") continue;
+                                                       vec.CPU.states[key]  = get_value(sim_p.states[key]);
+                                                  }
+                                                  for (var key in sim_p.states.BR) {
+                                                       vec.CPU.br[key]      = get_value(sim_p.states.BR[key]);
+                                                  }
 
 						  return vec;
 				              },
 		                 load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.CPU == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
-                                                  sim_p.states      = Object.assign({}, vec.CPU.states) ;
-                                                  sim_p.signals     = Object.assign({}, vec.CPU.signals) ;
-                                                  sim_p.states.BR   = Object.assign({}, vec.CPU.rf) ;
                                                   sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
 
-						  return vec;
+                                                  for (var key in sim_p.signals) {
+                                                       set_value(sim_p.signals[key],   vec.CPU.signals[key]) ;
+                                                  }
+                                                  for (var key in sim_p.states) {
+                                                       if (key === "BR") continue;
+                                                       set_value(sim_p.states[key],    vec.CPU.states[key]);
+                                                  }
+                                                  for (var key in sim_p.states.BR) {
+                                                       set_value(sim_p.states.BR[key], vec.CPU.br[key]) ;
+                                                  }
+
+						  return true ;
 				              },
 
 		                  // native: get_value, set_value

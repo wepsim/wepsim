@@ -544,7 +544,7 @@
                 // remove older ones
                 var history_size = get_cfg('history_size') ;
                 if (state_history.length > history_size) {
-                    array.splice(0, history_size - state_history.length);
+                    state_history.splice(0, history_size - state_history.length) ;
                 }
             }
 

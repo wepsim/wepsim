@@ -71,14 +71,14 @@ export function io_l3d_base_register ( sim_p )
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec["3DLED"] == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
                                                   sim_p.internal_states.l3d_dim    = vec["3DLED"].l3d_dim ;
                                                   sim_p.internal_states.l3d_neltos = vec["3DLED"].l3d_neltos ;
                                                   sim_p.internal_states.l3d_state  = Object.assign({}, vec["3DLED"].l3d_state) ;
 
-						  return vec;
+						  return true ;
 				               },
 
 		                  // native: get_value, set_value

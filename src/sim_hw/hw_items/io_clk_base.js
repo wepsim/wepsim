@@ -63,17 +63,15 @@ export function io_clk_base_register ( sim_p )
                                                   }
 
                                                   vec.IO.io_int_factory = Object.assign({}, sim_p.internal_states.io_int_factory) ;
-
 						  return vec;
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.IO == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
                                                   sim_p.internal_states.io_int_factory = Object.assign({}, vec.IO.io_int_factory) ;
-
-						  return vec;
+						  return true ;
 				               },
 
 		                  // native: get_value, set_value

@@ -77,7 +77,7 @@ export function io_ldm_base_register ( sim_p )
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.LEDM == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
                                                   sim_p.internal_states.ledm_dim    = vec.LEDM.ledm_dim ;
@@ -87,7 +87,7 @@ export function io_ldm_base_register ( sim_p )
                                                   sim_p.internal_states.ledm_frame  = vec.LEDM.ledm_frame ;
                                                   sim_p.internal_states.ledm_sync   = vec.LEDM.ledm_sync ;
 
-						  return vec;
+						  return true ;
 				               },
 
                                   // native: get_value, set_value

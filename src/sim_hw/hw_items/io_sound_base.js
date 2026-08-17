@@ -95,18 +95,16 @@ export function io_sound_base_register ( sim_p )
                                                       vec.SOUND = {} ;
                                                   }
 
-                                                  vec.SOUND.sound_content = Object.assign({}, sim_p.internal_states.sound_content) ;
-
+                                                  vec.SOUND.sound_content = get_sound_content() ;
 						  return vec;
 				               },
 		                  load_state:  function ( vec ) {
                                                   if ( (vec == "undefined") && (vec.SOUND == "undefined") ) {
-                                                      return ;
+                                                      return false ;
                                                   }
 
-                                                  sim_p.internal_states.sound_content = Object.assign({}, vec.SOUND.sound_content) ;
-
-						  return vec;
+                                                  set_sound_content(vec.SOUND.sound_content) ;
+						  return true ;
 				               },
 
                         		// native: get_value, set_value
