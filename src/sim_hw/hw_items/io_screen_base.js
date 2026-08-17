@@ -44,7 +44,7 @@ export function io_screen_base_register ( sim_p )
                                   details_name: [ "SCREEN" ],
                                   details_fire: [ ['svg_p:text3845'] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
@@ -83,15 +83,26 @@ export function io_screen_base_register ( sim_p )
 
                                                   return false ;
 				             },
-		                  get_state: function ( line ) {
-					          var sim_screen = sim_p.internal_states.screen_content ;
-					          var sim_lines  = sim_screen.trim().split("\n") ;
-						  var index = parseInt(line) ;
-						  if (typeof sim_lines[index] != "undefined")
-						      return sim_lines[index] ;
 
-					          return null ;
-				              },
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
+                                                  if (typeof vec.SCREEN == "undefined") {
+                                                      vec.SCREEN = {} ;
+                                                  }
+
+                                                  vec.SCREEN.screen_content = Object.assign({}, sim_p.internal_states.screen_content) ;
+
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.SCREEN == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.screen_content = Object.assign({}, vec.SCREEN.screen_content) ;
+
+						  return vec;
+				               },
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {

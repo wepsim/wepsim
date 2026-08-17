@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 // 20. base variables
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname  = path.dirname(__filename);
 
 
 // 30. Configuration (1/2)

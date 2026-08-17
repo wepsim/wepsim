@@ -831,7 +831,8 @@
                                        wepsim_config_button_pretoggle_val2('ws_skin_user', 'beta_history', '14') ;
                                        wepsim_config_button_pretoggle('history_enable', '14g') ;
                                    },
-                      description: "<span data-langkey='History: save execution history to allow going back'>History: save execution history to allow going back</span>&nbsp;"
+                      description: "<span data-langkey='History: save execution history to allow going back'>History: save execution history to allow going back</span>&nbsp;" +
+                                   "<sup><span class='badge text-bg-secondary py-1 px-2'>beta</span></sup>"
                    });
 
     ws_info.config_ui.push({
@@ -857,6 +858,7 @@
                       code_init:   function() {
                                        $('#select15').val(get_cfg('history_size'));
                                    },
-                      description: "<span data-langkey='History limit: number of states to keep in history'>History limit: number of states to keep in history</span>"
+                      description: "<span data-langkey='History limit: number of states to keep in history'>History limit: number of states to keep in history</span>" +
+                                   "<sup><span class='badge text-bg-secondary py-1 px-2'>beta</span></sup>"
                    });
 

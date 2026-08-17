@@ -94,8 +94,8 @@ mkdir -p  ./external/codemirror6
 touch     ./external/codemirror6/index.html
 
 echo " * codemirror6..."
-cp devel/external_glue/codemirror.mjs     ./external/codemirror6/codemirror.mjs 
-cp devel/external_glue/rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
+cp devel/external_glue/codemirror.mjs                ./external/codemirror6/codemirror.mjs
+cp devel/external_glue/codemirror.rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
 
 node_modules/.bin/rollup -c ./external/codemirror6/rollup.config.mjs
 terser -o ./external/codemirror6/min.codemirror.js ./external/codemirror6/codemirror.bundle.js

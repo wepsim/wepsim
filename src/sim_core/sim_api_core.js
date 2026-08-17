@@ -25,12 +25,16 @@
               set_cfg }                  from "./sim_cfg.js";
      import { show_asmdbg_pc,
               show_dbg_ir,
-              show_dbg_mpc }             from "./sim_core_ui.js";
+              show_dbg_mpc,
+              ws_alert }                 from "./sim_core_ui.js";
      import { get_value,
               set_value }                from "./sim_core_values.js";
      import { get_simware,
               set_simware }              from "./sim_adt_core.js";
      import { update_memories }          from "./sim_core_ctrl.js";
+     import { simcore_simstate_saveCurrent,
+              simcore_simstate_restoreCurrent,
+              simcore_simstate_current2state } from "./sim_api_stateshots.js";
 
      import { simhw_getIdByName,
               simhw_setActive,
@@ -56,7 +60,7 @@
      import { control_memory_get }       from "./sim_adt_ctrlmemory.js";
 
 
-        /* 1) Init */
+     /* 1) Init */
 
         /**
          * Initialize simulator core and UI.
@@ -137,7 +141,7 @@
         }
 
 
-        /* 2) UI panels */
+     /* 2) UI panels */
 
         /**
          * Initialize simulator core and UI.
@@ -278,7 +282,7 @@
         }
 
 
-        /* 3) Check if can... */
+     /* 3) Check if can... */
 
         /**
          * Check if simulation can be executed
@@ -390,7 +394,7 @@
         }
 
 
-        /* 4) Execution */
+     /* 4) Execution */
 
         /**
          * Reset the WepSIM simulation.
@@ -489,6 +493,8 @@
         /**
          * Execute the next microinstruction.
          */
+        var state_history = [] ;
+
         export function simcore_execute_microinstruction ( )
         {
 	    var ret = simcore_check_if_can_continue() ;
@@ -496,11 +502,26 @@
 		return ret ;
 	    }
 
+            // if history_enabled -> save history before next clock cycle
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
+            {
+                // save current state
+                var state_obj = simcore_simstate_saveCurrent() ;
+                state_history.push(state_obj) ;
+
+                // remove older ones
+                var history_size = get_cfg('history_size') ;
+                if (state_history.length > history_size) {
+                    array.splice(0, history_size - state_history.length);
+                }
+            }
+
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;
 
             // CPU - User Interface
-            show_dbg_mpc();
+            show_dbg_mpc() ;
 
             return ret ;
         }
@@ -511,6 +532,21 @@
 	    if (false === ret.ok) {
 		return ret ;
 	    }
+
+            // if history_enabled -> save history before next clock cycle
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
+            {
+                // save current state
+                var state_obj = simcore_simstate_saveCurrent() ;
+                state_history.push(state_obj) ;
+
+                // remove older ones
+                var history_size = get_cfg('history_size') ;
+                if (state_history.length > history_size) {
+                    array.splice(0, history_size - state_history.length);
+                }
+            }
 
             // CPU - Hardware
             compute_general_behavior("CLOCK") ;
@@ -528,8 +564,24 @@
 		return ret ;
 	    }
 
-            // CPU - Hardware
-            compute_general_behavior("HISTORY_RESTORE") ;
+            // if history_enabled -> restore history
+            var history_enable = get_cfg('history_enable') ;
+            if (true == history_enable)
+            {
+                // TODO: HISTORY_RESTORE
+                ws_alert('ERROR: undo execution not supported on this processor. ') ;
+
+                // restory current state
+                if (state_history.length > 0)
+                {
+                    var state_obj = state_history.pop();
+                    simcore_simstate_restoreCurrent(state_obj) ;
+                }
+                else
+                {
+                    ws_alert('ERROR: history limit reached, please check the configuration value. ') ;
+                }
+            }
 
             // CPU - User Interface
             show_dbg_mpc();
@@ -714,7 +766,7 @@
         }
 
 
-        /* 5) Compile */
+     /* 5) Compile */
 
         /**
          * Compile Firmware.
@@ -837,7 +889,7 @@
         }
 
 
-        /* 6) Hardware */
+     /* 6) Hardware */
 
         /**
          * Export Hardware to JSON string

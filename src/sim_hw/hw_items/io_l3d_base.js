@@ -49,31 +49,52 @@ export function io_l3d_base_register ( sim_p )
 		                  details_name: [ "3DLED" ],
                                   details_fire: [ [] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
 		                  read_state:  function ( o, check ) {
                                                   return false ;
 				               },
-		                  get_state:   function ( reg ) {
-					          return null ;
+
+		                  // state: save_state, load_state
+		                  save_state:  function ( vec ) {
+                                                  if (typeof vec["3DLED"] == "undefined") {
+                                                      vec["3DLED"] = {} ;
+                                                  }
+
+                                                  vec["3DLED"].l3d_dim    = sim_p.internal_states.l3d_dim ;
+                                                  vec["3DLED"].l3d_neltos = sim_p.internal_states.l3d_neltos ;
+                                                  vec["3DLED"].l3d_state  = Object.assign({}, sim_p.internal_states.l3d_state) ;
+
+						  return vec;
+				               },
+		                  load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec["3DLED"] == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.internal_states.l3d_dim    = vec["3DLED"].l3d_dim ;
+                                                  sim_p.internal_states.l3d_neltos = vec["3DLED"].l3d_neltos ;
+                                                  sim_p.internal_states.l3d_state  = Object.assign({}, vec["3DLED"].l3d_state) ;
+
+						  return vec;
 				               },
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var associated_state = simhw_internalState_get('io_hash', elto) ;
-                                                    if (typeof associated_state == "undefined") {
-                                                        throw new Error("unknown element named " + elto) ;
-                                                    }
-						    var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
+						  var associated_state = simhw_internalState_get('io_hash', elto) ;
+                                                  if (typeof associated_state == "undefined") {
+                                                      throw new Error("unknown element named " + elto) ;
+                                                  }
+						  var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
-						    set_value(simhw_sim_state('BUS_AB'), elto) ;
-						    set_value(simhw_sim_signal('IOR'), 1) ;
-						    signal_fire("IOR") ; //compute_behavior("FIRE IOR") ;
-						    value = get_value(simhw_sim_state('BUS_DB')) ;
+						  set_value(simhw_sim_state('BUS_AB'), elto) ;
+						  set_value(simhw_sim_signal('IOR'), 1) ;
+						  signal_fire("IOR") ; // compute_behavior("FIRE IOR") ;
+						  value = get_value(simhw_sim_state('BUS_DB')) ;
 
-						    return value ;
+						  return value ;
                                                },
                                   set_value:   function ( elto, value ) {
 						    var associated_state = simhw_internalState_get('io_hash', elto) ;

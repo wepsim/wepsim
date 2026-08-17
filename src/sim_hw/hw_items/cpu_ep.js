@@ -67,7 +67,7 @@ export function cpu_ep_register ( sim_p )
 		                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
                                   details_fire: [ ['svg_p:text3029', 'svg_p:text3031'], ['svg_cu:text3010'], ['svg_p:text3459-7', 'svg_cu:text4138', 'svg_cu:text4138-7'], ['svg_p:text3495'] ],
 
-		                  // state: write_state, read_state, get_state
+		                  // state: write_state, read_state
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined") {
                                                       vec.CPU = {} ;
@@ -122,22 +122,31 @@ export function cpu_ep_register ( sim_p )
 
                                                   return false ;
 				              },
-		                  get_state:  function ( reg ) {
-					          var value = 0 ;
-					          var r_reg = reg.toUpperCase().trim() ;
-					          if (typeof sim_p.states['REG_' + r_reg] != "undefined") {
-					              value = get_value(sim_p.states['REG_' + r_reg]) >>> 0;
-					              return "0x" + value.toString(16) ;
-					          }
 
-					              r_reg = r_reg.replace('R','') ;
-					          var index = parseInt(r_reg) ;
-					          if (typeof sim_p.states.BR[index] != "undefined") {
-					              value = get_value(sim_p.states.BR[index]) >>> 0;
-					              return "0x" + value.toString(16) ;
-					          }
+		                 // state: save_state, load_state
+		                 save_state:  function ( vec ) {
+                                                  if (typeof vec.CPU == "undefined") {
+                                                      vec.CPU = {} ;
+                                                  }
 
-					          return null ;
+                                                  vec.CPU.states    = Object.assign({}, sim_p.states) ;
+                                                  vec.CPU.signals   = Object.assign({}, sim_p.signals) ;
+                                                  vec.CPU.rf        = Object.assign({}, sim_p.states.BR) ;
+                                                  vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
+
+						  return vec;
+				              },
+		                 load_state:  function ( vec ) {
+                                                  if ( (vec == "undefined") && (vec.CPU == "undefined") ) {
+                                                      return ;
+                                                  }
+
+                                                  sim_p.states      = Object.assign({}, vec.CPU.states) ;
+                                                  sim_p.signals     = Object.assign({}, vec.CPU.signals) ;
+                                                  sim_p.states.BR   = Object.assign({}, vec.CPU.rf) ;
+                                                  sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
+
+						  return vec;
 				              },
 
 		                  // native: get_value, set_value
@@ -2739,16 +2748,6 @@ export function cpu_ep_register ( sim_p )
                                                         }
 					   };
 
-	sim_p.behaviors["HISTORY_RESTORE"] = { nparameters: 1,
-				               operation: function(s_expr)
-							  {
-                                                             ws_alert('ERROR: undo execution not supported in this CPU. ') ;
-                                                          },
-                                               verbal:    function (s_expr)
-                                                          {
-                                                             return "" ;
-                                                          }
-					   };
 	sim_p.behaviors["REFRESH"]       = { nparameters: 1,
 				               operation: function(s_expr)
 							  {
