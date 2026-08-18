@@ -23,6 +23,7 @@ export * from '../../src/sim_core/sim_adt_cachememory.js';
 export * from '../../src/sim_hw/sim_hw_values.js';
 export * from '../../src/sim_hw/sim_hw_behavior.js';
 export * from '../../src/sim_hw/sim_hw_signal.js';
+export * from '../../src/sim_hw/sim_hw_state.js';
 export * from '../../src/sim_hw/sim_hw_eltos.js';
  export * from '../../src/sim_hw/hw_items/board_base.js';
 export * from '../../src/sim_hw/hw_items/cpu_ep.js';

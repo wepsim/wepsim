@@ -19,6 +19,10 @@
  */
 
 
+   //
+   // Import
+   //
+
     import { get_value }                     from "../sim_core/sim_core_values.js";
     import { simcore_native_get_value,
              simcore_native_set_value }      from "../sim_core/sim_api_native.js";
@@ -88,45 +92,46 @@
 
     export var hash_detail_ui = {
 
-	    "SCREEN":         {
-		                        init: simcore_do_nothing_handler,
-		                        get_screen_content: function() {
-					                   return simcore_native_get_value("SCREEN", "content") ;
-				                },
-                                set_screen_content: function ( screen_content ) {
-                                        simcore_native_set_value("SCREEN", "content", screen_content) ;
-							            return screen_content ;
-					            }
-	                      },
+	    "SCREEN":    {
+		              init:               simcore_do_nothing_handler,
+		              get_screen_content: function() {
+					              return simcore_native_get_value("SCREEN", "content") ;
+				                  },
+                              set_screen_content: function ( screen_content ) {
+                                                      simcore_native_set_value("SCREEN", "content", screen_content) ;
+						      return screen_content ;
+					          }
+	                 },
 
-	    "KEYBOARD":       {
-		                        init: simcore_do_nothing_handler,
-		                        get_keyboard_content: function () {
-							        var readlineSync = require('readline-sync');
-							        var keys = readlineSync.question('keyboard> ');
-							        var keystrokes = keys.toString() ;
+	    "KEYBOARD":  {
+		              init:                 simcore_do_nothing_handler,
+		              get_keyboard_content: function () {
+							var readlineSync = require('readline-sync');
+							var keys = readlineSync.question('keyboard> ');
+							var keystrokes = keys.toString() ;
 
-                                                                simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
-							        return keystrokes ;
-						        },
-                                set_keyboard_content: function( keystrokes ) {
+                                                        simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+							return keystrokes ;
+						    },
+                              set_keyboard_content: function( keystrokes ) {
                                                         simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
 					                return keystrokes ;
-				                }
-	                      },
+				                    }
+	                 },
 
-	    "SOUND":          {
-		                        init: simcore_do_nothing_handler,
-		                        get_sound_content: function() {
-					                return simcore_native_get_value("SOUND", "content") ;
-				                },
-                                set_sound_content: function ( sound_content ) {
-                                    simcore_native_set_value("SOUND", "content", sound_content) ;
-							        return sound_content ;
-					            }
-	                      }
+	    "SOUND":     {
+		              init:              simcore_do_nothing_handler,
+		              get_sound_content: function() {
+					             return simcore_native_get_value("SOUND", "content") ;
+				                 },
+                              set_sound_content: function ( sound_content ) {
+                                                     simcore_native_set_value("SOUND", "content", sound_content) ;
+						     return sound_content ;
+					         }
+	                 }
 
-	} ;
+    } ;
+
 
     export function wepsim_nodejs_load_jsonfile ( url_json )
     {

@@ -56,11 +56,11 @@ export function io_screen_base_register ( sim_p )
 					          {
 					               var value = sim_lines[i] ;
            					       if (value != "") {
-							   vec.SCREEN[i] = {"type":  "screen",
-								            "default_value": "",
-								            "id":    i,
-								            "op":    "==",
-								            "value": value} ;
+							   vec.SCREEN[i] = { "type":  "screen",
+								             "default_value": "",
+								             "id":    i,
+								             "op":    "==",
+								             "value": value } ;
    						       }
 					          }
 
@@ -86,10 +86,7 @@ export function io_screen_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec.SCREEN == "undefined") {
-                                                      vec.SCREEN = {} ;
-                                                  }
-
+                                                  vec.SCREEN                = vec.SCREEN || {} ;
                                                   vec.SCREEN.screen_content = get_screen_content() ;
 						  return vec;
 				               },

@@ -13,7 +13,7 @@
   - [Devel directory](#devel-directory)
 
 
-## Pre-requisites
+## 1. Pre-requisites
 
 First, install the basic development tools:
 
@@ -22,7 +22,7 @@ First, install the basic development tools:
 ```
 
 
-## Building WepSIM
+## 2. Building WepSIM
 
 First step, clone the GitHub repository:
 
@@ -37,7 +37,7 @@ Next step, install the NodeJS tools:
    npm install
 ```
 
-This is equivalent to:
+This should be equivalent to:
 
 ```bash
    npm i --save-dev typescript@6
@@ -66,6 +66,14 @@ This is equivalent to:
    npm i --save-dev @codemirror/lang-javascript
    npm i --save-dev @replit/codemirror-minimap
 ```
+
+Finally, you can run a simple local HTTP server:
+
+```bash
+   python3 -m http.server 8000 &
+```
+
+And open your web browser at ```http://localhost:8000```
 
 
 ## Distribution files
