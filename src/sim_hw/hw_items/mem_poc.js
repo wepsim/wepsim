@@ -93,15 +93,12 @@ export function mem_poc_register ( sim_p )
 
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
-                                                  if (typeof vec.MEMORY == "undefined") {
-                                                      vec.MEMORY = {} ;
-                                                  }
-
+                                                  vec.MEMORY    = vec.MEMORY || {} ;
                                                   vec.MEMORY.MP = Object.assign({}, sim_p.internal_states.MP) ;
 						  return vec;
 				              },
 		                 load_state:  function ( vec ) {
-                                                  if ( (vec == "undefined") && (vec.MEMORY == "undefined") ) {
+                                                  if ( (typeof vec == "undefined") && (typeof vec.MEMORY == "undefined") ) {
                                                       return false ;
                                                   }
 

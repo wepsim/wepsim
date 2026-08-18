@@ -62,10 +62,7 @@ export function io_ldm_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec.LEDM == "undefined") {
-                                                      vec.LEDM = {} ;
-                                                  }
-
+                                                  vec.LEDM             = vec.LEDM || {} ;
                                                   vec.LEDM.ledm_dim    = sim_p.internal_states.ledm_dim ;
                                                   vec.LEDM.ledm_neltos = sim_p.internal_states.ledm_neltos ;
                                                   vec.LEDM.ledm_state  = Object.assign({}, sim_p.internal_states.ledm_state) ;

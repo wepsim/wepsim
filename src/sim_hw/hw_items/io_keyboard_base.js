@@ -57,10 +57,7 @@ export function io_keyboard_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec.KEYBOARD == "undefined") {
-                                                      vec.KEYBOARD = {} ;
-                                                  }
-
+                                                  vec.KEYBOARD                  = vec.KEYBOARD || {} ;
                                                   vec.KEYBOARD.keyboard_content = get_keyboard_content() ;
 						  return vec ;
 				               },

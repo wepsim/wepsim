@@ -58,10 +58,7 @@ export function io_clk_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec.IO == "undefined") {
-                                                      vec.IO = {} ;
-                                                  }
-
+                                                  vec.IO                = vec.IO || {} ;
                                                   vec.IO.io_int_factory = Object.assign({}, sim_p.internal_states.io_int_factory) ;
 						  return vec;
 				               },

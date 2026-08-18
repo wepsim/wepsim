@@ -515,7 +515,7 @@
                 // remove older ones
                 var history_size = get_cfg('history_size') ;
                 if (ws_info.state_history.length > history_size) {
-                    array.splice(0, history_size - ws_info.state_history.length);
+                    ws_info.state_history.splice(0, history_size - ws_info.state_history.length) ;
                 }
             }
 

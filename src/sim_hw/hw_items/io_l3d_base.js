@@ -59,10 +59,7 @@ export function io_l3d_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec["3DLED"] == "undefined") {
-                                                      vec["3DLED"] = {} ;
-                                                  }
-
+                                                  vec["3DLED"]            = vec["3DLED"] || {} ;
                                                   vec["3DLED"].l3d_dim    = sim_p.internal_states.l3d_dim ;
                                                   vec["3DLED"].l3d_neltos = sim_p.internal_states.l3d_neltos ;
                                                   vec["3DLED"].l3d_state  = Object.assign({}, sim_p.internal_states.l3d_state) ;

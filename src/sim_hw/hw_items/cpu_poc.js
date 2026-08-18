@@ -126,24 +126,22 @@ export function cpu_poc_register ( sim_p )
 
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
-                                                  if (typeof vec.CPU == "undefined") {
-                                                      vec.CPU = {} ;
-                                                  }
+                                                  vec.CPU = vec.CPU || {} ;
 
+                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
                                                    hw_states_save(vec.CPU, sim_p.states) ;
                                                    vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
-                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
 
 						  return vec;
 				              },
 		                 load_state:  function ( vec ) {
-                                                  if ( (vec == "undefined") && (vec.CPU == "undefined") ) {
-                                                      return false ;
+                                                  if ( (typeof vec == "undefined") || (typeof vec.CPU == "undefined") ) {
+                                                        return false ;
                                                   }
 
+                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
                                                    hw_states_load(vec.CPU, sim_p.states) ;
                                                    sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
-                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
 
 						  return true ;
 				              },

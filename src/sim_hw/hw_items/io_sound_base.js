@@ -91,10 +91,7 @@ export function io_sound_base_register ( sim_p )
 
 		                  // state: save_state, load_state
 		                  save_state:  function ( vec ) {
-                                                  if (typeof vec.SOUND == "undefined") {
-                                                      vec.SOUND = {} ;
-                                                  }
-
+                                                  vec.SOUND               = vec.SOUND || {} ;
                                                   vec.SOUND.sound_content = get_sound_content() ;
 						  return vec;
 				               },

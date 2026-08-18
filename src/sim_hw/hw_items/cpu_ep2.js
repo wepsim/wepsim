@@ -134,24 +134,22 @@ export function cpu_ep2_register ( sim_p )
 
 		                 // state: save_state, load_state
 		                 save_state:  function ( vec ) {
-                                                  if (typeof vec.CPU == "undefined") {
-                                                      vec.CPU = {} ;
-                                                  }
+                                                  vec.CPU = vec.CPU || {} ;
 
+                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
                                                    hw_states_save(vec.CPU, sim_p.states) ;
                                                    vec.CPU.alu_flags = Object.assign({}, sim_p.internal_states.alu_flags) ;
-                                                  hw_signals_save(vec.CPU, sim_p.signals) ;
 
 						  return vec;
 				              },
 		                 load_state:  function ( vec ) {
-                                                  if ( (vec == "undefined") && (vec.CPU == "undefined") ) {
-                                                      return false ;
+                                                  if ( (typeof vec == "undefined") || (typeof vec.CPU == "undefined") ) {
+                                                        return false ;
                                                   }
 
+                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
                                                    hw_states_load(vec.CPU, sim_p.states) ;
                                                    sim_p.internal_states.alu_flags = Object.assign({}, vec.CPU.alu_flags) ;
-                                                  hw_signals_load(vec.CPU, sim_p.signals) ;
 
 						  return true ;
 				              },
@@ -884,19 +882,19 @@ export function cpu_ep2_register ( sim_p )
                                                    'svg_cu:path3268','svg_cu:path3364','svg_cu:path3316']],
 			              draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 sim_p.signals["MR_RA"]  = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
+			              behavior: ['MBIT_SELX RA REG_IR REG_MICROINS SELA 5; FIRE RA;',
 				   	         'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
 			              fire_name: [],
 			              draw_data: [[]],
 			              draw_name: [[]] };
 	 sim_p.signals["MR_RB"]  = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
+			              behavior: ['MBIT_SELX RB REG_IR REG_MICROINS SELB 5; FIRE RB;',
 				    	         'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
 			              fire_name: [],
 			              draw_data: [[]],
 			              draw_name: [[]] };
 	 sim_p.signals["MR_RC"]  = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			              behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
+			              behavior: ['MBIT_SELX RC REG_IR REG_MICROINS SELC 5; FIRE RC;',
 					         'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
 			              fire_name: [],
 			              draw_data: [[]],
@@ -2159,7 +2157,7 @@ export function cpu_ep2_register ( sim_p )
                                                    return "" ;
                                                 }
 				   };
-	sim_p.behaviors["MBIT"]     = { nparameters: 5,
+	sim_p.behaviors["MBIT"]  = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr)
 		                                {
@@ -2198,7 +2196,58 @@ export function cpu_ep2_register ( sim_p )
                                                                  size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
-	sim_p.behaviors["MBIT_SN"]  = { nparameters: 5,
+	sim_p.behaviors["MBIT_SELX"] = { nparameters: 6,
+				     types: ["S", "E", "E", "S", "I"],
+				     operation: function (s_expr)
+		                                {
+						   var base = 0;
+						   if (typeof  sim_p.states[s_expr[3]].value[s_expr[4]] != "undefined")
+							base = sim_p.states[s_expr[3]].value[s_expr[4]];
+					      else if (typeof   sim_p.signals[s_expr[4]].default_value != "undefined")
+						        base =  sim_p.signals[s_expr[4]].default_value;
+						   else ws_alert('WARN: undefined field from REG_MINS -> ' + s_expr[3] + '/' + s_expr[4]);
+
+                                                   var value = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+						   var size  = parseInt(s_expr[5]) ;
+						   var shiftby = 32 - (base + size) ;
+
+                                                   var n3 = value << shiftby ;
+                                                       n3 = n3   >>> shiftby ;
+                                                       n3 = n3   >>> base ;
+
+						   set_value(sim_p.signals[s_expr[1]], n3);
+                                                },
+                                        verbal: function (s_expr)
+                                                {
+		                                   //          0       1      2          3          4  5
+	                                           // E.g.: MBIT_SELX  RA  REG_IR  REG_MICROINS  SELA  5
+
+						   var base = 0;
+						   if (typeof  sim_p.states[s_expr[3]].value[s_expr[4]] != "undefined")
+							base = sim_p.states[s_expr[3]].value[s_expr[4]];
+					      else if (typeof   sim_p.signals[s_expr[4]].default_value != "undefined")
+						        base =  sim_p.signals[s_expr[4]].default_value;
+						   else ws_alert('WARN: undefined field from REG_MINS -> ' + s_expr[3] + '/' + s_expr[4]);
+
+                                                   var value = get_value(sim_p.states[s_expr[2]]) >>> 0 ;
+						   var size  = parseInt(s_expr[5]) ;
+						   var shiftby = 32 - (base + size) ;
+
+                                                   var n3 = value << shiftby ;
+                                                       n3 = n3   >>> shiftby ;
+                                                       n3 = n3   >>> base ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[2]) + "[" + s_expr[4] + "] " +
+							      "into "      + show_verbal(s_expr[1]) + " " +
+						              "value "     + n3 + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + from_elto + " (" + parseInt(n3, 2) + "). " ;
+                                                }
+				   };
+	sim_p.behaviors["MBIT_SN"] = { nparameters: 5,
 				     types: ["S", "E", "E", "I"],
 				     operation: function (s_expr)
 		                                {
@@ -2229,6 +2278,9 @@ export function cpu_ep2_register ( sim_p )
                                                 },
                                         verbal: function (s_expr)
                                                 {
+		                                   //          0     1      2          3            4
+	                                           // E.g.: MBIT_SN  RA  REG_IR  REG_MICROINS/SELA  5
+
 						   // value
 						   var base = 0;
 						   var r = s_expr[3].split('/');
@@ -2257,8 +2309,6 @@ export function cpu_ep2_register ( sim_p )
                                                         from_elto = show_verbal(s_expr[3]) ;
 						   else from_elto = show_verbal(s_expr[2]) + "[" + r[1] + "] " ;
 
-		                                   //          0     1     2         3           4
-	                                           // E.g.: MBIT_SN  RA REG_IR REG_MICROINS/SELA 5
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
                                                        return "Copy from " + from_elto +
