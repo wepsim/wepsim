@@ -46,7 +46,7 @@
 	    var edt_mode = get_cfg('editor_mode');
 
             var aval_modes = [ 'default', 'vim', 'emacs', 'sublime' ] ;
-            if (false == aval_modes.includes(value)) {
+            if (false == aval_modes.includes(edt_mode)) {
                 return ;
             }
 
