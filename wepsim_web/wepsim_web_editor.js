@@ -45,15 +45,12 @@
     {
 	    var edt_mode = get_cfg('editor_mode');
 
-	    if (edt_mode === 'vim') {
-		editor.setOption('keyMap','vim');
+            var aval_modes = [ 'default', 'vim', 'emacs', 'sublime' ] ;
+            if (false == aval_modes.includes(value)) {
+                return ;
             }
-	    if (edt_mode === 'emacs') {
-		editor.setOption('keyMap','emacs');
-            }
-	    if (edt_mode === 'sublime') {
-		editor.setOption('keyMap','sublime');
-            }
+
+            editor.setOption('keyMap', edt_mode);
     }
 
     function sim_cm_get_firmcfg ( )
