@@ -73,6 +73,7 @@
             this.theme_compartment    = new this.CM6.Compartment() ;
             this.keymap_compartment   = new this.CM6.Compartment() ;
             this.readonly_compartment = new this.CM6.Compartment() ;
+        this.autocomplete_compartment = new this.CM6.Compartment();
 
             // For highlight a single line
             this.setLineHighlight     = this.CM6.StateEffect.define() ;
@@ -92,6 +93,8 @@
                  editor_opt.mode = "javascript" ;
             else editor_opt.mode = "gas" ;
 
+            this.pendingAutoList = [] ;
+
             // Extension array
             const extensions = [
                 updateListener,
@@ -107,11 +110,20 @@
                 this.theme_compartment.of([]),
                 this.keymap_compartment.of([]),
                 this.readonly_compartment.of( this.CM6.EditorState.readOnly.of(false) ),
+                this.autocomplete_compartment.of(
+                    this.CM6.autocompletion({
+                        override: [this.CM6.completeFromList(this.pendingAutoList)]
+                    })
+                ),
 
                 this.CM6.EditorView.theme({
                     '&':            { height: '100%' },
                     '.cm-scroller': { overflow: 'auto' },
                     '.cm-content':  { 'white-space': 'pre-wrap', 'word-break': 'normal', 'font-weight': 'bold' },
+                    '.CodeMirror-selected': { 
+                        'background-color': '#cfe2ff !important',
+                        'border-left':      '4px solid #0d6efd'
+                    }
                 }),
 
                 this.lineHighlightField
@@ -313,6 +325,23 @@
             });
         }
 
+        updateAutoCompleteList ( newAutoList )
+        {
+            this.pendingAutoList = newAutoList ;
+
+            if (! this.view) {
+                  return;
+            }
+
+            const newExtension = this.CM6.autocompletion({
+                override: [ this.CM6.completeFromList(newAutoList) ]
+            });
+
+            this.view.dispatch({
+                effects: this.autocomplete_compartment.reconfigure(newExtension)
+            });
+        }
+
         focus ( ) {
             this.view.focus();
         }
@@ -349,6 +378,42 @@
             editor.setOption('keyMap', edt_mode);
     }
 
+    export function sim_cfg_autocomplete_list ( editor )
+    {
+        // rebuild list
+	var result  = [];
+	var simware = get_simware() ;
+	for (var i=0; i<simware.firmware.length; i++)
+        {
+	     if (simware.firmware[i].name != "begin") {
+		 result.push(
+                      {
+                        label:  simware.firmware[i].name,
+                        type:   "keyword",
+                        detail: simware.firmware[i].signatureUser || '',
+                        info:   simware.firmware[i].help || ''
+                      }
+                 ) ;
+	     }
+	}
+	for (var i=0; i<simware.pseudoInstructions.length; i++)
+        {
+	     if (simware.pseudoInstructions[i].initial.name != "begin") {
+		 result.push(
+                      {
+                        label:  simware.pseudoInstructions[i].initial.name,
+                        type:   "keyword",
+                        detail: simware.pseudoInstructions[i].initial.signature || '',
+                        info:   ''
+                      }
+                 ) ;
+	     }
+	}
+
+        // update list
+        editor.updateAutoCompleteList(result) ;
+    }
+
     export function sim_init_editor ( editor_id, editor_cfg )
     {
             // new editor
@@ -358,7 +423,8 @@
             sim_cfg_editor_theme(editor_obj) ;
             sim_cfg_editor_mode(editor_obj) ;
 
-            editor_obj.refresh();
+            editor_obj.setSize("auto", "calc(100vh - 12rem)") ;
+            editor_obj.refresh() ;
 
             // return object
 	    return editor_obj ;
@@ -496,6 +562,9 @@
 
         // update UI
 	asmdbg_update_assembly() ;
+
+        var editor = get_inputasm() ;
+        sim_cfg_autocomplete_list(editor) ;
 
 	simcore_reset();
         return true;

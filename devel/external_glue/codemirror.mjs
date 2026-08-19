@@ -13,7 +13,9 @@
             indentLess,
             indentMore,
             toggleComment }       from "@codemirror/commands";
-   import { startCompletion }     from "@codemirror/autocomplete";
+   import { autocompletion,
+            startCompletion,
+            completeFromList }    from "@codemirror/autocomplete";
    import { syntaxHighlighting,
             defaultHighlightStyle,
             HighlightStyle,
@@ -183,8 +185,10 @@
        defaultHighlightStyle,
        HighlightStyle,
        indentUnit,
-       StreamLanguage,
 
+       autocompletion,
+       completeFromList,
+       StreamLanguage,
        javascript,
        gas,
 
