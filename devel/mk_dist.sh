@@ -153,7 +153,14 @@ cat ${BASE_DIR}/min.wepsim_node-end.js        >> ${BASE_DIR}/min.wepsim_node.js
 # building ws_dist/min.*.js
 npm run pack
 
-#  external
+#  external - codemirror6
+cp devel/external_glue/codemirror.mjs                ./external/codemirror6/codemirror.mjs
+cp devel/external_glue/codemirror.rollup.config.mjs  ./external/codemirror6/rollup.config.mjs
+                         node_modules/.bin/rollup -c ./external/codemirror6/rollup.config.mjs
+terser -o ./external/codemirror6/min.codemirror.js   ./external/codemirror6/codemirror.bundle.js
+rm -fr                                               ./external/codemirror6/codemirror.bundle.js
+
+#  building ws_dist/min.external.js
 echo "  * ws_dist/min.external.js"
 cat external/vue/vue.min.js \
     external/vue/vuex.min.js \

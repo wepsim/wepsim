@@ -69,15 +69,69 @@
                 }
             });
 
-            // Para opciones modificables dinámicamente con setOption()
+            // For dynamic options with setOption()
             this.theme_compartment    = new this.CM6.Compartment() ;
             this.keymap_compartment   = new this.CM6.Compartment() ;
             this.readonly_compartment = new this.CM6.Compartment() ;
 
-            // Para efectos de resaltar una línea
-            this.setLineHighlight   = this.CM6.StateEffect.define();
-            this.clearLineHighlight = this.CM6.StateEffect.define();
-            this.lineHighlightField = this.CM6.StateField.define({
+            // For highlight a single line
+            this.setLineHighlight     = this.CM6.StateEffect.define() ;
+            this.clearLineHighlight   = this.CM6.StateEffect.define() ;
+            this.lineHighlightField   = this.getLineHighlightField() ;
+
+            // Options for creating the default extension array
+            var editor_opt = {
+                    mode:          "",
+                    lineWrapping:  true,
+                    showMinimap:   true,
+		    matchBrackets: true,
+		    indentUnit:    3,
+                } ;
+
+            if ("firmware" == editor_cfg)
+                 editor_opt.mode = "javascript" ;
+            else editor_opt.mode = "gas" ;
+
+            // Extension array
+            const extensions = [
+                updateListener,
+
+                ...this.CM6.createSetup({
+                    mode:          editor_opt.mode,
+                    lineWrapping:  editor_opt.lineWrapping,
+                    showMinimap:   editor_opt.showMinimap,
+		    matchBrackets: editor_opt.matchBrackets,
+		    indentUnit:    editor_opt.indentUnit
+                }),
+
+                this.theme_compartment.of([]),
+                this.keymap_compartment.of([]),
+                this.readonly_compartment.of( this.CM6.EditorState.readOnly.of(false) ),
+
+                this.CM6.EditorView.theme({
+                    '&':            { height: '100%' },
+                    '.cm-scroller': { overflow: 'auto' },
+                    '.cm-content':  { 'white-space': 'pre-wrap', 'word-break': 'normal', 'font-weight': 'bold' },
+                }),
+
+                this.lineHighlightField
+            ];
+
+            const state = this.CM6.EditorState.create({
+                doc: "\n\n\n\n\n\n\n\n\n\n",
+                extensions
+            });
+
+            const parent = document.getElementById(editor_id);
+
+            // new EditorView
+            this.view = new this.CM6.EditorView({ state, parent });
+        }
+
+        // helper for constructor
+        getLineHighlightField ( )
+        {
+            var lineHighlightField = this.CM6.StateField.define({
 
 		create() {
 		    return CM6.Decoration.none;
@@ -105,70 +159,41 @@
 		provide: field => CM6.EditorView.decorations.from(field)
             }) ;
 
-
-            var editor_cfg_mode = "" ;
-            var editor_cfg_ext  = [] ;
-            if ("firmware" == editor_cfg)
-            { // "firmware"
-                editor_cfg_mode = "javascript" ;
-                editor_cfg_ext  = [
-                                      this.CM6.EditorView.lineWrapping,
-                                      this.CM6.indentUnit.of('    '),
-                                      this.CM6.keymap.of([
-                                          { key: 'Ctrl-/', run: this.CM6.toggleComment },
-                                          { key: 'Tab',    run: this.CM6.insertIndentUnit, shift: this.CM6.indentLess },
-                                      ])
-                                  ] ;
-            }
-            else
-            { // "assembly"
-		editor_cfg_mode = "gas" ;
-                editor_cfg_ext  = [
-                                      this.CM6.indentUnit.of('    '),
-                                      this.CM6.keymap.of([
-                                          { key: 'Ctrl-Space', run: this.CM6.startCompletion },
-                                          { key: 'Ctrl-/',     run: this.CM6.toggleComment },
-                                          { key: 'Tab',        run: this.CM6.insertIndentUnit, shift: this.CM6.indentLess },
-                                      ]),
-                                  ] ;
-            }
-
-            // Array de extensiones
-            const extensions = [
-                updateListener,
-
-                ...this.CM6.createSetup({
-                    mode:          editor_cfg_mode,
-                    lineWrapping:  true,
-                    showMinimap:   true,
-		    matchBrackets: true,
-                }),
-
-                this.theme_compartment.of([]),
-                this.keymap_compartment.of([]),
-                this.readonly_compartment.of( this.CM6.EditorState.readOnly.of(false) ),
-
-                this.CM6.EditorView.theme({
-                    '&':            { height: '100%' },
-                    '.cm-scroller': { overflow: 'auto' },
-                    '.cm-content':  { 'white-space': 'pre-wrap', 'word-break': 'normal', 'font-weight': 'bold' },
-                }),
-
-                this.lineHighlightField,
-
-                ...(editor_cfg_ext || [])
-            ];
-
-            const state = this.CM6.EditorState.create({
-                doc: "\n\n\n\n\n\n\n\n\n\n",
-                extensions
-            });
-
-            const parent = document.getElementById(editor_id);
-
-            // new EditorView
-            this.view = new this.CM6.EditorView({ state, parent });
+            return lineHighlightField ;
         }
+
+        highlightLine ( line )
+        {
+            const lineBase   = Math.min(line + 1, this.view.state.doc.lines);
+            const lineNumber = Math.max(1, lineBase);
+
+            const docLine = this.view.state.doc.line(lineNumber);
+
+            this.view.dispatch({
+                selection: { anchor: docLine.from },
+                effects: this.setLineHighlight.of(docLine.from)
+            });
+        }
+
+        clearHighlight ( )
+        {
+            this.view.dispatch({
+                effects: this.clearLineHighlight.of(null)
+            });
+        }
+
+        scrollToLine ( line )
+        {
+            var lineBase   = Math.min(line + 1, this.view.state.doc.lines) ;
+            var lineNumber = Math.max(1, lineBase) ;
+
+            const docLine = this.view.state.doc.line(lineNumber) ;
+
+            this.view.dispatch({
+                effects: this.CM6.EditorView.scrollIntoView( docLine.from, { y: "center" })
+            }) ;
+        }
+
 
         setSize ( width, height )
         {
@@ -215,18 +240,15 @@
             };
         }
 
-        lineChToOffset ( line, ch )
-        {
-            const l = this.view.state.doc.line(line + 1);
-            return Math.min(l.from + ch, l.to);
-        }
-
         setCursor ( {line, ch} )
         {
-            const pos = this.lineChToOffset(line, ch);
+            // lineChToOffset ( line, ch )
+            const l   = this.view.state.doc.line(line + 1) ;
+            const pos = Math.min(l.from + ch, l.to) ;
 
+            // scroll to
             this.view.dispatch({
-                selection: {anchor: pos},
+                selection: { anchor: pos },
                 scrollIntoView: true
             });
         }
@@ -274,7 +296,7 @@
                 case "vim":
                      extension = this.CM6.vim(); break ;
                 case "emacs":
-                     extension = this.CM6.emacsKeymap   ?? []; break ;
+                     extension = this.CM6.emacsKeymap ?? []; break ;
             }
 
             this.view.dispatch({
@@ -288,38 +310,6 @@
                 effects: this.readonly_compartment.reconfigure(
                     this.CM6.EditorState.readOnly.of(Boolean(is_readonly))
                 )
-            });
-        }
-
-        scrollToLine ( line )
-        {
-            var lineBase   = Math.min(line + 1, this.view.state.doc.lines) ;
-            var lineNumber = Math.max(1, lineBase) ;
-
-            const docLine = this.view.state.doc.line(lineNumber) ;
-
-            this.view.dispatch({
-                effects: this.CM6.EditorView.scrollIntoView( docLine.from, { y: "center" })
-            }) ;
-        }
-
-        highlightLine ( line )
-        {
-            const lineBase   = Math.min(line + 1, this.view.state.doc.lines);
-            const lineNumber = Math.max(1, lineBase);
-
-            const docLine = this.view.state.doc.line(lineNumber);
-
-            this.view.dispatch({
-                selection: { anchor: docLine.from },
-                effects: this.setLineHighlight.of(docLine.from)
-            });
-        }
-
-        clearHighlight ( )
-        {
-            this.view.dispatch({
-                effects: this.clearLineHighlight.of(null)
             });
         }
 
@@ -359,45 +349,6 @@
             editor.setOption('keyMap', edt_mode);
     }
 
-/*
-    export function sim_cm_get_firmcfg_cm5 ( )
-    {
-	    return {
-			foldGutter: {
-			   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-			},
-
-			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-		   } ;
-    }
-
-    export function sim_cm_get_asmcfg_cm5 ( )
-    {
-	    return {
-			extraKeys: {
-			  "Ctrl-Space": function(cm) {
-			      CodeMirror.showHint(cm, function(cm, options) {
-				      var simware = get_simware();
-				      var cur = cm.getCursor();
-				      var result = [];
-				      for (var i=0; i<simware.firmware.length; i++) {
-					   if (simware.firmware[i].name != "begin") {
-						result.push(simware.firmware[i].signatureUser) ;
-					   }
-				      }
-				      return { list: result, from: cur, to: cur } ;
-			      });
-			  },
-
-			  "Ctrl-/": function(cm) {
-			      cm.execCommand('toggleComment');
-			  }
-			},
-
-		   } ;
-    }
-*/
-
     export function sim_init_editor ( editor_id, editor_cfg )
     {
             // new editor
@@ -407,7 +358,6 @@
             sim_cfg_editor_theme(editor_obj) ;
             sim_cfg_editor_mode(editor_obj) ;
 
-            editor_obj.setSize("auto", "75vh");
             editor_obj.refresh();
 
             // return object
