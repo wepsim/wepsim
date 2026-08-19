@@ -161,28 +161,7 @@ cat external/vue/vue.min.js \
     external/bootstrap/bootstrap.min.js \
     external/bootbox/bootbox.all.min.js \
     external/tone.min.js \
-    external/codemirror/codemirror.js \
-    external/codemirror/mode/javascript/javascript.js \
-    external/codemirror/mode/gas/gas.js \
-    external/codemirror/keymap/sublime.js \
-    external/codemirror/keymap/emacs.js \
-    external/codemirror/keymap/vim.js \
-    external/codemirror/addon/edit/matchbrackets.js \
-    external/codemirror/addon/fold/foldcode.js \
-    external/codemirror/addon/fold/foldgutter.js \
-    external/codemirror/addon/fold/brace-fold.js \
-    external/codemirror/addon/fold/xml-fold.js \
-    external/codemirror/addon/fold/comment-fold.js \
-    external/codemirror/addon/fold/indent-fold.js \
-    external/codemirror/addon/fold/markdown-fold.js \
-    external/codemirror/addon/hint/show-hint.js \
-    external/codemirror/addon/runmode/colorize.js \
-    external/codemirror/addon/comment/comment.js \
-    external/codemirror/addon/comment/continuecomment.js \
-    external/codemirror/addon/search/jump-to-line.js \
-    external/codemirror/addon/search/searchcursor.js \
-    external/codemirror/addon/search/search.js \
-    external/codemirror/addon/dialog/dialog.js \
+    external/codemirror6/min.codemirror.js \
     external/jquery.knob.min.js \
     external/vis/vis-network.min.js \
     external/async.min.js \
@@ -200,20 +179,6 @@ rm -fr ws_dist/external.js
 # building ws_dist/min.external.css
 echo "  * ws_dist/min.external.css"
 cat external/bootstrap/bootstrap.min.css \
-    external/codemirror/codemirror.css \
-    external/codemirror/theme/blackboard.css \
-    external/codemirror/theme/eclipse.css \
-    external/codemirror/theme/cobalt.css \
-    external/codemirror/theme/idea.css \
-    external/codemirror/theme/the-matrix.css \
-    external/codemirror/theme/neat.css \
-    external/codemirror/theme/abbott.css \
-    external/codemirror/theme/mdn-like.css \
-    external/codemirror/theme/duotone-light.css \
-    external/codemirror/theme/erlang-dark.css \
-    external/codemirror/addon/fold/foldgutter.css \
-    external/codemirror/addon/hint/show-hint.css \
-    external/codemirror/addon/dialog/dialog.css \
     external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \

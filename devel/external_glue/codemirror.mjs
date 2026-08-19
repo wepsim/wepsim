@@ -9,58 +9,167 @@
             keymap,
             Decoration }          from "@codemirror/view";
    import { defaultKeymap,
-            historyKeymap }       from "@codemirror/commands";
+            historyKeymap,
+            indentLess,
+            indentMore,
+            toggleComment }       from "@codemirror/commands";
+   import { syntaxHighlighting,
+            defaultHighlightStyle,
+            HighlightStyle,
+            indentUnit,
+            StreamLanguage }      from "@codemirror/language";
+   import { javascript }          from "@codemirror/lang-javascript";
+   import { gas }                 from "@codemirror/legacy-modes/mode/gas";
    import { languages }           from "@codemirror/language-data";
    import { showMinimap }         from "@replit/codemirror-minimap";
-   import { javascript }          from "@codemirror/lang-javascript";
+   import { vim }                 from "@replit/codemirror-vim";
+   import { emacs }               from "@replit/codemirror-emacs";
 
-   import { StreamLanguage }      from "@codemirror/language";
-   import { gas }                 from "@codemirror/legacy-modes/mode/gas";
+
+   function createSetup(options = {})
+   {
+         const extensions = [
+           basicSetup
+         ];
+
+         // CM5: mode: javascript | gas
+         if (options.mode === 'javascript') {
+             extensions.push(javascript());
+         } else if (options.mode === 'gas' || options.mode === 'assembly') {
+             extensions.push(StreamLanguage.define(gas));
+         }
+
+         // CM5: lineWrapping: true
+         if (options.lineWrapping) {
+             extensions.push(EditorView.lineWrapping);
+         }
+
+         // CM5: minimap
+         if (options.showMinimap)
+         {
+              const create = () => {
+                  const dom = document.createElement("div");
+                  return { dom };
+              };
+
+              extensions.push(
+                  showMinimap.compute(
+                      ["doc"],
+                      () => ({
+                          create,
+                          displayText: "blocks",
+                          showOverlay: "always"
+                      })
+                  )
+              );
+         }
+
+         return extensions;
+   }
+
+
+   // themes
+   const blackboardTheme = EditorView.theme({
+       "&": {
+           backgroundColor: "#0c1021",
+           color: "#f8f8f8"
+       },
+   
+       ".cm-content": {
+           caretColor: "#ffffff"
+       },
+   
+       ".cm-cursor, .cm-dropCursor": {
+           borderLeftColor: "#ffffff"
+       },
+   
+       "&.cm-focused .cm-selectionBackground, .cm-selectionBackground": {
+           backgroundColor: "#253b76"
+       },
+   
+       ".cm-activeLine": {
+           backgroundColor: "#151b2f"
+       },
+   
+       ".cm-gutters": {
+           backgroundColor: "#0c1021",
+           color: "#888888",
+           border: "none"
+       },
+   
+       ".cm-activeLineGutter": {
+           backgroundColor: "#151b2f"
+       }
+   }, {
+       dark: true
+   });
+
+   const eclipseTheme = EditorView.theme({
+       "&": {
+           backgroundColor: "#ffffff",
+           color: "#000000"
+       },
+   
+       ".cm-content": {
+           caretColor: "#000000"
+       },
+   
+       ".cm-cursor, .cm-dropCursor": {
+           borderLeftColor: "#000000"
+       },
+   
+       "&.cm-focused .cm-selectionBackground, .cm-selectionBackground": {
+           backgroundColor: "#d7d4f0"
+       },
+   
+       ".cm-activeLine": {
+           backgroundColor: "#f3f3f3"
+       },
+   
+       ".cm-gutters": {
+           backgroundColor: "#f7f7f7",
+           color: "#999999",
+           borderRight: "1px solid #dddddd"
+       },
+   
+       ".cm-activeLineGutter": {
+           backgroundColor: "#e8e8e8"
+       }
+   });
 
 
    // export
-   window.CM6 = {
-     EditorState,
-     EditorView,
-     Compartment,
-     StateField,
-     StateEffect,
-     Decoration,
-     keymap,
-     showMinimap,
+   export {
+       EditorState,
+       Compartment,
+       StateField,
+       StateEffect,
 
-     createSetup: function(options = {}) {
-       const extensions = [
-         basicSetup,
-         gutters(),         // CM5: gutters: [...]
+       EditorView,
+       Decoration,
+       keymap,
 
-         keymap.of([
-           ...defaultKeymap,
-           ...historyKeymap,
-           ...(options.customKeys || [])
-         ]),
+       defaultKeymap,
+       historyKeymap,
+       indentLess,
+       indentMore,
+       toggleComment,
 
-         syntaxHighlighting(defaultHighlightStyle)
-       ];
+       syntaxHighlighting,
+       defaultHighlightStyle,
+       HighlightStyle,
+       indentUnit,
+       StreamLanguage,
 
-       // CM5: mode: javascript | gas
-       if (options.mode === 'javascript') {
-           extensions.push(javascript());
-       } else if (options.mode === 'gas' || options.mode === 'assembly') {
-           extensions.push(StreamLanguage.define(gas)); 
-       }
+       javascript,
+       gas,
 
-       // CM5: lineWrapping: true
-       if (options.lineWrapping) {
-           extensions.push(EditorView.lineWrapping);
-       }
+       vim,
+       emacs,
+       blackboardTheme,
+       eclipseTheme,
 
-       // CM5: minimap
-       if (options.showMinimap) {
-           extensions.push(minimap());
-       }
-
-       return extensions;
-     }
+       showMinimap,
+       createSetup
    } ;
 

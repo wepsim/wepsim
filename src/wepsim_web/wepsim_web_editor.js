@@ -46,62 +46,120 @@
     // WepSIM API
     //
 
-/* CM6
-
-    const {
-      EditorState, Compartment, StateField, StateEffect,
-      EditorView, Decoration, keymap,
-      showMinimap
-    } = window.CM6 ;
-
     export class ws_editor_cm6
     {
         constructor ( editor_id, editor_cfg )
         {
-            // is_modified, is_compiled, and is_refreshed
-            this.is_modified  = true;
-            this.is_compiled  = false;
-            this.is_refreshed = false;
+            // load CM6 in this object
+            this.CM6 = globalThis.CM6 ;
+            if (!this.CM6) {
+                throw new Error("ERROR: CodeMirror 6 bundle is not loaded !") ;
+            }
 
-            const updateListener = EditorView.updateListener.of((update) => {
+            // is_modified, is_compiled, and is_refreshed
+            this.is_modified  = true ;
+            this.is_compiled  = false ;
+            this.is_refreshed = false ;
+
+            const updateListener = this.CM6.EditorView.updateListener.of((update) => {
                 if (update.docChanged) {
-                    this.is_modified  = true;
-                    this.is_compiled  = false;
-                    this.is_refreshed = false;
+                    this.is_modified  = true ;
+                    this.is_compiled  = false ;
+                    this.is_refreshed = false ;
                 }
             });
 
             // Para opciones modificables dinámicamente con setOption()
-            this.theme_compartment  = new Compartment();
-            this.keymap_compartment = new Compartment();
+            this.theme_compartment    = new this.CM6.Compartment() ;
+            this.keymap_compartment   = new this.CM6.Compartment() ;
+            this.readonly_compartment = new this.CM6.Compartment() ;
 
-            // Decoraciones usadas por addLineClass/removeLineClass
-            this.lineDecorations = Decoration.none;
+            // Para efectos de resaltar una línea
+            this.setLineHighlight   = this.CM6.StateEffect.define();
+            this.clearLineHighlight = this.CM6.StateEffect.define();
+            this.lineHighlightField = this.CM6.StateField.define({
 
+		create() {
+		    return CM6.Decoration.none;
+		},
+
+		update: (decorations, transaction) => {
+		    decorations = decorations.map(transaction.changes);
+
+		    for (const effect of transaction.effects)
+		    {
+			if (effect.is(this.setLineHighlight))
+			{
+			    const line  = transaction.state.doc.lineAt(effect.value);
+			    decorations = CM6.Decoration.set([ CM6.Decoration.line({ class: "CodeMirror-selected" }).range(line.from) ]);
+			}
+
+			if (effect.is(this.clearLineHighlight)) {
+			    decorations = CM6.Decoration.none;
+			}
+		    }
+
+		    return decorations;
+		},
+
+		provide: field => CM6.EditorView.decorations.from(field)
+            }) ;
+
+
+            var editor_cfg_mode = "" ;
+            var editor_cfg_ext  = [] ;
+            if ("firmware" == editor_cfg)
+            { // "firmware"
+                editor_cfg_mode = "javascript" ;
+                editor_cfg_ext  = [
+                                      this.CM6.EditorView.lineWrapping,
+                                      this.CM6.indentUnit.of('    '),
+                                      this.CM6.keymap.of([
+                                          { key: 'Ctrl-/', run: this.CM6.toggleComment },
+                                          { key: 'Tab',    run: this.CM6.insertIndentUnit, shift: this.CM6.indentLess },
+                                      ])
+                                  ] ;
+            }
+            else
+            { // "assembly"
+		editor_cfg_mode = "gas" ;
+                editor_cfg_ext  = [
+                                      this.CM6.indentUnit.of('    '),
+                                      this.CM6.keymap.of([
+                                          { key: 'Ctrl-Space', run: this.CM6.startCompletion },
+                                          { key: 'Ctrl-/',     run: this.CM6.toggleComment },
+                                          { key: 'Tab',        run: this.CM6.insertIndentUnit, shift: this.CM6.indentLess },
+                                      ]),
+                                  ] ;
+            }
+
+            // Array de extensiones
             const extensions = [
-                                 updateListener,
-				 basicSetup,
-				 javascript(),
+                updateListener,
 
-                                 // let dynamic decorators
-                                 EditorView.decorations.of(() => this.lineDecorations),
+                ...this.CM6.createSetup({
+                    mode:          editor_cfg_mode,
+                    lineWrapping:  true,
+                    showMinimap:   true,
+		    matchBrackets: true,
+                }),
 
-                                 this.theme_compartment.of([]),
-                                 this.keymap_compartment.of([]),
+                this.theme_compartment.of([]),
+                this.keymap_compartment.of([]),
+                this.readonly_compartment.of( this.CM6.EditorState.readOnly.of(false) ),
 
-                                 showMinimap.compute(['doc'], (state) => {
-                                   return {
-                                     create,
-                                     displayText: 'blocks',
-                                     showOverlay: 'always',
-                                     gutters: [ { 1: '#00FF00', 2: '#00FF00' } ],
-                                   }
-                                 }),
+                this.CM6.EditorView.theme({
+                    '&':            { height: '100%' },
+                    '.cm-scroller': { overflow: 'auto' },
+                    '.cm-content':  { 'white-space': 'pre-wrap', 'word-break': 'normal', 'font-weight': 'bold' },
+                }),
 
-                                 ...(editor_cfg.extensions || [])
-                               ] ;
+                this.lineHighlightField,
 
-            const state = EditorState.create({
+                ...(editor_cfg_ext || [])
+            ];
+
+            const state = this.CM6.EditorState.create({
                 doc: "\n\n\n\n\n\n\n\n\n\n",
                 extensions
             });
@@ -109,7 +167,7 @@
             const parent = document.getElementById(editor_id);
 
             // new EditorView
-            this.view = new EditorView({ state, parent });
+            this.view = new this.CM6.EditorView({ state, parent });
         }
 
         setSize ( width, height )
@@ -178,34 +236,58 @@
             switch (name)
             {
                 case "theme":
-                     this.setTheme(value);
-                     break;
-
+                     this.setTheme(value); break;
                 case "keyMap":
-                     this.setKeyMap(value);
-                     break;
-
+                     this.setKeyMap(value); break;
+                case "readOnly":
+                     this.setReadOnly(value); break;
                 default:
-                     console.warn("ws_editor_cm6.setOption(...): unsupported option " + name) ;
+                     console.warn("ERROR: ws_editor_cm6.setOption(...): unsupported option " + name) ;
             }
         }
 
         setTheme ( theme )
         {
-            const extension = this.themeToExtension(theme);
+            var extension = [] ;
+            switch (theme)
+            {
+                case "default":
+                     extension = [] ; break ;
+                case "blackboard":
+                     extension = this.CM6.blackboardTheme ?? []; break ;
+                case "eclipse":
+                     extension = this.CM6.eclipseTheme    ?? []; break ;
+            }
 
             this.view.dispatch({
                 effects: this.theme_compartment.reconfigure(extension)
             });
         }
 
-
         setKeyMap ( name )
         {
-            const extension = this.keyMapToExtension(name);
+            var extension = [] ;
+            switch (name)
+            {
+                case "default":
+                     extension = []; break ;
+                case "vim":
+                     extension = this.CM6.vim(); break ;
+                case "emacs":
+                     extension = this.CM6.emacsKeymap   ?? []; break ;
+            }
 
             this.view.dispatch({
                 effects: this.keymap_compartment.reconfigure(extension)
+            });
+        }
+
+        setReadOnly ( is_readonly )
+        {
+            this.view.dispatch({
+                effects: this.readonly_compartment.reconfigure(
+                    this.CM6.EditorState.readOnly.of(Boolean(is_readonly))
+                )
             });
         }
 
@@ -217,31 +299,28 @@
             const docLine = this.view.state.doc.line(lineNumber) ;
 
             this.view.dispatch({
-                effects: EditorView.scrollIntoView( docLine.from, { y: "center" })
+                effects: this.CM6.EditorView.scrollIntoView( docLine.from, { y: "center" })
             }) ;
         }
 
         highlightLine ( line )
         {
-            var lineBase   = Math.min(line + 1, this.view.state.doc.lines) ;
-            var lineNumber = Math.max(1, lineBase) ;
+            const lineBase   = Math.min(line + 1, this.view.state.doc.lines);
+            const lineNumber = Math.max(1, lineBase);
 
-            const line = this.view.state.doc.line(lineNumber);
+            const docLine = this.view.state.doc.line(lineNumber);
 
             this.view.dispatch({
-                selection: {
-                    anchor: line.from
-                },
-
-                effects: setLineHighlight.of(line.from)
+                selection: { anchor: docLine.from },
+                effects: this.setLineHighlight.of(docLine.from)
             });
         }
 
         clearHighlight ( )
         {
             this.view.dispatch({
-                effects: clearLineHighlight.of(null)
-            }) ;
+                effects: this.clearLineHighlight.of(null)
+            });
         }
 
         focus ( ) {
@@ -250,96 +329,6 @@
 
         destroy ( ) {
             this.view.destroy();
-        }
-    }
-*/
-
-    export class ws_editor_cm5
-    {
-        constructor ( editor_id, editor_cfg )
-        {
-            // new EditorView
-            this.view = CodeMirror.fromTextArea(document.getElementById(editor_id), editor_cfg) ;
-
-            // default values
-            this.view.setValue("\n\n\n\n\n\n\n\n\n\n") ;
-
-            // event onChange -> update is_* attributes
-	    this.is_modified  = true ;
-	    this.is_compiled  = false ;
-	    this.is_refreshed = false ;
-
-            this.view.on("change", () => {
-                this.is_modified  = true;
-                this.is_compiled  = false;
-                this.is_refreshed = false;
-            });
-
-            // line marked
-            this.marked = 0 ;
-        }
-
-        setSize ( width, height ) {
-            return this.view.setSize(width, height);
-        }
-
-        refresh ( ) {
-            this.view.refresh();
-        }
-
-        getValue ( ) {
-            return this.view.getValue() ;
-        }
-
-        setValue ( text ) {
-            return this.view.setValue(text) ;
-        }
-
-        getCursor ( ) {
-            return this.view.getCursor() ;
-        }
-
-        setCursor ( line_ch ) {
-            return this.view.setCursor( line_ch ) ;
-        }
-
-        setOption ( name, value )
-        {
-            if ('theme' == name)
-            {
-                 var welto = this.view.getWrapperElement() ;
-
-	         if (value === 'blackboard')
-		      welto.style['font-weight'] = 'normal';
-	         else welto.style['font-weight'] = 'bold';
-
-	         welto.style['text-shadow'] = '0.0em 0.0em';
-            }
-            else if ('keyMap' == name)
-            {
-		 var aval_modes = [ 'default', 'vim', 'emacs', 'sublime' ] ;
-
-		 if (false == aval_modes.includes(value)) {
-                     return null ;
-		 }
-            }
-
-            return this.view.setOption(name, value) ;
-        }
-
-        scrollToLine ( line ) {
-            var topHeight    = this.view.charCoords({line: line, ch: 0}, 'local').top ;
-            var middleHeight = this.view.getScrollerElement().offsetHeight / 2 ;
-            this.view.scrollTo(null, topHeight - middleHeight - 5) ;
-        }
-
-        highlightLine ( line ) {
-            this.view.setCursor({ line: line, ch: 0 }) ;
-            this.marked = this.view.addLineClass(line, 'background', 'CodeMirror-selected') ;
-        }
-
-        clearHighlight ( ) {
-	    this.view.removeLineClass(this.marked, 'background', 'CodeMirror-selected');
         }
     }
 
@@ -370,35 +359,21 @@
             editor.setOption('keyMap', edt_mode);
     }
 
-    export function sim_cm_get_firmcfg ( )
+/*
+    export function sim_cm_get_firmcfg_cm5 ( )
     {
 	    return {
-			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-
-			lineNumbers:   true,
-			lineWrapping:  true,
-			matchBrackets: true,
-			tabSize:       2,
-
 			foldGutter: {
 			   rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 			},
-			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 
-			mode: "text/javascript"
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
 		   } ;
     }
 
-    export function sim_cm_get_asmcfg ( )
+    export function sim_cm_get_asmcfg_cm5 ( )
     {
 	    return {
-			value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-
-			lineNumbers:   true,
-			lineWrapping:  true,
-			matchBrackets: true,
-			tabSize: 2,
-
 			extraKeys: {
 			  "Ctrl-Space": function(cm) {
 			      CodeMirror.showHint(cm, function(cm, options) {
@@ -413,22 +388,20 @@
 				      return { list: result, from: cur, to: cur } ;
 			      });
 			  },
+
 			  "Ctrl-/": function(cm) {
 			      cm.execCommand('toggleComment');
 			  }
 			},
 
-			mode: "gas"
 		   } ;
     }
+*/
 
     export function sim_init_editor ( editor_id, editor_cfg )
     {
-            var useCM6 = false ; // DEBUG: for debugging purposes
-            var EditorClass = useCM6 ? ws_editor_cm6 : ws_editor_cm5;
-
             // new editor
-            var editor_obj = new EditorClass(editor_id, editor_cfg) ;
+            var editor_obj = new ws_editor_cm6(editor_id, editor_cfg) ;
 
             // set default values...
             sim_cfg_editor_theme(editor_obj) ;

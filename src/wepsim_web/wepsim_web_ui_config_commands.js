@@ -289,14 +289,6 @@
 			           "	<option value='default'>(💡) default</option>" +
 			           "	<option value='blackboard'>(🔅) blackboard</option>" +
 			           "	<option value='eclipse'>(💡) eclipse</option>" +
-			           "	<option value='cobalt'>(🔅) cobalt</option>" +
-			           "	<option value='idea'>(💡) idea</option>" +
-			           "	<option value='the-matrix'>(🔅) the-matrix</option>" +
-			           "	<option value='neat'>(💡) neat</option>" +
-			           "	<option value='abbott'>(🔅) abbott</option>" +
-			           "	<option value='mdn-like'>(💡) mdn-like</option>" +
-			           "	<option value='erlang-dark'>(🔅) erlang-dark</option>" +
-			           "	<option value='duotone-light'>(💡) duotone-light</option>" +
 			           "    </select>" +
 			           "</div>",
                       code_init:   function() {
@@ -321,8 +313,6 @@
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>default</option>" +
 			           "	<option value='vim'>VIM</option>" +
-			           "	<option value='emacs'>Emacs</option>" +
-			           "	<option value='sublime'>Sublime</option>" +
 			           "    </select>" +
 			           "</div>",
                       code_init:   function() {
