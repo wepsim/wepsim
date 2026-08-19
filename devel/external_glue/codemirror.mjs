@@ -13,6 +13,7 @@
             indentLess,
             indentMore,
             toggleComment }       from "@codemirror/commands";
+   import { startCompletion }     from "@codemirror/autocomplete";
    import { syntaxHighlighting,
             defaultHighlightStyle,
             HighlightStyle,
@@ -26,22 +27,36 @@
    import { emacs }               from "@replit/codemirror-emacs";
 
 
-   function createSetup(options = {})
+   function createSetup ( options = {} )
    {
-         const extensions = [
-           basicSetup
-         ];
+         const extensions = [ basicSetup ] ;
 
          // CM5: mode: javascript | gas
-         if (options.mode === 'javascript') {
-             extensions.push(javascript());
-         } else if (options.mode === 'gas' || options.mode === 'assembly') {
-             extensions.push(StreamLanguage.define(gas));
+         if (options.mode === 'javascript')
+         {
+             extensions.push( javascript() ) ;
+             extensions.push(
+                               keymap.of([
+                                   { key: 'Ctrl-/',    run: toggleComment },
+                                   { key: 'Tab',       run: indentMore, shift: indentLess },
+                               ])
+                            ) ;
+         }
+         else if (options.mode === 'gas' || options.mode === 'assembly')
+         {
+             extensions.push(StreamLanguage.define(gas)) ;
+             extensions.push(
+                               keymap.of([
+                                   { key: 'Ctrl-Space', run: startCompletion },
+                                   { key: 'Ctrl-/',     run: toggleComment },
+                                   { key: 'Tab',        run: indentMore, shift: indentLess },
+                               ])
+                            ) ;
          }
 
          // CM5: lineWrapping: true
          if (options.lineWrapping) {
-             extensions.push(EditorView.lineWrapping);
+             extensions.push( EditorView.lineWrapping ) ;
          }
 
          // CM5: minimap
@@ -61,6 +76,15 @@
                           showOverlay: "always"
                       })
                   )
+              );
+         }
+
+         // identUnit
+         if (options.indentUnit > 0)
+         {
+             var spaces = ' '.repeat(options.indentUnit) ;
+             extensions.push(
+                  indentUnit.of(spaces)
               );
          }
 
