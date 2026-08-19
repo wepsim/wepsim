@@ -64,7 +64,10 @@ This should be equivalent to:
    npm i --save-dev @codemirror/commands
    npm i --save-dev @codemirror/search
    npm i --save-dev @codemirror/lang-javascript
+   npm i --save-dev @codemirror/legacy-modes
    npm i --save-dev @replit/codemirror-minimap
+   npm i --save-dev @replit/codemirror-vim
+   npm i --save-dev @replit/codemirror-emacs
 ```
 
 Finally, you can run a simple local HTTP server:

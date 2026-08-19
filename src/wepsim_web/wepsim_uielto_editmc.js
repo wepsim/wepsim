@@ -125,10 +125,10 @@
 	      {
                    return '<label class="my-0" for="' + ta_id + '">' +
                           '<span data-langkey="microcode">microcode</span>:</label>' +
-                          '<textarea aria-label="microcode"' +
-			  '	     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
-			  '	     placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
-			  '	     id="' + ta_id + '" rows="20"></textarea>' ;
+                          '<div aria-label="microcode"' +
+			  '	style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
+			  '	placeholder="Please select \'Example\' or \'Load\' first in order to have an initial Microcode."' +
+			  '	id="' + ta_id + '" rows="20"></div>' ;
 	      }
         }
 

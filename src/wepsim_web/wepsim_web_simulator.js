@@ -106,10 +106,8 @@
 
     // editor (inputfirm, inputasm)
 
-    var inputfirm_cfg = null ;
-    var inputasm_cfg  = null ;
-    var inputfirm     = null ;
-    var inputasm      = null ;
+    var inputfirm = null ;
+    var inputasm  = null ;
 
     export function get_inputfirm ( )
     {
@@ -119,16 +117,6 @@
     export function get_inputasm ( )
     {
          return inputasm ;
-    }
-
-    export function get_inputfirm_cfg ( )
-    {
-         return inputfirm_cfg ;
-    }
-
-    export function get_inputasm_cfg ( )
-    {
-         return inputasm_cfg ;
     }
 
     // workspaces
@@ -689,11 +677,8 @@
             showhideAsmElements() ;
 
 	    // initialize editors
-	    inputfirm_cfg = sim_cm_get_firmcfg() ;
-	    inputfirm     = sim_init_editor("inputFirmware", inputfirm_cfg) ;
-
-	    inputasm_cfg  = sim_cm_get_asmcfg() ;
-	    inputasm      = sim_init_editor("inputAssembly", inputasm_cfg) ;
+	    inputfirm = sim_init_editor("inputFirmware", "firmware") ;
+	    inputasm  = sim_init_editor("inputAssembly", "assembly") ;
 
 	    // init: voice
 	    wepsim_voice_init() ;

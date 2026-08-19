@@ -124,10 +124,10 @@
 	      {
                    return '<label class="my-0" for="' + ta_id + '">' +
                           '<span data-langkey="assembly">assembly</span>:</label>' +
-                          '<textarea aria-label="assembly"' +
-			  '          style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
-			  '          placeholder="Please select \'Load\' first to have the assembly code to work with."' +
-			  '          id="' + ta_id + '" rows="20"></textarea>' ;
+                          '<div aria-label="assembly"' +
+			  '     style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"' +
+			  '     placeholder="Please select \'Load\' first to have the assembly code to work with."' +
+			  '     id="' + ta_id + '"></div>' ;
 	      }
         }
 

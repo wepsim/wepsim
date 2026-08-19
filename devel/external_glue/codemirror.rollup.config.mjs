@@ -1,14 +1,18 @@
 
-import {nodeResolve} from "@rollup/plugin-node-resolve"
+import { nodeResolve } from "@rollup/plugin-node-resolve"
 
-export default {
-  input: "external/codemirror6/codemirror.mjs",
+export default
+{
+    input: "external/codemirror6/codemirror.mjs",
 
-  output: {
-    file: "external/codemirror6/codemirror.bundle.js",
-    format: "iife"
-  },
+    output: {
+       file: "external/codemirror6/codemirror.bundle.js",
+       format: "iife",
+       name: "CM6"
+    },
 
-  plugins: [nodeResolve()]
+    plugins: [
+       nodeResolve()
+    ]
 }
 
