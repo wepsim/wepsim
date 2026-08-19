@@ -358,7 +358,8 @@
             sim_cfg_editor_theme(editor_obj) ;
             sim_cfg_editor_mode(editor_obj) ;
 
-            editor_obj.refresh();
+            editor_obj.setSize("auto", "calc(100vh - 12rem)") ;
+            editor_obj.refresh() ;
 
             // return object
 	    return editor_obj ;

@@ -112,7 +112,7 @@
                    if (ly.includes('both'))
                        o1 += '<div id="' + ed_id + '_placeholder1" ' +
                              '      class="ui-body-d ui-content px-2 py-0" ' +
-                             '      style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">' +
+                             '      style="height:75vh; overflow-y:hidden; -webkit-overflow-scrolling:touch;">' +
                              '<div id="' + ed_id + '" class="ui-body-d ui-content p-0">' +
 	                     this.render_textarea(ta_id) +
                              '</div>' +
