@@ -3,7 +3,7 @@
 
 ## 2.4.2 -> 2.5.0:
 * Main improvements:
-  * Migration to modules ES
+  * Migration to ES modules
   * Migration to webpack
 * Main external dependencies updated:
   * Bump codemirror from 5.65.21 up to 6.0.2

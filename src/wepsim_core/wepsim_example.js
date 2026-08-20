@@ -178,12 +178,12 @@
                             if (true === chain_next_step) {
 				setTimeout(function() {
 					      wsweb_change_workspace_simulator() ;
-				           }, 50);
+				           }, 32);
                              }
 
 			     setTimeout(function() {
                                            show_memories_values();
-				        }, 500);
+				        }, 32);
 
                              wepsim_notify_success('<strong>INFO</strong>',
                                                    'Example ready to be used.') ;
@@ -204,6 +204,8 @@
             ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
             return ;
         }
+
+        wepsim_notify_success('<strong>INFO</strong>', 'Loading example...') ;
 
 	var inputfirm = get_inputfirm() ;
 	inputfirm.setValue("Please wait...");
@@ -237,13 +239,13 @@
                            {
                                setTimeout(function() {
                                              load_from_example_assembly(example_id, chain_next_step);
-                                          }, 50);
+                                          }, 25);
                            }
                            else {
                                setTimeout(function() {
                                              show_memories_values();
                                              asmdbg_update_assembly() ;
-                                          }, 50);
+                                          }, 25);
 
                                wepsim_notify_success('<strong>INFO</strong>',
                                                      'Example ready to be used.') ;

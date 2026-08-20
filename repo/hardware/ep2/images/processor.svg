@@ -5,7 +5,7 @@
    version="1.0"
    viewBox="25 0 835 615"
    sodipodi:docname="processor.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,14 +25,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="2.8865521"
-     inkscape:cx="491.07029"
-     inkscape:cy="213.23017"
-     inkscape:window-width="3758"
-     inkscape:window-height="2091"
+     inkscape:zoom="4.3089859"
+     inkscape:cx="383.38487"
+     inkscape:cy="320.49304"
+     inkscape:window-width="1329"
+     inkscape:window-height="723"
      inkscape:window-x="0"
-     inkscape:window-y="32"
-     inkscape:window-maximized="1"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg2985"
      showgrid="false" />
   <metadata
@@ -358,10 +358,22 @@
      stroke-width="0.35" />
   <path
      id="path3071"
-     d="m 219.71549,330.66189 0.20588,19.78723 h -1.14371 l -0.20584,-19.78723 z"
+     d="m 219.32034,330.61587 0.0695,10.76966 -1.23071,-0.004 -0.0695,-10.76966 z"
      stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.391755" />
+     stroke-width="0.299805" />
+  <path
+     id="path3071-80"
+     d="m 220.74468,341.4059 0.14421,7.88726 -2.55423,-0.003 -0.1442,-7.88726 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.369617" />
+  <path
+     id="path3071-8"
+     d="m 220.8268,330.54706 0.0293,10.55692 -1.22486,-0.0213 -0.0293,-10.55693 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.296119" />
   <path
      id="path3073"
      d="m 172.79,323.79 h 14.475 v 1.0597 h -14.47 z"
@@ -451,10 +463,10 @@
      stroke-width="0.35" />
   <path
      id="path3097"
-     d="m 218.93,340.16 h 46.106 v 1.0643 h -46.11 z"
+     d="m 219.66034,340.15881 h 45.37685 v 1.06668 h -45.38078 z"
      stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.347611" />
   <path
      id="path3099"
      d="m 265.34388,341.02107 v -49.57495 h -1.16726 v 49.56846 z"
@@ -820,10 +832,10 @@
      stroke-width="0.35" />
   <path
      id="path3201"
-     d="m402.15 330.5v19.314h-1.1752v-19.31z"
-     stroke="#000"
+     d="m 403.65351,330.44779 v 9.02322 h -1.27962 v -9.02135 z"
+     stroke="#000000"
      stroke-linejoin="round"
-     stroke-width="0.35" />
+     stroke-width="0.261615" />
   <path
      id="path3203"
      d="m397.94 231.62c0-.43771.2615-.80243.59267-.80243h30.836c.33118 0 .57525.36472.57525.80243v17.022c0 .46203-.24407.80244-.57525.80244h-30.836c-.33117 0-.59267-.34041-.59267-.80244zm1.1679 17.022-.57528-.80245h30.836l-.57525.80245v-17.02l.57525.80246h-30.836l.58-.8z"
@@ -3809,4 +3821,16 @@
      stroke="#000000"
      stroke-linejoin="round"
      stroke-width="0.48896" />
+  <path
+     id="path3201-8"
+     d="m 402.19306,330.88634 v 8.63332 h -1.2809 v -8.63153 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.2443" />
+  <path
+     id="path3201-8-0"
+     d="m 403.48344,339.83445 v 8.53336 h -2.57338 v -8.53159 z"
+     stroke="#000000"
+     stroke-linejoin="round"
+     stroke-width="0.344262" />
 </svg>
