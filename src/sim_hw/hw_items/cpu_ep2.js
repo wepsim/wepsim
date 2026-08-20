@@ -636,23 +636,23 @@ export function cpu_ep2_register ( sim_p )
 	 sim_p.signals["TD"]   = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; CHECK_RTD", "MV BUS_DB REG_MBR; FIRE_IFSET W 1; CHECK_RTD"],
 			           fire_name: ['svg_p:text3103'],
-			           draw_data: [['svg_p:path3545','svg_p:path3093','svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3541']],
+			           draw_data: [['svg_p:path3545','svg_p:path3093','svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3491','svg_p:path3541','svg_p:path3071-8']],
 			           draw_name: [['svg_p:path3095']] };
 
 	 sim_p.signals["T1"]   = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 0", "MV BUS_IB REG_MBR; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 0"],
 			           fire_name: ['svg_p:text3105'],
-			           draw_data: [['svg_p:path3071','svg_p:path3065','svg_p:path3071','svg_p:path3049','svg_p:path3063-9','svg_p:path3071','svg_p:path3071','svg_p:path3069']],
+			           draw_data: [['svg_p:path3071-80','svg_p:path3065','svg_p:path3049','svg_p:path3063-9','svg_p:path3071','svg_p:path3069']],
 			           draw_name: [['svg_p:path3067']] };
 	 sim_p.signals["T2"]   = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 1", "MV BUS_IB REG_PC; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 1"],
 			           fire_name: ['svg_p:text3449'],
-			           draw_data: [['svg_p:path3195', 'svg_p:path3201', 'svg_p:path3199', 'svg_p:path3049']],
+			           draw_data: [['svg_p:path3195', 'svg_p:path3199', 'svg_p:path3049', 'svg_p:path3201-8', 'svg_p:path3201-8-0']],
 			           draw_name: [['svg_p:path3329']] };
 	 sim_p.signals["T3"]   = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 2", "MV BUS_IB SELEC_T3; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 2"],
 			           fire_name: ['svg_p:text3451'],
-			           draw_data: [['svg_p:path3341','svg_p:path3347','svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
+			           draw_data: [['svg_p:path3341','svg_p:path3347','svg_p:path3349', 'svg_p:path3931','svg_p:path3345','svg_p:path3049']],
 			           draw_name: [['svg_p:path3351']] };
 	 sim_p.signals["T4"]   = { name: "T4",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			           behavior: ["NOP; RST_TT TTCPU 3", "MV BUS_IB REG_RT1; FIRE_IFSET M7 0; FIRE_IFSET M2 0; FIRE_IFSET M1 0; FIRE_IFSET LC 1; SET_TT TTCPU 3"],
