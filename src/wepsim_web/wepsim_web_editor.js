@@ -86,6 +86,7 @@
                     lineWrapping:  true,
                     showMinimap:   true,
 		    matchBrackets: true,
+		    foldingBraces: true,
 		    indentUnit:    3,
                 } ;
 
@@ -104,7 +105,8 @@
                     lineWrapping:  editor_opt.lineWrapping,
                     showMinimap:   editor_opt.showMinimap,
 		    matchBrackets: editor_opt.matchBrackets,
-		    indentUnit:    editor_opt.indentUnit
+		    indentUnit:    editor_opt.indentUnit,
+		    foldingBraces: editor_opt.foldingBraces
                 }),
 
                 this.theme_compartment.of([]),

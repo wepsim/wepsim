@@ -20,6 +20,7 @@
             defaultHighlightStyle,
             HighlightStyle,
             indentUnit,
+            foldService,
             StreamLanguage }      from "@codemirror/language";
    import { javascript }          from "@codemirror/lang-javascript";
    import { gas }                 from "@codemirror/legacy-modes/mode/gas";
@@ -27,6 +28,47 @@
    import { showMinimap }         from "@replit/codemirror-minimap";
    import { vim }                 from "@replit/codemirror-vim";
    import { emacs }               from "@replit/codemirror-emacs";
+
+
+   const bracesOnlyFoldService = foldService.of((state, lineStart, lineEnd) => {
+      const line = state.doc.lineAt(lineStart);
+      const text = line.text;
+
+      // searching for '{'
+      const openBraceIdx = text.indexOf('{');
+      if (openBraceIdx !== -1)
+      {
+          let braceCount = 0;
+          let endPos = null;
+
+          // searching for closing '}'
+          for (let i = line.number; i <= state.doc.lines; i++)
+          {
+              const currentLine = state.doc.line(i);
+              const currentText = currentLine.text;
+
+              for (let ch = (i === line.number ? openBraceIdx : 0); ch < currentText.length; ch++)
+              {
+                  if (currentText[ch] === '{') braceCount++;
+                  if (currentText[ch] === '}') {
+                      braceCount--;
+                      if (braceCount === 0) {
+                          endPos = currentLine.from + ch;
+                          break;
+                      }
+                  }
+              }
+              if (endPos !== null) break;
+          }
+
+          // if {...} found, but it has several lines -> define folding range (after { and in the })
+          if (endPos !== null && state.doc.lineAt(endPos).number > line.number) {
+              return { from: line.from + openBraceIdx + 1, to: endPos };
+          }
+      }
+
+      return null;
+   });
 
 
    function createSetup ( options = {} )
@@ -90,6 +132,14 @@
               );
          }
 
+         // identUnit
+         if (options.foldingBraces)
+         {
+             extensions.push(
+                   bracesOnlyFoldService
+              );
+         }
+
          return extensions;
    }
 
@@ -100,29 +150,29 @@
            backgroundColor: "#0c1021",
            color: "#f8f8f8"
        },
-   
+
        ".cm-content": {
            caretColor: "#ffffff"
        },
-   
+
        ".cm-cursor, .cm-dropCursor": {
            borderLeftColor: "#ffffff"
        },
-   
+
        "&.cm-focused .cm-selectionBackground, .cm-selectionBackground": {
            backgroundColor: "#253b76"
        },
-   
+
        ".cm-activeLine": {
            backgroundColor: "#151b2f"
        },
-   
+
        ".cm-gutters": {
            backgroundColor: "#0c1021",
            color: "#888888",
            border: "none"
        },
-   
+
        ".cm-activeLineGutter": {
            backgroundColor: "#151b2f"
        }
@@ -135,29 +185,29 @@
            backgroundColor: "#ffffff",
            color: "#000000"
        },
-   
+
        ".cm-content": {
            caretColor: "#000000"
        },
-   
+
        ".cm-cursor, .cm-dropCursor": {
            borderLeftColor: "#000000"
        },
-   
+
        "&.cm-focused .cm-selectionBackground, .cm-selectionBackground": {
            backgroundColor: "#d7d4f0"
        },
-   
+
        ".cm-activeLine": {
            backgroundColor: "#f3f3f3"
        },
-   
+
        ".cm-gutters": {
            backgroundColor: "#f7f7f7",
            color: "#999999",
            borderRight: "1px solid #dddddd"
        },
-   
+
        ".cm-activeLineGutter": {
            backgroundColor: "#e8e8e8"
        }
