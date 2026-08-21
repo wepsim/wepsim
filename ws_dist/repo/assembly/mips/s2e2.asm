@@ -37,8 +37,8 @@ main:
             addi $sp $sp -4
             sw   $ra ($sp)
 
-             # test li
-            li  $1 0x12345678
+             # test la
+            la  $1 0x12345678
 
              # test lb
             la   $26 errorLb
