@@ -639,7 +639,7 @@ slli rd rs1 inm {
       imm(5:0)=inm,
       help='rd = (rs1 << inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (SE=0, OFFSET=0, SIZE=110, T3=1, C5=1),
             (MR=0, SELA=10000, MA=0, MB=01, COP=00111, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
             (A0=1, B=1, C=0)
       }
@@ -654,7 +654,7 @@ srli rd rs1 inm {
       imm(5:0)=inm,
       help='rd = (rs1 >>> inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (SE=0, OFFSET=0, SIZE=110, T3=1, C5=1),
             (MR=0, SELA=10000, MA=0, MB=01, COP=00101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
             (A0=1, B=1, C=0)
       }
@@ -668,7 +668,7 @@ srai rd rs1 inm {
       imm(15:0)=inm,
       help='rd = (rs1 >> inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C5=1),
+            (SE=0, OFFSET=0, SIZE=110, T3=1, C5=1),
             (MR=0, SELA=10000, MA=0, MB=01, COP=00110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
             (A0=1, B=1, C=0)
       }
