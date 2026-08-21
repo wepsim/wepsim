@@ -305,7 +305,7 @@ srl reg1 reg2 val {
             reg2=reg(20,16),
             val=imm(5,0),
             {
-                (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
+                (SE=0, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
                 (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
          loop9: (A0=0, B=0, C=110, MADDR=bck9ftch),
                 (MC=1, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
@@ -322,7 +322,7 @@ sll reg1 reg2 val {
             reg2=reg(20,16),
             val=imm(5,0),
             {
-                (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
+                (SE=0, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
                 (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
         loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
                 (MC=1, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),

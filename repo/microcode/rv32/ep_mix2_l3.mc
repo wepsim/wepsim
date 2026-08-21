@@ -622,7 +622,7 @@ slli rd rs1 inm {
       imm(5:0)=inm,
       help='rd = (rs1 << inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+            (SE=0, OFFSET=0, SIZE=110, T3=1, C4=1),
             (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
    loop10a: (A0=0, B=0, C=110, MADDR=bck10aftch),
             (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
@@ -662,7 +662,7 @@ srai rd rs1 inm {
       imm(15:0)=inm,
       help='rd = (rs1 >> inm)',
       {
-            (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+            (SE=0, OFFSET=0, SIZE=110, T3=1, C4=1),
             (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
     loop9a: (A0=0, B=0, C=110, MADDR=bck9aftch),
             (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=110, T6=1, LC=1, SELC=10101),
