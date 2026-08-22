@@ -41,13 +41,13 @@ while getopts 'vdh' opt; do
     d)
       echo "  Please install first:"
       echo ""
-      cat $(dirname $0)/install_prereq.sh | sed "s/^/     /g" | grep -v "set -x" | grep -v "/bin/bash"
+      cat "$(dirname $0)"/install_prereq.sh | sed "s/^/     /g" | grep -v "set -x" | grep -v "/bin/bash"
       echo ""
       exit
       ;;
 
     ?|h)
-      echo "  Usage: $(basename $0) [-v] [-d]"
+      echo "  Usage: "$(basename $0)" [-v] [-d]"
       echo ""
       exit 1
       ;;
@@ -118,37 +118,37 @@ echo "  Step for packing min.*:"
 BASE_DIR=$(dirname $0)/webpack_indexes/
 
 # building cat_indexes/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/i18n.js';"                         > ${BASE_DIR}/min.wepsim_i18n.js
-    echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/i18n.js';"                         > "${BASE_DIR}"/min.wepsim_i18n.js
+    echo ""                                                                      >> "${BASE_DIR}"/min.wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
-    echo "export * from '../../src/wepsim_i18n/$LANG/gui.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-simpleusage.js';"  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/tour-intro.js';"            >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/cfg.js';"                   >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/help.js';"                  >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/states.js';"                >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/examples.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/compiler.js';"              >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/hw.js';"                    >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo "export * from '../../src/wepsim_i18n/$LANG/dialogs.js';"               >> ${BASE_DIR}/min.wepsim_i18n.js
-    echo ""                                                               >> ${BASE_DIR}/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/gui.js';"                   >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-welcome.js';"      >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tutorial-simpleusage.js';"  >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/tour-intro.js';"            >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/cfg.js';"                   >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/help.js';"                  >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/states.js';"                >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/examples.js';"              >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/compiler.js';"              >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/hw.js';"                    >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo "export * from '../../src/wepsim_i18n/$LANG/dialogs.js';"               >> "${BASE_DIR}"/min.wepsim_i18n.js
+    echo ""                                                                      >> "${BASE_DIR}"/min.wepsim_i18n.js
 done
 
 # building cat_indexes/min.wepsim_web.js
-echo ""                                        > ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.sim_all.js                >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_i18n.js            >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_core.js            >> ${BASE_DIR}/min.wepsim_web.js
-cat ${BASE_DIR}/min.wepsim_webui.js           >> ${BASE_DIR}/min.wepsim_web.js
+echo ""                                        > "${BASE_DIR}"/min.wepsim_web.js
+cat "${BASE_DIR}"/min.sim_all.js              >> "${BASE_DIR}"/min.wepsim_web.js
+cat "${BASE_DIR}"/min.wepsim_i18n.js          >> "${BASE_DIR}"/min.wepsim_web.js
+cat "${BASE_DIR}"/min.wepsim_core.js          >> "${BASE_DIR}"/min.wepsim_web.js
+cat "${BASE_DIR}"/min.wepsim_webui.js         >> "${BASE_DIR}"/min.wepsim_web.js
 
 # building cat_indexes/min.wepsim_node.js
-echo ""                                        > ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_node-begin.js      >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.sim_all.js                >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_i18n.js            >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_core.js            >> ${BASE_DIR}/min.wepsim_node.js
-cat ${BASE_DIR}/min.wepsim_node-end.js        >> ${BASE_DIR}/min.wepsim_node.js
+echo ""                                        > "${BASE_DIR}"/min.wepsim_node.js
+cat "${BASE_DIR}"/min.wepsim_node-begin.js    >> "${BASE_DIR}"/min.wepsim_node.js
+cat "${BASE_DIR}"/min.sim_all.js              >> "${BASE_DIR}"/min.wepsim_node.js
+cat "${BASE_DIR}"/min.wepsim_i18n.js          >> "${BASE_DIR}"/min.wepsim_node.js
+cat "${BASE_DIR}"/min.wepsim_core.js          >> "${BASE_DIR}"/min.wepsim_node.js
+cat "${BASE_DIR}"/min.wepsim_node-end.js      >> "${BASE_DIR}"/min.wepsim_node.js
 
 # building ws_dist/min.*.js
 npm run pack

@@ -92,7 +92,7 @@ const nodeConfig = {
     // 2. Target node
     name: 'nodejs',
     target: 'node',
-    dependencies: ['web'],
+    //dependencies: ['web'],
 
     // 3. Bundles section
     entry: {
