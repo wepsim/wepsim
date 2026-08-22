@@ -3,7 +3,6 @@
 export * from '../../src/wepsim_nodejs/wepsim_node_adapt.js';
 
        export * from '../../src/sim_core/sim_cfg.js';
-export * from '../../src/sim_core/sim_cfg.js';
        export * from '../../src/sim_core/sim_core_sound.js';
 export * from '../../src/sim_core/sim_core_sound.js';
 export * from '../../src/sim_core/sim_core_ga.js';
@@ -12,7 +11,6 @@ export * from '../../src/sim_core/sim_core_record.js';
 export * from '../../src/sim_core/sim_core_ctrl.js';
 export * from '../../src/sim_core/sim_core_ui.js';
        export * from '../../src/sim_core/sim_api_core.js';
-export * from '../../src/sim_core/sim_api_core.js';
 export * from '../../src/sim_core/sim_api_native.js';
 export * from '../../src/sim_core/sim_api_stateshots.js';
 export * from '../../src/sim_core/sim_core_voice.js';
