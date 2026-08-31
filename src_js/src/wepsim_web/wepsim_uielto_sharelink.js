@@ -17,9 +17,9 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { wsHTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
 import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
 import { share_as_uri } from "../wepsim_core/wepsim_share.js";
+import { wsHTMLElement } from "../wepsim_nodejs/wepsim_node_adapt.js";
 import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 /*
  *  Share link

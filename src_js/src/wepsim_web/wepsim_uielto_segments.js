@@ -17,8 +17,8 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 import { simhw_internalState } from "../sim_hw/sim_hw_index.js";
+import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 /*
  *  Segments
  */

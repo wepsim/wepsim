@@ -19,9 +19,9 @@
  */
 
 
-    import { get_var, set_var }          from "./sim_core_values.js";
+    import { get_var, set_var }            from "./sim_core_values.js";
     import { segments_addr_within_text,
-             segments_addr_within_data } from "../sim_sw/assembly/memory_segments.js";
+             segments_addr_within_data }   from "../sim_sw/assembly/memory_segments.js";
 
 
         /*

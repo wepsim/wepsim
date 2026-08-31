@@ -29,7 +29,7 @@
               frm_getToken,
               frm_getTokenType,
               frm_getComments,
-              frm_nextNative }    from "./lexical.js";
+              frm_nextNative }   from "./lexical.js";
 
 
 export function firm_mcode_write ( elto, labels_firm )

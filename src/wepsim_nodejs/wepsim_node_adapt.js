@@ -20,7 +20,8 @@
 
 
     // Web Components
-    const HTMLElementBase = (typeof window !== "undefined") ? HTMLElement : class {} ;
+    const HTMLElementBase = (typeof window !== "undefined") ? HTMLElement : class {};
 
-    export class wsHTMLElement extends HTMLElementBase {} ;
+    export class wsHTMLElement extends HTMLElementBase {
+    } ;
 

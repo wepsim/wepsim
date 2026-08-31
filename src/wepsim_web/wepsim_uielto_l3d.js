@@ -20,13 +20,13 @@
 
 
         import { ws_uielto,
-                 register_uielto }          from "./wepsim_uielto.js";
+                 register_uielto }             from "./wepsim_uielto.js";
         import { simhw_active,
-                 simhw_internalState }      from "../sim_hw/sim_hw_index.js";
-        import { simcore_rest_add }         from "../sim_core/sim_core_rest.js";
+                 simhw_internalState }         from "../sim_hw/sim_hw_index.js";
+        import { simcore_rest_add }            from "../sim_core/sim_core_rest.js";
         import { vue_observable_ifnotjetdone,
-                 vue_applyBinding }         from "../sim_core/sim_core_values.js";
-        import { compute_general_behavior } from "../sim_hw/sim_hw_behavior.js";
+                 vue_applyBinding }            from "../sim_core/sim_core_values.js";
+        import { compute_general_behavior }    from "../sim_hw/sim_hw_behavior.js";
 
 
         /*

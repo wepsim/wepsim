@@ -19,7 +19,8 @@
  */
 
 
-    import { simhw_sim_components, simhw_sim_component } from "../sim_hw/sim_hw_index.js";
+    import { simhw_sim_components,
+	     simhw_sim_component }    from "../sim_hw/sim_hw_index.js";
 
 
     export function simcore_simstate_checklist2state ( checklist )

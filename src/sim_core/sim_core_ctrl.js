@@ -19,31 +19,31 @@
  */
 
 
-     import { get_cfg }              from "./sim_cfg.js";
-     import { get_value }            from "./sim_core_values.js";
+     import { get_cfg }                    from "./sim_cfg.js";
+     import { get_value }                  from "./sim_core_values.js";
      import { get_simware,
-              set_simware }          from "./sim_adt_core.js";
+              set_simware }                from "./sim_adt_core.js";
      import { control_memory_get,
-              control_memory_set }   from "./sim_adt_ctrlmemory.js";
-     import { main_memory_set }      from "./sim_adt_mainmemory.js";
-     import { cache_memory_init_cm } from "./sim_adt_cachememory.js";
+              control_memory_set }         from "./sim_adt_ctrlmemory.js";
+     import { main_memory_set }            from "./sim_adt_mainmemory.js";
+     import { cache_memory_init_cm }       from "./sim_adt_cachememory.js";
 
-     import { saveFirmware }         from "../sim_sw/firmware.js";
-     import { signal_fire }          from "../sim_hw/sim_hw_signal.js";
+     import { saveFirmware }               from "../sim_sw/firmware.js";
+     import { signal_fire }                from "../sim_hw/sim_hw_signal.js";
      import { simhw_internalState,
               simhw_sim_signal,
               simhw_sim_state,
               simhw_internalState_set,
               simhw_internalState_get,
               simhw_sim_ctrlStates_get,
-              simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
+              simhw_internalState_reset }  from "../sim_hw/sim_hw_index.js";
      import { update_draw,
               update_bus_visibility,
               ws_alert,
               show_memories_values,
               show_main_memory,
               show_control_memory,
-              show_cache_memory }    from "./sim_core_ui.js";
+              show_cache_memory }          from "./sim_core_ui.js";
 
 
         /*

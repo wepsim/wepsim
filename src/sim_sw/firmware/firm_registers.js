@@ -26,8 +26,8 @@
               frm_langError }   from "./lexical.js";
 
 
-export function firm_registers_write ( context )
-{
+    export function firm_registers_write ( context )
+    {
 	var o = "" ;
 
         // no registers -> return empty section
@@ -83,11 +83,11 @@ export function firm_registers_write ( context )
 
         // return string
 	return o ;
-}
+    }
 
 
-export function firm_find_rf_by_name ( context, rf_name )
-{
+    export function firm_find_rf_by_name ( context, rf_name )
+    {
 	for (var i=0; i<context.registers.length; i++)
 	{
              if (context.registers[i].name == rf_name) {
@@ -96,10 +96,10 @@ export function firm_find_rf_by_name ( context, rf_name )
 	}
 
         return -1 ;
-}
+    }
 
-export function firm_registers_read ( context )
-{
+    export function firm_registers_read ( context )
+    {
 	// *registers [register file name]
 	// {*
         //    0=(zero, x0),
@@ -214,5 +214,5 @@ export function firm_registers_read ( context )
        frm_nextToken(context);
 
        return {} ;
-}
+    }
 

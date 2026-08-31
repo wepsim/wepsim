@@ -17,13 +17,13 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 import { get_cfg } from "../sim_core/sim_cfg.js";
-import { simhw_active } from "../sim_hw/sim_hw_index.js";
-import { resolve_html_url } from "../wepsim_core/wepsim_help.js";
 import { simcore_ga } from "../sim_core/sim_core_ga.js";
 import { ws_info } from "../sim_core/sim_adt_core.js";
 import { array_includes } from "../sim_core/sim_core_ctrl.js";
+import { simhw_active } from "../sim_hw/sim_hw_index.js";
+import { resolve_html_url } from "../wepsim_core/wepsim_help.js";
+import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
 /*
  *  Help
  */

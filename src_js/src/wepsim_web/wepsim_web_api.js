@@ -42,7 +42,7 @@ import { webui_toolbar_updateMode, webui_toolbar_updateAction } from "./wepsim_u
 import { wepsim_compile_assembly, wepsim_compile_firmware } from "./wepsim_web_editor.js";
 import { topbar_quickmenu_action } from "./wepsim_uielto_topbar.js";
 import { wepsim_popover_show, wepsim_popover_hide, wepsim_popover_action } from "./wepsim_web_ui_popover.js";
-import { wepsim_execute_reset, wepsim_execute_microinstruction, wepsim_execute_microinstruction_backwards, wepsim_execute_instruction, wepsim_reset_max_turbo } from "../wepsim_core/wepsim_execute.js";
+import { wepsim_execute_reset, wepsim_execute_microinstruction_backwards, wepsim_execute_microinstruction, wepsim_execute_instruction, wepsim_reset_max_turbo } from "../wepsim_core/wepsim_execute.js";
 import { wsweb_dlg_alert, wsweb_dlg_open, wsweb_dlg_close } from "../wepsim_core/wepsim_dialog.js";
 import { wepsim_update_signal_quick, wepsim_update_signal_dialog } from "../wepsim_core/wepsim_signal.js";
 import { wepsim_mode_change } from "../wepsim_core/wepsim_mode.js";

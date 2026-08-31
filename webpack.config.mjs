@@ -16,7 +16,7 @@ const webConfig = {
 
     // 2. Target Web
     name: 'web',
-    target: ['web', 'es2022'],
+    target: [ 'web', 'es2022' ],
 
     // 3. Bundles section
     entry: {
@@ -87,10 +87,10 @@ const webConfig = {
 // 40. Configuration (2/2)
 const nodeConfig = {
     // 1. Compilation mode: development | production
-    mode: 'production',
+    mode:   'production',
 
     // 2. Target node
-    name: 'nodejs',
+    name:   'nodejs',
     target: 'node',
     //dependencies: ['web'],
 
@@ -111,7 +111,7 @@ const nodeConfig = {
     },
 
     resolve: {
-       extensions: ['.js', '.json']
+       extensions: [ '.js', '.json' ]
     },
 
     optimization: { usedExports: false },
@@ -123,5 +123,5 @@ const nodeConfig = {
 
 
 // 50. export default
-export default [webConfig, nodeConfig];
+export default [ webConfig, nodeConfig ] ;
 

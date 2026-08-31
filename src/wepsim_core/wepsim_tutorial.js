@@ -19,14 +19,14 @@
  */
 
 
-     import { ws_info }             from "../sim_core/sim_adt_core.js";
+     import { ws_info }                from "../sim_core/sim_adt_core.js";
      import { simcore_voice_canSpeak,
-              simcore_voice_speak } from "../sim_core/sim_core_voice.js";
-     import { get_cfg }             from "../sim_core/sim_cfg.js";
-     import { wsweb_select_main }   from "../wepsim_web/wepsim_web_api.js";
-     import { simcore_ga }          from "../sim_core/sim_core_ga.js";
+              simcore_voice_speak }    from "../sim_core/sim_core_voice.js";
+     import { get_cfg }                from "../sim_core/sim_cfg.js";
+     import { wsweb_select_main }      from "../wepsim_web/wepsim_web_api.js";
+     import { simcore_ga }             from "../sim_core/sim_core_ga.js";
      import { i18n_get,
-              i18n_update_tags }    from "../wepsim_i18n/i18n.js";
+              i18n_update_tags }       from "../wepsim_i18n/i18n.js";
 
 
     //

@@ -20,8 +20,8 @@
 
 
         import { ws_uielto,
-                 register_uielto }       from "./wepsim_uielto.js";
-        import { wepsim_example_getSet } from "../wepsim_core/wepsim_example.js";
+                 register_uielto }                    from "./wepsim_uielto.js";
+        import { wepsim_example_getSet }              from "../wepsim_core/wepsim_example.js";
 
 
         /*

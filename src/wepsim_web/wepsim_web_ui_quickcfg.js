@@ -19,20 +19,20 @@
  */
 
 
-    import { get_cfg } from "../sim_core/sim_cfg.js";
+    import { get_cfg }                               from "../sim_core/sim_cfg.js";
     import { i18n_get_TagFor,
              i18n_update_tags,
-             i18n_get } from "../wepsim_i18n/i18n.js";
+             i18n_get }                              from "../wepsim_i18n/i18n.js";
     import { wepsim_config_button_pretoggle,
              wepsim_config_button_html_2options,
              wepsim_config_button_pretoggle_val,
              wepsim_config_button_html_onoff,
-             wepsim_config_button_html_close } from "./wepsim_web_ui_config.js";
+             wepsim_config_button_html_close }       from "./wepsim_web_ui_config.js";
     import { wepsim_show_asm_columns_checked,
-             showhideAsmHeader } from "./wepsim_uielto_dbg_asm.js";
-    import { quick_config_rf } from "./wepsim_uielto_registers.js";
-    import { ws_signals_show_inactive } from "./wepsim_uielto_hw.js";
-    import { wepsim_popover_init } from "./wepsim_web_ui_popover.js";
+             showhideAsmHeader }                     from "./wepsim_uielto_dbg_asm.js";
+    import { quick_config_rf }                       from "./wepsim_uielto_registers.js";
+    import { ws_signals_show_inactive }              from "./wepsim_uielto_hw.js";
+    import { wepsim_popover_init }                   from "./wepsim_web_ui_popover.js";
 
 
     //

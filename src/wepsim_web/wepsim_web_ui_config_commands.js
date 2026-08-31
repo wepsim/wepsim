@@ -19,10 +19,10 @@
  */
 
 
-    import { ws_info }                        from "../sim_core/sim_adt_core.js";
+    import { ws_info }                              from "../sim_core/sim_adt_core.js";
     import { i18n_get_selectcfg,
-             i18n_get_TagFor }                from "../wepsim_i18n/i18n.js";
-    import { get_cfg }                        from "../sim_core/sim_cfg.js";
+             i18n_get_TagFor }                      from "../wepsim_i18n/i18n.js";
+    import { get_cfg }                              from "../sim_core/sim_cfg.js";
     import { wepsim_config_button_pretoggle,
              wepsim_show_breakpoint_icon_list,
              wepsim_show_breakpoint_icon_template,
@@ -30,10 +30,10 @@
              wepsim_config_button_html_2options,
              wepsim_config_button_html_color,
              wepsim_config_button_pretoggle_val2,
-             wepsim_config_color_initial }    from "./wepsim_web_ui_config.js";
+             wepsim_config_color_initial }          from "./wepsim_web_ui_config.js";
     import { wepsim_restore_darkmode,
-             wepsim_uicfg_apply }             from "./wepsim_web_simulator.js";
-    import { wepsim_popover_init }            from "./wepsim_web_ui_popover.js";
+             wepsim_uicfg_apply }                   from "./wepsim_web_simulator.js";
+    import { wepsim_popover_init }                  from "./wepsim_web_ui_popover.js";
 
 
     ws_info.config_ui = [] ;

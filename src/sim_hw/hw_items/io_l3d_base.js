@@ -22,12 +22,13 @@
      import { get_value,
               set_value,
               get_var,
-              set_var }           from "../../sim_core/sim_core_values.js";
+              set_var }             from "../../sim_core/sim_core_values.js";
+     import { simcore_rest_call }   from "../../sim_core/sim_core_rest.js";
+
      import { simhw_internalState_get,
               simhw_sim_state,
-              simhw_sim_signal }  from "../sim_hw_index.js";
-     import { signal_fire }       from "../sim_hw_signal.js";
-     import { simcore_rest_call } from "../../sim_core/sim_core_rest.js";
+              simhw_sim_signal }    from "../sim_hw_index.js";
+     import { signal_fire }         from "../sim_hw_signal.js";
 
 
 /*

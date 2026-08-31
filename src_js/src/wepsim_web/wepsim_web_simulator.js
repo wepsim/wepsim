@@ -29,7 +29,7 @@ import { show_cpuview_view, cpucu_show_graph, cpucu_show_table } from "./wepsim_
 import { wepsim_config_button_pretoggle_val2, wepsim_config_select_toggle } from "./wepsim_web_ui_config.js";
 import { wepsim_svg_refresh, is_dark_mode, wepsim_svg_update_draw, wepsim_svg_update_bus_visibility } from "./wepsim_uielto_cpusvg.js";
 import { sim_cfg_editor_theme, sim_cm_get_firmcfg, sim_init_editor, sim_cm_get_asmcfg } from "./wepsim_web_editor.js";
-import { wepsim_init_states, wepsim_init_rf, wepsim_show_rf_names } from "./wepsim_uielto_registers.js";
+import { wepsim_init_states, wepsim_init_rf, wepsim_init_pipeline, wepsim_show_rf_names } from "./wepsim_uielto_registers.js";
 import { wepsim_show_main_memory } from "./wepsim_uielto_mem.js";
 import { wepsim_show_asmdbg_pc, wepsim_show_dbg_ir, asmdbg_update_assembly, showhideAsmElements } from "./wepsim_uielto_dbg_asm.js";
 import { wepsim_show_control_memory, wepsim_show_dbg_mpc } from "./wepsim_uielto_dbg_mc.js";
@@ -239,6 +239,7 @@ export var hash_detail2init = {
         init: function () {
             wepsim_init_states();
             wepsim_init_rf();
+            wepsim_init_pipeline();
         },
         reset: function () {
             // wepsim_show_rf_names() ;

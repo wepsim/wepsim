@@ -19,11 +19,11 @@
  */
 
 
-     import { set_value, get_value }    from "./sim_core_values.js";
+     import { set_value, get_value }          from "./sim_core_values.js";
      import { simhw_sim_ctrlStates_get,
               simhw_sim_state,
-              simhw_internalState_get } from "../sim_hw/sim_hw_index.js";
-     import { compute_signal_verbals }  from "../sim_hw/sim_hw_behavior.js";
+              simhw_internalState_get }       from "../sim_hw/sim_hw_index.js";
+     import { compute_signal_verbals }        from "../sim_hw/sim_hw_behavior.js";
 
 
         /*

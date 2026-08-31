@@ -20,8 +20,8 @@
 
 
      import { get_value,
-              set_value }               from "../sim_core/sim_core_values.js";
-     import { ws_alert }                from "../sim_core/sim_core_ui.js";
+              set_value }      from "../sim_core/sim_core_values.js";
+     import { ws_alert }       from "../sim_core/sim_core_ui.js";
 
 
         /*

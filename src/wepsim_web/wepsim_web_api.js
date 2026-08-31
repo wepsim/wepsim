@@ -19,14 +19,14 @@
  */
 
 
-     import { wait_if_uievents }     from "../sim_core/sim_core_ctrl.js";
+     import { wait_if_uievents }                from "../sim_core/sim_core_ctrl.js";
      import { refresh,
-              show_memories_values } from "../sim_core/sim_core_ui.js";
+              show_memories_values }            from "../sim_core/sim_core_ui.js";
      import { get_cfg,
               set_cfg,
               save_cfg,
-              update_cfg }           from "../sim_core/sim_cfg.js";
-     import { simcore_ga }           from "../sim_core/sim_core_ga.js";
+              update_cfg }                      from "../sim_core/sim_cfg.js";
+     import { simcore_ga }                      from "../sim_core/sim_core_ga.js";
      import { simcore_record_append_new,
               simcore_record_start,
               simcore_record_stop,
@@ -35,12 +35,12 @@
               simcore_record_playInterval,
               simcore_record_isRecording,
               simcore_record_setTimeBeforeNow,
-              simcore_record_pause } from "../sim_core/sim_core_record.js";
-     import { get_simware }          from "../sim_core/sim_adt_core.js";
-     import { saveFirmware }         from "../sim_sw/firmware.js";
-     import { simhw_active }         from "../sim_hw/sim_hw_index.js";
+              simcore_record_pause }            from "../sim_core/sim_core_record.js";
+     import { get_simware }                     from "../sim_core/sim_adt_core.js";
+     import { saveFirmware }                    from "../sim_sw/firmware.js";
+     import { simhw_active }                    from "../sim_hw/sim_hw_index.js";
      import { i18n_update_tags,
-              i18n_get }             from "../wepsim_i18n/i18n.js";
+              i18n_get }                        from "../wepsim_i18n/i18n.js";
 
      import { wsweb_dialogs }                   from "./wepsim_web_ui_dialogs.js";
      import { sim_change_workspace,
@@ -68,8 +68,8 @@
               wepsim_popover_action }           from "./wepsim_web_ui_popover.js";
 
      import { wepsim_execute_reset,
-              wepsim_execute_microinstruction,
               wepsim_execute_microinstruction_backwards,
+              wepsim_execute_microinstruction,
               wepsim_execute_instruction,
               wepsim_reset_max_turbo }         from "../wepsim_core/wepsim_execute.js";
      import { wsweb_dlg_alert,
@@ -81,7 +81,8 @@
      import { wepsim_newbie_tour }             from "../wepsim_core/wepsim_tour.js";
      import { wepsim_help_set }                from "../wepsim_core/wepsim_help.js";
      import { wepsim_save_to_file }            from "../wepsim_core/wepsim_url.js";
-     import { get_inputfirm, get_inputasm }    from "../wepsim_web/wepsim_web_simulator.js";
+     import { get_inputfirm,
+	      get_inputasm }                   from "../wepsim_web/wepsim_web_simulator.js";
 
 
     //

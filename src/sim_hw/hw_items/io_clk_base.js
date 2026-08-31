@@ -20,13 +20,14 @@
 
 
      import { signal_fire }        from "../sim_hw_signal.js";
+     import { simhw_internalState_get,
+              simhw_sim_state,
+              simhw_sim_signal }   from "../sim_hw_index.js";
+
      import { get_value,
               set_value,
               set_var,
               get_var }            from "../../sim_core/sim_core_values.js";
-     import { simhw_internalState_get,
-              simhw_sim_state,
-              simhw_sim_signal }   from "../sim_hw_index.js";
 
 
 /*

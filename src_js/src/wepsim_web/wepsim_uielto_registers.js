@@ -17,17 +17,17 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
-import { wepsim_quickcfg_init, quickcfg_html_btn, quickcfg_html_btnreg, quickcfg_html_onoff, quickcfg_html_header, quickcfg_html_br, quickcfg_html_close } from "./wepsim_web_ui_quickcfg.js";
-import { simhw_sim_states, simhw_sim_state_getref, simhw_internalState } from "../sim_hw/sim_hw_index.js";
-import { set_value, update_value, get_value, vue_observable_ifnotjetdone, vue_applyBinding } from "../sim_core/sim_core_values.js";
 import { hex2char8, simcoreui_pack, hex2bin, hex2float, value2string } from "../sim_core/sim_core_ui.js";
 import { get_cfg } from "../sim_core/sim_cfg.js";
 import { get_simware } from "../sim_core/sim_adt_core.js";
-import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
+import { set_value, update_value, get_value, vue_observable_ifnotjetdone, vue_applyBinding } from "../sim_core/sim_core_values.js";
+import { simhw_sim_states, simhw_sim_state_getref, simhw_internalState } from "../sim_hw/sim_hw_index.js";
+import { ws_uielto, register_uielto } from "./wepsim_uielto.js";
+import { wepsim_quickcfg_init, quickcfg_html_btn, quickcfg_html_btnreg, quickcfg_html_onoff, quickcfg_html_header, quickcfg_html_br, quickcfg_html_close } from "./wepsim_web_ui_quickcfg.js";
 import { wepsim_popovers_init } from "./wepsim_web_ui_popover.js";
+import { i18n_get_TagFor } from "../wepsim_i18n/i18n.js";
 /*
- *  Registers (Register file + transparent registers)
+ *  Registers: register in the register file + transparent registers [ + pipeline registers ]
  */
 export class ws_registers extends ws_uielto {
     constructor() {
@@ -57,7 +57,7 @@ export class ws_registers extends ws_uielto {
             '</div>' +
             '<div id="' + this.gf_div + '" ' +
             '     style="width:inherit; overflow-y:auto;"' +
-            '     class="container container-fluid px-1 pb-1">' +
+            '     class="container container-fluid px-1 pt-2">' +
             '</div>';
         this.innerHTML = o1;
         // initialize loaded components
@@ -388,7 +388,7 @@ export function wepsim_init_rf() {
         vue_applyBinding(ref_obj.value, '#rf_' + index, f_computed_value_rf);
     }
 }
-export function wepsim_init_states_v1() {
+export function wepsim_init_states() {
     var sim_eltos = simhw_sim_states();
     var filter = simhw_internalState('filter_states');
     // vertical/horizontal packed
@@ -496,8 +496,8 @@ export function wepsim_init_states_v1() {
         vue_applyBinding(ref_obj.value, '#rf_' + s, f_computed_value);
     }
 }
-// wepsim_init_states_v2 ( )
-function render_state_button(ename, vir_real, separator_class, btn_id_prefix, val_id_prefix, toggle_name) {
+// wepsim_init_pipeline ( )
+function render_pipeline_register(ename, vir_real, separator_class, btn_id_prefix, val_id_prefix, toggle_name) {
     var dbs_toggle = "";
     var divclass = "";
     var spanbetw = "";
@@ -510,7 +510,7 @@ function render_state_button(ename, vir_real, separator_class, btn_id_prefix, va
         divclass = "col-12";
         spanbetw = " <span class='w-100 d-sm-none'></span>";
     }
-    const state = simhw_sim_state_getref(ename);
+    var state = simhw_sim_state_getref(ename);
     var disp_ename = ename.replace(".", "_");
     var showkey = state.name;
     if (state.nbits > 1) {
@@ -520,11 +520,12 @@ function render_state_button(ename, vir_real, separator_class, btn_id_prefix, va
             showkey = '<span class="font-monospace">' + part1 + '&nbsp;</span>';
         else
             showkey = '<span class="font-monospace">' + part1 + '</span>';
-        if (part2.length > 0)
+        if (part2.length > 0) {
             showkey += '<span class="d-none d-sm-inline-flex font-monospace">' + part2 + '</span>';
+        }
     }
     return "<button type='button' " +
-        "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " border border-secondary bg-body-tertiary' " +
+        "        class='btn py-0 px-1 mt-1 ms-1 " + divclass + " col-auto border border-secondary bg-body-tertiary' " +
         "        style='' data-role='none' " +
         dbs_toggle +
         "        id='" + btn_id_prefix + disp_ename + "'>" +
@@ -571,23 +572,48 @@ function bind_state_vue(entry, val_prefix, f_computed) {
     s = s.replace(".", "_");
     vue_applyBinding(ref_obj.value, '#' + val_prefix + s, f_computed);
 }
-export function wepsim_init_states() {
+export function wepsim_init_pipeline() {
     var filter = simhw_internalState('filter_states');
     var filter_groups = simhw_internalState('filter_states_groups');
+    if (typeof filter_groups == "undefined") {
+        $("#states_GR").html("");
+        return;
+    }
     var separator_class = "";
     if (get_cfg('RF_vertical_pack'))
         separator_class = "row mp_tooltip collapse show";
     else
         separator_class = "row mp_tooltip collapse";
-    // flat filter_states (above register file)
-    var o1 = "";
-    for (var i = 0; i < filter.length; i++) {
-        var filspl = filter[i].split(",");
-        o1 += render_state_button(filspl[0], filspl[1], separator_class, 'rp', 'rf_', 'popover-bottom');
+    var o2 = '<div class="accordion accordion-flush w-100 border border-2" id="accordion_registers">';
+    for (var group_name in filter_groups) {
+        // accordion begin
+        o2 += '<div class="accordion-item">' +
+            '  <h2 class="accordion-header">' +
+            '    <button class="accordion-button p-2 bg-body-tertiary border border-2" type="button"' +
+            '            data-bs-toggle="collapse" data-bs-target="#collapse_' + group_name + '"' +
+            '            aria-expanded="true"        aria-controls="collapse_' + group_name + '">' +
+            '    <span class="w-100 text-center">' + group_name + '</span>' +
+            '    </button>' +
+            '  </h2>' +
+            '  <div id="collapse_' + group_name + '" class="accordion-collapse collapse show">' +
+            '    <div class="accordion-body p-2 d-flex flex-row flex-wrap justify-content-around justify-content-sm-between" ' +
+            '         style="grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));">';
+        // accordion content
+        var group = filter_groups[group_name];
+        var filspl = [];
+        for (var j = 0; j < group.length; j++) {
+            filspl = group[j].split(",");
+            o2 += render_pipeline_register(filspl[0], filspl[1], separator_class, 'rpg', 'rfg_', 'popover-grp');
+        }
+        // accordion end
+        o2 += '    </div>' +
+            '  </div>' +
+            '</div>';
     }
-    $("#states_ALL").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
-    wepsim_popovers_init("[data-bs-toggle=popover-bottom]", popover_cfg_make('rp'), null);
-    var f_computed_value = function (value, elto_id) {
+    o2 += '</div>';
+    $("#states_GR").html(o2);
+    wepsim_popovers_init("[data-bs-toggle=popover-grp]", popover_cfg_make('rpg'), null);
+    var f_computed_value = function (value) {
         var rf_format = '';
         var rf_value = '';
         if (Number.isInteger(value)) {
@@ -600,34 +626,10 @@ export function wepsim_init_states() {
         }
         return rf_value;
     };
-    for (var i = 0; i < filter.length; i++) {
-        bind_state_vue(filter[i], 'rf_', f_computed_value);
-    }
-    // filter_states_groups (below register file)
-    if (typeof filter_groups == "undefined") {
-        $("#states_GR").html("");
-        return;
-    }
-    var o2 = "";
-    var last_group = null;
     for (var group_name in filter_groups) {
         var group = filter_groups[group_name];
         for (var j = 0; j < group.length; j++) {
-            if (group_name != last_group) {
-                o2 += "<div class='w-100 mt-1 mb-0 text-center border border-secondary bg-body-tertiary rounded py-0 px-1'><small><strong>" +
-                    group_name +
-                    "</strong></small></div>";
-                last_group = group_name;
-            }
-            var filspl = group[j].split(",");
-            o2 += render_state_button(filspl[0], filspl[1], separator_class, 'rpg', 'rfg_', 'popover-grp');
-        }
-    }
-    $("#states_GR").html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o2 + "</div>");
-    wepsim_popovers_init("[data-bs-toggle=popover-grp]", popover_cfg_make('rpg'), null);
-    for (var group_name in filter_groups) {
-        var group = filter_groups[group_name];
-        for (var j = 0; j < group.length; j++)
             bind_state_vue(group[j], 'rfg_', f_computed_value);
+        }
     }
 }

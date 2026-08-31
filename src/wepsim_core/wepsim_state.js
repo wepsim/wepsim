@@ -19,9 +19,9 @@
  */
 
 
-     import { get_value }       from "../sim_core/sim_core_values.js";
-     import { simhw_sim_state } from "../sim_hw/sim_hw_index.js";
-     import { ws_info }         from "../sim_core/sim_adt_core.js";
+     import { get_value }                        from "../sim_core/sim_core_values.js";
+     import { simhw_sim_state }                  from "../sim_hw/sim_hw_index.js";
+     import { ws_info }                          from "../sim_core/sim_adt_core.js";
      import { simcore_simstate_current2state,
               simcore_simstate_state2checklist } from "../sim_core/sim_api_stateshots.js";
 
