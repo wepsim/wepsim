@@ -19,7 +19,8 @@
  */
 
 
-        import { get_cfg, is_darkmode }  from "../sim_core/sim_cfg.js";
+        import { get_cfg,
+		 is_darkmode }           from "../sim_core/sim_cfg.js";
         import { wait_if_uievents }      from "../sim_core/sim_core_ctrl.js";
         import { simhw_sim_state }       from "../sim_hw/sim_hw_index.js";
 

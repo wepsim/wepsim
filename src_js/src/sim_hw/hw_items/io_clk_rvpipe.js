@@ -107,9 +107,10 @@ export function io_clk_rvpipe_register(sim_p) {
         nparameters: 7,
         types: ["E", "E", "E", "E", "E", "E"],
         operation: function (s_expr) {
-            var _a, _b;
+            var _a;
+            var _b;
             if (DEBUG)
-                console.log(JSON.stringify(s_expr), (_b = sim_p.behaviors[(_a = s_expr[0]) !== null && _a !== void 0 ? _a : "NOP"]) === null || _b === void 0 ? void 0 : _b.verbal(s_expr));
+                console.log(JSON.stringify(s_expr), (_a = sim_p.behaviors[(_b = s_expr[0]) !== null && _b !== void 0 ? _b : "NOP"]) === null || _a === void 0 ? void 0 : _a.verbal(s_expr));
             var bus_ab = get_value(sim_p.states[s_expr[1]]);
             if (bus_ab == IO_CLK_IOSR_ID) {
                 var idx = get_value(sim_p.states[s_expr[4]]);
@@ -144,9 +145,10 @@ export function io_clk_rvpipe_register(sim_p) {
         nparameters: 7,
         types: ["E", "E", "E", "E", "E", "E"],
         operation: function (s_expr) {
-            var _a, _b;
+            var _a;
+            var _b;
             if (DEBUG)
-                console.log(JSON.stringify(s_expr), (_b = sim_p.behaviors[(_a = s_expr[0]) !== null && _a !== void 0 ? _a : "NOP"]) === null || _b === void 0 ? void 0 : _b.verbal(s_expr));
+                console.log(JSON.stringify(s_expr), (_a = sim_p.behaviors[(_b = s_expr[0]) !== null && _b !== void 0 ? _b : "NOP"]) === null || _a === void 0 ? void 0 : _a.verbal(s_expr));
             var bus_ab = get_value(sim_p.states[s_expr[1]]);
             var bus_db = get_value(sim_p.states[s_expr[2]]);
             if (bus_ab != IO_CLK_IOSR_ID &&
@@ -186,9 +188,10 @@ export function io_clk_rvpipe_register(sim_p) {
         nparameters: 4,
         types: ["E", "E", "X"],
         operation: function (s_expr) {
-            var _a, _b;
+            var _a;
+            var _b;
             if (DEBUG)
-                console.log(JSON.stringify(s_expr), (_b = sim_p.behaviors[(_a = s_expr[0]) !== null && _a !== void 0 ? _a : "NOP"]) === null || _b === void 0 ? void 0 : _b.verbal(s_expr));
+                console.log(JSON.stringify(s_expr), (_a = sim_p.behaviors[(_b = s_expr[0]) !== null && _b !== void 0 ? _b : "NOP"]) === null || _a === void 0 ? void 0 : _a.verbal(s_expr));
             const int = sim_p.states[s_expr[1]];
             const intv = sim_p.states[s_expr[2]];
             const ref = get_reference(s_expr[3]);
@@ -228,14 +231,15 @@ export function io_clk_rvpipe_register(sim_p) {
         nparameters: 5,
         types: ["E", "E", "E", "E"],
         operation: function (s_expr) {
-            var _a, _b;
+            var _a;
+            var _b;
             const inta = get_value(sim_p.states[s_expr[1]]);
             const int = sim_p.states[s_expr[2]];
             const intv = get_value(sim_p.states[s_expr[3]]);
             const clk = get_value(sim_p.states[s_expr[4]]);
             if (get_value(int) == 1 && inta == 1 && intv >= 0 && intv < sim_p.internal_states.io_int_factory.length) {
                 if (DEBUG)
-                    console.log(JSON.stringify(s_expr), (_b = sim_p.behaviors[(_a = s_expr[0]) !== null && _a !== void 0 ? _a : "NOP"]) === null || _b === void 0 ? void 0 : _b.verbal(s_expr));
+                    console.log(JSON.stringify(s_expr), (_a = sim_p.behaviors[(_b = s_expr[0]) !== null && _b !== void 0 ? _b : "NOP"]) === null || _a === void 0 ? void 0 : _a.verbal(s_expr));
                 set_var(sim_p.internal_states.io_int_factory[intv].active, false);
                 set_var(sim_p.internal_states.io_int_factory[intv].since_prev, 0);
                 const acc = get_var(sim_p.internal_states.io_int_factory[intv].accumulated);

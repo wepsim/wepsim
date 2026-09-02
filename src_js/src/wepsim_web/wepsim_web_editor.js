@@ -299,7 +299,8 @@ export function sim_cfg_editor_mode(editor) {
     editor.setOption('keyMap', edt_mode);
 }
 export function sim_cfg_autocomplete_list(editor) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c;
+    var _d;
     // rebuild list
     var result = [];
     var simware = get_simware();

@@ -46,8 +46,7 @@
               simcore_native_go_maddr,
               simcore_native_go_opcode,
               simcore_native_go_instruction,
-              simcore_native_deco,
-              context }                       from "../sim_core/sim_api_native.js";
+              simcore_native_deco }           from "../sim_core/sim_api_native.js";
 
 
 /*

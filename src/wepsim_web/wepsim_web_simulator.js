@@ -64,7 +64,6 @@
     import { wepsim_config_button_pretoggle_val2,
              wepsim_config_select_toggle }         from "./wepsim_web_ui_config.js";
     import { wepsim_svg_refresh,
-             is_dark_mode,
              wepsim_svg_update_draw,
              wepsim_svg_update_bus_visibility }    from "./wepsim_uielto_cpusvg.js";
     import { sim_cfg_editor_theme,

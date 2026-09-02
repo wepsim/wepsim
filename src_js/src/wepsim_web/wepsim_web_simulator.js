@@ -27,7 +27,7 @@ import { update_memories } from "../sim_core/sim_core_ctrl.js";
 import { wsweb_change_workspace_simulator, wsweb_change_show_processor, wsweb_set_details, wsweb_set_cpucu_size, wsweb_set_c1c2_size, wsweb_select_main } from "./wepsim_web_api.js";
 import { show_cpuview_view, cpucu_show_graph, cpucu_show_table } from "./wepsim_uipacker_cpu_cu.js";
 import { wepsim_config_button_pretoggle_val2, wepsim_config_select_toggle } from "./wepsim_web_ui_config.js";
-import { wepsim_svg_refresh, is_dark_mode, wepsim_svg_update_draw, wepsim_svg_update_bus_visibility } from "./wepsim_uielto_cpusvg.js";
+import { wepsim_svg_refresh, wepsim_svg_update_draw, wepsim_svg_update_bus_visibility } from "./wepsim_uielto_cpusvg.js";
 import { sim_cfg_editor_theme, sim_cm_get_firmcfg, sim_init_editor, sim_cm_get_asmcfg } from "./wepsim_web_editor.js";
 import { wepsim_init_states, wepsim_init_rf, wepsim_init_pipeline, wepsim_show_rf_names } from "./wepsim_uielto_registers.js";
 import { wepsim_show_main_memory } from "./wepsim_uielto_mem.js";

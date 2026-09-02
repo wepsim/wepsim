@@ -101,8 +101,8 @@ export var hash_skin2action = {
             if (inputasm.is_refreshed != true) {
                 inputasm.is_refreshed = true;
                 wait_if_uievents(function () {
-                    var inputasm = get_inputasm();
-                    inputasm.refresh();
+                    var inputasm_txt = get_inputasm();
+                    inputasm_txt.refresh();
                 }, 50);
             }
         }

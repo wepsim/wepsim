@@ -141,11 +141,11 @@
 
 	                                  var inputasm = get_inputasm() ;
 					  if (inputasm.is_refreshed != true) {
-					      inputasm.is_refreshed = true ;
-					      wait_if_uievents(function(){
-	                                                    var inputasm = get_inputasm() ;
-							    inputasm.refresh() ;
-					    	         }, 50) ;
+					      inputasm.is_refreshed  = true ;
+					      wait_if_uievents(function() {
+	                                                         var inputasm_txt = get_inputasm() ;
+							             inputasm_txt.refresh() ;
+					    	               }, 50) ;
 					  }
 	                              }
 		       },

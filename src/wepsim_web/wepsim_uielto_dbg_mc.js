@@ -136,6 +136,9 @@
                                                       }, cfg_show_control_memory_delay);
         }
 
+
+        export var old_mc_addr = 0;
+
         export function hard_refresh_control_memory ( memory, index, redraw )
         {
 	    var o1 = "" ;
@@ -165,8 +168,6 @@
             // update old_mc_add for light_update
             old_mc_addr = index;
         }
-
-        export var old_mc_addr = 0;
 
         export function light_refresh_control_memory ( memory, index )
         {

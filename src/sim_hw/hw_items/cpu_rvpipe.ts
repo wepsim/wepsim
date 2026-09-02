@@ -32,6 +32,10 @@
               float_class,
               show_dbg_ir,
               show_main_memory,
+	      get_keyboard_content,
+	      set_keyboard_content,
+	      get_screen_content,
+	      set_screen_content,
 	      refresh,
               update_draw }                   from "../../sim_core/sim_core_ui.js";
      import { update_cpu_bus_fire,
@@ -40,6 +44,7 @@
      import { get_simware }                   from "../../sim_core/sim_adt_core.js";
      import { get_deco_from_pc,
               main_memory_getvalue }          from "../../sim_core/sim_adt_mainmemory.js";
+     import { cache_memory_access }           from "../../sim_core/sim_adt_cachememory.js";
 
      import { compute_signal_verbals,
               compute_behavior }              from "../sim_hw_behavior.js";
@@ -544,95 +549,95 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
     sim_p.internal_states.io_hash = {};
     sim_p.internal_states.FIRMWARE = ws_empty_firmware;
     sim_p.internal_states.fire_once = [];
-    sim_p.internal_states.MC = { 0: { is_native: true, value: {}, default_value: {} } };
+    sim_p.internal_states.MC  = { 0: { is_native: true, value: {}, default_value: {} } };
     sim_p.internal_states.ROM = {};
 
     sim_p.internal_states.tri_state_names = [];
-    sim_p.internal_states.fire_visible = { 'databus': false, 'internalbus': false };
+    sim_p.internal_states.fire_visible  = { 'databus': false, 'internalbus': false };
     sim_p.internal_states.filter_states = ["REG_IR_DECO,virtual", "REG_PC,real"];
     sim_p.internal_states.filter_states_groups = {
         "CSR": [
-            "BR." + CSR.sstatus + ",real",
-            "BR." + CSR.sie + ",real",
-            "BR." + CSR.stvec + ",real",
+            "BR." + CSR.sstatus    + ",real",
+            "BR." + CSR.sie        + ",real",
+            "BR." + CSR.stvec      + ",real",
             "BR." + CSR.scounteren + ",real",
-            "BR." + CSR.sscratch + ",real",
-            "BR." + CSR.sepc + ",real",
-            "BR." + CSR.scause + ",real",
-            "BR." + CSR.stval + ",real",
-            "BR." + CSR.sip + ",real",
+            "BR." + CSR.sscratch   + ",real",
+            "BR." + CSR.sepc       + ",real",
+            "BR." + CSR.scause     + ",real",
+            "BR." + CSR.stval      + ",real",
+            "BR." + CSR.sip        + ",real",
         ],
-        "ID": [
-            STATES.REG_PC + ",real",
-            STATES.IF_FETCH_PC + ",real",
-            STATES.IF_ID_PC + ",real",
-            STATES.IF_ID_IR + ",real",
+        "IF": [
+            STATES.REG_PC          + ",real",
+            STATES.IF_FETCH_PC     + ",real",
+            STATES.IF_ID_PC        + ",real",
+            STATES.IF_ID_IR        + ",real",
         ],
-        "DECODE": [
-            STATES.DECODE_DMR + ",real",
-            STATES.DECODE_DMW + ",real",
-            STATES.DECODE_WBE + ",real",
-            STATES.DECODE_SE + ",real",
+        "IF_ID": [
+            STATES.DECODE_DMR      + ",real",
+            STATES.DECODE_DMW      + ",real",
+            STATES.DECODE_WBE      + ",real",
+            STATES.DECODE_SE       + ",real",
             STATES.DECODE_RS1_ADDR + ",real",
             STATES.DECODE_RS2_ADDR + ",real",
-            STATES.DECODE_RD_ADDR + ",real",
-            STATES.DECODE_ALUOP + ",real",
-            STATES.DECODE_M3 + ",real",
-            STATES.DECODE_M4 + ",real",
-            STATES.DECODE_M5 + ",real",
-            STATES.DECODE_BRANCH + ",real",
-            STATES.DECODE_SE_IMM + ",real",
-            STATES.DECODE_X2_IMM + ",real",
-            STATES.DECODE_OFFSET + ",real",
-            STATES.DECODE_SIZE + ",real",
-            STATES.DECODE_RW + ",real",
-            STATES.DECODE_IOR + ",real",
-            STATES.DECODE_IOW + ",real",
+            STATES.DECODE_RD_ADDR  + ",real",
+            STATES.DECODE_ALUOP    + ",real",
+            STATES.DECODE_M3       + ",real",
+            STATES.DECODE_M4       + ",real",
+            STATES.DECODE_M5       + ",real",
+            STATES.DECODE_BRANCH   + ",real",
+            STATES.DECODE_SE_IMM   + ",real",
+            STATES.DECODE_X2_IMM   + ",real",
+            STATES.DECODE_OFFSET   + ",real",
+            STATES.DECODE_SIZE     + ",real",
+            STATES.DECODE_RW       + ",real",
+            STATES.DECODE_IOR      + ",real",
+            STATES.DECODE_IOW      + ",real",
         ],
-        "EX": [
-            STATES.ID_EX_RS1 + ",real",
-            STATES.ID_EX_RS2 + ",real",
+        "ID_EX": [
+            STATES.ID_EX_RS1      + ",real",
+            STATES.ID_EX_RS2      + ",real",
             STATES.ID_EX_RS1_ADDR + ",real",
             STATES.ID_EX_RS2_ADDR + ",real",
-            STATES.ID_EX_RD + ",real",
-            STATES.ID_EX_ALUOP + ",real",
-            STATES.ID_EX_M3 + ",real",
-            STATES.ID_EX_M4 + ",real",
-            STATES.ID_EX_M5 + ",real",
-            STATES.ID_EX_IMM + ",real",
-            STATES.ID_EX_PC + ",real",
-            STATES.ID_EX_RW + ",real",
-            STATES.ID_EX_DMR + ",real",
-            STATES.ID_EX_DMW + ",real",
-            STATES.ID_EX_WBE + ",real",
-            STATES.ID_EX_SE + ",real",
-            STATES.ID_EX_BRANCH + ",real",
-            STATES.ID_EX_IOR + ",real",
-            STATES.ID_EX_IOW + ",real",
-            STATES.BRANCH_TARGET + ",real",
+            STATES.ID_EX_RD       + ",real",
+            STATES.ID_EX_ALUOP    + ",real",
+            STATES.ID_EX_M3       + ",real",
+            STATES.ID_EX_M4       + ",real",
+            STATES.ID_EX_M5       + ",real",
+            STATES.ID_EX_IMM      + ",real",
+            STATES.ID_EX_PC       + ",real",
+            STATES.ID_EX_RW       + ",real",
+            STATES.ID_EX_DMR      + ",real",
+            STATES.ID_EX_DMW      + ",real",
+            STATES.ID_EX_WBE      + ",real",
+            STATES.ID_EX_SE       + ",real",
+            STATES.ID_EX_BRANCH   + ",real",
+            STATES.ID_EX_IOR      + ",real",
+            STATES.ID_EX_IOW      + ",real",
+            STATES.BRANCH_TARGET  + ",real",
         ],
-        "MEM": [
-            STATES.M1_ALU + ",real",
-            STATES.M4_ALU + ",real",
-            STATES.ALU_OUT + ",real",
-            STATES.EX_MEM_M5 + ",real",
+        "EX_MEM": [
+            STATES.M1_ALU        + ",real",
+            STATES.M4_ALU        + ",real",
+            STATES.ALU_OUT       + ",real",
+            STATES.EX_MEM_M5     + ",real",
             STATES.EX_MEM_ALUOUT + ",real",
-            STATES.EX_MEM_WDATA + ",real",
-            STATES.EX_MEM_RD + ",real",
-            STATES.EX_MEM_RW + ",real",
-            STATES.EX_MEM_PC + ",real",
-            STATES.EX_MEM_DMR + ",real",
-            STATES.EX_MEM_DMW + ",real",
-            STATES.EX_MEM_WBE + ",real",
-            STATES.EX_MEM_SE + ",real",
-            STATES.EX_MEM_IOR + ",real",
-            STATES.EX_MEM_IOW + ",real",
+            STATES.EX_MEM_WDATA  + ",real",
+            STATES.EX_MEM_RD     + ",real",
+            STATES.EX_MEM_RW     + ",real",
+            STATES.EX_MEM_PC     + ",real",
+            STATES.EX_MEM_DMR    + ",real",
+            STATES.EX_MEM_DMW    + ",real",
+            STATES.EX_MEM_WBE    + ",real",
+            STATES.EX_MEM_SE     + ",real",
+            STATES.EX_MEM_IOR    + ",real",
+            STATES.EX_MEM_IOW    + ",real",
         ],
-        "WB": [
+        "MEM_WB": [
             STATES.MEM_WB_DATA + ",real",
-            STATES.MEM_WB_RD + ",real",
-            STATES.MEM_WB_RW + ",real",
-            STATES.MEM_WB_PC + ",real",
+            STATES.MEM_WB_RD   + ",real",
+            STATES.MEM_WB_RW   + ",real",
+            STATES.MEM_WB_PC   + ",real",
         ],
     };
     sim_p.internal_states.filter_signals = ["ALUOP,0", "IMR,0", "RW,0", "DMR,0", "DMW,0", "BRANCH,0", "IOCHK,0"];
@@ -648,16 +653,16 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
     /* REGISTER FILE STATES */
     sim_p.states.BR = {};
     sim_p.states.BR.length = 32;
-    sim_p.states.BR[0] = { name: "R0", verbal: "Register 0", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[1] = { name: "R1", verbal: "Register 1", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[2] = { name: "R2", verbal: "Register 2", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[3] = { name: "R3", verbal: "Register 3", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[4] = { name: "R4", verbal: "Register 4", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[5] = { name: "R5", verbal: "Register 5", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[6] = { name: "R6", verbal: "Register 6", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[7] = { name: "R7", verbal: "Register 7", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[8] = { name: "R8", verbal: "Register 8", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[9] = { name: "R9", verbal: "Register 9", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[0]  = { name: "R0", verbal: "Register 0", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[1]  = { name: "R1", verbal: "Register 1", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[2]  = { name: "R2", verbal: "Register 2", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[3]  = { name: "R3", verbal: "Register 3", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[4]  = { name: "R4", verbal: "Register 4", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[5]  = { name: "R5", verbal: "Register 5", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[6]  = { name: "R6", verbal: "Register 6", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[7]  = { name: "R7", verbal: "Register 7", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[8]  = { name: "R8", verbal: "Register 8", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[9]  = { name: "R9", verbal: "Register 9", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[10] = { name: "R10", verbal: "Register 10", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[11] = { name: "R11", verbal: "Register 11", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[12] = { name: "R12", verbal: "Register 12", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
@@ -682,16 +687,16 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
     sim_p.states.BR[31] = { name: "R31", verbal: "Register 31", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
     // CSR registers
-    sim_p.states.BR[CSR.sstatus] = { name: "sstatus", verbal: "Supervisor status register", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[CSR.sie] = { name: "sie", verbal: "Supervisor interrupt-enable register", visible: true, nbits: "32", value: 1, default_value: 1, draw_data: [] };
-    sim_p.states.BR[CSR.stvec] = { name: "stvec", verbal: "Supervisor trap handler base address", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sstatus]    = { name: "sstatus", verbal: "Supervisor status register", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sie]        = { name: "sie", verbal: "Supervisor interrupt-enable register", visible: true, nbits: "32", value: 1, default_value: 1, draw_data: [] };
+    sim_p.states.BR[CSR.stvec]      = { name: "stvec", verbal: "Supervisor trap handler base address", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
     sim_p.states.BR[CSR.scounteren] = { name: "scounteren", verbal: "Supervisor counter enable", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
     sim_p.states.BR[CSR.sscratch] = { name: "sscratch", verbal: "Supervisor scratch register", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[CSR.sepc] = { name: "sepc", verbal: "Supervisor exception program counter", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[CSR.scause] = { name: "scause", verbal: "Supervisor trap cause", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[CSR.stval] = { name: "stval", verbal: "Supervisor trap value", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-    sim_p.states.BR[CSR.sip] = { name: "sip", verbal: "Supervisor interrupt pending", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sepc]     = { name: "sepc", verbal: "Supervisor exception program counter", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.scause]   = { name: "scause", verbal: "Supervisor trap cause", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.stval]    = { name: "stval", verbal: "Supervisor trap value", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+    sim_p.states.BR[CSR.sip]      = { name: "sip", verbal: "Supervisor interrupt pending", visible: true, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
     sim_p.states[STATES.REG_PC] = {
         name: "PC", verbal: "Program Counter Register",
@@ -959,12 +964,12 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
     // Pipeline control states for memory operations (load/store)
     // Decode stage
     sim_p.states[STATES.DECODE_DMR] = {
-        name: "DECODE_DMR", verbal: "Decoded Data Mem Read",
+        name: "IF_ID_DMR", verbal: "Decoded Data Mem Read",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_DMW] = {
-        name: "DECODE_DMW", verbal: "Decoded Data Mem Write",
+        name: "IF_ID_DMW", verbal: "Decoded Data Mem Write",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
@@ -998,12 +1003,12 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
     /* PIPE STALL */
     // Decode stage: WBE (byte select) and SE (sign extend for loads)
     sim_p.states[STATES.DECODE_WBE] = {
-        name: "DECODE_WBE", verbal: "Decoded Write Byte Enable",
+        name: "IF_ID_WBE", verbal: "Decoded Write Byte Enable",
         visible: false, nbits: "2", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_SE] = {
-        name: "DECODE_SE", verbal: "Decoded Sign Extend",
+        name: "IF_ID_SE", verbal: "Decoded Sign Extend",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
@@ -1105,37 +1110,37 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
 
     /* DECODE STORAGE (survives microcode reset) */
     sim_p.states[STATES.DECODE_RS1_ADDR] = {
-        name: "DECODE_RS1_ADDR", verbal: "Decoded RS1 address",
+        name: "IF_ID_RS1_ADDR", verbal: "Decoded RS1 address",
         visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_RS2_ADDR] = {
-        name: "DECODE_RS2_ADDR", verbal: "Decoded RS2 address",
+        name: "IF_ID_RS2_ADDR", verbal: "Decoded RS2 address",
         visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_RD_ADDR] = {
-        name: "DECODE_RD_ADDR", verbal: "Decoded RD address",
+        name: "IF_ID_RD_ADDR", verbal: "Decoded RD address",
         visible: false, nbits: "12", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_ALUOP] = {
-        name: "DECODE_ALUOP", verbal: "Decoded ALU operation",
+        name: "IF_ID_ALUOP", verbal: "Decoded ALU operation",
         visible: false, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_M3] = {
-        name: "DECODE_M3", verbal: "Decoded M3",
+        name: "IF_ID_M3", verbal: "Decoded M3",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_M4] = {
-        name: "DECODE_M4", verbal: "Decoded M4",
+        name: "IF_ID_M4", verbal: "Decoded M4",
         visible: false, nbits: "2", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_M5] = {
-        name: "DECODE_M5", verbal: "Decoded M5",
+        name: "IF_ID_M5", verbal: "Decoded M5",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
@@ -1145,42 +1150,42 @@ export function cpu_rvpipe_register ( sim_p: Simulator ): Simulator
         draw_data: []
     };
     sim_p.states[STATES.DECODE_BRANCH] = {
-        name: "DECODE_BRANCH", verbal: "Decoded branch type",
+        name: "IF_ID_BRANCH", verbal: "Decoded branch type",
         visible: false, nbits: "2", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_SE_IMM] = {
-        name: "DECODE_SE_IMM", verbal: "Decoded SE_IMM",
+        name: "IF_ID_SE_IMM", verbal: "Decoded SE_IMM",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_X2_IMM] = {
-        name: "DECODE_X2_IMM", verbal: "Decoded X2_IMM",
+        name: "IF_ID_X2_IMM", verbal: "Decoded X2_IMM",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_OFFSET] = {
-        name: "DECODE_OFFSET", verbal: "Decoded OFFSET",
+        name: "IF_ID_OFFSET", verbal: "Decoded OFFSET",
         visible: false, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_SIZE] = {
-        name: "DECODE_SIZE", verbal: "Decoded SIZE",
+        name: "IF_ID_SIZE", verbal: "Decoded SIZE",
         visible: false, nbits: "5", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_RW] = {
-        name: "DECODE_RW", verbal: "Decoded RW",
+        name: "IF_ID_RW", verbal: "Decoded RW",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_IOR] = {
-        name: "DECODE_IOR", verbal: "Decoded I/O Read",
+        name: "IF_ID_IOR", verbal: "Decoded I/O Read",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };
     sim_p.states[STATES.DECODE_IOW] = {
-        name: "DECODE_IOW", verbal: "Decoded I/O Write",
+        name: "IF_ID_IOW", verbal: "Decoded I/O Write",
         visible: false, nbits: "1", value: 0, default_value: 0,
         draw_data: []
     };

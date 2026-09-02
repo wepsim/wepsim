@@ -1,9 +1,6 @@
-// Global declarations for functions defined in other JS files
 
-declare function update_value(obj: any): void;
-declare function value_toString(elto_v: any): string;
-declare function vue_observable(initial_value: any): any;
-declare function vue_rebind_state(ref_obj: any, id_elto: string, f_computed_value?: any): void;
+
+// Simulator types
 
 type DecodedInstruction = {
     oinstruction: {
@@ -16,22 +13,6 @@ type DecodedInstruction = {
     eoc_code: any;
 };
 
-declare function cache_memory_access(memory: any, address: number, r_w: string, clock_timestamp: number): void;
-
-declare function simcore_sound_playNote(note: string, duration: string): void;
-declare function get_screen_content(): string;
-declare function set_screen_content(new_value: string): void;
-declare function get_keyboard_content(): string;
-declare function set_keyboard_content(new_value: string): void;
-
-declare function simcore_hardware_import(data: string): void;
-declare function simcore_record_init(recMsg: string, recPb: string): void;
-declare function simcore_record_captureInit(): void;
-
-declare var ws_empty_firmware: any;
-declare var sim_references: Record<string, any>;
-declare var ws_hw_hash: Record<string, string>;
-declare var ws_hw_set: any[];
 declare var sim: {
     systems: any[];
     active: any;
@@ -72,7 +53,7 @@ interface JQueryStatic {
 declare var $: JQueryStatic;
 
 // ============================================================
-// Simulator types (for sim_p parameter in register functions)
+// Simulator types
 // ============================================================
 
 interface SimState {
@@ -144,8 +125,7 @@ interface SimComponent {
     set_value?: (elto: any, value: any) => void;
 }
 
-interface Simulator
-{
+interface Simulator {
     sim_name?:            string ;
     sim_short_name?:      string ;
     sim_img_processor?:   string ;
@@ -162,6 +142,4 @@ interface Simulator
     internal_states: Record<string, any> ;
     events:          Record<string, any> ;
 }
-
-declare var DBG_stop: boolean;
 

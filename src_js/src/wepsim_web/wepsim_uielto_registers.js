@@ -531,7 +531,7 @@ function render_pipeline_register(ename, vir_real, separator_class, btn_id_prefi
         "        id='" + btn_id_prefix + disp_ename + "'>" +
         showkey +
         spanbetw +
-        " <span class='badge badge-secondary bg-info-subtle text-body' style='' " +
+        " <span class='badge badge-secondary bg-info-subtle text-body' style='min-width:8vw;' " +
         "       id='" + val_id_prefix + disp_ename + "'>{{ computed_value }}</span>" +
         "</button>";
 }

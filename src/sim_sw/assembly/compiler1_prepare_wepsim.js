@@ -101,9 +101,6 @@ export function wsasm_prepare_eoc ( elto, aux )
 	if (typeof aux.eoc !== "undefined") {
 	     elto.eoc.value = aux.eoc ;
         }
-	else if (typeof aux.eoc !== "undefined") {
-	     elto.eoc.value = aux.eoc ;
-        }
 
         // copy start/stop from ir.default_eltos by default
         var xr_info = simhw_sim_ctrlStates_get() ;

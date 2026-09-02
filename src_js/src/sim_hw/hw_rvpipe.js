@@ -19,11 +19,11 @@
  */
 import { simhw_add } from './sim_hw_index.js';
 import { board_base_register } from './hw_items/board_base.js';
-import { cpu_rvpipe_register } from "./hw_items/cpu_rvpipe.js";
-import { mem_rvpipe_register } from "./hw_items/mem_rvpipe.js";
-import { io_screen_rvpipe_register } from "./hw_items/io_screen_rvpipe.js";
-import { io_keyboard_rvpipe_register } from "./hw_items/io_keyboard_rvpipe.js";
-import { io_clk_rvpipe_register } from "./hw_items/io_clk_rvpipe.js";
+import { cpu_rvpipe_register } from './hw_items/cpu_rvpipe.js';
+import { mem_rvpipe_register } from './hw_items/mem_rvpipe.js';
+import { io_screen_rvpipe_register } from './hw_items/io_screen_rvpipe.js';
+import { io_keyboard_rvpipe_register } from './hw_items/io_keyboard_rvpipe.js';
+import { io_clk_rvpipe_register } from './hw_items/io_clk_rvpipe.js';
 /*
  *  RISC-V Processor with Pipeline
  */

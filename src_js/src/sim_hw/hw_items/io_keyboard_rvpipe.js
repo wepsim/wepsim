@@ -70,9 +70,10 @@ export function io_keyboard_rvpipe_register(sim_p) {
         nparameters: 6,
         types: ["E", "E", "E", "E", "E"],
         operation: function (s_expr) {
-            var _a, _b;
+            var _a;
+            var _b;
             if (DEBUG)
-                console.log(JSON.stringify(s_expr), (_b = sim_p.behaviors[(_a = s_expr[0]) !== null && _a !== void 0 ? _a : "NOP"]) === null || _b === void 0 ? void 0 : _b.verbal(s_expr));
+                console.log(JSON.stringify(s_expr), (_a = sim_p.behaviors[(_b = s_expr[0]) !== null && _b !== void 0 ? _b : "NOP"]) === null || _a === void 0 ? void 0 : _a.verbal(s_expr));
             var bus_ab = get_value(sim_p.states[s_expr[1]]);
             var clk = get_value(sim_p.states[s_expr[5]]);
             if (DEBUG)
