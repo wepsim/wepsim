@@ -658,7 +658,7 @@ def print_content(L_D, C_N):
         translator   = Translator() ;
         translations = translator.translate(translation_list, dest=L_D)
 
-        for index in range(len(translation_origin)):
+        for index in enumerate(translation_origin):
             translation_destination = translations[index].text.replace("'", "\\'") ;
             f.write("\t\t'" + translation_origin[index] + "':\t\t'" + translation_destination + "',\n") ;
     except Exception as e:

@@ -102,7 +102,7 @@ export function i18n_get(component, lang, key) {
     return translation;
 }
 export function i18n_get_TagFor(component, key) {
-    var ws_idiom;
+    var ws_idiom = 'en';
     try {
         ws_idiom = get_cfg('ws_idiom');
     }
