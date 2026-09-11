@@ -1892,8 +1892,6 @@ else      newval = "&lt;undefined&gt;" ;
         operation: function (s_expr) {
             var oi = decode_instruction(sim_p.internal_states.FIRMWARE, sim_p.ctrl_states.ir, get_value(sim_p.states['REG_IR']));
             var bits = [];
-            var startbit;
-            var stopbit;
             for (var i = 0; i < oi.oinstruction.fields.length; i++) {
                 if (oi.oinstruction.fields[i].type == "inm" ||
                     oi.oinstruction.fields[i].type == "imm" ||

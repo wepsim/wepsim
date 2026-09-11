@@ -570,9 +570,6 @@
             var history_enable = get_cfg('history_enable') ;
             if (true == history_enable)
             {
-                // TODO: HISTORY_RESTORE
-                ws_alert('ERROR: undo execution not supported on this processor. ') ;
-
                 // restory current state
                 if (ws_info.state_history.length > 0)
                 {

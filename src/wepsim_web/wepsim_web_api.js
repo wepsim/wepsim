@@ -691,6 +691,10 @@
                       wsweb_change_workspace_simulator() ;
                       wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
 		      break ;
+
+		default:
+		      console.log("ERROR: unknown action " + opt) ;
+		      break ;
 	    }
 
 	    return false;
