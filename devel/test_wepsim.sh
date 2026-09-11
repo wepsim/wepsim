@@ -76,22 +76,22 @@ test_wepsimnode_ckoutput_single ()
 	D="${DESC_ARR[$I]}"
 
 	# expected...
-	gunzip -c ./devel/test_output/$I.txt.gz >& ./devel/test_output/test-expect-$I.txt
+	gunzip -c "./devel/test_output/$I.txt.gz" >& "./devel/test_output/test-expect-$I.txt"
 
 	# obtained...
-	$T >& ./devel/test_output/test-obtained-$I.txt
+	$T >& "./devel/test_output/test-obtained-$I.txt"
 
 	# diff...
-	diff   ./devel/test_output/test-expect-$I.txt ./devel/test_output/test-obtained-$I.txt >& ./devel/test_output/diff-$I.txt
+	diff   "./devel/test_output/test-expect-$I.txt" "./devel/test_output/test-obtained-$I.txt" >& "./devel/test_output/diff-$I.txt"
 	if [ $? -eq 0 ]; then
-	    echo "$I: OK: $D" >& ./devel/test_output/result-$I.txt
+	    echo "$I: OK: $D" >& "./devel/test_output/result-$I.txt"
 	else
-	    echo "$I: KO: $D" >& ./devel/test_output/result-$I.txt
+	    echo "$I: KO: $D" >& "./devel/test_output/result-$I.txt"
 
-	    echo "***********************"      >> ./devel/test_output/result-$I.txt
-	    echo $T                             >> ./devel/test_output/result-$I.txt
-	    cat ./devel/test_output/diff-$I.txt >> ./devel/test_output/result-$I.txt
-	    echo "***********************"      >> ./devel/test_output/result-$I.txt
+	    echo "***********************"      >> "./devel/test_output/result-$I.txt"
+	    echo $T                             >> "./devel/test_output/result-$I.txt"
+	    cat ./devel/test_output/diff-$I.txt >> "./devel/test_output/result-$I.txt"
+	    echo "***********************"      >> "./devel/test_output/result-$I.txt"
 	fi
 
 	# cleanup...
@@ -122,8 +122,8 @@ test_wepsimnode_ckoutput ()
 	echo ""
         echo "Id: Status: Description"
 	for (( I=0; I<=$(( N -1 )); I++ )); do
-	       cat    ./devel/test_output/result-$I.txt
-	       rm -fr ./devel/test_output/result-$I.txt
+	       cat    "./devel/test_output/result-$I.txt"
+	       rm -fr "./devel/test_output/result-$I.txt"
 	done
 }
 
