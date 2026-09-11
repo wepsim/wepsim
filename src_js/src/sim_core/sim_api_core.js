@@ -415,8 +415,6 @@ export function simcore_execute_microinstruction_backwards() {
     // if history_enabled -> restore history
     var history_enable = get_cfg('history_enable');
     if (true == history_enable) {
-        // TODO: HISTORY_RESTORE
-        ws_alert('ERROR: undo execution not supported on this processor. ');
         // restory current state
         if (ws_info.state_history.length > 0) {
             var state_obj = ws_info.state_history.pop();

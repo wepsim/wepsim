@@ -208,7 +208,7 @@ export function table_examplesets_html(div_list, example_sets) {
             '             ws.wsweb_dialog_close(\'examples\');' +
             '             ws.wsweb_dialog_open(\'examples\');' +
             '             ws.wepsim_tooltips_hide(\'[data-bs-toggle=tooltip]\');' +
-            '             return false; }() ;">' +
+            '             return false; })() ;">' +
             '  <div class="ms-2 me-auto">' +
             '     <div class="fw-bold">' + item.name + '</div>' +
             item.description +

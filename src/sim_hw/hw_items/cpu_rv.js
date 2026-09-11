@@ -2251,8 +2251,6 @@ export function cpu_rv_register ( sim_p )
 										    sim_p.ctrl_states.ir,
 										    get_value(sim_p.states['REG_IR'])) ;
 							var bits = [];
-							var startbit;
-							var stopbit;
 							for (var i=0; i < oi.oinstruction.fields.length; i++)
                                                         {
 							     if (oi.oinstruction.fields[i].type == "inm" ||
