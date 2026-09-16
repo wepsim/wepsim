@@ -23,7 +23,7 @@
              update_cfg,
              is_darkmode,
              cfgset_init,
-             is_mobile }                       from "../sim_core/sim_cfg.js";
+             is_mobile }                          from "../sim_core/sim_cfg.js";
     import { show_rf_names,
              show_control_memory,
              update_draw,
@@ -38,19 +38,19 @@
              get_sound_content,
              set_sound_content,
              get_keyboard_content,
-             set_keyboard_content }             from "../sim_core/sim_core_ui.js";
+             set_keyboard_content }                from "../sim_core/sim_core_ui.js";
     import { simcore_init_ui,
              simcore_reset,
-             simcore_init_hw }                  from "../sim_core/sim_api_core.js";
+             simcore_init_hw }                     from "../sim_core/sim_api_core.js";
     import { simhw_hwset_load,
              simhw_internalState,
              simhw_setActive,
              simhw_active,
-             simhw_hwset_init }                 from "../sim_hw/sim_hw_index.js";
+             simhw_hwset_init }                    from "../sim_hw/sim_hw_index.js";
     import { simcore_record_init,
-             simcore_record_captureInit }       from "../sim_core/sim_core_record.js";
-    import { get_simware }                      from "../sim_core/sim_adt_core.js";
-    import { update_memories }                  from "../sim_core/sim_core_ctrl.js";
+             simcore_record_captureInit }          from "../sim_core/sim_core_record.js";
+    import { get_simware }                         from "../sim_core/sim_adt_core.js";
+    import { update_memories }                     from "../sim_core/sim_core_ctrl.js";
 
     import { wsweb_change_workspace_simulator,
              wsweb_change_show_processor,
@@ -686,10 +686,10 @@
 	    }
     }
 
-       export function wepsim_init_default_preloadFromHash ( url_hash )
+       export async function wepsim_init_default_preloadFromHash ( url_hash )
        {
             // Preload from hash...
-            var o = wepsim_preload_fromHash(url_hash) ;
+            var o = await wepsim_preload_fromHash(url_hash) ;
 
             // ...And to notify of the preloaded work to the user
             if (o !== '')
