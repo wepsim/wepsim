@@ -509,9 +509,9 @@ export function wepsim_init_ui() {
         wepsim_voice_stop();
     }
 }
-export function wepsim_init_default_preloadFromHash(url_hash) {
+export async function wepsim_init_default_preloadFromHash(url_hash) {
     // Preload from hash...
-    var o = wepsim_preload_fromHash(url_hash);
+    var o = await wepsim_preload_fromHash(url_hash);
     // ...And to notify of the preloaded work to the user
     if (o !== '') {
         o = 'WepSIM has been instructed to preload some work for you:<br>' +
