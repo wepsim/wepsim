@@ -19,9 +19,9 @@
  */
 
 
-    import { get_var, set_var }          from "./sim_core_values.js";
+    import { get_var, set_var }            from "./sim_core_values.js";
     import { segments_addr_within_text,
-             segments_addr_within_data } from "../sim_sw/assembly/memory_segments.js";
+             segments_addr_within_data }   from "../sim_sw/assembly/memory_segments.js";
 
 
         /*
@@ -237,10 +237,10 @@
 	    // next_cache: ...then, it is reference associated
 
             if (get_var(cfg_i.cfg.next_cache) != -1)
-                 set_var(cm_i.cfg.next_cache, cm[cfg_i.cfg.next_cache]) ;
-	        else set_var(cm_i.cfg.next_cache, null) ;
+                 set_var(cm_i.cfg.next_cache, cm[get_var(cfg_i.cfg.next_cache)]) ;
+            else set_var(cm_i.cfg.next_cache, null) ;
 
-	        return cm_i ;
+            return cm_i ;
         }
 
         // Example: var array_cm = cache_memory_init_cm(array_cm_cfg) ;
