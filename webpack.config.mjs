@@ -2,6 +2,7 @@
 // 10. imports
 import path from 'path';
 import { fileURLToPath } from 'url';
+import TerserPlugin from 'terser-webpack-plugin';
 
 
 // 20. base variables
@@ -114,7 +115,15 @@ const nodeConfig = {
        extensions: [ '.js', '.json' ]
     },
 
-    optimization: { usedExports: false },
+    optimization: {
+      usedExports: false,
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+        })
+      ],
+    },
 
     performance: {
         hints: false
