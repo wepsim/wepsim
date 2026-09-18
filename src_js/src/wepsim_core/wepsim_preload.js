@@ -23,16 +23,23 @@ import { wepsim_url_json } from "./wepsim_url.js";
 //
 // Preload work
 //
-export function wepsim_preload_fromHash(hash) {
+export async function wepsim_preload_fromHash(hash) {
     var key = '';
     var act = function () { };
+    var rfn = null;
     // preload tasks in order
+    var r = '';
     var o = '';
     for (var i = 0; i < ws_info.preload_tasks.length; i++) {
         key = ws_info.preload_tasks[i].name;
         act = ws_info.preload_tasks[i].action;
         if (hash[key] !== '') {
-            o = o + act(hash);
+            rfn = act(hash);
+            if (rfn instanceof Promise)
+                r = await rfn;
+            else
+                r = rfn;
+            o = o + r;
         }
     }
     // return ok

@@ -122,7 +122,7 @@
         {
            // get value with vue
            if (is_instanceof_vuex_store(sim_var))
-	   {
+           {
 	       return sim_var.state.value ;
 	   }
 
