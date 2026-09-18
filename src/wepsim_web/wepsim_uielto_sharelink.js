@@ -74,8 +74,8 @@
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
                           '                  navigator.clipboard.writeText(c); ' +
-                          '                  wepsim_notify_success(\'<strong>INFO</strong>\', ' +
-                          '                                        \'Copied to clipboard!\');" ' +
+                          '                  ws.wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+                          '                                           \'Copied to clipboard!\');" ' +
                           "><span data-langkey='Copy'>Copy</span></button>" +
 			  " </h5>" +
 			  "</div>" +

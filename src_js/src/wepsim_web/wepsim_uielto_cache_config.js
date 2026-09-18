@@ -156,7 +156,7 @@ export function wepsim_show_cm_level_cfg_placepol(memory_cfg, index) {
         "    <div class='col-xs-12 col-md-8'>" +
         "    <select class='form-select' " +
         "            id='replace_cpp_" + index + "_" + this_name_str + "' " +
-        "            onchange='wepsim_cm_update_placement(" + index + ", this.value);'" +
+        "            onchange='ws.wepsim_cm_update_placement(" + index + ", this.value);'" +
         "            aria-label='Cache placement policy'>" +
         "      <option value='fa' selected>Fully associative</option>" +
         "      <option value='sa'         >Set-associative</option>" +
@@ -218,7 +218,7 @@ export function wepsim_show_cm_level_cfg_nextcm(memory_cfg, index) {
         "  <div class='col-xs-12 col-md-8'>" +
         "  <select class='form-select form-control' " +
         "          id='su_next_" + index + "_" + this_name_str + "' " +
-        "          onchange='ws.wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value);wepsim_show_cache_memory_config();'" +
+        "          onchange='ws.wepsim_cm_update_cfg(" + index + ", \"next_cache\", this.value); ws.wepsim_show_cache_memory_config();'" +
         "          aria-label='Next Cache'>";
     o += "<option value='-1'>None</option>";
     for (var i = 0; i < memory_cfg.length; i++) {
@@ -359,7 +359,7 @@ export function wepsim_cm_update_cfg(index, field, value) {
         document.getElementById("cmcfg_range").max = value;
     }
     if ('next_cache' == field) {
-        actual_next = curr_cfg[index].cfg.next_cache;
+        actual_next = get_var(curr_cfg[index].cfg.next_cache);
         value = parseInt(value);
     }
     set_var(curr_cfg[index].cfg[field], value);
@@ -367,10 +367,10 @@ export function wepsim_cm_update_cfg(index, field, value) {
     cache_memory_init_eltonextcache(curr_cm, curr_cfg[index], curr_cm[index]);
     if ('next_cache' == field) {
         if (actual_next != -1) {
-            curr_cfg[actual_next].cfg.level = 1; // TODO: if (...link_counter == 0)
+            set_var(curr_cfg[actual_next].cfg.level, 1); // TODO: if (...link_counter == 0)
         }
         if (value != -1) {
-            curr_cfg[value].cfg.level = curr_cfg[index].cfg.level + 1;
+            set_var(curr_cfg[value].cfg.level, get_var(curr_cfg[index].cfg.level) + 1);
         }
     }
     simhw_internalState_reset('CM_cfg', curr_cfg);
