@@ -19,9 +19,9 @@
  */
 
 
-        import { wsHTMLElement }    from "../wepsim_nodejs/wepsim_node_adapt.js";
         import { wait_if_uievents } from "../sim_core/sim_core_ctrl.js";
         import { share_as_uri }     from "../wepsim_core/wepsim_share.js";
+        import { wsHTMLElement }    from "../wepsim_nodejs/wepsim_node_adapt.js";
         import { ws_uielto,
                  register_uielto }  from "./wepsim_uielto.js";
 
@@ -74,8 +74,8 @@
 			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
                           '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
                           '                  navigator.clipboard.writeText(c); ' +
-                          '                  wepsim_notify_success(\'<strong>INFO</strong>\', ' +
-                          '                                        \'Copied to clipboard!\');" ' +
+                          '                  ws.wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+                          '                                           \'Copied to clipboard!\');" ' +
                           "><span data-langkey='Copy'>Copy</span></button>" +
 			  " </h5>" +
 			  "</div>" +
