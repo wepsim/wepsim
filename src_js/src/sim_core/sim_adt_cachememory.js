@@ -194,7 +194,7 @@ export function cache_memory_init_eltofromcfg(cfg) {
 export function cache_memory_init_eltonextcache(cm, cfg_i, cm_i) {
     // next_cache: ...then, it is reference associated
     if (get_var(cfg_i.cfg.next_cache) != -1)
-        set_var(cm_i.cfg.next_cache, cm[cfg_i.cfg.next_cache]);
+        set_var(cm_i.cfg.next_cache, cm[get_var(cfg_i.cfg.next_cache)]);
     else
         set_var(cm_i.cfg.next_cache, null);
     return cm_i;
