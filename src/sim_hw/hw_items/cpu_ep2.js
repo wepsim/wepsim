@@ -2390,10 +2390,10 @@ export function cpu_ep2_register ( sim_p )
 						   var se     = sim_p.signals[s_expr[7]].value ;
 						   var n5     = get_value(sim_p.states[s_expr[3]]) ;
 
-						   n5 = n5 << (32 - (offset + size - 1)) ;
+						   n5 = n5 << (32 - (offset + size)) ;
 						   if ("1" == se)
-						        n5 = n5  >> (32 - size + 1) ;
-						   else n5 = n5 >>> (32 - size + 1) ;
+						        n5 = n5  >> (32 - size) ;
+						   else n5 = n5 >>> (32 - size) ;
 
 						   set_value(sim_p.states[s_expr[1]], n5);
                                                 },

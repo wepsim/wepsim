@@ -2006,11 +2006,11 @@ export function cpu_ep_register(sim_p) {
             var offset = parseInt(sim_p.signals[s_expr[4]].value);
             var se = sim_p.signals[s_expr[7]].value;
             var n5 = get_value(sim_p.states[s_expr[3]]);
-            n5 = n5 << (32 - (offset + size - 1));
+            n5 = n5 << (32 - (offset + size));
             if ("1" == se)
-                n5 = n5 >> (32 - size + 1);
+                n5 = n5 >> (32 - size);
             else
-                n5 = n5 >>> (32 - size + 1);
+                n5 = n5 >>> (32 - size);
             set_value(sim_p.states[s_expr[1]], n5);
         },
         verbal: function (s_expr) {
