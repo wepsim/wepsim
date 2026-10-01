@@ -21,7 +21,7 @@ set -x
 #*  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
 #*
 
-BASE_DIR=$(dirname $0)/docker/
+BASE_DIR=$(dirname $0)/
 
 echo "Build docker image if needed..."
 docker build . -t wepsim-cli -f ${BASE_DIR}/dockerfile
