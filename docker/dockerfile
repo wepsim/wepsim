@@ -12,16 +12,11 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-
         aptitude apt-utils \
         zlib1g-dev ca-certificates pkg-config \
         software-properties-common gpg-agent \
-        curl libcurl3-dev \
-        wget rsync \
-        sudo less \
         \
-        git libtool \
-        jq \
-        \
+        wget sudo less \
         zip unzip \
+        git jq \
         \
-        ubuntu-restricted-extras \
         && \
     apt-get clean
 
@@ -29,7 +24,7 @@ RUN apt update && apt-get install -y \
         nodejs \
         npm
 
-# WepSIM
+# Install WepSIM
 WORKDIR /
 RUN wget -N https://github.com/wepsim/wepsim/releases/download/v${VER_NAME}/wepsim-${VER_NAME}.zip
 RUN unzip  wepsim-${VER_NAME}.zip
@@ -38,7 +33,7 @@ RUN cd /wepsim && \
     cp wepsim-classic.html wepsim.html && \
     npm install terser jq jshint yargs clear inquirer@8.2.6 fuzzy inquirer-command-prompt inquirer-autocomplete-prompt@1
 
-# Initial workspace
+# Setup workspace
 RUN mkdir /workspace
 WORKDIR   /workspace
 

@@ -13,7 +13,7 @@
 ```bash
 ./docker/wepsim-cli.sh -a stepbystep \
                        -m ep \
-		               -f ./repo/microcode/rv32/ep_mix2_l3.mc \
+                       -f ./repo/microcode/rv32/ep_mix2_l3.mc \
                        -s ./repo/assembly/rv32/s2e5.asm
 ```
 
