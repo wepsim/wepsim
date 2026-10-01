@@ -27,5 +27,5 @@ echo "Build docker image if needed..."
 docker build . -t wepsim-cli -f ${BASE_DIR}/dockerfile
 
 echo "Execute wepsim from docker image..."
-docker run --rm -v "$(pwd)":/workspace wepsim-cli "$@"
+docker run --rm -it -v "$(pwd)":/workspace wepsim-cli "$@"
 
