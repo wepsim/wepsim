@@ -188,6 +188,7 @@ export function wepsim_show_cache_content(level, memory) {
     return o1;
 }
 export function wepsim_show_cache_memory_i(level) {
+    var o1 = "";
     // check arguments
     var cm_ref = simhw_internalState('CM');
     if (typeof cm_ref == "undefined")
