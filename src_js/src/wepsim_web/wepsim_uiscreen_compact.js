@@ -44,7 +44,7 @@ export class ws_uiscreen_compact extends ws_uielto {
     }
     render_populate() {
         var o1 = '<div id="carousel-8" class="carousel carousel-fade"' +
-            '     data-bs-interval="0" data-bs-touch="false" data-bs-animation="false">' +
+            '     data-bs-interval="0" data-bs-keyboard="false" data-bs-touch="false" data-bs-animation="false">' +
             ' <div class="carousel-inner">' +
             ' <div class="carousel-item active p-1" id="ws_simulator">' +
             '' +
