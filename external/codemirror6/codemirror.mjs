@@ -98,9 +98,9 @@
                             bracketMatching(),
                             highlightSelectionMatches(),
                             keymap.of([
-                                ...closeBracketsKeymap,
                                 ...defaultKeymap,
                                 ...historyKeymap,
+                                ...closeBracketsKeymap,
                                 ...searchKeymap,
                                 ...lintKeymap
                             ])
