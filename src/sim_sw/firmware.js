@@ -299,7 +299,7 @@ export function loadFirmware (text)
 				          ins.NATIVE +
                                     "\t }\n" +
                                     "\t catch (e) {\n" +
-                                    "\t   wepsim_notify_error(\"Error on the native code\", '" + ins.name + " => ' + e.toString());\n" +
+                                    "\t   ws.wepsim_notify_error(\"Error on the native code\", '" + ins.name + " => ' + e.toString());\n" +
                                     "\t }\n" +
 				    "} ;\n" ;
 		   }

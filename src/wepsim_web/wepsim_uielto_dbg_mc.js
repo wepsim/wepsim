@@ -232,7 +232,7 @@
                         trpin = sim_core_breakpointicon_get(icon_theme) ;
 		    }
 
-                    jscode = "dbg_set_breakpoint(" + key + "); " +
+                    jscode = "ws.dbg_set_breakpoint(" + key + "); " +
                              "if (event.stopPropagation) event.stopPropagation();" ;
 		}
 
