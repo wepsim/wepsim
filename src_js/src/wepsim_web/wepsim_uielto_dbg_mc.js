@@ -163,7 +163,7 @@ export function control_memory_showrow(memory, key, is_current, revlabels) {
             var icon_theme = get_cfg('ICON_theme');
             trpin = sim_core_breakpointicon_get(icon_theme);
         }
-        jscode = "dbg_set_breakpoint(" + key + "); " +
+        jscode = "ws.dbg_set_breakpoint(" + key + "); " +
             "if (event.stopPropagation) event.stopPropagation();";
     }
     // wcolor
