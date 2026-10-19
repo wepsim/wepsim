@@ -101,6 +101,12 @@
                 await scheduler.yield() ;
             }
 
+/*
+            if (recommended_timeout < 5)
+                 requestAnimationFrame(function1) ;
+            else sim_state.execution_timer = setTimeout(function1, recommended_timeout) ;
+ */
+
             setTimeout(function1, recommended_timeout) ;
 	}
 
