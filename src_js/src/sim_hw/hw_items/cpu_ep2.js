@@ -1653,7 +1653,7 @@ export function cpu_ep2_register(sim_p) {
         verbal: function (s_expr) {
             var a = get_value(sim_p.states[s_expr[2]]);
             var b = get_value(sim_p.states[s_expr[3]]);
-            var result = hex2float(a) - hex2float(b);
+            var result = hex2float(a) / hex2float(b);
             var verbose = get_cfg('verbal_verbose');
             if (verbose !== 'math') {
                 return "ALU FDIV with result " + show_value(result) + ". ";
