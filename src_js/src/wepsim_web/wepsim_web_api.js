@@ -771,13 +771,24 @@ export function wsweb_recordbar_close() {
 //
 // timer
 export var wepsim_updatediv_timer = null;
-export function wepsim_updatetime(div_id, time_left_sec) {
-    $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>');
-    wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
+export function wepsim_updatetime_stop() {
+    if (null == wepsim_updatediv_timer) {
+        return;
+    }
+    clearTimeout(wepsim_updatediv_timer);
+    wepsim_updatediv_timer = null;
 }
 export function wepsim_updatetime_start(div_id, time_left_sec) {
-    clearTimeout(wepsim_updatediv_timer);
+    wepsim_updatetime_stop();
     wepsim_updatetime(div_id, time_left_sec);
+}
+export function wepsim_updatetime(div_id, time_left_sec) {
+    if (time_left_sec < 0) {
+        wepsim_updatetime_stop();
+        return;
+    }
+    $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>');
+    wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
 }
 //  simulator: notify
 export var wsweb_nfbox = null;
@@ -813,7 +824,7 @@ export function wsweb_notifyuser_show(title, message, duration) {
                 label: "<span data-langkey='Close'>Close</span>",
                 className: 'btn-danger m-0',
                 callback: function () {
-                    clearTimeout(wepsim_updatediv_timer);
+                    wepsim_updatetime_stop();
                     wsweb_record_play();
                 }
             }

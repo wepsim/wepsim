@@ -1139,18 +1139,33 @@
 
     export var wepsim_updatediv_timer = null ;
 
-    export function wepsim_updatetime ( div_id, time_left_sec )
+    export function wepsim_updatetime_stop ( )
     {
-            $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
+            if (null == wepsim_updatediv_timer) {
+		return ;
+            }
 
-            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
+            clearTimeout(wepsim_updatediv_timer) ;
+            wepsim_updatediv_timer = null ;
     }
 
     export function wepsim_updatetime_start ( div_id, time_left_sec )
     {
-            clearTimeout(wepsim_updatediv_timer) ;
+            wepsim_updatetime_stop() ;
 
             wepsim_updatetime(div_id, time_left_sec) ;
+    }
+
+    export function wepsim_updatetime ( div_id, time_left_sec )
+    {
+            if (time_left_sec < 0) {
+                wepsim_updatetime_stop() ;
+		return ;
+	    }
+
+            $(div_id).html('<span>Close automatically after ' + time_left_sec + ' seconds.</span>') ;
+
+            wepsim_updatediv_timer = setTimeout(wepsim_updatetime, 1000, div_id, (time_left_sec - 1));
     }
 
 
@@ -1192,7 +1207,7 @@
 					        label: "<span data-langkey='Close'>Close</span>",
 					        className: 'btn-danger m-0',
 					        callback: function() {
-					   		     clearTimeout(wepsim_updatediv_timer) ;
+					   		     wepsim_updatetime_stop();
 							     wsweb_record_play();
 						          }
 					    }

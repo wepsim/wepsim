@@ -68,6 +68,11 @@ export async function wait_uievents_and_settimeout(function1, recommended_timeou
     if ((_a = globalThis.scheduler) === null || _a === void 0 ? void 0 : _a.yield) {
         await scheduler.yield();
     }
+    /*
+                if (recommended_timeout < 5)
+                     requestAnimationFrame(function1) ;
+                else sim_state.execution_timer = setTimeout(function1, recommended_timeout) ;
+     */
     setTimeout(function1, recommended_timeout);
 }
 /*
