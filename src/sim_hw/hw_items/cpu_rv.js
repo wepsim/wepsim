@@ -1810,20 +1810,20 @@ export function cpu_rv_register ( sim_p )
 
 						   sim_p.internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
 						   sim_p.internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
-						 //   sim_p.internal_states.alu_flags.flag_c = 0 ;
-       //
-						 //   sim_p.internal_states.alu_flags.flag_v = 0 ;
-						 //   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							// sim_p.internal_states.alu_flags.flag_v = 1 ;
-						 //   if ( (result >= 0) && (a <  0) && (b <  0) )
-							// sim_p.internal_states.alu_flags.flag_v = 1 ;
+					    //     sim_p.internal_states.alu_flags.flag_c = 0 ;
+                                            //
+					    //     sim_p.internal_states.alu_flags.flag_v = 0 ;
+					    //     if ( (result < 0) && (a >= 0) && (b >= 0) )
+					    //           sim_p.internal_states.alu_flags.flag_v = 1 ;
+					    //     if ( (result >= 0) && (a <  0) && (b <  0) )
+					    //           sim_p.internal_states.alu_flags.flag_v = 1 ;
                                                 },
                                         verbal: function (s_expr)
                                                 {
 						   var a = get_value(sim_p.states[s_expr[2]]) ;
                                                    var b = get_value(sim_p.states[s_expr[3]]) ;
 
-						   var result = hex2float(a) - hex2float(b) ;
+						   var result = hex2float(a) / hex2float(b) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
