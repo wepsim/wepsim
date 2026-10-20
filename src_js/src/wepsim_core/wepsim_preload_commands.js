@@ -22,7 +22,7 @@ import { get_cfg, cfgset_load } from "../sim_core/sim_cfg.js";
 import { refresh } from "../sim_core/sim_core_ui.js";
 import { cache_memory_init_cm } from "../sim_core/sim_adt_cachememory.js";
 import { simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
-import { wepsim_example_loadSet, wepsim_example_reset, wepsim_example_load, load_from_example_firmware } from "./wepsim_example.js";
+import { wepsim_example_loadSet, wepsim_example_reset, wepsim_example_load, compile_example } from "./wepsim_example.js";
 import { wepsim_checkpoint_backup_load, wepsim_checkpoint_loadURI } from "./wepsim_checkpoint.js";
 import { wsweb_select_main, wsweb_firmware_compile, wsweb_assembly_compile, wsweb_change_show_processor, wsweb_change_show_asmdbg, wsweb_set_details, wsweb_do_action } from "../wepsim_web/wepsim_web_api.js";
 import { wepsim_uicfg_restore } from "../wepsim_web/wepsim_web_simulator.js";
@@ -87,8 +87,9 @@ ws_info.preload_tasks = [
             var example_uri = example_obj.hardware + ":" +
                 example_obj.microcode + ":" +
                 example_obj.assembly;
-            var load_example_assembly = ('' == hash.asm) ? true : false;
-            load_from_example_firmware(example_uri, load_example_assembly);
+            load_example(example_uri);
+            var load_example_assembly = ('' == hash.asm) ? "both" : "firmware_only";
+            compile_example(load_example_assembly);
             return '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ';
         }
     },

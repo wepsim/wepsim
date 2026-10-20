@@ -118,7 +118,8 @@ export function table_examples_html(examples) {
             '     <button id="example_' + m + '" ' +
             '           class="btn btn-md bg-primary bg-opacity-75 text-white text-truncate border py-0 me-1 w-75"' +
             '           onclick="ws.simcore_record_append_pending();' +
-            '                    ws.load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+            '                    ws.load_example(\'' + t_hwmcasm + '\');' +
+            '                    ws.compile_example(\'both\');' +
             '                    ws.wait_if_uievents(function() { ws.wsweb_dialog_close(\'examples\'); }, 50);' +
             '                    return false;"' +
             '           style="cursor:pointer;" data-langkey="' + e_title + '">' +
@@ -131,17 +132,20 @@ export function table_examples_html(examples) {
             '     </button>' +
             '     <div class="dropdown-menu bg-info" style="z-index:1024;">' +
             '             <a onclick="ws.simcore_record_append_pending();' +
-            '                         ws.load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+            '                         ws.load_example(\'' + t_hwmcasm + '\');' +
+            '                         ws.compile_example(\'both\');' +
             '                         ws.wsweb_dialog_close(\'examples\'); ' +
             '                         return false;"' +
             '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
             '             <a onclick="ws.simcore_record_append_pending();' +
-            '                         ws.load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
+            '                         ws.load_example(\'' + t_hwmcasm + '\');' +
+            '                         ws.compile_example(\'assembly_only\');' +
             '                         ws.wsweb_dialog_close(\'examples\'); ' +
             '                         return false;"' +
             '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
             '             <a onclick="ws.simcore_record_append_pending();' +
-            '                         ws.load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
+            '                         ws.load_example(\'' + t_hwmcasm + '\');' +
+            '                         ws.compile_example(\'firmware_only\');' +
             '                         ws.wsweb_dialog_close(\'examples\'); ' +
             '                         return false;"' +
             '                class="dropdown-item text-white bg-info my-1" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +

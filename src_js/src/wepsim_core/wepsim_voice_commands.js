@@ -22,7 +22,7 @@ import { simcore_voice_speak, simcore_voice_stopSpeak } from "../sim_core/sim_co
 import { get_verbal_from_current_mpc } from "../sim_core/sim_adt_ctrlmemory.js";
 import { get_verbal_from_current_pc } from "../sim_core/sim_adt_mainmemory.js";
 import { wsweb_dialog_open, wsweb_dialog_close } from "../wepsim_web/wepsim_web_api.js";
-import { load_from_example_firmware } from "./wepsim_example.js";
+import { load_example, compile_example } from "./wepsim_example.js";
 import { wepsim_execute_reset, wepsim_execute_instruction, wepsim_execute_microinstruction, wepsim_execute_play, wepsim_execute_stop } from "./wepsim_execute.js";
 /*
  * Voice control
@@ -42,7 +42,8 @@ ws_info.voice_commands['(show) examples'] = function () {
     wsweb_dialog_open('examples');
 };
 ws_info.voice_commands['load example :mc_name (from) :asm_name'] = function (mc_name, asm_name) {
-    load_from_example_firmware("ep:" + mc_name + ":" + asm_name, true);
+    load_example("ep:" + mc_name + ":" + asm_name);
+    compile_example("both");
 };
 ws_info.voice_commands['(show) help'] = function () {
     wsweb_dialog_open('help');

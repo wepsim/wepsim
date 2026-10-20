@@ -220,6 +220,74 @@
 	}
     }
 
+    export function wepsim_promise_for_loadURL ( url, do_next )
+    {
+        return new Promise((resolve, reject) => {
+            if (false === is_mobile())
+	    {
+                fetchURL(url)
+                    .then(function(response) {
+                        if (typeof response === "undefined")
+			{
+			    wepsim_notify_error("<strong>ERROR</strong>",
+					        "File " + url + " could not be fetched:<br>\n" +
+					        " * Please check that you are on-line.") ;
+
+                            reject(new Error("Fetch failed: response undefined")) ;
+                            return ;
+                        }
+
+                        if (response.ok == false) {
+                            reject(new Error("HTTP status " + response.status)) ;
+                            return ;
+                        }
+
+			response.text().then(resolve).catch(reject) ;
+                    })
+                    .catch(function(err) {
+                        reject(err) ;
+                    });
+            }
+	    else
+	    {
+                var xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState === 4)
+			{
+                            if (xmlhttp.status === 200 || xmlhttp.status === 0) {
+                                var textFromFileLoaded = xmlhttp.responseText;
+                                resolve(textFromFileLoaded);
+			    }
+                            else {
+                                reject(new Error("XHR failed with status " + xmlhttp.status));
+                            }
+                        }
+                };
+                xmlhttp.onerror = function() {
+                    reject(new Error("Network error")) ;
+                };
+
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+        }).then(function(text) {
+            if (typeof do_next === "function") {
+                do_next(text) ;
+            }
+
+            return text ;
+
+        }).catch(function(err) {
+	    wepsim_notify_error("<strong>ERROR</strong>",
+				"File " + url + " could not be fetched:<br>\n" +
+		                " * wepsim_load_from_url found: " + err + "\n" +
+				" * Please check that you are on-line.") ;
+
+            throw err;
+        }) ;
+    }
+
     export async function wepsim_url_getJSON ( url_json )
     {
        var jres = {} ;
