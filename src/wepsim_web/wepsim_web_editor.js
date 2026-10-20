@@ -236,6 +236,7 @@
 
         setValue ( text )
         {
+/*
             this.view.dispatch({
                 changes: {
                     from: 0,
@@ -243,6 +244,14 @@
                     insert: text
                 }
             });
+*/
+
+            this.view.setState(
+                this.CM6.EditorState.create({
+                    doc: text,
+                    extensions: this.CM6.EditorState.extensions
+                })
+            ) ;
         }
 
         getCursor ( )
