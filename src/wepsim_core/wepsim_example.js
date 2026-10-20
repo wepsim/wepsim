@@ -29,7 +29,7 @@
      import { simcore_ga }                       from "../sim_core/sim_core_ga.js";
 
      import { wepsim_url_getJSON,
-              wepsim_load_from_url }             from "./wepsim_url.js";
+              wepsim_promise_for_loadURL }       from "./wepsim_url.js";
      import { wepsim_notify_success }            from "./wepsim_notify.js";
      import { share_information }                from "./wepsim_share.js";
 
@@ -139,128 +139,6 @@
         return eltos ;
     }
 
-    export function load_from_example_assembly ( example_id, chain_next_step )
-    {
-        if (-1 == ws_info.example_active) {
-            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
-            return ;
-        }
-
-	var inputasm = get_inputasm() ;
-	inputasm.setValue("Please wait...");
-	inputasm.refresh();
-
-	// example_id -> url
-        var eltos = example_id2hash(example_id) ;
-        var url   = ws_info.example_set[ws_info.example_active].url_base_asm + "/" + eltos.sample_asm ;
-
-	// do next
-        var do_next = function( mcode ) {
-	                    var inputasm = get_inputasm() ;
-			    inputasm.setValue(mcode);
-			    inputasm.refresh();
-
-                            // compile it
-                            var ok = false ;
-                            var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length !== 0) {
-                                ok = wepsim_compile_assembly(mcode) ;
-			        inputasm.is_compiled = ok ;
-			    }
-
-                            // stop here if error is found
-			    if (false === ok) {
-			        wsweb_change_workspace_assembly() ;
-                                return ;
-			    }
-
-                            // chain to next task
-                            if (true === chain_next_step) {
-				setTimeout(function() {
-					      wsweb_change_workspace_simulator() ;
-				           }, 32);
-                             }
-
-			     setTimeout(function() {
-                                           show_memories_values();
-				        }, 32);
-
-                             wepsim_notify_success('<strong>INFO</strong>',
-                                                   'Example ready to be used.') ;
-                      };
-        wepsim_load_from_url(url, do_next) ;
-
-        // add if recording
-        simcore_record_append_new('Load assembly from example ' + example_id,
-                                  'ws.load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
-
-	// stats about examples
-        simcore_ga('example', 'example.assembly', 'example.assembly.' + eltos.sample_hw + "." + eltos.sample_asm) ;
-    }
-
-    export function load_from_example_firmware ( example_id, chain_next_step )
-    {
-        if (-1 == ws_info.example_active) {
-            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
-            return ;
-        }
-
-        wepsim_notify_success('<strong>INFO</strong>', 'Loading example...') ;
-
-	var inputfirm = get_inputfirm() ;
-	inputfirm.setValue("Please wait...");
-	inputfirm.refresh();
-	inputfirm.setOption('readOnly', false);
-
-	// example_id -> url
-        var eltos = example_id2hash(example_id) ;
-        var url   = ws_info.example_set[ws_info.example_active].url_base_mc + "/" + eltos.sample_mc ;
-
-	// do next
-        var do_next = function( mcode ) {
-	                   var inputfirm = get_inputfirm() ;
-			   inputfirm.setValue(mcode);
-			   inputfirm.refresh();
-
-			   var ok = wepsim_compile_firmware(mcode);
-			   inputfirm.is_compiled = ok ;
-
-                            // stop here if error is found
-			    if (false === ok) {
-                                wsweb_change_workspace_microcode();
-                                return ;
-			    }
-
-                           // update register view (just in case firmware is updated)
-                           wepsim_show_rf_names() ;
-
-                           // chain to next task
-                           if (true === chain_next_step)
-                           {
-                               setTimeout(function() {
-                                             load_from_example_assembly(example_id, chain_next_step);
-                                          }, 25);
-                           }
-                           else {
-                               setTimeout(function() {
-                                             show_memories_values();
-                                             asmdbg_update_assembly() ;
-                                          }, 25);
-
-                               wepsim_notify_success('<strong>INFO</strong>',
-                                                     'Example ready to be used.') ;
-                           }
-                      };
-        wepsim_load_from_url(url, do_next) ;
-
-        // add if recording
-        simcore_record_append_new('Load firmware from example ' + example_id,
-                                  'ws.load_from_example_firmware("' + example_id + '", false);\n') ;
-
-	// stats about examples
-        simcore_ga('example', 'example.firmware', 'example.firmware.' + eltos.sample_hw + "." + eltos.sample_mc) ;
-    }
-
     export function share_example ( m, base_url )
     {
 	 // example information
@@ -281,5 +159,154 @@
 	 	                  share_title,
 		                  share_text,
 		                  share_url) ;
+    }
+
+    export function load_example_assembly ( example_id )
+    {
+        if (-1 == ws_info.example_active) {
+            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
+            return ;
+        }
+
+	var inputasm = get_inputasm() ;
+	inputasm.setValue("Please wait...");
+	inputasm.refresh();
+
+	// example_id -> url
+        var eltos = example_id2hash(example_id) ;
+        var url   = ws_info.example_set[ws_info.example_active].url_base_asm + "/" + eltos.sample_asm ;
+
+	// do next
+        inputasm.promise_load = wepsim_promise_for_loadURL(url) ;
+        inputasm.promise_load
+            .then(function(mcode) {
+		    var inputasm = get_inputasm() ;
+		    inputasm.setValue(mcode);
+		    inputasm.refresh();
+            }) ;
+
+        // add if recording
+        simcore_record_append_new('Load assembly from example ' + example_id,
+                                  'ws.load_example_assembly("'  + example_id + '");\n') ;
+
+	// stats about examples
+        simcore_ga('example', 'example.assembly', 'example.assembly.' + eltos.sample_hw + "." + eltos.sample_asm) ;
+    }
+
+    export function load_example_firmware ( example_id )
+    {
+        if (-1 == ws_info.example_active) {
+            ws_alert("Warning: no active example set by default.\nPlease select your examples first.") ;
+            return ;
+        }
+
+	var inputfirm = get_inputfirm() ;
+	inputfirm.setValue("Please wait...");
+	inputfirm.refresh();
+	inputfirm.setOption('readOnly', false);
+
+	// example_id -> url
+        var eltos = example_id2hash(example_id) ;
+        var url   = ws_info.example_set[ws_info.example_active].url_base_mc + "/" + eltos.sample_mc ;
+
+	// do next
+        inputfirm.promise_load = wepsim_promise_for_loadURL(url) ;
+        inputfirm.promise_load
+            .then(function(mcode) {
+	            var inputfirm = get_inputfirm() ;
+		    inputfirm.setValue(mcode);
+		    inputfirm.refresh();
+            }) ;
+
+        // add if recording
+        simcore_record_append_new('Load firmware from example ' + example_id,
+                                  'ws.load_example_firmware("'  + example_id + '");\n') ;
+
+	// stats about examples
+        simcore_ga('example', 'example.firmware', 'example.firmware.' + eltos.sample_hw + "." + eltos.sample_mc) ;
+    }
+
+    export function load_example ( example_id )
+    {
+        load_example_firmware(example_id) ;
+        load_example_assembly(example_id) ;
+    }
+
+    export function compile_example ( chain_steps )
+    {
+	var inputfirm = get_inputfirm() ;
+	var inputasm  = get_inputasm() ;
+
+        // check promise_load...
+        if (typeof inputfirm.promise_load == "undefined") {
+            ws_alert("Warning: no active firmware is loaded.\nPlease select your examples first.") ;
+            return ;
+	}
+        if (typeof inputasm.promise_load  == "undefined") {
+            ws_alert("Warning: no active assembly is loaded.\nPlease select your examples first.") ;
+            return ;
+	}
+
+        wepsim_notify_success('<strong>INFO</strong>', 'Compiling example...') ;
+
+        Promise.all([inputfirm.promise_load, inputasm.promise_load])
+	    .then(function([mcode, acode]) {
+
+                    var ok = false ;
+
+		    // "both", "firmware_only" -> microcompile firmware
+                    if (chain_steps != "assembly_only")
+		    {
+		        // microcompile firmware...
+		        ok = wepsim_compile_firmware(mcode) ;
+		        inputfirm.is_compiled = ok ;
+
+		        // stop here on microcompilation error
+		        if (false === ok) {
+		    	    wsweb_change_workspace_microcode() ;
+			    return ;
+		        }
+
+                        // update register view (just in case firmware is updated)
+                        wepsim_show_rf_names() ;
+		    }
+
+		    // "both", "assembly_only" -> compile assembly; firmware_only -> update assembly pannel
+                    if (chain_steps != "firmware_only")
+		    {
+		        // compile assembly
+		        var SIMWARE = get_simware() ;
+		        if (SIMWARE.firmware.length !== 0) {
+		    	    ok = wepsim_compile_assembly(acode) ;
+			    inputasm.is_compiled = ok ;
+		        }
+
+		        // stop here if error is found
+		        if (false === ok) {
+		    	    wsweb_change_workspace_assembly() ;
+			    return ;
+		        }
+		    }
+		    else
+		    {
+			asmdbg_update_assembly() ;
+		    }
+
+		    // "both" -> go to simulator workspace
+                    if ("both" == chain_steps)
+		    {
+		        setTimeout(function() {
+			               wsweb_change_workspace_simulator() ;
+			           }, 32) ;
+		    }
+
+		    // in any case...
+		    setTimeout(function() {
+			          show_memories_values() ;
+			       }, 20) ;
+
+		    wepsim_notify_success('<strong>INFO</strong>',
+					  'Example ready to be used.') ;
+            }) ;
     }
 

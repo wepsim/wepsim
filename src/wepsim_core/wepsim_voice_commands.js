@@ -28,7 +28,8 @@
      import { wsweb_dialog_open,
               wsweb_dialog_close }              from "../wepsim_web/wepsim_web_api.js";
 
-     import { load_from_example_firmware }      from "./wepsim_example.js";
+     import { load_example,
+	      compile_example }                 from "./wepsim_example.js";
      import { wepsim_execute_reset,
               wepsim_execute_instruction,
               wepsim_execute_microinstruction,
@@ -64,7 +65,8 @@
 
     ws_info.voice_commands['load example :mc_name (from) :asm_name'] = function ( mc_name, asm_name )
     {
-         load_from_example_firmware("ep:" + mc_name + ":" + asm_name, true) ;
+         load_example("ep:" + mc_name + ":" + asm_name) ;
+         compile_example("both") ;
     } ;
 
     ws_info.voice_commands['(show) help'] = function()

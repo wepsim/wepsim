@@ -29,7 +29,7 @@
      import { wepsim_example_loadSet,
               wepsim_example_reset,
               wepsim_example_load,
-              load_from_example_firmware }      from "./wepsim_example.js";
+              compile_example }                 from "./wepsim_example.js";
      import { wepsim_checkpoint_backup_load,
               wepsim_checkpoint_loadURI }       from "./wepsim_checkpoint.js";
 
@@ -119,8 +119,11 @@
 			  var example_uri = example_obj.hardware + ":" +
                                             example_obj.microcode + ":" +
                                             example_obj.assembly ;
-                          var load_example_assembly = ('' == hash.asm) ? true : false ;
-			  load_from_example_firmware(example_uri, load_example_assembly) ;
+			  load_example(example_uri) ;
+
+                          var load_example_assembly = ('' == hash.asm) ? "both" : "firmware_only" ;
+			  compile_example(load_example_assembly) ;
+
 			  return '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
 		      }
 	 },
