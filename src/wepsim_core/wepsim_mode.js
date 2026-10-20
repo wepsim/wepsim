@@ -28,7 +28,8 @@
               wepsim_activeview }             from "../wepsim_web/wepsim_web_simulator.js";
 
      import { wepsim_example_load,
-              load_from_example_firmware }    from "./wepsim_example.js";
+              load_example,
+	      compile_example }               from "./wepsim_example.js";
      import { wepsim_checkpoint_loadExample } from "./wepsim_checkpoint.js";
      import { wepsim_newbie_tour }            from "./wepsim_tour.js";
 
@@ -101,7 +102,8 @@
 	         optValue.startsWith('ep2_asm_') )
 	    {
                 wepsim_activeview('extra_mcode', false) ;
-		load_from_example_firmware(ws_info.default_example[optValue], false) ;
+		load_example(ws_info.default_example[optValue]) ;
+		compile_example("firmware_only") ;
                 return true ;
 	    }
 

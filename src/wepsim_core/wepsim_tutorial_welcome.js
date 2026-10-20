@@ -21,7 +21,8 @@
 
      import { ws_info }                    from "../sim_core/sim_adt_core.js";
      import { simcore_do_nothing_handler } from "../sim_core/sim_api_core.js";
-     import { load_from_example_firmware } from "./wepsim_example.js";
+     import { load_example,
+	      compile_example }            from "./wepsim_example.js";
 
 
     ws_info.tutorials.welcome = [
@@ -72,7 +73,8 @@
 				     code_pre:    function() {  },
 				     code_post:   function() {
                                                       var welcome_example="ep:/ep_sig1_base:/s1e1";
-						      load_from_example_firmware(welcome_example, true);
+						      load_example(welcome_example);
+						      compile_example("both");
 						  },
 				     wait_next:   100
 				  }
