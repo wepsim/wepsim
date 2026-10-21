@@ -166,7 +166,7 @@ export function get_primary_cfg() {
     var wscfg = {
         /* version */
         "version": { upgrade: false, type: "string", value: "2.6.0" },
-        "build": { upgrade: true, type: "string", value: "2.6.0.20260710A" },
+        "build": { upgrade: true, type: "string", value: "2.6.0.20261010A" },
         /* simulation screen: SVG */
         "color_data_active": { upgrade: false, type: "string", value: "#0066FF" },
         "color_data_inactive": { upgrade: false, type: "string", value: "#000000" },

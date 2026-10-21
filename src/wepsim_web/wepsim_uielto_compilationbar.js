@@ -103,6 +103,7 @@
                                   '           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                   '     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                                   '   </button>' +
+/*
                                   '   <div id="action_menu1"' +
                                   '        class="dropdown-menu border border-secondary p-2">' +
                                   '\n' +
@@ -122,6 +123,40 @@
                                   '     <a class="dropdown-item py-1" href="#" id="loadsave_checkpoint" value="checkpoint"' +
                                   '        onclick="ws.wsweb_dialog_open(\'current_checkpoint\');' +
                                   '               return false;"><span data-langkey="Inside a checkpoint...">Inside a checkpoint...</span></a>' +
+                                  '\n' +
+                                  '   </div>' +
+*/
+                                  '   <div id="action_menu1"' +
+                                  '        class="dropdown-menu border border-secondary p-2">' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As text file:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="save_txt_file"   value="txt_file"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'save_firmware\');' +
+                                  '                 return false;"><span data-langkey="Save text file...">Save text file...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_txt_file"   value="txt_file"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_firmware\');' +
+                                  '                 return false;"><span data-langkey="Load text file...">Load text file...</span></a>' +
+                                  '     <div class="dropdown-divider"></div>' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As link:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="save_link"       value="link"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'share_firmware_link\');' +
+                                  '               return false;"><span data-langkey="Get link...">Get link...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_link"       value="link"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_firmware_link\');' +
+                                  '               return false;"><span data-langkey="Load link...">Load link...</span></a>' +
+                                  '     <div class="dropdown-divider"></div>' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As checkpoint:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="save_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'save_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Save checkpoint...">Save checkpoint...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Load checkpoint...">Load checkpoint...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="recover_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'recover_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Recover checkpoint...">Recover checkpoint...</span></a>' +
                                   '\n' +
                                   '   </div>' +
                                   '</div>' ;
@@ -168,7 +203,8 @@
                                   '           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                   '     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
                                   '   </button>' +
-                                  '   <div id="action_menu1"' +
+/*
+                                  '   <div id="action_menu2"' +
                                   '        class="dropdown-menu border border-secondary p-2">' +
                                   '\n' +
                                   '     <h6 class="dropdown-header p-0">Default:</h6>' +
@@ -187,6 +223,40 @@
                                   '     <a class="dropdown-item py-1" href="#" id="loadsave_checkpoint" value="checkpoint"' +
                                   '        onclick="ws.wsweb_dialog_open(\'current_checkpoint\');' +
                                   '               return false;"><span data-langkey="Inside a checkpoint...">Inside a checkpoint...</span></a>' +
+                                  '\n' +
+                                  '   </div>' +
+*/
+                                  '   <div id="action_menu2"' +
+                                  '        class="dropdown-menu border border-secondary p-2">' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As text file:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="save_txt_file"   value="txt_file"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'save_assembly\');' +
+                                  '               return false;"><span data-langkey="Save text file...">Save text file...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_txt_file"   value="txt_file"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_assembly\');' +
+                                  '               return false;"><span data-langkey="Load text file...">Load text file...</span></a>' +
+                                  '     <div class="dropdown-divider"></div>' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As link:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="share_link"      value="link"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'share_assembly_link\');' +
+                                  '               return false;"><span data-langkey="Get link...">Get link...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_link"       value="link"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_assembly_link\');' +
+                                  '               return false;"><span data-langkey="Load link...">Load link...</span></a>' +
+                                  '     <div class="dropdown-divider"></div>' +
+                                  '\n' +
+                                  '     <h6 class="dropdown-header p-0">As checkpoint:</h6>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="save_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'save_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Save checkpoint...">Save checkpoint...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="load_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'load_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Load checkpoint...">Load checkpoint...</span></a>' +
+                                  '     <a class="dropdown-item py-2" href="#" id="recover_checkpoint" value="checkpoint"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'recover_checkpoint\');' +
+                                  '               return false;"><span data-langkey="Recover checkpoint...">Recover checkpoint...</span></a>' +
                                   '\n' +
                                   '   </div>' +
                                   '</div>' ;
