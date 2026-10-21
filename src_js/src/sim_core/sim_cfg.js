@@ -213,7 +213,7 @@ export function get_primary_cfg() {
         "ws_idiom": { upgrade: false, type: "string", value: 'en' },
         "use_voice": { upgrade: false, type: "boolean", value: false },
         "ws_skin_ui": { upgrade: false, type: "string", value: 'classic' },
-        "ws_skin_user": { upgrade: true, type: "string", value: 'extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2' },
+        "ws_skin_user": { upgrade: true, type: "string", value: 'extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2:beta_rv' },
         "ws_skin_dark_mode": { upgrade: true, type: "string", value: 'off' },
         /* micro/assembly screen: editor */
         "editor_theme": { upgrade: false, type: "string", value: 'default' },
