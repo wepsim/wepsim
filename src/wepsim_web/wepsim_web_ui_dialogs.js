@@ -105,13 +105,13 @@
          save_assembly: {
             id:        "svasm",
 	    title:     function() {
-                          return wepsim_config_dialog_title("Load/Save Assembly",
+                          return wepsim_config_dialog_title("Save Assembly",
                                                             "secondary",
 							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
 							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		       },
             body:      function() {
-		         return "<div id='scroller-svasm' class='container-fluid p-0' " +
+		         return "<div id='scroller-svasm' class='container-fluid p-0 d-flex flex-column justify-content-center' " +
 	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
                                "<div class='row m-0'>" +
                                "<div class='col-12 p-2'>" +
@@ -267,7 +267,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       ws.wsweb_dialog_close('load_assembly') ;
+    					       ws.wsweb_dialog_close('load_assembly_link') ;
 					   }
 			 }
 	              },
@@ -282,10 +282,10 @@
 		      }
          },
 
-         share_assembly_link: {
+         get_assembly_link: {
             id:        "svasm",
 	    title:     function() {
-                          return wepsim_config_dialog_title("Share Assembly",
+                          return wepsim_config_dialog_title("Get Assembly",
                                                             "secondary",
 							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
 							    "i18n_update_tags('dialogs', ws_idiom);") ;
@@ -309,7 +309,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       ws.wsweb_dialog_close('save_assembly') ;
+    					       ws.wsweb_dialog_close('get_assembly_link') ;
 					   }
 			 }
 	              },
@@ -377,64 +377,6 @@
 
          /// <firmware - text file> /////////////////////
 
-         save_firmware: {
-	    id:       "svfir",
-	    title:    function() {
-                          return ws.wepsim_config_dialog_title("Save Firmware",
-                                                               "secondary",
-							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
-		      },
-            body:     function() {
-		         return "<div id='scroller-svfir' class='container-fluid p-0' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
-                               "<div class='row m-0'>" +
-                               "<div class='col-12 p-2'>" +
-                                //
-                                "<ws-save-files fid='inputFileNameToSaveAs'>" +
-                                "<ws-save-files-option " +
-                                "    label='Save editor content' " +
-                                "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
-				"	    var inputfirm        = ws.get_inputfirm();" +
-		                "           var textToWrite      = inputfirm.getValue();" +
-		                "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-		                "           inputfirm.is_modified = false;" +
-				"	    return false;'></ws-save-files-option>" +
-                                "<ws-save-files-option " +
-                                "    label='Save control memory (firmware v2)' " +
-                                "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
-                                "           return false;'></ws-save-files-option>" +
-                                "<ws-save-files-option " +
-                                "    label='Save control memory (firmware v1)' " +
-                                "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
-                                "           return false;'></ws-save-files-option>" +
-                                "></ws-save-files>" +
-                                //
-                               "</div>" +
-                               "</div>" +
-			       "</div>" ;
-		      },
-	    buttons:  {
-			 close: {
-				label:     '<i class="fa fa-times me-2"></i>' +
-					   '<span data-langkey="Close">Close</span>',
-			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
-				callback:  function() {
-    					       ws.wsweb_dialog_close('save_firmware') ;
-					   }
-			 }
-	              },
-            size:     '',
-            onshow:   function() {
-			 // uicfg and events
-                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 ws.wepsim_uicfg_apply() ;
-
-			 ws.wsweb_scroll_record('#scroller-svfir') ;
-			 ws.simcore_record_captureInit() ;
-		      }
-         },
-
          load_firmware: {
 	    id:       "lsfir",
 	    title:    function() {
@@ -484,6 +426,64 @@
 			 ws.wepsim_uicfg_apply() ;
 
 			 ws.wsweb_scroll_record('#scroller-lsfir') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         save_firmware: {
+	    id:       "svfir",
+	    title:    function() {
+                          return ws.wepsim_config_dialog_title("Save Firmware",
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-svfir' class='container-fluid p-0 d-flex flex-column justify-content-center' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                //
+                                "<ws-save-files fid='inputFileNameToSaveAs'>" +
+                                "<ws-save-files-option " +
+                                "    label='Save editor content' " +
+                                "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+				"	    var inputfirm        = ws.get_inputfirm();" +
+		                "           var textToWrite      = inputfirm.getValue();" +
+		                "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           inputfirm.is_modified = false;" +
+				"	    return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v2)' " +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v1)' " +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
+                                //
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('save_firmware') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svfir') ;
 			 ws.simcore_record_captureInit() ;
 		      }
          },
@@ -565,48 +565,6 @@
 
          /// <firmware - link> /////////////////////
 
-         share_firmware_link: {
-	    id:       "svfir",
-	    title:    function() {
-                          return wepsim_config_dialog_title("Share Firmware",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
-		      },
-            body:     function() {
-		         return "<div id='scroller-svfir-link' class='container-fluid p-0' " +
-	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
-                               "<div class='row m-0 h-100'>" +
-                               "<div class='col-12 p-2'>" +
-                                "<ws-share-link " +
-                                "    fid='inputToShareAs2' " +
-                                "    jshare='mc' " +
-                                "></ws-share-link>" +
-                               "</div>" +
-                               "</div>" +
-			       "</div>" ;
-		      },
-	    buttons:  {
-			 close: {
-				label:     '<i class="fa fa-times me-2"></i>' +
-					   '<span data-langkey="Close">Close</span>',
-			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
-				callback:  function() {
-    					       ws.wsweb_dialog_close('share_firmware') ;
-					   }
-			 }
-	              },
-            size:     '',
-            onshow:   function() {
-			 // uicfg and events
-                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-			 ws.wepsim_uicfg_apply() ;
-
-			 ws.wsweb_scroll_record('#scroller-svfir-link') ;
-			 ws.simcore_record_captureInit() ;
-		      }
-         },
-
          load_firmware_link: {
 	    id:       "lsfir",
 	    title:    function() {
@@ -637,7 +595,7 @@
 					   '<span data-langkey="Close">Close</span>',
 			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
 				callback:  function() {
-    					       ws.wsweb_dialog_close('load_firmware') ;
+    					       ws.wsweb_dialog_close('load_firmware_link') ;
 					   }
 			 }
 	              },
@@ -651,6 +609,48 @@
 			 ws.wepsim_uicfg_apply() ;
 
 			 ws.wsweb_scroll_record('#scroller-lsfir-link') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         get_firmware_link: {
+	    id:       "svfir",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Get Firmware",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-svfir-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0 h-100'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='mc' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('get_firmware_link') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svfir-link') ;
 			 ws.simcore_record_captureInit() ;
 		      }
          },
@@ -817,7 +817,6 @@
 		size:    '',
 		onshow:  function() {
                                  // update content
-			         $('.dropify').dropify() ;
 				 $('#save_checkpoint1').modal('handleUpdate') ;
 
 				 // ui lang

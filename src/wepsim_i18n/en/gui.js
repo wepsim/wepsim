@@ -68,6 +68,7 @@
 		"Compile":  			                "Compile",
 		"Please write the file name": 		        "Please write the file name",
 	        "Load from this File":                          "Load from this File",
+	        "Please select File":                           "Please select File",
 
 	        "labels":                                       "labels",
 	        "addr":                                         "addr",

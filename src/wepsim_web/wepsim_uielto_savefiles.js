@@ -166,10 +166,12 @@
 	                   o1_list += "  <div class='dropdown-divider'></div>" ;
 
                        // add new option element
-                       if (0 == i) opt_label = "Default" ;
-                       else        opt_label = "Optional " + i ;
+                   //  if (0 == i) opt_label = "<h6 class='dropdown-header'>Default:</h6>" ;
+                   //  else        opt_label = "<h6 class='dropdown-header'>Optional " + i + ":</h6>" ;
+                       if (0 == i) opt_label = "<h6 class='dropdown-header'>Default:</h6>" ;
+                       else        opt_label = "" ;
 
-		       o1_list += "  <h6 class='dropdown-header'>" + opt_label + ":</h6>" +
+		       o1_list += opt_label +
                                   "  <a class='dropdown-item' href='#' " +
                                   "     onclick='" + elto_src[i] + "'><span data-langkey='" + elto_label[i] + "'>" +
                                         elto_label[i] + "</span></a>" ;
