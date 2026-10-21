@@ -29,6 +29,7 @@
      import { wepsim_example_loadSet,
               wepsim_example_reset,
               wepsim_example_load,
+              load_example,
               compile_example }                 from "./wepsim_example.js";
      import { wepsim_checkpoint_backup_load,
               wepsim_checkpoint_loadURI }       from "./wepsim_checkpoint.js";

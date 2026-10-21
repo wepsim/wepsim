@@ -238,7 +238,7 @@
              var wscfg = {
                    /* version */
                    "version":               { upgrade:false, type:"string",    value:"2.6.0" },
-                   "build":                 { upgrade:true,  type:"string",    value:"2.6.0.20260710A" },
+                   "build":                 { upgrade:true,  type:"string",    value:"2.6.0.20261010A" },
 
 	           /* simulation screen: SVG */
                    "color_data_active":     { upgrade:false, type:"string",    value:"#0066FF" },
@@ -290,7 +290,7 @@
                    "ws_idiom":              { upgrade:false, type:"string",    value:'en' },
                    "use_voice":             { upgrade:false, type:"boolean",   value:false },
                    "ws_skin_ui":            { upgrade:false, type:"string",    value:'classic' },
-                   "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2' },
+                   "ws_skin_user":          { upgrade:true,  type:"string",    value:'extra_mcode:extra_morecfg:extra_share:beta_cache:beta_ep2:beta_rv' },
                    "ws_skin_dark_mode":     { upgrade:true,  type:"string",    value:'off' },
 
 	           /* micro/assembly screen: editor */

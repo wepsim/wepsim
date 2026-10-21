@@ -547,7 +547,7 @@
 	    for (var i=0; i<obj_wsbackup.length; i++)
 	    {
 		 o += '<label data-bs-toggle="list" ' +
-                      '       class="list-group-item btn btn-white border-dark text-truncate rounded-1">' +
+                      '       class="list-group-item btn btn-white text-truncate rounded-1">' +
 		      '   <input type="radio" name="browserCacheElto" ' +
                       '          id="' + i + '" autocomplete="off" class="btn-check" ' +
                       '>' + obj_wsbackup[i].tag + '</label>' ;

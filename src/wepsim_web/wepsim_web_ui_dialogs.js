@@ -49,6 +49,119 @@
 
     export var wsweb_dialogs = {
 
+         /// <assembly - text file> /////////////////////
+
+         load_assembly: {
+            id:        "lsasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Load Assembly",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-lsasm' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                //
+                                "<ws-load-file " +
+                                "    fid='fileToLoad2' " +
+                                "    jload='var ftl = document.getElementById(\"fileToLoad2\").files[0];" +
+                                "           ws.wepsim_file_loadFrom(ftl, " +
+                                "		                    function(txt) { " +
+				"	               var inputasm = ws.get_inputasm();" +
+                                "		       inputasm.setValue(txt);" +
+    				"                      ws.wsweb_dialog_close(\"load_assembly\");" +
+			        "		       ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		                    });" +
+                                "           return false;'></ws-load-file>" +
+                                //
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('load_assembly') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-lsasm') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         save_assembly: {
+            id:        "svasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Load/Save Assembly",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-svasm' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                //
+                                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
+                                "<ws-save-files-option " +
+                                "     label='Save editor content' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	     var fileNameToSaveAs = ifntsa2.value;" +
+				"	     var inputasm         = ws.get_inputasm();" +
+				"	     var textToWrite      = inputasm.getValue();" +
+				"	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "            inputasm.is_modified = false;" +
+                                "            return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "     label='Save as binary section' " +
+                                "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
+				"	     var fileNameToSaveAs = ifntsa2.value;" +
+                                "            var simware = ws.get_simware();" +
+                                "            if (simware == null) return false;" +
+                                "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
+				"	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+                                "            return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
+                                //
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('save_assembly') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svasm') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
          load_save_assembly: {
             id:        "lssvasm",
 	    title:     function() {
@@ -122,6 +235,95 @@
 		      }
          },
 
+         /// <assembly - link> /////////////////////
+
+         load_assembly_link: {
+            id:        "lsasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Load Assembly",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-lsasm-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0 h-100'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-load-link " +
+                                "    fid='inputToShareAs3' " +
+                                "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
+				"	    ws.load_from_uri(elto.value);" +
+    				"           ws.wsweb_dialog_close(\"load_assembly\");" +
+			        "	    ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "           return false;'></ws-load-link>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('load_assembly') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-lsasm-link') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         share_assembly_link: {
+            id:        "svasm",
+	    title:     function() {
+                          return wepsim_config_dialog_title("Share Assembly",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "i18n_update_tags('dialogs', ws_idiom);") ;
+		       },
+            body:      function() {
+		         return "<div id='scroller-svasm-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0 h-100'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='asm,cache' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+	              },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('save_assembly') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svasm-link') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
          load_save_assembly_link: {
             id:        "lssvasm",
 	    title:     function() {
@@ -173,13 +375,126 @@
 		      }
          },
 
+         /// <firmware - text file> /////////////////////
+
+         save_firmware: {
+	    id:       "svfir",
+	    title:    function() {
+                          return ws.wepsim_config_dialog_title("Save Firmware",
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-svfir' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                //
+                                "<ws-save-files fid='inputFileNameToSaveAs'>" +
+                                "<ws-save-files-option " +
+                                "    label='Save editor content' " +
+                                "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
+				"	    var inputfirm        = ws.get_inputfirm();" +
+		                "           var textToWrite      = inputfirm.getValue();" +
+		                "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
+		                "           inputfirm.is_modified = false;" +
+				"	    return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v2)' " +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "<ws-save-files-option " +
+                                "    label='Save control memory (firmware v1)' " +
+                                "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
+                                "           return false;'></ws-save-files-option>" +
+                                "></ws-save-files>" +
+                                //
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('save_firmware') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svfir') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         load_firmware: {
+	    id:       "lsfir",
+	    title:    function() {
+                          return ws.wepsim_config_dialog_title("Load Firmware",
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-lsfir' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch;'> " +
+                               "<div class='row m-0'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-load-file " +
+                                "    fid='fileToLoad' " +
+                                "    jload='var ftl = document.getElementById(\"fileToLoad\").files[0];" +
+                                "           ws.wepsim_file_loadFrom(ftl, " +
+                                "		                    function(txt) { " +
+				"	              var inputfirm = ws.get_inputfirm();" +
+                                "		      inputfirm.setValue(\"Please wait...\");" +
+    				"                     ws.wsweb_dialog_close(\"load_firmware\");" +
+                                "		      inputfirm.setValue(txt);" +
+			        "		      ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "		                    });" +
+                                "           return false;'></ws-load-file>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('load_firmware') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+		         // dropify
+			 $('.dropify').dropify() ;
+
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-lsfir') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
          load_save_firmware: {
 	    id:       "lssvfir",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Load/Save Firmware",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:     function() {
 		         return "<div id='scroller-lssvfir' class='container-fluid p-0' " +
@@ -248,6 +563,98 @@
 		      }
          },
 
+         /// <firmware - link> /////////////////////
+
+         share_firmware_link: {
+	    id:       "svfir",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Share Firmware",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-svfir-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0 h-100'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-share-link " +
+                                "    fid='inputToShareAs2' " +
+                                "    jshare='mc' " +
+                                "></ws-share-link>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('share_firmware') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-svfir-link') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
+         load_firmware_link: {
+	    id:       "lsfir",
+	    title:    function() {
+                          return wepsim_config_dialog_title("Load Firmware",
+                                                            "secondary",
+							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+		      },
+            body:     function() {
+		         return "<div id='scroller-lsfir-link' class='container-fluid p-0' " +
+	           	        "     style='overflow:auto; -webkit-overflow-scrolling:touch; min-height:25vh;'> " +
+                               "<div class='row m-0 h-100'>" +
+                               "<div class='col-12 p-2'>" +
+                                "<ws-load-link " +
+                                "    fid='inputToShareAs3' " +
+                                "    jload='elto = document.getElementById(\"inputToShareAs3\"); " +
+				"	    ws.load_from_uri(elto.value);" +
+    				"           ws.wsweb_dialog_close(\"load_firmware\");" +
+			        "	    ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Loaded!.\") ; " +
+                                "           return false;'></ws-load-link>" +
+                               "</div>" +
+                               "</div>" +
+			       "</div>" ;
+		      },
+	    buttons:  {
+			 close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+				callback:  function() {
+    					       ws.wsweb_dialog_close('load_firmware') ;
+					   }
+			 }
+	              },
+            size:     '',
+            onshow:   function() {
+		         // dropify
+			 $('.dropify').dropify() ;
+
+			 // uicfg and events
+                         ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+			 ws.wepsim_uicfg_apply() ;
+
+			 ws.wsweb_scroll_record('#scroller-lsfir-link') ;
+			 ws.simcore_record_captureInit() ;
+		      }
+         },
+
          load_save_firmware_link: {
 	    id:       "lssvfir",
 	    title:    function() {
@@ -302,6 +709,328 @@
 		      }
          },
 
+         /// <checkpoint> /////////////////////
+
+	 load_checkpoint: {
+		id:      'load_checkpoint1',
+		title:   function() {
+                             return ws.wepsim_config_dialog_title("Load checkpoint",
+                                                                  "secondary",
+							          "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							          "ws.i18n_update_tags('dialog', ws_idiom);") ;
+			 },
+		body:    function() {
+                             var now = new Date().toLocaleString() ;
+
+                             return "<div class='row m-0' style='min-height:25vh;'>" +
+                                    "   <div class='col-12 p-2'>" +
+                                    "    <ws-load-file " +
+                                    "        fid='fileToLoad31' " +
+                                    "	     jload='var ret = ws.wepsim_checkpoint_load(\"fileToLoad31\") ;" +
+                                    "		    if (ret) {" +
+                                    "		        ws.wsweb_dialog_close(\"current_checkpoint\") ;" +
+                                    "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                            \"Processing load request...\") ;" +
+                                    "		    }" +
+                                    "		    return false;'></ws-load-file>" +
+                                    "   </div>" +
+                                    "</div>" ;
+			 },
+		buttons: {
+			     close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+			        callback:  function() {
+    					      ws.wsweb_dialog_close('load_checkpoint') ;
+				           }
+			     }
+			 },
+		size:    '',
+		onshow:  function() {
+                                 // update content
+	                         ws.wepsim_checkpoint_listCache('browserCacheList1');
+			         $('.dropify').dropify() ;
+				 $('#load_checkpoint1').modal('handleUpdate') ;
+
+				 // ui lang
+				 var ws_idiom = ws.get_cfg('ws_idiom') ;
+				 ws.i18n_update_tags('dialog', ws_idiom) ;
+
+				 // uicfg and events
+                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+				 ws.wepsim_uicfg_apply() ;
+
+				 ws.simcore_record_captureInit() ;
+			 }
+         },
+
+	 save_checkpoint: {
+		id:      'save_checkpoint1',
+		title:   function() {
+                             return ws.wepsim_config_dialog_title("Save checkpoint",
+                                                                  "secondary",
+							          "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							          "ws.i18n_update_tags('dialog', ws_idiom);") ;
+			 },
+		body:    function() {
+                             var now = new Date().toLocaleString() ;
+
+                             return "<div class='row m-0' style='min-height:25vh;'>" +
+                                    "   <div class='col-12 p-2'>" +
+                                    "   <ws-save-file " +
+                                    "     fid='FileNameToSaveAs1' " +
+                                    "	  jsave='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                     \"Processing save request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
+                                    "                                       \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "	  jshare='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                      \"Processing share request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
+                                    "                                        \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "   ></ws-save-file>" +
+                                    "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
+                                    "          class='form-control btn-outline-secondary' " +
+                                    "          type='hidden' " +
+                                    "          value='" + now + "' " +
+                                    "          placeholder='Associated tag to be saved (if any)' " +
+                                    "          style='min-width: 90%;'/>" +
+                                    "   </div>" +
+                                    "</div>" ;
+			 },
+		buttons: {
+			     close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+			        callback:  function() {
+    					      ws.wsweb_dialog_close('save_checkpoint') ;
+				           }
+			     }
+			 },
+		size:    '',
+		onshow:  function() {
+                                 // update content
+			         $('.dropify').dropify() ;
+				 $('#save_checkpoint1').modal('handleUpdate') ;
+
+				 // ui lang
+				 var ws_idiom = ws.get_cfg('ws_idiom') ;
+				 ws.i18n_update_tags('dialog', ws_idiom) ;
+
+				 // uicfg and events
+                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+				 ws.wepsim_uicfg_apply() ;
+
+				 ws.simcore_record_captureInit() ;
+			 }
+         },
+
+	 recover_checkpoint: {
+		id:      'recover_checkpoint1',
+		title:   function() {
+                             return ws.wepsim_config_dialog_title("Recover checkpoint",
+                                                                  "secondary",
+							          "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							          "ws.i18n_update_tags('dialog', ws_idiom);") ;
+			 },
+		body:    function() {
+                             var now = new Date().toLocaleString() ;
+
+                             return "<div class='row m-0' style='min-height:25vh;'>" +
+                                    "   <div class='col-12 p-2'>" +
+                                    "   <div class='card border-secondary h-100'>" +
+                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                                    "	  <h5 class='m-0'>" +
+                                    "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
+                                    "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
+                                    "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                                    "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "			     if (ret.error)" +
+                                    "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                                    "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
+                                    "		  <div class='dropdown float-end'>" +
+                                    "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
+                                    "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
+                                    "			    aria-haspopup='true' aria-expanded='false' " +
+                                    "			    ><span data-langkey='Reset'>Reset</span></button>" +
+                                    "		    </button>" +
+                                    "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
+                                    "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
+                                    "			onclick='ws.wepsim_checkpoint_clearCache();" +
+                                    "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
+                                    "				 return false;'" +
+                                    "			 ><span data-langkey='Yes'>Yes</span></a>" +
+                                    "		      <div class='dropdown-divider'></div>" +
+                                    "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
+                                    "			 ><span data-langkey='No'>No</span></a>" +
+                                    "		    </div>" +
+                                    "		  </div>" +
+                                    "	  </h5>" +
+                                    "      </div>" +
+                                    "      <div class='card-body'>" +
+                                    "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
+                                    "		<div id='browserCacheList1'" +
+                                    "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
+                                    "      </div>" +
+                                    "   </div>" +
+                                    "   </div>" +
+                                    "</div>" ;
+			 },
+		buttons: {
+			     close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+			        callback:  function() {
+    					      ws.wsweb_dialog_close('recover_checkpoint') ;
+				           }
+			     }
+			 },
+		size:    '',
+		onshow:  function() {
+                                 // update content
+	                         ws.wepsim_checkpoint_listCache('browserCacheList1');
+				 $('#recover_checkpoint1').modal('handleUpdate') ;
+
+				 // ui lang
+				 var ws_idiom = ws.get_cfg('ws_idiom') ;
+				 ws.i18n_update_tags('dialog', ws_idiom) ;
+
+				 // uicfg and events
+                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+				 ws.wepsim_uicfg_apply() ;
+
+				 ws.simcore_record_captureInit() ;
+			 }
+         },
+
+	 current_checkpoint: {
+		id:      'current_checkpoint1',
+		title:   function() {
+                             return ws.wepsim_config_dialog_title("Checkpoint",
+                                                                  "secondary",
+							          "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							          "ws.i18n_update_tags('dialog', ws_idiom);") ;
+			 },
+		body:    function() {
+                             var now = new Date().toLocaleString() ;
+
+                             return "<div class='row m-0'>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "   <ws-save-file " +
+                                    "     fid='FileNameToSaveAs1' " +
+                                    "	  jsave='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                 \"Processing save request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
+                                    "                                    \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "	  jshare='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                   \"Processing share request...\");" +
+                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
+                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
+                                    "		  ws.wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
+                                    "                                     \"tagToSave1\", checkpointObj);" +
+                                    "             return false;'" +
+                                    "   ></ws-save-file>" +
+                                    "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
+                                    "          class='form-control btn-outline-secondary' " +
+                                    "          type='hidden' " +
+                                    "          value='" + now + "' " +
+                                    "          placeholder='Associated tag to be saved (if any)' " +
+                                    "          style='min-width: 90%;'/>" +
+                                    "   </div>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "    <ws-load-file " +
+                                    "        fid='fileToLoad31' " +
+                                    "	     jload='var ret = ws.wepsim_checkpoint_load(\"fileToLoad31\") ;" +
+                                    "		    if (ret) {" +
+                                    "		        ws.wsweb_dialog_close(\"current_checkpoint\") ;" +
+                                    "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
+                                    "                                         \"Processing load request...\") ;" +
+                                    "		    }" +
+                                    "		    return false;'></ws-load-file>" +
+                                    "   </div>" +
+                                    "   <div class='col-12 col-sm-4 p-2'>" +
+                                    "   <div class='card border-secondary h-100'>" +
+                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                                    "	  <h5 class='m-0'>" +
+                                    "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
+                                    "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
+                                    "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                                    "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
+                                    "			     if (ret.error)" +
+                                    "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                                    "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
+                                    "		  <div class='dropdown float-end'>" +
+                                    "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
+                                    "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
+                                    "			    aria-haspopup='true' aria-expanded='false' " +
+                                    "			    ><span data-langkey='Reset'>Reset</span></button>" +
+                                    "		    </button>" +
+                                    "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
+                                    "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
+                                    "			onclick='ws.wepsim_checkpoint_clearCache();" +
+                                    "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
+                                    "				 return false;'" +
+                                    "			 ><span data-langkey='Yes'>Yes</span></a>" +
+                                    "		      <div class='dropdown-divider'></div>" +
+                                    "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
+                                    "			 ><span data-langkey='No'>No</span></a>" +
+                                    "		    </div>" +
+                                    "		  </div>" +
+                                    "	  </h5>" +
+                                    "      </div>" +
+                                    "      <div class='card-body'>" +
+                                    "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
+                                    "		<div id='browserCacheList1'" +
+                                    "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
+                                    "      </div>" +
+                                    "   </div>" +
+                                    "   </div>" +
+                                    "</div>" ;
+
+			 },
+		buttons: {
+			     close: {
+				label:     '<i class="fa fa-times me-2"></i>' +
+					   '<span data-langkey="Close">Close</span>',
+			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+			        callback:  function() {
+    					      ws.wsweb_dialog_close('current_checkpoint') ;
+				           }
+			     }
+			 },
+		size:    'extra-large',
+		onshow:  function() {
+                                 // update content
+	                         ws.wepsim_checkpoint_listCache('browserCacheList1');
+			         $('.dropify').dropify() ;
+				 $('#current_checkpoint1').modal('handleUpdate') ;
+
+				 // ui lang
+				 var ws_idiom = ws.get_cfg('ws_idiom') ;
+				 ws.i18n_update_tags('dialog', ws_idiom) ;
+
+				 // uicfg and events
+                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
+				 ws.wepsim_uicfg_apply() ;
+
+				 ws.simcore_record_captureInit() ;
+			 }
+         },
+
+	 // flash ASM
          flash_assembly: {
             id:        "flashasm",
 	    title:     function() {
@@ -342,6 +1071,7 @@
 		      }
          },
 
+	 // flash FPGA
          flash_fpga: {
             id:        "flashfpga",
 	    title:     function() {
@@ -387,9 +1117,9 @@
             id:      "bin_asm",
 	    title:   function() {
                           return ws.wepsim_config_dialog_title("Binary",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2a' class='container-fluid p-1'>" +
@@ -435,9 +1165,9 @@
             id:      "bin_fir",
 	    title:   function() {
                           return ws.wepsim_config_dialog_title("Binary",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		     },
             body:    function() {
 		        return "<div id='scroller-bin2b' class='container-fluid p-1'>" +
@@ -484,9 +1214,9 @@
             id:      "about1",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("About WepSIM",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        return "<div id='scroller-about1' " +
@@ -522,9 +1252,9 @@
             id:       "notifications3",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Notifications",
-                                                            "secondary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('cfg');") ;
+                                                               "secondary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('cfg');") ;
 		      },
             body:     function() {
 		         return "<ws-notifications></ws-notifications>" ;
@@ -561,9 +1291,9 @@
             id:      "example1",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Examples",
-                                                            "primary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('examples', ws_idiom);") ;
+                                                               "primary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('examples', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-examples id='examples1'></ws-examples>" ;
@@ -613,9 +1343,9 @@
             id:      "config2",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Configuration",
-                                                            "primary",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('cfg', ws_idiom);") ;
+                                                               "primary",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('cfg', ws_idiom);") ;
 		      },
             body:    function() {
                           return "<ws-config id='config2'></ws-config>" ;
@@ -740,9 +1470,9 @@
             id:      "help1",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Help",
-                                                            "success",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('help', ws_idiom);") ;
+                                                               "success",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('help', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-help id='help1_ref'></ws-help>" ;
@@ -831,9 +1561,9 @@
             id:      "current_state1",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("State",
-                                                            "dark",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialog', ws_idiom);") ;
+                                                               "dark",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialog', ws_idiom);") ;
 		      },
             body:    function() {
                         return "<ws-states></ws-states>" ;
@@ -862,132 +1592,14 @@
 		     }
          },
 
-	 current_checkpoint: {
-		id:      'current_checkpoint1',
-		title:   function() {
-                             return ws.wepsim_config_dialog_title("Checkpoint",
-                                                               "secondary",
-							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							       "ws.i18n_update_tags('dialog', ws_idiom);") ;
-			 },
-		body:    function() {
-                             var now = new Date().toLocaleString() ;
-
-                             return "<div class='row m-0'>" +
-                                    "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "   <ws-save-file " +
-                                    "     fid='FileNameToSaveAs1' " +
-                                    "	  jsave='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
-                                    "                                 \"Processing save request...\");" +
-                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  ws.wepsim_checkpoint_save(\"FileNameToSaveAs1\", " +
-                                    "                                    \"tagToSave1\", checkpointObj);" +
-                                    "             return false;'" +
-                                    "	  jshare='ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
-                                    "                                   \"Processing share request...\");" +
-                                    "		  var obj_tagName   = document.getElementById(\"tagToSave1\") ;" +
-                                    "		  var checkpointObj = ws.wepsim_checkpoint_get(obj_tagName.value);" +
-                                    "		  ws.wepsim_checkpoint_share(\"FileNameToSaveAs1\", " +
-                                    "                                     \"tagToSave1\", checkpointObj);" +
-                                    "             return false;'" +
-                                    "   ></ws-save-file>" +
-                                    "   <input aria-label='associated tag to be saved' id='tagToSave1'" +
-                                    "          class='form-control btn-outline-secondary' " +
-                                    "          type='hidden' " +
-                                    "          value='" + now + "' " +
-                                    "          placeholder='Associated tag to be saved (if any)' " +
-                                    "          style='min-width: 90%;'/>" +
-                                    "   </div>" +
-                                    "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "    <ws-load-file " +
-                                    "        fid='fileToLoad31' " +
-                                    "	     jload='var ret = ws.wepsim_checkpoint_load(\"fileToLoad31\") ;" +
-                                    "		    if (ret) {" +
-                                    "		        ws.wsweb_dialog_close(\"current_checkpoint\") ;" +
-                                    "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
-                                    "                                         \"Processing load request...\") ;" +
-                                    "		    }" +
-                                    "		    return false;'></ws-load-file>" +
-                                    "   </div>" +
-                                    "   <div class='col-12 col-sm-4 p-2'>" +
-                                    "   <div class='card border-secondary h-100'>" +
-                                    "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
-                                    "	  <h5 class='m-0'>" +
-                                    "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
-                                    "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
-                                    "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
-                                    "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
-                                    "			     if (ret.error)" +
-                                    "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
-                                    "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
-                                    "			     return false;'><span data-langkey='Load'>Load</span></button>" +
-                                    "		  <div class='dropdown float-end'>" +
-                                    "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
-                                    "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
-                                    "			    aria-haspopup='true' aria-expanded='false' " +
-                                    "			    ><span data-langkey='Reset'>Reset</span></button>" +
-                                    "		    </button>" +
-                                    "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                                    "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
-                                    "			onclick='ws.wepsim_checkpoint_clearCache();" +
-                                    "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
-                                    "				 return false;'" +
-                                    "			 ><span data-langkey='Yes'>Yes</span></a>" +
-                                    "		      <div class='dropdown-divider'></div>" +
-                                    "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
-                                    "			 ><span data-langkey='No'>No</span></a>" +
-                                    "		    </div>" +
-                                    "		  </div>" +
-                                    "	  </h5>" +
-                                    "      </div>" +
-                                    "      <div class='card-body'>" +
-                                    "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
-                                    "		<div id='browserCacheList1'" +
-                                    "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
-                                    "      </div>" +
-                                    "   </div>" +
-                                    "   </div>" +
-                                    "</div>" ;
-
-			 },
-		buttons: {
-			     close: {
-				label:     '<i class="fa fa-times me-2"></i>' +
-					   '<span data-langkey="Close">Close</span>',
-			        className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
-			        callback:  function() {
-    					      ws.wsweb_dialog_close('current_checkpoint') ;
-				           }
-			     }
-			 },
-		size:    'extra-large',
-		onshow:  function() {
-                                 // update content
-	                         ws.wepsim_checkpoint_listCache('browserCacheList1');
-			         $('.dropify').dropify() ;
-				 $('#current_checkpoint1').modal('handleUpdate') ;
-
-				 // ui lang
-				 var ws_idiom = ws.get_cfg('ws_idiom') ;
-				 ws.i18n_update_tags('dialog', ws_idiom) ;
-
-				 // uicfg and events
-                                 ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]') ;
-				 ws.wepsim_uicfg_apply() ;
-
-				 ws.simcore_record_captureInit() ;
-			 }
-         },
-
 	 // reload
          reload: {
             id:      "reload1",
 	    title:    function() {
                           return ws.wepsim_config_dialog_title("Reload",
-                                                            "danger",
-							    "var ws_idiom = ws.get_cfg('ws_idiom');" +
-							    "ws.i18n_update_tags('dialogs', ws_idiom);") ;
+                                                               "danger",
+							       "var ws_idiom = ws.get_cfg('ws_idiom');" +
+							       "ws.i18n_update_tags('dialogs', ws_idiom);") ;
 		      },
             body:    function() {
 		        var o = '<div id="scroller-reload1" class="row m-0">' +
