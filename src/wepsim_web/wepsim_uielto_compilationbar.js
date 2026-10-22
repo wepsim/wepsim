@@ -140,7 +140,7 @@
                                   '\n' +
                                   '     <h6 class="dropdown-header p-0">As link:</h6>' +
                                   '     <a class="dropdown-item py-2" href="#" id="save_link"       value="link"' +
-                                  '        onclick="ws.wsweb_dialog_open(\'share_firmware_link\');' +
+                                  '        onclick="ws.wsweb_dialog_open(\'get_firmware_link\');' +
                                   '               return false;"><span data-langkey="Get link...">Get link...</span></a>' +
                                   '     <a class="dropdown-item py-2" href="#" id="load_link"       value="link"' +
                                   '        onclick="ws.wsweb_dialog_open(\'load_firmware_link\');' +
@@ -239,8 +239,8 @@
                                   '     <div class="dropdown-divider"></div>' +
                                   '\n' +
                                   '     <h6 class="dropdown-header p-0">As link:</h6>' +
-                                  '     <a class="dropdown-item py-2" href="#" id="share_link"      value="link"' +
-                                  '        onclick="ws.wsweb_dialog_open(\'share_assembly_link\');' +
+                                  '     <a class="dropdown-item py-2" href="#" id="get_link"      value="link"' +
+                                  '        onclick="ws.wsweb_dialog_open(\'get_assembly_link\');' +
                                   '               return false;"><span data-langkey="Get link...">Get link...</span></a>' +
                                   '     <a class="dropdown-item py-2" href="#" id="load_link"       value="link"' +
                                   '        onclick="ws.wsweb_dialog_open(\'load_assembly_link\');' +

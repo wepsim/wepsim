@@ -71,7 +71,7 @@
 			  " </h5>" +
 			  "</div>" +
 			  "<div class='card-body'>" +
-			  "  <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Load from this File'>Load from this File</span>:</em></label>" +
+			  "  <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please select File'>Please select File</span>:</em></label>" +
 	                  "  <p><input aria-label='file to load' data-max-height='20vh' " +
                           "            type='file' id='" + this.fid + "' class='dropify'/></p>" +
 			  "</div>" +
