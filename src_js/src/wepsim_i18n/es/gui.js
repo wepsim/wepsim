@@ -63,6 +63,7 @@ i18n.eltos.gui.es = {
     "Compile": "Compilar",
     "Please write the file name": "Por favor indique el nombre de fichero",
     "Load from this File": "Cargar de este fichero",
+    "Please select File": "Por favor seleccione un fichero",
     "labels": "etiquetas",
     "addr": "dir",
     "ess": "ecci&oacute;n",
