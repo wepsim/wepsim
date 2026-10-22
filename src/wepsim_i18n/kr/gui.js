@@ -70,6 +70,7 @@
 		"Compile":  			                "보여주기",
 		"Please write the file name": 		        "파일 이름을 적어주세요.",
 	        "Load from this File":                          "이 파일에서로드",
+	        "Please select File":                           "파일을 선택하세요",
 
 	        "labels":                                       "라벨",
 	        "addr":                                         "주소",
