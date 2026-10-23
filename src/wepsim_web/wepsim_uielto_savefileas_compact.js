@@ -28,7 +28,7 @@
          *  Save file
          */
 
-        export class ws_save_files_option extends wsHTMLElement
+        export class ws_save_fileas_compact_option extends wsHTMLElement
         {
               static get observedAttributes()
 	      {
@@ -111,14 +111,14 @@
 	      }
         }
 
-        register_uielto('ws-save-files-option', ws_save_files_option) ;
+        register_uielto('ws-save-fileas-compact-option', ws_save_fileas_compact_option) ;
 
 
         //
-        // ws_save_files::ws_save_files_option
+        // ws_save_files::ws_save_fileas_compact_option
         //
 
-        export class ws_save_files extends HTMLElement
+        export class ws_save_fileas_compact extends HTMLElement
         {
               static get observedAttributes()
 	      {
@@ -146,7 +146,7 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
-                    var eltos = this.querySelectorAll("ws-save-files-option") ;
+                    var eltos = this.querySelectorAll("ws-save-fileas-compact-option") ;
 
                     var o1_list   = "" ;
                     var opt_label = "" ;
@@ -229,5 +229,5 @@
 	      }
         }
 
-        register_uielto('ws-save-files', ws_save_files) ;
+        register_uielto('ws-save-fileas-compact', ws_save_fileas_compact) ;
 

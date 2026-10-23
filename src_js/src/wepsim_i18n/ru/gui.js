@@ -63,7 +63,7 @@ i18n.eltos.gui.ru = {
     'Compile': 'компилировать',
     'Please write the file name': 'Пожалуйста, напишите имя файла',
     'Load from this File': 'Загрузить из этого файла',
-    'Please select File': 'Пожалуйста, выберите файл',
+    'Please select the file': 'Пожалуйста, выберите файл',
     'labels': 'этикетки',
     'addr': 'адр',
     'ess': 'ESS',

@@ -61,7 +61,7 @@
 		'Compile':		'संकलन',
 		'Please write the file name':		'कृपया फ़ाइल नाम लिखना',
 		'Load from this File':		'इस फ़ाइल से लोड करें',
-	        'Please select File':           'कृपया फ़ाइल चुनें',
+	        'Please select the file':           'कृपया फ़ाइल चुनें',
 
 		'labels':		'लेबल',
 		'addr':		'addr',
