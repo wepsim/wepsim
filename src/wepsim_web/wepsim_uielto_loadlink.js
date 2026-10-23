@@ -61,25 +61,37 @@
 
                     // save html
                     var o1 = '' ;
-		    o1 += "<div class='card border-secondary h-100'>" +
-			  //
+		    o1 += "<div class='card border-secondary h-auto'>" +
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Input link'>Input link</span>" +
+		//	  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
+                //        "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  " </h5>" +
 			  "</div>" +
-			  //
 			  "<div class='card-body'>" +
-			  "  <label for='" + this.fid + "' class='collapse7 w-100'><em>1. <span data-langkey='Please paste the link'>Please paste the link</span>:</em></label>" +
-	                  '<textarea id="' + this.fid + '" class="form-control" ' +
-	                  '          row="5" style="height:50%">' +
-                          '</textarea>' +
 			  //
-			  "  <label for='load_btn' class='collapse7 w-100'><em>2. <span data-langkey='Please click load'>Please click load</span>:</em></label>" +
-			  "  <button id='load_btn' class='btn bg-body-tertiary border float-none w-50' " +
-                          "          onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
-			  //
-			  "</div>" +
+                          "<div class='container p-1'>" +
+                          "  <div class='row py-2'>" +
+                          "    <div class='col-12 pb-2'>" +
+			  "    <label for='" + this.fid + "' class='collapse7 w-100'><em>1. <span data-langkey='Please paste the link'>Please paste the link</span>:</em></label>" +
+                          "    </div>" +
+                          "    <div class='col-12 pb-2'>" +
+	                  '    <textarea id="' + this.fid + '" class="form-control" ' +
+	                  '          row="5" style="height:20vh;"></textarea>' +
+                          "    </div>" +
+                          "  </div>" +
+                          "  <div class='row py-2'>" +
+                          "    <div class='col-12 pb-2'>" +
+			  "    <label for='load_btn' class='collapse7 w-100'><em>2. <span data-langkey='Please click load'>Please click load</span>:</em></label>" +
+                          "    </div>" +
+                          "    <div class='col-12 pb-2'>" +
+			  "    <button id='load_btn' class='btn bg-body-tertiary border border-secondary float-none w-100' " +
+                          "            onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
+                          "    </div>" +
+                          "  </div>" +
+                          "</div>" +
+                          //
 			  "</div>" ;
 
                     this.innerHTML = o1 ;
