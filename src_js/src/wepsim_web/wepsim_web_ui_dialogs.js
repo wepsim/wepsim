@@ -94,8 +94,8 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs2'>" +
+                "<ws-save-fileas-option " +
                 "     label='Save editor content' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -103,8 +103,8 @@ export var wsweb_dialogs = {
                 "	     var textToWrite      = inputasm.getValue();" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "            inputasm.is_modified = false;" +
-                "            return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "            return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "     label='Save as binary section' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -112,8 +112,8 @@ export var wsweb_dialogs = {
                 "            if (simware == null) return false;" +
                 "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-                "            return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "            return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "</div>" +
@@ -150,8 +150,8 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs2'>" +
+                "<ws-save-fileas-option " +
                 "     label='Save editor content' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -159,8 +159,8 @@ export var wsweb_dialogs = {
                 "	     var textToWrite      = inputasm.getValue();" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "            inputasm.is_modified = false;" +
-                "            return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "            return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "     label='Save as binary section' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -168,8 +168,8 @@ export var wsweb_dialogs = {
                 "            if (simware == null) return false;" +
                 "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-                "            return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "            return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
@@ -395,24 +395,24 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs'>" +
+                "<ws-save-fileas-option " +
                 "    label='Save editor content' " +
                 "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
                 "	    var inputfirm        = ws.get_inputfirm();" +
                 "           var textToWrite      = inputfirm.getValue();" +
                 "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "           inputfirm.is_modified = false;" +
-                "	    return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "	    return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v2)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
-                "           return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "           return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v1)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
-                "           return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "           return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "</div>" +
@@ -449,24 +449,24 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs'>" +
+                "<ws-save-fileas-option " +
                 "    label='Save editor content' " +
                 "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
                 "	    var inputfirm        = ws.get_inputfirm();" +
                 "           var textToWrite      = inputfirm.getValue();" +
                 "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "           inputfirm.is_modified = false;" +
-                "	    return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "	    return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v2)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
-                "           return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "           return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v1)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
-                "           return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "           return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
@@ -653,7 +653,7 @@ export var wsweb_dialogs = {
                 "        fid='fileToLoad31' " +
                 "	     jload='var ret = ws.wepsim_checkpoint_load(\"fileToLoad31\") ;" +
                 "		    if (ret) {" +
-                "		        ws.wsweb_dialog_close(\"current_checkpoint\") ;" +
+                "		        ws.wsweb_dialog_close(\"load_checkpoint\") ;" +
                 "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", " +
                 "                                            \"Processing load request...\") ;" +
                 "		    }" +
@@ -755,42 +755,16 @@ export var wsweb_dialogs = {
             var now = new Date().toLocaleString();
             return "<div class='row m-0' style='min-height:25vh;'>" +
                 "   <div class='col-12 p-2'>" +
-                "   <div class='card border-secondary h-100'>" +
-                "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
-                "	  <h5 class='m-0'>" +
-                "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
-                "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
-                "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
-                "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
-                "			     if (ret.error)" +
-                "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
-                "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
-                "			     return false;'><span data-langkey='Load'>Load</span></button>" +
-                "		  <div class='dropdown float-end'>" +
-                "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
-                "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
-                "			    aria-haspopup='true' aria-expanded='false' " +
-                "			    ><span data-langkey='Reset'>Reset</span></button>" +
-                "		    </button>" +
-                "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
-                "			onclick='ws.wepsim_checkpoint_clearCache();" +
-                "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
-                "				 return false;'" +
-                "			 ><span data-langkey='Yes'>Yes</span></a>" +
-                "		      <div class='dropdown-divider'></div>" +
-                "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
-                "			 ><span data-langkey='No'>No</span></a>" +
-                "		    </div>" +
-                "		  </div>" +
-                "	  </h5>" +
-                "      </div>" +
-                "      <div class='card-body'>" +
-                "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
-                "		<div id='browserCacheList1'" +
-                "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
-                "      </div>" +
-                "   </div>" +
+                "   <ws-load-browser-cache " +
+                "       fid='browserCacheList1' " +
+                "	    jload='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                "		   if (ret.error) {" +
+                "		       ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                "		       return false;" +
+                "		   }" +
+                "		   ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                "	   	   ws.wsweb_dialog_close(\"recover_checkpoint\");" +
+                "              return false;'></ws-load-browser-cache>" +
                 "   </div>" +
                 "</div>";
         },
@@ -864,41 +838,16 @@ export var wsweb_dialogs = {
                 "		    return false;'></ws-load-file>" +
                 "   </div>" +
                 "   <div class='col-12 col-sm-4 p-2'>" +
-                "   <div class='card border-secondary h-100'>" +
-                "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
-                "	  <h5 class='m-0'>" +
-                "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
-                "	    <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto'" +
-                "		    onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
-                "			     ws.wsweb_dialog_close(\"current_checkpoint\");" +
-                "			     if (ret.error)" +
-                "				  ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
-                "			     else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
-                "			     return false;'><span data-langkey='Load'>Load</span></button>" +
-                "		  <div class='dropdown float-end'>" +
-                "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
-                "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
-                "			    aria-haspopup='true' aria-expanded='false' " +
-                "			    ><span data-langkey='Reset'>Reset</span></button>" +
-                "		    </button>" +
-                "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
-                "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
-                "			onclick='ws.wepsim_checkpoint_clearCache();" +
-                "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
-                "				 return false;'" +
-                "			 ><span data-langkey='Yes'>Yes</span></a>" +
-                "		      <div class='dropdown-divider'></div>" +
-                "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
-                "			 ><span data-langkey='No'>No</span></a>" +
-                "		    </div>" +
-                "		  </div>" +
-                "	  </h5>" +
-                "      </div>" +
-                "      <div class='card-body'>" +
-                "		<label for='browserCacheList1' class='collapse7'><em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
-                "		<div id='browserCacheList1'" +
-                "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
-                "      </div>" +
+                "    <ws-load-browser-cache " +
+                "        fid='browserCacheList1' " +
+                "	     jload='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                "		    if (ret.error) {" +
+                "		        ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                "		        return false;" +
+                "		    }" +
+                "		    ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                "	   	    ws.wsweb_dialog_close(\"current_checkpoint\");" +
+                "               return false;'></ws-load-browser-cache>" +
                 "   </div>" +
                 "   </div>" +
                 "</div>";

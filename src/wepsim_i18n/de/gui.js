@@ -68,7 +68,7 @@
 		'Compile':			'Kompilieren',
 		'Please write the file name':	'Bitte schreiben Sie den Dateinamen',
 		'Load from this File':		'Laden Sie aus dieser Datei',
-	        'Please select File':           'Bitte wählen Sie „Datei“',
+	        'Please select the file':       'Bitte wählen Sie „Datei“',
 
 		'labels':			'labels',
 		'addr':				'adr.',

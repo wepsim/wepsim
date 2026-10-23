@@ -68,7 +68,7 @@
 		'Compile':			'コンパイル',
 		'Please write the file name':	'ファイル名を書いてください',
 		'Load from this File':		'このファイルから読み込む',
-	        'Please select File':           'ファイルを選択してください',
+	        'Please select the file':       'ファイルを選択してください',
 
 		'labels':			'ラベル',
 		'addr':				'addr',

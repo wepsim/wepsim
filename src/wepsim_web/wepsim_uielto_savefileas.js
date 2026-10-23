@@ -28,7 +28,7 @@
          *  Save file
          */
 
-        export class ws_save_files_option extends wsHTMLElement
+        export class ws_save_fileas_option extends wsHTMLElement
         {
               static get observedAttributes()
 	      {
@@ -67,9 +67,7 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
-                    var i  = 1 ; // TODO: loop??
-                    var o1 = "  <h6 class='dropdown-header'>Optional " + i + ":</h6>" +
-                             "  <a class='dropdown-item' href='#' " +
+                    var o1 = "  <a class='dropdown-item' href='#' " +
                              "     onclick='" + this.jsrc + "'><span data-langkey='" + this.label + "'>" +
                                    this.label + "</span></a>" ;
 
@@ -111,14 +109,14 @@
 	      }
         }
 
-        register_uielto('ws-save-files-option', ws_save_files_option) ;
+        register_uielto('ws-save-fileas-option', ws_save_fileas_option) ;
 
 
         //
-        // ws_save_files::ws_save_files_option
+        // ws_save_fileas::ws_save_fileas_option
         //
 
-        export class ws_save_files extends HTMLElement
+        export class ws_save_fileas extends HTMLElement
         {
               static get observedAttributes()
 	      {
@@ -146,7 +144,7 @@
                     this.update_internal_attributes() ;
 
                     // get html for options...
-                    var eltos = this.querySelectorAll("ws-save-files-option") ;
+                    var eltos = this.querySelectorAll("ws-save-fileas-option") ;
 
                     var o1_list   = "" ;
                     var opt_label = "" ;
@@ -166,8 +164,6 @@
 	                   o1_list += "  <div class='dropdown-divider'></div>" ;
 
                        // add new option element
-                   //  if (0 == i) opt_label = "<h6 class='dropdown-header'>Default:</h6>" ;
-                   //  else        opt_label = "<h6 class='dropdown-header'>Optional " + i + ":</h6>" ;
                        if (0 == i) opt_label = "<h6 class='dropdown-header'>Default:</h6>" ;
                        else        opt_label = "" ;
 
@@ -179,32 +175,51 @@
 
                     // save html
                     var o1 = '' ;
-		    o1 += "<div class='card border-secondary h-100'>" +
+		    o1 += "<div class='card border-secondary h-auto'>" +
                           "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
                           "  <h5 class='m-0'>" +
 			  "  <span class='text-white bg-secondary' data-langkey='Output file'>Output file</span>" +
-                          "<div class='btn-group float-end'>" +
-			  "  <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-                          "          onclick='" + elto_src[0] + "'><span data-langkey='Save'>Save</span></button>" +
-                          "  <button type='button' " +
-                          "          class='btn bg-body-tertiary dropdown-toggle dropdown-toggle-split btn-sm' " +
-                          "          data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-                          "    <span class='visually-hidden sr-only'>Toggle Dropdown</span>" +
-                          "  </button>" +
-                          "  <div class='dropdown-menu'>" +
-                             o1_list +
-		          "  </div>" +
-                          "</div>" +
                           "  </h5>" +
                           "</div>" +
 		          " <div class='card-body'>" +
-			  " <label for='" + this.fid + "' class='collapse7'>" +
-                          "<em><span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
-                          " </label>" +
-	                  " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
+                          //
+                          "<div class='container p-1'>" +
+                          "  <div class='row py-2'>" +
+                          "    <div class='col-12 pb-2'>" +
+			  "    <label for='" + this.fid + "' class='collapse7 w-100'>" +
+                          "    <em>1. <span data-langkey='Please write the file name'>Please write the file name</span>:</em>" +
+                          "    </label>" +
+                          "    </div>" +
+                          "    <div class='col-12'>" +
+	                  "    <input aria-label='filename to save content' id='" + this.fid + "' " +
                           "           class='form-control btn-outline-secondary' " +
                           "           placeholder='File name where information will be saved' " +
-                          "           style='min-width: 90%;'/></p>" +
+                          "           style='min-width: 90%;'/>" +
+                          "    </div>" +
+                          "  </div>" +
+                          "  <div class='row py-2'>" +
+                          "    <div class='col-12 pb-2'>" +
+			  "    <label for='save_btn' class='collapse7 w-100'>" +
+                          "    <em>2. <span data-langkey='Please click save'>Please click save</span>:</em>" +
+                          "    </label>" +
+                          "    </div>" +
+                          "    <div class='col-12'>" +
+                          "    <div id='save_btn' class='btn-group float-none dropup w-100'>" +
+			  "      <button class='btn bg-body-tertiary border border-secondary mx-2 float-end w-75' " +
+                          "              onclick='" + elto_src[0] + "'>" +
+			  "              <span data-langkey='Save'>Save</span></button>" +
+                          "      <button type='button' " +
+                          "              class='btn bg-body-tertiary border border-secondary dropdown-toggle dropdown-toggle-split' " +
+                          "              data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+                          "              <span class='visually-hidden sr-only'>Toggle Dropdown</span></button>" +
+                          "    <div class='dropdown-menu'>" +
+                               o1_list +
+		          "    </div>" +
+                          "    </div>" +
+                          "  </div>" +
+                          "</div>" +
+                          //
+                          "</div>" +
                           " </div>" +
                           "</div>" ;
 
@@ -229,5 +244,5 @@
 	      }
         }
 
-        register_uielto('ws-save-files', ws_save_files) ;
+        register_uielto('ws-save-fileas', ws_save_fileas) ;
 
