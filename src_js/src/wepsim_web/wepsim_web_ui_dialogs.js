@@ -94,8 +94,8 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs2'>" +
+                "<ws-save-fileas-option " +
                 "     label='Save editor content' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -103,8 +103,8 @@ export var wsweb_dialogs = {
                 "	     var textToWrite      = inputasm.getValue();" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "            inputasm.is_modified = false;" +
-                "            return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "            return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "     label='Save as binary section' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -112,8 +112,8 @@ export var wsweb_dialogs = {
                 "            if (simware == null) return false;" +
                 "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-                "            return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "            return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "</div>" +
@@ -150,8 +150,8 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs2'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs2'>" +
+                "<ws-save-fileas-option " +
                 "     label='Save editor content' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -159,8 +159,8 @@ export var wsweb_dialogs = {
                 "	     var textToWrite      = inputasm.getValue();" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "            inputasm.is_modified = false;" +
-                "            return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "            return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "     label='Save as binary section' " +
                 "      jsrc='var ifntsa2 = document.getElementById(\"inputFileNameToSaveAs2\");" +
                 "	     var fileNameToSaveAs = ifntsa2.value;" +
@@ -168,8 +168,8 @@ export var wsweb_dialogs = {
                 "            if (simware == null) return false;" +
                 "            var textToWrite = ws.mp2bin(simware.mp, simware.labels_asm, simware.seg);" +
                 "	     ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
-                "            return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "            return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
@@ -395,24 +395,24 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs'>" +
+                "<ws-save-fileas-option " +
                 "    label='Save editor content' " +
                 "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
                 "	    var inputfirm        = ws.get_inputfirm();" +
                 "           var textToWrite      = inputfirm.getValue();" +
                 "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "           inputfirm.is_modified = false;" +
-                "	    return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "	    return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v2)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
-                "           return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "           return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v1)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
-                "           return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "           return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "</div>" +
@@ -449,24 +449,24 @@ export var wsweb_dialogs = {
                 "<div class='row m-0'>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
                 //
-                "<ws-save-files fid='inputFileNameToSaveAs'>" +
-                "<ws-save-files-option " +
+                "<ws-save-fileas fid='inputFileNameToSaveAs'>" +
+                "<ws-save-fileas-option " +
                 "    label='Save editor content' " +
                 "     jsrc='var fileNameToSaveAs = document.getElementById(\"inputFileNameToSaveAs\").value;" +
                 "	    var inputfirm        = ws.get_inputfirm();" +
                 "           var textToWrite      = inputfirm.getValue();" +
                 "           ws.wepsim_save_to_file(textToWrite, fileNameToSaveAs);" +
                 "           inputfirm.is_modified = false;" +
-                "	    return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "	    return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v2)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(2);" +
-                "           return false;'></ws-save-files-option>" +
-                "<ws-save-files-option " +
+                "           return false;'></ws-save-fileas-option>" +
+                "<ws-save-fileas-option " +
                 "    label='Save control memory (firmware v1)' " +
                 "     jsrc='ws.wsweb_save_controlmemory_to_file(1);" +
-                "           return false;'></ws-save-files-option>" +
-                "></ws-save-files>" +
+                "           return false;'></ws-save-fileas-option>" +
+                "></ws-save-fileas>" +
                 //
                 "</div>" +
                 "<div class='col-12 col-sm-6 p-2'>" +
@@ -747,6 +747,81 @@ export var wsweb_dialogs = {
     },
     recover_checkpoint: {
         id: 'recover_checkpoint1',
+        title: function () {
+            return ws.wepsim_config_dialog_title("Recover checkpoint", "secondary", "var ws_idiom = ws.get_cfg('ws_idiom');" +
+                "ws.i18n_update_tags('dialog', ws_idiom);");
+        },
+        body: function () {
+            var now = new Date().toLocaleString();
+            return "<div class='row m-0' style='min-height:25vh;'>" +
+                "   <div class='col-12 p-2'>" +
+                "   <div class='card border-secondary h-100'>" +
+                "      <div class='card-header border-secondary text-white bg-secondary p-1'>" +
+                "	  <h5 class='m-0'>" +
+                "	    <span class='text-white bg-secondary' data-langkey='Browser cache'>Browser cache</span>" +
+                "		  <div class='dropdown float-end'>" +
+                "		    <button class='btn bg-body-tertiary text-danger py-0 mx-1 float-end col-auto dropdown-toggle' " +
+                "			    type='button' id='resetyn2' data-bs-toggle='dropdown' " +
+                "			    aria-haspopup='true' aria-expanded='false' " +
+                "			    ><span data-langkey='Reset'>Reset</span></button>" +
+                "		    </button>" +
+                "		    <div class='dropdown-menu' aria-labelledby='resetyn2'>" +
+                "		     <a class='dropdown-item py-2 bg-body text-danger' type='button' " +
+                "			onclick='ws.wepsim_checkpoint_clearCache();" +
+                "				 ws.wepsim_checkpoint_listCache(\"browserCacheList1\");" +
+                "				 return false;'" +
+                "			 ><span data-langkey='Yes'>Yes</span></a>" +
+                "		      <div class='dropdown-divider'></div>" +
+                "		      <a class='dropdown-item py-2 bg-body text-info' type='button' " +
+                "			 ><span data-langkey='No'>No</span></a>" +
+                "		    </div>" +
+                "		  </div>" +
+                "	  </h5>" +
+                "      </div>" +
+                "      <div class='card-body'>" +
+                "		<label for='browserCacheList1' class='collapse7 w-100'>1. <em><span data-langkey='Session to be restore'>Session to be restore</span>:</em><br></label>" +
+                "		<div id='browserCacheList1'" +
+                "		     style='max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;'>&lt;Empty&gt;</div>" +
+                //
+                "		<label for='browserCacheLoad' class='collapse7 w-100'>2. <em><span data-langkey='Click load button'>Click load button</span>:</em><br></label>" +
+                "	        <button id='browserCacheLoad' class='btn bg-body-tertiary border mx-1 float-none w-50'" +
+                "		        onclick='var ret = ws.wepsim_checkpoint_loadFromCache(\"browserCacheElto\");" +
+                "		    	         ws.wsweb_dialog_close(\"current_checkpoint\");" +
+                "			         if (ret.error)" +
+                "				      ws.wepsim_notify_success(\"<strong>INFO</strong>\", ret.msg);" +
+                "			         else ws.wepsim_notify_success(\"<strong>INFO</strong>\", \"Processing load request...\");" +
+                "			         return false;'><span data-langkey='Load'>Load</span></button>" +
+                "      </div>" +
+                "   </div>" +
+                "   </div>" +
+                "</div>";
+        },
+        buttons: {
+            close: {
+                label: '<i class="fa fa-times me-2"></i>' +
+                    '<span data-langkey="Close">Close</span>',
+                className: "btn btn-primary btn-sm col col-sm-3 float-end shadow-none",
+                callback: function () {
+                    ws.wsweb_dialog_close('recover_checkpoint');
+                }
+            }
+        },
+        size: '',
+        onshow: function () {
+            // update content
+            ws.wepsim_checkpoint_listCache('browserCacheList1');
+            $('#recover_checkpoint1').modal('handleUpdate');
+            // ui lang
+            var ws_idiom = ws.get_cfg('ws_idiom');
+            ws.i18n_update_tags('dialog', ws_idiom);
+            // uicfg and events
+            ws.wepsim_tooltips_hide('[data-bs-toggle=tooltip]');
+            ws.wepsim_uicfg_apply();
+            ws.simcore_record_captureInit();
+        }
+    },
+    recover_checkpoint_compact: {
+        id: 'recover_checkpoint_compact1',
         title: function () {
             return ws.wepsim_config_dialog_title("Recover checkpoint", "secondary", "var ws_idiom = ws.get_cfg('ws_idiom');" +
                 "ws.i18n_update_tags('dialog', ws_idiom);");

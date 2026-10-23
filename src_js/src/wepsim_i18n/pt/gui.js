@@ -63,7 +63,7 @@ i18n.eltos.gui.pt = {
     'Compile': 'Compilar',
     'Please write the file name': 'Por favor, escreva o nome do arquivo',
     'Load from this File': 'Carregar deste arquivo',
-    'Please select File': 'Por favor, selecione Arquivo',
+    'Please select the file': 'Por favor, selecione Arquivo',
     'labels': 'rótulos',
     'addr': 'addr',
     'ess': 'ess',

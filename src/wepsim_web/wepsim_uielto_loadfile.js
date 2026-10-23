@@ -63,18 +63,23 @@
                     var o1  = '' ;
 
 		    o1 += "<div class='card border-secondary h-100'>" +
+			  //
 			  "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
 			  " <h5 class='m-0'>" +
 			  " <span class='text-white bg-secondary' data-langkey='Input file'>Input file</span>" +
-			  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-                          "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  " </h5>" +
 			  "</div>" +
+			  //
 			  "<div class='card-body'>" +
-			  "  <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please select File'>Please select File</span>:</em></label>" +
+			  "  <label for='" + this.fid + "' class='collapse7 w-100'><em>1. <span data-langkey='Please select the file'>Please select the file</span>:</em></label>" +
 	                  "  <p><input aria-label='file to load' data-max-height='20vh' " +
                           "            type='file' id='" + this.fid + "' class='dropify'/></p>" +
+			  //
+			  "  <label for='load_btn' class='collapse7 w-100'><em>2. <span data-langkey='Please load file'>Please load file</span>:</em></label>" +
+			  " <button class='btn bg-body-tertiary border mx-1 float-none w-50' " +
+                          "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
 			  "</div>" +
+			  //
 			  "</div>" ;
 
                     this.innerHTML = o1 ;

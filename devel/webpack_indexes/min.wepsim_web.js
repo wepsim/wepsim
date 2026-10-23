@@ -285,7 +285,7 @@ export * from '../../src_js/src/wepsim_web/wepsim_web_ui_dialogs.js';
 export * from '../../src_js/src/wepsim_web/wepsim_web_ui_quickcfg.js';
  export * from '../../src_js/src/wepsim_web/wepsim_uielto_loadfile.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_savefile.js';
-export * from '../../src_js/src/wepsim_web/wepsim_uielto_savefiles.js';
+export * from '../../src_js/src/wepsim_web/wepsim_uielto_savefileas.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_sharelink.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_loadlink.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_listcfg.js';

@@ -46,19 +46,23 @@ export class ws_load_link extends wsHTMLElement {
         // save html
         var o1 = '';
         o1 += "<div class='card border-secondary h-100'>" +
+            //
             "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
             " <h5 class='m-0'>" +
             " <span class='text-white bg-secondary' data-langkey='Input link'>Input link</span>" +
-            " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-            "         onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
             " </h5>" +
             "</div>" +
+            //
             "<div class='card-body'>" +
-            'Load from the following link:<br>' +
+            "  <label for='" + this.fid + "' class='collapse7 w-100'><em>1. <span data-langkey='Please paste the link'>Please paste the link</span>:</em></label>" +
             '<textarea id="' + this.fid + '" class="form-control" ' +
-            '          row="5" style="height:70%" ' +
-            '></textarea>' +
-            '<br>' +
+            '          row="5" style="height:50%">' +
+            '</textarea>' +
+            //
+            "  <label for='load_btn' class='collapse7 w-100'><em>2. <span data-langkey='Please click load'>Please click load</span>:</em></label>" +
+            "  <button id='load_btn' class='btn bg-body-tertiary border float-none w-50' " +
+            "          onclick='" + this.jload + "'><span data-langkey='Load'>Load</span></button>" +
+            //
             "</div>" +
             "</div>";
         this.innerHTML = o1;

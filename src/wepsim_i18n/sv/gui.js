@@ -68,7 +68,7 @@
 		'Compile':			'Sammanställa',
 		'Please write the file name':	'Vänligen skriv filnamnet',
 		'Load from this File':		'Ladda från den här filen',
-	        'Please select File':           'Välj fil',
+	        'Please select the file':       'Välj fil',
 
 		'labels':			'etiketter',
 		'addr':				'addr',

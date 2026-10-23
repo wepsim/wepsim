@@ -50,22 +50,27 @@ export class ws_save_file extends wsHTMLElement {
         // save html
         var o1 = '';
         o1 += "<div class='card border-secondary h-100'>" +
+            //
             "<div class='card-header border-secondary text-white bg-secondary p-1'>" +
             " <h5 class='m-0'>" +
             " <span class='text-white bg-secondary' data-langkey='Output file'>Output file</span>" +
-            " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-            "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
-            // " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
-            // "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
             " </h5>" +
             "</div>" +
+            //
             "<div class='card-body'>" +
-            " <label for='" + this.fid + "' class='collapse7'><em><span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
+            " <label for='" + this.fid + "' class='collapse7 w-100'><em>1. <span data-langkey='Please write the file name'>Please write the file name</span>:</em></label>" +
             " <p><input aria-label='filename to save content' id='" + this.fid + "' " +
             "           class='form-control btn-outline-secondary' " +
             "           placeholder='File name where information will be saved' " +
             "           style='min-width: 90%;'/></p>" +
+            //
+            " <label for='save_btn' class='collapse7 w-100'>2. <em><span data-langkey='Please click save'>Please click save</span>:</em></label>" +
+            " <button class='btn bg-body-tertiary border mx-1 float-none w-50' " +
+            "         onclick='" + this.jsave + "'><span data-langkey='Save'>Save</span></button>" +
+            // " <button class='btn bg-body-tertiary border mx-1 float-none w-50' " +
+            // "         onclick='" + this.jshare + "'><span data-langkey='Share'>Share</span></button>" +
             "</div>" +
+            //
             "</div>";
         this.innerHTML = o1;
     }
