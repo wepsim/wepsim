@@ -53,25 +53,47 @@ export class ws_share_link extends wsHTMLElement {
             " <span class='text-white bg-secondary' data-langkey='Link'>Link</span>" +
             " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
             '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
+            '                  ws.wsweb_dialog_close(\'save_assembly\');' +
             '                  ws.share_information(\'share\', \'title\', \'text\', c);" ' +
             "><span data-langkey='Share'>Share</span></button>" +
-            " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
+            //	  " <button class='btn bg-body-tertiary mx-1 float-end py-0 col-auto' " +
+            //        '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
+            //        '                  navigator.clipboard.writeText(c); ' +
+            //        '                  ws.wepsim_notify_success(\'<strong>INFO</strong>\', ' +
+            //        '                                           \'Copied to clipboard!\');" ' +
+            //        "><span data-langkey='Copy'>Copy</span></button>" +
+            " </h5>" +
+            "</div>" +
+            "<div class='card-body'>" +
+            //
+            "<div class='container p-1 d-flex flex-column h-100'>" +
+            "  <div class='row py-2'>" +
+            "    <div class='col-12 pb-2'>" +
+            "    <label for='qrcode2' class='collapse7 w-100'><em>1. <span data-langkey='You can use the following link'>You can use the following link</span>:</em></label>" +
+            "    </div>" +
+            "    <div class='col-12 pb-2'>" +
+            '<textarea id="qrcode2" class="form-control" ' +
+            '          row="5" style="height:25vh;" ' +
+            '          onclick="navigator.clipboard.writeText(this.value);">Loading...</textarea>' +
+            '    <br>' +
+            // '    <div id="qrcode1" class="mx-auto"></div>' +
+            // '    <br>' +
+            "    </div>" +
+            "  </div>" +
+            "  <div class='row py-2 mt-auto'>" +
+            "    <div class='col-12 pb-2'>" +
+            "    <label for='btn_cpy' class='collapse7 w-100'><em>1. <span data-langkey='Please click on copy to the clipboard'>Please click on copy to the clipboard</span>:</em></label>" +
+            "    </div>" +
+            "    <div class='col-12 pb-2'>" +
+            " <button id='btn_cpy' class='btn bg-body-tertiary border border-secondary mx-1 float-none w-100' " +
             '         onclick="var c = document.getElementById(\'qrcode2\').value;' +
             '                  navigator.clipboard.writeText(c); ' +
             '                  ws.wepsim_notify_success(\'<strong>INFO</strong>\', ' +
             '                                           \'Copied to clipboard!\');" ' +
             "><span data-langkey='Copy'>Copy</span></button>" +
-            " </h5>" +
-            "</div>" +
-            "<div class='card-body'>" +
-            'You can use the following link:<br>' +
-            '<textarea id="qrcode2" class="form-control" ' +
-            '          row="5" style="height:70%" ' +
-            '          onclick="navigator.clipboard.writeText(this.value);" ' +
-            '>Loading...</textarea>' +
-            '<br>' +
-            // '<div id="qrcode1" class="mx-auto"></div>' +
-            // '<br>' +
+            "    </div>" +
+            "  </div>" +
+            //
             "</div>" +
             "</div>";
         this.innerHTML = o1;
