@@ -162,6 +162,10 @@ echo "checking wepsim_web..."
             ./src/wepsim_web/wepsim_uielto_savefile.js \
             ./src/wepsim_web/wepsim_uielto_savefileas.js
 
+     eslint ./src/wepsim_web/wepsim_uielto_loadlink.js \
+            ./src/wepsim_web/wepsim_uielto_sharelink.js \
+            ./src/wepsim_web/wepsim_uielto_recoverbrowsercache.js
+
      eslint ./src/wepsim_web/wepsim_uielto_dbg_asm.js \
             ./src/wepsim_web/wepsim_uielto_dbg_mc.js
 

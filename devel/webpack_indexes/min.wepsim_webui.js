@@ -46,6 +46,7 @@ export * from '../../src_js/src/wepsim_web/wepsim_uielto_savefile.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_savefileas.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_sharelink.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_loadlink.js';
+export * from '../../src_js/src/wepsim_web/wepsim_uielto_recoverbrowsercache.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_listcfg.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_listexample.js';
 export * from '../../src_js/src/wepsim_web/wepsim_uielto_listprocessor.js';
