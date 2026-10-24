@@ -70,7 +70,7 @@
 		"Compile":			"Compiler",
 		"Please write the file name":	"Merci d'écrire le nom du fichier",
 		"Load from this File":		"Charger à partir de ce fichier",
-	        'Please select File':           'Veuillez sélectionner un fichier',
+	        'Please select the file':       'Veuillez sélectionner un fichier',
 
 		"labels":			"étiquettes",
 		"addr":				"adr",
