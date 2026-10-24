@@ -19,7 +19,8 @@
  */
 
 
-        import { is_cfg_empty, get_cfg } from "../sim_core/sim_cfg.js";
+        import { is_cfg_empty,
+		 get_cfg }               from "../sim_core/sim_cfg.js";
         import { sim }                   from "../sim_hw/sim_hw_index.js";
         import { ws_info }               from "../sim_core/sim_adt_core.js";
 
@@ -52,6 +53,7 @@
 	                    "btn_states":        this.render_btn_states,
 	                    "btn_checkpoint":    this.render_btn_checkpoint,
 		            "btndd_action":      this.render_btndd_action,
+		            "btndd_action_pro":  this.render_btndd_action,
 		            "btndd_mode":        this.render_btndd_mode,
 		            "btn_examples":      this.render_btndd_examples,
 		            "[":                 this.render_delimiter_begin,
@@ -77,6 +79,11 @@
 
 	      render_populate ( )
 	      {
+		    // check arguments
+                    if (null == this.components) {
+			return ;
+		    }
+
                     // get HTML code for toolbar elements
                     var o1 = '' ;
                     for (var i=0; i<this.components.length; i++)
@@ -85,7 +92,7 @@
                          var render_function = this.render_hash[elto] ;
 
                          if (typeof render_function !== "undefined") {
-                             o1 += render_function(this) ;
+                             o1 += render_function(this, elto) ;
 			 }
                     }
 
@@ -101,7 +108,7 @@
 		        opt = get_cfg('ws_mode') ;
 		        webui_toolbar_updateMode(opt) ;
                     }
-                    if (this.components.indexOf('btndd_action') != -1) {
+                    if (this.components.indexOf('btndd_action_pro') != -1) {
 		        opt = get_cfg('ws_action') ;
 		        webui_toolbar_updateAction(opt) ;
                     }
@@ -115,7 +122,7 @@
               // switch
               //
 
-	      render_switch_microcode ( robj )
+	      render_switch_microcode ( robj, name )
 	      {
 		 return '<button ' +
                         '    class="btn bg-body-tertiary shadow-sm col-auto wsx_microcode mx-1 px-2 border border-secondary"' +
@@ -129,7 +136,7 @@
                         ' data-langkey=\'MicroCode\'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>' ;
 	      }
 
-	      render_switch_assembly ( robj )
+	      render_switch_assembly ( robj, name )
 	      {
 		 return '<button class="btn bg-body-tertiary shadow-sm col-auto mx-1 px-2 border border-secondary"' +
                         '        id="btn_asm1"' +
@@ -141,7 +148,7 @@
 			'><strong><span class="d-none d-sm-inline-flex" data-langkey=\'Assembly\'>Assembly</span><span class="d-sm-none" data-langkey=\'Assembly\'>Assembly</span></strong></button>' ;
 	      }
 
-	      render_switch_simulator ( robj )
+	      render_switch_simulator ( robj, name )
 	      {
 		 return '<button class="btn bg-body-tertiary shadow-sm col-auto mx-1 px-2 border border-secondary"' +
 			'        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -157,12 +164,12 @@
               // delimiter
               //
 
-	      render_delimiter_begin ( robj )
+	      render_delimiter_begin ( robj, name )
 	      {
 		 return '<div class="btn-toolbar btn-block" role="toolbar">' ;
 	      }
 
-	      render_delimiter_end ( robj )
+	      render_delimiter_end ( robj, name )
 	      {
 		 return '</div>' ;
 	      }
@@ -171,12 +178,12 @@
               // slider
               //
 
-	      render_slider_cpucu ( robj )
+	      render_slider_cpucu ( robj, name )
 	      {
 		 return '<ws-slider-cpucu   name="slider2b"></ws-slider-cpucu>' ;
 	      }
 
-	      render_slider_c1c2 ( robj )
+	      render_slider_c1c2 ( robj, name )
 	      {
 		 return '<ws-slider-details name="slider2a"></ws-slider-details>' ;
 	      }
@@ -185,7 +192,7 @@
               // button
               //
 
-	      render_btn_help ( robj )
+	      render_btn_help ( robj, name )
 	      {
 		 var o = '<button class="btn shadow-sm col-auto my-1 mx-1 px-2 border border-secondary bg-help"' +
 		         '        style="flex-grow:1;"' +
@@ -201,7 +208,7 @@
 		 return o ;
 	      }
 
-	      render_btn_config ( robj )
+	      render_btn_config ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="btn_cfg1"' +
@@ -216,7 +223,7 @@
 		 return o ;
 	      }
 
-	      render_btn_notifications ( robj )
+	      render_btn_notifications ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm col-auto my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -230,7 +237,7 @@
 		 return o ;
 	      }
 
-	      render_btn_recordbar ( robj )
+	      render_btn_recordbar ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -244,7 +251,7 @@
 		 return o ;
 	      }
 
-	      render_btn_microcandc ( robj )
+	      render_btn_microcandc ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -258,7 +265,7 @@
 		 return o ;
 	      }
 
-	      render_btn_states ( robj )
+	      render_btn_states ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
 			 '        data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
@@ -273,7 +280,7 @@
 		 return o ;
 	      }
 
-	      render_btn_checkpoint ( robj )
+	      render_btn_checkpoint ( robj, name )
 	      {
 		 var o = '<button class="btn bg-body-tertiary shadow-sm my-1 mx-1 px-2 border border-secondary"' +
                          '        id="s4_owncode" value="owncode"' +
@@ -292,10 +299,13 @@
               // button + dropdown
               //
 
-	      render_btndd_action ( robj )
+	      render_btndd_action ( robj, name )
 	      {
-		 return '<div class="btn-group col-auto my-1 mx-1 p-0" >' +
-			'   <button type="button" ' +
+                 var o  = '' ;
+                 var sb = '' ;
+
+	         if ("btndd_action_pro" == name)
+		   sb = '   <button type="button" ' +
                         '           class="col-12 btn bg-body-tertiary shadow-sm select6 border border-secondary"' +
 			'           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"' +
 			'           title="Dropdown on the right let you access to common actions."' +
@@ -303,13 +313,26 @@
 			'	    onclick="var action = $(\'#select6a\').attr(\'data-action\');' +
 	                '                    ws.wsweb_do_action(action);' +
 	                '                    return false;"' +
-			'           id="select6a"' +
-                        '   ><strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong></button>' +
+			'           id="select6a">' +
+                        '     <strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong>' +
+			'   </button>' +
 			'   <button id="dd2a" type="button" ' +
                         '           class="btn bg-body-tertiary dropdown-toggle dropdown-toggle-split border border-secondary"' +
 			'           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 			'     <span class="visually-hidden sr-only">Toggle Dropdown</span>' +
-			'   </button>' +
+			'   </button>' ;
+		 else
+		   sb = '   <button type="button" ' +
+                        '           class="col-12 btn bg-body-tertiary shadow-sm select6 border border-secondary dropdown-toggle"' +
+                        '           data-bs-toggle="dropdown"' +
+			'           title="Dropdown on the right let you access to common actions."' +
+			'           data-action="checkpoint"' +
+			'           id="select6a">' +
+                        '     <strong><em class="fas fa-clone"></em>&nbsp;<span data-langkey="Actions">Actions</span></strong>' +
+			'   </button>' ;
+
+		   o += '<div class="btn-group col-auto my-1 mx-1 p-0" >' +
+			sb +
 			'   <div id="action_menu3"' +
                         '        class="dropdown-menu border border-secondary p-2">' +
                         '\n' +
@@ -354,9 +377,11 @@
                         '\n' +
 			'   </div>' +
 			'</div>' ;
+
+		 return o ;
 	      }
 
-	      render_btndd_mode ( robj )
+	      render_btndd_mode ( robj, name )
 	      {
 		   var o = '' ;
 
@@ -449,7 +474,7 @@
 		 return o ;
 	      }
 
-	      render_btndd_examples ( robj )
+	      render_btndd_examples ( robj, name )
 	      {
 		   var o = '' ;
 
