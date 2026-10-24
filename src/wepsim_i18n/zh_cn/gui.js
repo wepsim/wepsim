@@ -70,7 +70,7 @@
 		'Compile':			'编译',
 		'Please write the file name':	'文件名另存为',
 		'Load from this File':		'从本地文件加载',
-	        'Please select File':           '请选择文件',
+	        'Please select the file':       '请选择文件',
 
 		'labels':			'标签',
 		'addr':				'地址',
