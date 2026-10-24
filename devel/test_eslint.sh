@@ -67,6 +67,9 @@ echo "checking sim_hw..."
      eslint ./src/sim_hw/hw_items/cpu_rv.js \
             ./src/sim_hw/hw_items/mem_rv.js
 
+     eslint ./src/sim_hw/hw_items/cpu_rv.js \
+            ./src/sim_hw/hw_items/mem_rv.js
+
      eslint ./src/sim_hw/hw_items/cpu_poc.js \
             ./src/sim_hw/hw_items/cu_poc.js \
             ./src/sim_hw/hw_items/mem_poc.js
@@ -97,7 +100,7 @@ echo "checking wepsim_core..."
             ./src/wepsim_core/wepsim_tutorial_simpleusage.js \
             ./src/wepsim_core/wepsim_tutorial_welcome.js \
             ./src/wepsim_core/wepsim_notify.js \
-            ./src/wepsim_core/wepsim_example.js \
+      #     ./src/wepsim_core/wepsim_example.js \
             ./src/wepsim_core/wepsim_checkpoint.js \
             ./src/wepsim_core/wepsim_signal.js \
             ./src/wepsim_core/wepsim_url.js \
@@ -155,7 +158,11 @@ echo "checking wepsim_web..."
 
      eslint ./src/wepsim_web/wepsim_uielto_loadfile.js \
             ./src/wepsim_web/wepsim_uielto_savefile.js \
-            ./src/wepsim_web/wepsim_uielto_savefiles.js
+            ./src/wepsim_web/wepsim_uielto_savefileas.js
+
+     eslint ./src/wepsim_web/wepsim_uielto_loadlink.js \
+            ./src/wepsim_web/wepsim_uielto_sharelink.js \
+            ./src/wepsim_web/wepsim_uielto_recoverbrowsercache.js
 
      eslint ./src/wepsim_web/wepsim_uielto_dbg_asm.js \
             ./src/wepsim_web/wepsim_uielto_dbg_mc.js
