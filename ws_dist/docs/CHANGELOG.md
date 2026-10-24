@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 2.5.0 -> 2.5.2:
+* Main improvements:
+  * Minor improvements on load/save dialogs
+  * Minor bugfixes
+
 ## 2.4.2 -> 2.5.0:
 * Main improvements:
   * Migration to ES modules

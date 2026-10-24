@@ -2,7 +2,7 @@ FROM ubuntu:26.04
 
 ENV DEBIAN_FRONTEND=noninteractive 
 ENV TZ=Europe/Madrid
-ENV VER_NAME=2.5.0
+ENV VER_NAME=2.5.2
 
 # tzdata: Configure region
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
