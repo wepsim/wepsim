@@ -236,12 +236,22 @@
 
         setValue ( text )
         {
+/*
             this.view.setState(
                 this.CM6.EditorState.create({
                     doc: text,
                     extensions: this.CM6.EditorState.extensions
                 })
             ) ;
+*/
+
+            this.view.dispatch({
+                changes: {
+                    from: 0,
+                    to: this.view.state.doc.length,
+                    insert: text
+                }
+            });
         }
 
         getCursor ( )
