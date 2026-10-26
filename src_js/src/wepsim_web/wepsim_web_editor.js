@@ -176,10 +176,21 @@ export class ws_editor_cm6 {
         return this.view.state.doc.toString();
     }
     setValue(text) {
-        this.view.setState(this.CM6.EditorState.create({
-            doc: text,
-            extensions: this.CM6.EditorState.extensions
-        }));
+        /*
+                    this.view.setState(
+                        this.CM6.EditorState.create({
+                            doc: text,
+                            extensions: this.CM6.EditorState.extensions
+                        })
+                    ) ;
+        */
+        this.view.dispatch({
+            changes: {
+                from: 0,
+                to: this.view.state.doc.length,
+                insert: text
+            }
+        });
     }
     getCursor() {
         const pos = this.view.state.selection.main.head;
