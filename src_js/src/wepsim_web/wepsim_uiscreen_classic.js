@@ -241,16 +241,6 @@ export class ws_uiscreen_classic extends ws_uielto {
             '		   <ws-compilationbar icons="left" components="btn_mcompile,btn_mshowbin"></ws-compilationbar>' +
             '	      </div>' +
             '' +
-            /*
-                         '	      <div class="btn-group me-2 my-1" role="group"   aria-label="Toolbar load and save buttons">' +
-                         '		    <button class="btn shadow-sm col-auto bg-help"' +
-                         '			    onclick="ws.wsweb_dialog_open(\'help\');' +
-                         '				     ws.wepsim_help_set(\'relative\', \'simulator#help_firmware_format\');' +
-                         '				     return false;"' +
-                         '			    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>' +
-                         '	      </div>' +
-                         '' +
-            */
             '	      <div class="btn-group me-2" role="group"   aria-label="Toolbar load and save buttons">' +
             '            <div class="dropdown">' +
             '               <button class="btn dropdown-toggle col-auto border border-secondary bg-help"' +

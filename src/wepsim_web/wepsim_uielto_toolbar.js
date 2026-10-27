@@ -466,7 +466,7 @@
 			'        title="RISC-V<sub>32</sub> assembly only (i+m sets)."' +
                         '        onclick="ws.wsweb_select_main(\'ep2_asm_rv32\');' +
                         '                 return false;"' +
-                        '     ><em class="fas fa-microchip"></em>&nbsp;E2P+RV32<sub>i+m</sub></a>' +
+                        '     ><em class="fas fa-microchip"></em>&nbsp;EP2+RV32<sub>i+m</sub></a>' +
                         '\n' +
 			'   </div>' +
 			'</div>' ;
