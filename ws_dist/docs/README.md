@@ -48,7 +48,7 @@
 
 + From Web, please:
   * Check you have a compatible Web browser:
-    * Google Chrome 100+, Mozilla Firefox 100+, Microsoft Edge 100+, and Apple Safari 16+
+    * Chrome 100+, Firefox 100+, Edge 100+, and Safari 16+
   * Open your (compatible) Web browser
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
@@ -60,9 +60,9 @@
     ```
   * Get WepSIM by executing:
     ```bash
-    wget https://github.com/wepsim/wepsim/releases/download/v2.5.0/wepsim-2.5.0.zip
-    unzip wepsim-2.5.0.zip
-    cd wepsim-2.5.0
+    wget https://github.com/wepsim/wepsim/releases/download/v2.5.2/wepsim-2.5.2.zip
+    unzip wepsim-2.5.2.zip
+    cd wepsim-2.5.2
     npm install
     ``` 
   * Execute wepsim.sh with the help flag in order to show the available command switches:
@@ -408,12 +408,12 @@ For example, the following link loads the RISC-V assembly code for the factorial
   !echo "(1/4) Installing pre-requisites..."
   !npm install  terser jq jshint yargs clear inquirer >& /dev/null
   !echo "(2/4) Downloading WepSIM..."
-  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip >& /dev/null
-  !unzip -o wepsim-2.3.8.zip  >& /dev/null
-  !rm -fr   wepsim-2.3.8.zip
+  !wget https://github.com/wepsim/wepsim/releases/download/v2.5.2/wepsim-2.5.2.zip >& /dev/null
+  !unzip -o wepsim-2.5.2.zip  >& /dev/null
+  !rm -fr   wepsim-2.5.2.zip
   !echo "(3/4) Executing WepSIM..."
-  !./wepsim-2.3.8/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.8/repo/microcode/mips/ep_sig1_base.mc -s ./wepsim-2.3.8/repo/assembly/mips/s1e1.asm > ./result.csv
-  !rm -fr   wepsim-2.3.8
+  !./wepsim-2.5.2/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.5.2/repo/microcode/mips/ep_sig1_base.mc -s ./wepsim-2.5.2/repo/assembly/mips/s1e1.asm > ./result.csv
+  !rm -fr   wepsim-2.5.2
   !echo "(4/4) Showing execution trace as table..."
 
   import pandas as pd
