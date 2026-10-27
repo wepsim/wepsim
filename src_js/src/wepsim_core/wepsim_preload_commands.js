@@ -22,7 +22,7 @@ import { get_cfg, cfgset_load } from "../sim_core/sim_cfg.js";
 import { refresh } from "../sim_core/sim_core_ui.js";
 import { cache_memory_init_cm } from "../sim_core/sim_adt_cachememory.js";
 import { simhw_internalState_reset } from "../sim_hw/sim_hw_index.js";
-import { wepsim_example_loadSet, wepsim_example_reset, wepsim_example_load, load_example, compile_example } from "./wepsim_example.js";
+import { wepsim_example_loadSet, wepsim_example_reset, wepsim_example_load, load_example_firmware, load_example_assembly, load_example_firmware_as_text, load_example_assembly_as_text, compile_example } from "./wepsim_example.js";
 import { wepsim_checkpoint_backup_load, wepsim_checkpoint_loadURI } from "./wepsim_checkpoint.js";
 import { wsweb_select_main, wsweb_firmware_compile, wsweb_assembly_compile, wsweb_change_show_processor, wsweb_change_show_asmdbg, wsweb_set_details, wsweb_do_action } from "../wepsim_web/wepsim_web_api.js";
 import { wepsim_uicfg_restore } from "../wepsim_web/wepsim_web_simulator.js";
@@ -84,12 +84,20 @@ ws_info.preload_tasks = [
             if (typeof example_obj === "undefined") {
                 return '';
             }
+            // full example or firmware only
             var example_uri = example_obj.hardware + ":" +
                 example_obj.microcode + ":" +
                 example_obj.assembly;
-            load_example(example_uri);
-            var load_example_assembly = ('' == hash.asm) ? "both" : "firmware_only";
-            compile_example(load_example_assembly);
+            if ('' == hash.asm) {
+                load_example_firmware(example_uri);
+                load_example_assembly(example_uri);
+                compile_example("both");
+            }
+            else {
+                load_example_firmware(example_uri);
+                load_example_assembly_as_text('');
+                compile_example("firmware_only");
+            }
             return '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ';
         }
     },
@@ -117,9 +125,7 @@ ws_info.preload_tasks = [
                 result_txt = ' could not be loaded';
             }
             if ('' != mc_code) {
-                var inputfirm = get_inputfirm();
-                inputfirm.setValue(mc_code);
-                inputfirm.refresh();
+                load_example_firmware_as_text(mc_code);
             }
             return '<li><b>Microcode from URI</b> ' + result_txt + '.</li>';
         }
@@ -148,14 +154,10 @@ ws_info.preload_tasks = [
                 result_txt = ' could not be loaded';
             }
             if ('' != asm_code) {
-                var inputasm = get_inputasm();
-                inputasm.setValue(asm_code);
-                inputasm.refresh();
-                if ('' != hash.example)
-                    setTimeout(function () {
-                        wsweb_firmware_compile();
-                        wsweb_assembly_compile();
-                    }, 500);
+                load_example_assembly_as_text(asm_code);
+                if ('' != hash.example) {
+                    compile_example("both");
+                }
             }
             return '<li><b>Assembly from URI</b> ' + result_txt + '.</li>';
         }
