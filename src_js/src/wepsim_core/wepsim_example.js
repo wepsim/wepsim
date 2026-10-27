@@ -115,6 +115,7 @@ export function share_example(m, base_url) {
         '&example=' + m;
     return share_information('example_' + m, share_title, share_text, share_url);
 }
+/* Load Example from example ID. */
 export function load_example_assembly(example_id) {
     if (-1 == ws_info.example_active) {
         ws_alert("Warning: no active example set by default.\nPlease select your examples first.");
@@ -168,6 +169,38 @@ export function load_example(example_id) {
     load_example_firmware(example_id);
     load_example_assembly(example_id);
 }
+/* Load Example from text */
+export function load_example_assembly_as_text(txt_assembly) {
+    if (-1 == ws_info.example_active) {
+        ws_alert("Warning: no active example set by default.\nPlease select your examples first.");
+        return;
+    }
+    var inputasm = get_inputasm();
+    inputasm.setValue(txt_assembly);
+    inputasm.refresh();
+    // do next
+    inputasm.promise_load = Promise.resolve(txt_assembly);
+    // add if recording
+    simcore_record_append_new('Load assembly from example', 'ws.load_example_assembly("' + txt_assembly + '");\n');
+    // stats about examples
+    simcore_ga('example', 'example.assembly', 'example.assembly.as_txt');
+}
+export function load_example_firmware_as_text(txt_firmware) {
+    if (-1 == ws_info.example_active) {
+        ws_alert("Warning: no active example set by default.\nPlease select your examples first.");
+        return;
+    }
+    var inputfirm = get_inputfirm();
+    inputfirm.setValue(txt_firmware);
+    inputfirm.refresh();
+    // do next
+    inputfirm.promise_load = Promise.resolve(txt_firmware);
+    // add if recording
+    simcore_record_append_new('Load firmware from example', 'ws.load_example_firmware("' + txt_firmware + '");\n');
+    // stats about examples
+    simcore_ga('example', 'example.firmware', 'example.firmware.as_txt');
+}
+/* Compile Example */
 export function compile_example(chain_steps) {
     var inputfirm = get_inputfirm();
     var inputasm = get_inputasm();

@@ -29,7 +29,10 @@
      import { wepsim_example_loadSet,
               wepsim_example_reset,
               wepsim_example_load,
-              load_example,
+              load_example_firmware,
+              load_example_assembly,
+              load_example_firmware_as_text,
+              load_example_assembly_as_text,
               compile_example }                 from "./wepsim_example.js";
      import { wepsim_checkpoint_backup_load,
               wepsim_checkpoint_loadURI }       from "./wepsim_checkpoint.js";
@@ -117,13 +120,22 @@
 			      return '' ;
 			  }
 
+			  // full example or firmware only
 			  var example_uri = example_obj.hardware + ":" +
                                             example_obj.microcode + ":" +
                                             example_obj.assembly ;
-			  load_example(example_uri) ;
-
-                          var load_example_assembly = ('' == hash.asm) ? "both" : "firmware_only" ;
-			  compile_example(load_example_assembly) ;
+                          if ('' == hash.asm)
+			  {
+			      load_example_firmware(example_uri) ;
+			      load_example_assembly(example_uri) ;
+			      compile_example("both") ;
+			  }
+		          else
+			  {
+			      load_example_firmware(example_uri) ;
+                              load_example_assembly_as_text('') ;
+			      compile_example("firmware_only") ;
+			  }
 
 			  return '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
 		      }
@@ -150,15 +162,14 @@
                             }
 			    result_txt = ' has been loaded' ;
                          }
-                         catch (e) {
+                         catch (e)
+			 {
                             mc_code    = '' ;
 			    result_txt = ' could not be loaded' ;
                          }
 
 			 if ('' != mc_code) {
-	                     var inputfirm = get_inputfirm() ;
-                             inputfirm.setValue(mc_code) ;
-                             inputfirm.refresh() ;
+                             load_example_firmware_as_text(mc_code) ;
 			 }
 
 			 return '<li><b>Microcode from URI</b> ' + result_txt + '.</li>' ;
@@ -186,22 +197,19 @@
                             }
 			    result_txt = ' has been loaded' ;
                          }
-                         catch (e) {
+                         catch (e)
+			 {
                             asm_code   = '' ;
 			    result_txt = ' could not be loaded' ;
                          }
 
 			 if ('' != asm_code)
                          {
-	                     var inputasm = get_inputasm() ;
-                             inputasm.setValue(asm_code) ;
-                             inputasm.refresh() ;
+                             load_example_assembly_as_text(asm_code) ;
 
-			     if ('' != hash.example)
-			     setTimeout(function() {
-					    wsweb_firmware_compile() ;
-					    wsweb_assembly_compile() ;
-					}, 500);
+			     if ('' != hash.example) {
+                                 compile_example("both") ;
+			     }
 			 }
 
 			 return '<li><b>Assembly from URI</b> ' + result_txt + '.</li>' ;
