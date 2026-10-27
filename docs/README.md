@@ -5,7 +5,7 @@
 [![Maintainability](https://qlty.sh/gh/acaldero/projects/wepsim/maintainability.svg)](https://qlty.sh/gh/acaldero/projects/wepsim)
 [![DeepSource](https://app.deepsource.com/gh/acaldero/wepsim.svg/?label=resolved+issues&show_trend=false&token=Re_wpCMdTb3y7nP4XtfWeKIY)](https://app.deepsource.com/gh/acaldero/wepsim/)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
-[![Release](https://img.shields.io/badge/Stable-2.4.2-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.4.2)
+[![Release](https://img.shields.io/badge/Stable-2.6.0-green.svg)](https://github.com/wepsim/wepsim/releases/tag/v2.6.0)
 
 <html>
 	<ul>
@@ -48,7 +48,7 @@
 
 + From Web, please:
   * Check you have a compatible Web browser:
-    * Google Chrome 100+, Mozilla Firefox 100+, Microsoft Edge 100+, and Apple Safari 16+
+    * Chrome 100+, Firefox 100+, Edge 100+, and Safari 16+
   * Open your (compatible) Web browser
   * Click on the link https://wepsim.github.io/wepsim
     * A nightly build version is also available at https://acaldero.github.io/wepsim
@@ -408,12 +408,12 @@ For example, the following link loads the RISC-V assembly code for the factorial
   !echo "(1/4) Installing pre-requisites..."
   !npm install  terser jq jshint yargs clear inquirer >& /dev/null
   !echo "(2/4) Downloading WepSIM..."
-  !wget https://github.com/wepsim/wepsim/releases/download/v2.3.8/wepsim-2.3.8.zip >& /dev/null
-  !unzip -o wepsim-2.3.8.zip  >& /dev/null
-  !rm -fr   wepsim-2.3.8.zip
+  !wget https://github.com/wepsim/wepsim/releases/download/v2.6.0/wepsim-2.6.0.zip >& /dev/null
+  !unzip -o wepsim-2.6.0.zip  >& /dev/null
+  !rm -fr   wepsim-2.6.0.zip
   !echo "(3/4) Executing WepSIM..."
-  !./wepsim-2.3.8/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.3.8/repo/microcode/mips/ep_sig1_base.mc -s ./wepsim-2.3.8/repo/assembly/mips/s1e1.asm > ./result.csv
-  !rm -fr   wepsim-2.3.8
+  !./wepsim-2.6.0/wepsim.sh -a stepbystep -m ep -f ./wepsim-2.6.0/repo/microcode/mips/ep_sig1_base.mc -s ./wepsim-2.6.0/repo/assembly/mips/s1e1.asm > ./result.csv
+  !rm -fr   wepsim-2.6.0
   !echo "(4/4) Showing execution trace as table..."
 
   import pandas as pd
