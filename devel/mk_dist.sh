@@ -99,7 +99,6 @@ echo "  * ws_dist/*.html"
      cp   src/wepsim_web/wepsim_web_classic.html   ws_dist/index.html
      cp   src/wepsim_web/wepsim_web_classic.html   ws_dist/wepsim-classic.html
      cp   src/wepsim_web/wepsim_web_compact.html   ws_dist/wepsim-compact.html
-     cp   src/wepsim_web/wepsim_web_pro.html       ws_dist/wepsim-pro.html
      cp   src/wepsim_web/wepsim_web_null.html      ws_dist/wepsim-null.html
      cp   src/wepsim_web/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
